@@ -1,0 +1,2644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>novi | Laptops, computers and tablets</title>
+<style>
+:root{
+  --b:#0b5bd3;--b2:#1b80ed;--d:#073b8e;--dd:#062e70;
+  --ink:#172033;--muted:#64748b;--line:#dbe5f0;--bg:#f4f7fb;--white:#fff;
+  --ok:#087f5b;--warn:#a16207;--hot:#e11d48;
+  --radius:11px;--max:1280px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none;cursor:pointer}
+img{max-width:100%}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- chrome ---------- */
+.topbar{background:var(--dd);color:#dcecff;font-size:12px}
+.topbar .wrap{display:flex;justify-content:space-between;padding:8px 24px}
+.header{background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+.header .wrap{display:flex;align-items:center;gap:22px;padding:14px 24px}
+.logo{font-size:25px;font-weight:800;color:var(--b);letter-spacing:-.5px;white-space:nowrap}
+.logo i{color:#13a6df;font-style:normal}
+.searchbox{flex:1;position:relative}
+.searchbox input{width:100%;padding:11px 44px 11px 14px;border:1px solid #b9c9dc;border-radius:8px}
+.searchbox input:focus{outline:2px solid var(--b);outline-offset:-1px}
+.searchbox .go{position:absolute;right:4px;top:4px;height:33px;width:37px;background:var(--b);color:#fff;border:0;border-radius:6px}
+.ac{position:absolute;top:46px;left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:9px;box-shadow:0 18px 44px #16305514;overflow:hidden;z-index:50;display:none}
+.ac.open{display:block}
+.ac div{padding:10px 14px;border-bottom:1px solid #eef3f9;font-size:13px}
+.ac div:hover{background:#f1f7ff}
+.ac b{color:var(--d)}
+.hnav{display:flex;gap:16px;align-items:center;font-size:13px;color:#34445d;white-space:nowrap}
+.cartbtn{border:0;background:#fff;color:var(--b);font-weight:700;display:flex;gap:6px;align-items:center}
+.pill{background:var(--hot);color:#fff;border-radius:99px;padding:2px 7px;font-size:11px;font-weight:700}
+.mainnav{background:#fff;border-bottom:1px solid var(--line)}
+.mainnav .wrap{display:flex;gap:20px;padding:9px 24px;font-size:13px;color:#3c4d67;overflow:auto}
+.mainnav a:hover{color:var(--b)}
+.mainnav a.on{color:var(--b);font-weight:700}
+.crumb{color:var(--muted);font-size:12px;padding:16px 0 0}
+.crumb a:hover{color:var(--b);text-decoration:underline}
+
+/* ---------- generic ---------- */
+.btn{border-radius:7px;padding:10px 15px;font-weight:700;border:1px solid transparent}
+.btn.pri{background:var(--b);color:#fff;border-color:var(--b)}
+.btn.pri:hover{background:var(--d)}
+.btn.out{background:#fff;color:var(--b);border-color:var(--b)}
+.btn.out:hover{background:#eef5ff}
+.btn.ghost{background:#fff;color:#33455f;border-color:#c3d2e3}
+.btn.wide{width:100%}
+.btn.lg{padding:13px 18px;font-size:15px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius)}
+h1,h2,h3{margin:0}
+.h1{font-size:32px;letter-spacing:-1px;margin:0 0 6px}
+.h2{font-size:22px;letter-spacing:-.4px;margin:0}
+.sub{color:var(--muted);font-size:13px}
+.sectionhead{display:flex;justify-content:space-between;align-items:flex-end;margin:26px 0 14px;gap:16px}
+.grid{display:grid;gap:15px}
+.tag{background:#e7f1ff;color:var(--d);border-radius:4px;padding:4px 7px;font-size:10px;font-weight:800;letter-spacing:.2px}
+.tag.sp{background:#f1f5f9;color:#5b6b82}
+.tag.hot{background:#ffe9ef;color:#b1123c}
+
+/* ---------- product visual ---------- */
+.viz{background:linear-gradient(160deg,#fbfdff,#eef4fa);border-radius:8px;display:grid;place-items:center;position:relative;overflow:hidden}
+.lap{position:relative;transform-origin:center}
+.lap .scr{width:150px;height:94px;border:5px solid #dbe6f2;border-bottom:0;border-radius:8px 8px 0 0;background:linear-gradient(140deg,var(--c1),var(--c2));position:relative}
+.lap .scr:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,#ffffff45,#ffffff00 55%)}
+.lap .base{width:186px;height:9px;background:linear-gradient(#e4ecf5,#c9d7e6);border-radius:0 0 9px 9px;margin-left:-18px}
+.viz .badge{position:absolute;top:9px;left:9px}
+
+/* ---------- product card ---------- */
+.pcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;position:relative;transition:.16s}
+.pcard:hover{box-shadow:0 14px 38px #142d5518;transform:translateY(-2px)}
+.pcard .viz{height:158px;margin-bottom:12px}
+.pcard .viz .lap{transform:scale(.72)}
+.pbrand{color:var(--muted);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+.pname{font-size:15px;font-weight:700;margin:5px 0 4px;line-height:1.25}
+.stars{color:#f0a500;font-size:12px;letter-spacing:-1px}
+.rline{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:9px}
+.specrow{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:11px}
+.spec{background:#f1f5f9;border-radius:4px;padding:4px 6px;font-size:11px;color:#52627b;white-space:nowrap}
+.price{font-size:21px;font-weight:800;margin-top:auto;display:flex;align-items:baseline;gap:7px}
+.was{font-size:11px;color:var(--muted);text-decoration:line-through;font-weight:400}
+.fin{font-size:11px;color:#42546e;margin-top:2px}
+.delivery{font-size:11px;color:var(--ok);font-weight:650;margin:6px 0 11px}
+.pactions{display:flex;gap:6px}
+.pactions .btn{flex:1;padding:9px 4px;font-size:12px}
+.cmpline{font-size:11px;margin-top:10px;color:#52627b;display:flex;gap:6px;align-items:center}
+
+/* ---------- layout: browse ---------- */
+.shop{display:grid;grid-template-columns:242px 1fr;gap:24px;align-items:start;padding-bottom:60px}
+.facets{padding:18px;position:sticky;top:126px}
+.facets h3{font-size:14px;margin:0 0 4px}
+.fgroup{border-top:1px solid var(--line);padding:13px 0}
+.fgroup:first-of-type{border:0}
+.fgroup b{font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:#42516a}
+.fgroup label{display:flex;gap:8px;align-items:center;margin:9px 0;color:#42516a;font-size:13px;cursor:pointer}
+.fgroup input{accent-color:var(--b)}
+.fgroup .cnt{margin-left:auto;color:#93a3b8;font-size:11px}
+.prices{display:flex;gap:6px;margin-top:9px}
+.prices input{width:50%;padding:8px;border:1px solid var(--line);border-radius:5px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:12px;flex-wrap:wrap}
+.toolbar select{padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:#fff}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chip{background:#e8f2ff;border:1px solid #bfd9ff;color:var(--d);border-radius:99px;padding:5px 10px;font-size:12px;display:flex;gap:6px;align-items:center}
+.chip button{border:0;background:none;color:var(--d);font-weight:800;padding:0}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.pager{display:flex;gap:6px;justify-content:center;align-items:center;margin:28px 0 0}
+.pager button{min-width:38px;height:38px;border-radius:7px;border:1px solid var(--line);background:#fff;font-weight:700;color:#3b4d68}
+.pager button.on{background:var(--b);color:#fff;border-color:var(--b)}
+.pager button:disabled{opacity:.4;cursor:default}
+.empty{text-align:center;color:var(--muted);padding:44px 12px;grid-column:1/-1}
+
+/* ---------- home ---------- */
+.hero{border-radius:16px;background:linear-gradient(120deg,var(--b),var(--b2));color:#fff;padding:44px 46px;display:flex;justify-content:space-between;gap:20px;overflow:hidden;margin:16px 0 20px}
+.hero h1{font-size:38px;line-height:1.05;letter-spacing:-1.4px;margin:0 0 12px;max-width:560px}
+.hero p{color:#e4efff;margin:0 0 20px;max-width:520px}
+.hero .lap .scr{width:190px;height:118px}
+.hero .lap .base{width:230px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tile{padding:18px;border-radius:var(--radius);background:#fff;border:1px solid var(--line);transition:.15s}
+.tile:hover{border-color:var(--b);transform:translateY(-2px)}
+.tile b{display:block;margin-bottom:3px}
+.tile span{font-size:12px;color:var(--muted)}
+.promos{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px;margin:18px 0}
+.promo{border-radius:var(--radius);padding:22px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;min-height:132px}
+.promo h3{font-size:19px;margin:0 0 6px;letter-spacing:-.4px}
+.promo p{margin:0;font-size:13px;opacity:.9}
+.promo.a{background:linear-gradient(130deg,#0b5bd3,#22a3e0)}
+.promo.b{background:linear-gradient(130deg,#123a75,#2b6fbb)}
+.promo.c{background:linear-gradient(130deg,#0d7a5f,#25b389)}
+.railwrap{position:relative}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:230px;gap:14px;overflow-x:auto;padding-bottom:8px;scroll-behavior:smooth}
+.helpbar{background:#e8f2ff;border:1px solid #bfd9ff;border-radius:12px;padding:17px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px;margin:18px 0}
+.helpbar strong{display:block;font-size:16px}
+.helpbar span{font-size:13px;color:#45617e}
+
+/* ---------- PDP ---------- */
+.pdp{display:grid;grid-template-columns:1.15fr 1fr;gap:34px;padding:20px 0 40px;align-items:start}
+.gallery .viz{height:340px;margin-bottom:10px}
+.gallery .viz .lap{transform:scale(1.25)}
+.thumbs{display:flex;gap:9px}
+.thumb{width:66px;height:52px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(160deg,#fbfdff,#eaf1f8);cursor:pointer}
+.thumb.on{border-color:var(--b);box-shadow:0 0 0 2px #bfd9ff}
+.buybox{position:sticky;top:126px}
+.pdp .price{font-size:30px}
+.variants{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.variant{border:1px solid #c3d2e3;border-radius:7px;padding:9px 12px;background:#fff;font-size:12px;text-align:left}
+.variant.on{border-color:var(--b);background:#eef5ff;box-shadow:0 0 0 1px var(--b)}
+.variant b{display:block;font-size:13px}
+.fulfil{border:1px solid var(--line);border-radius:9px;padding:13px;margin:14px 0;display:grid;gap:10px}
+.fulfil label{display:flex;gap:9px;align-items:flex-start;font-size:13px;cursor:pointer}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:16px 0}
+.facts>div{background:#f6f8fb;padding:10px;border-radius:7px;font-size:13px}
+.facts b{display:block;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.spectable{width:100%;border-collapse:collapse;font-size:13px}
+.spectable td{padding:10px 8px;border-bottom:1px solid var(--line)}
+.spectable td:first-child{color:var(--muted);width:38%}
+.spectable td:last-child{font-weight:600}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:30px 0 18px;overflow:auto}
+.tabs button{border:0;background:none;padding:11px 15px;font-weight:700;color:#5c6c85;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs button.on{color:var(--b);border-bottom-color:var(--b)}
+.ratingsplit{display:grid;grid-template-columns:180px 1fr;gap:26px;align-items:start}
+.bigrating{text-align:center}
+.bigrating .n{font-size:44px;font-weight:800;line-height:1}
+.bar{display:flex;align-items:center;gap:9px;margin:6px 0;font-size:12px;color:var(--muted)}
+.bar .track{flex:1;height:8px;background:#eef2f7;border-radius:99px;overflow:hidden}
+.bar .fill{height:100%;background:#f0a500}
+.review{border-top:1px solid var(--line);padding:15px 0}
+.review .meta{font-size:12px;color:var(--muted);margin:3px 0 7px}
+.qa{border-top:1px solid var(--line);padding:14px 0}
+.qa b{display:block;margin-bottom:4px}
+.thinnote{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:8px;padding:11px 13px;font-size:12px;margin:14px 0}
+
+/* ---------- compare ---------- */
+.cmptable{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+.cmptable th,.cmptable td{padding:12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cmptable th{background:#f7fafd;position:sticky;top:118px}
+.cmptable td.k{color:var(--muted);width:190px}
+.cmptable tr.diff td:not(.k){background:#fffaf0}
+.cmpbar{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#152b4b;color:#fff;padding:12px 18px;border-radius:11px;display:none;gap:14px;align-items:center;z-index:35;box-shadow:0 16px 40px #0a1a3455}
+.cmpbar.show{display:flex}
+.cmpbar button{border:0;border-radius:6px;padding:8px 13px;font-weight:700}
+
+/* ---------- cart / checkout ---------- */
+.twocol{display:grid;grid-template-columns:1fr 340px;gap:26px;align-items:start;padding-bottom:50px}
+.lineitem{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.lineitem .viz{width:118px;height:86px;flex:none}
+.lineitem .viz .lap{transform:scale(.52)}
+.qty{display:flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:6px;width:max-content}
+.qty button{border:0;background:#fff;width:30px;height:30px;font-weight:800;color:var(--b)}
+.qty span{width:32px;text-align:center;font-weight:700}
+.summary{padding:18px;position:sticky;top:126px}
+.srow{display:flex;justify-content:space-between;padding:7px 0;font-size:13px}
+.srow.total{font-size:19px;font-weight:800;border-top:1px solid var(--line);margin-top:9px;padding-top:14px}
+.steps{display:flex;gap:8px;margin:8px 0 22px;flex-wrap:wrap}
+.step{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+.step .n{width:24px;height:24px;border-radius:99px;background:#e6edf6;color:#5c6c85;display:grid;place-items:center;font-size:12px;font-weight:800}
+.step.on{color:var(--ink);font-weight:700}
+.step.on .n{background:var(--b);color:#fff}
+.step.done .n{background:var(--ok);color:#fff}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:12px;font-weight:700;color:#42516a;margin-bottom:5px}
+.field input,.field select{width:100%;padding:11px;border:1px solid var(--line);border-radius:7px}
+.fieldrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.attach{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:9px;padding:12px;margin:10px 0}
+
+/* ---------- assistant ---------- */
+.asstbtn{position:fixed;right:20px;bottom:20px;z-index:36;border:0;border-radius:99px;background:var(--b);color:#fff;padding:13px 19px;font-weight:750;box-shadow:0 14px 34px #0b5bd345;display:flex;gap:8px;align-items:center}
+.asst{position:fixed;right:20px;bottom:20px;width:min(390px,calc(100vw - 40px));height:min(560px,calc(100vh - 40px));background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 26px 70px #0a1a3440;z-index:37;display:none;flex-direction:column;overflow:hidden}
+.asst.open{display:flex}
+.asst .head{background:var(--b);color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.asst .head b{font-size:15px}
+.asst .body{flex:1;overflow:auto;padding:15px;background:#f7fafd}
+.msg{margin-bottom:12px;max-width:88%}
+.msg .bub{padding:11px 13px;border-radius:12px;font-size:13px;line-height:1.5}
+.msg.a .bub{background:#fff;border:1px solid var(--line);border-bottom-left-radius:3px}
+.msg.u{margin-left:auto}
+.msg.u .bub{background:var(--b);color:#fff;border-bottom-right-radius:3px}
+.sugg{display:flex;gap:7px;flex-wrap:wrap;padding:11px 13px;border-top:1px solid var(--line);background:#fff}
+.sugg button{border:1px solid #c3d2e3;background:#fff;border-radius:99px;padding:7px 12px;font-size:12px;color:#33455f;text-align:left}
+.sugg button:hover{border-color:var(--b);color:var(--b)}
+.asstcard{display:flex;gap:10px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px;margin-top:9px}
+.asstcard .viz{width:66px;height:50px;flex:none}
+.asstcard .viz .lap{transform:scale(.3)}
+.asstcard b{font-size:13px;display:block}
+.asstcard small{color:var(--muted)}
+
+/* ---------- research console ---------- */
+.modbar{position:fixed;top:0;left:0;right:0;background:#0f2745;color:#dbeafe;z-index:60;display:none;gap:14px;align-items:center;padding:7px 16px;font-size:12px;flex-wrap:wrap}
+.modbar.show{display:flex}
+.modbar select,.modbar input{background:#17324f;color:#e8f1ff;border:1px solid #2d4a70;border-radius:5px;padding:5px 8px;font-size:12px}
+.modbar button{background:#2563eb;border:0;color:#fff;border-radius:5px;padding:5px 11px;font-weight:700;font-size:12px}
+.modbar button.gh{background:#22405f}
+.modbar .sp{margin-left:auto;display:flex;gap:9px;align-items:center}
+body.modon{padding-top:38px}
+body.modon .header{top:38px}
+.console{padding:22px 0 60px;display:grid;grid-template-columns:1fr 380px;gap:22px;align-items:start}
+.panel{padding:18px}
+.panel h3{font-size:15px;margin-bottom:12px}
+.kv{display:grid;grid-template-columns:130px 1fr;gap:7px 12px;font-size:13px}
+.kv div:nth-child(odd){color:var(--muted)}
+.evtlog{max-height:420px;overflow:auto;border:1px solid var(--line);border-radius:8px;font:11px/1.5 ui-monospace,Consolas,monospace}
+.evtlog div{padding:6px 9px;border-bottom:1px solid #eef3f9;display:flex;gap:9px}
+.evtlog .t{color:#93a3b8;flex:none;width:56px}
+.evtlog .n{color:var(--d);font-weight:700;flex:none;width:150px}
+.evtlog .v{color:#52627b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:14px}
+.stat{background:#f6f9fc;border:1px solid var(--line);border-radius:9px;padding:12px}
+.stat b{display:block;font-size:22px;line-height:1.1}
+.stat span{font-size:11px;color:var(--muted)}
+
+/* ---------- overlays ---------- */
+.back{position:fixed;inset:0;background:#0a1a347a;z-index:70;display:none;align-items:center;justify-content:center;padding:20px}
+.back.open{display:flex}
+.modal{background:#fff;border-radius:15px;width:min(720px,100%);max-height:88vh;overflow:auto;padding:26px;position:relative}
+.modal.sm{width:min(460px,100%)}
+.x{position:absolute;right:15px;top:12px;border:0;background:none;font-size:25px;color:var(--muted);line-height:1}
+.drawer{position:fixed;right:0;top:0;height:100%;width:min(410px,100%);background:#fff;z-index:65;box-shadow:-14px 0 40px #0a1a3428;padding:24px;transform:translateX(100%);transition:.24s;overflow:auto}
+.drawer.open{transform:translateX(0)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:88px;background:#15345c;color:#fff;padding:12px 18px;border-radius:9px;z-index:80;display:none;box-shadow:0 12px 30px #0a1a3440}
+.toast.show{display:block}
+.qsteps{display:grid;gap:18px}
+.qopts{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+.qopts button{border:1px solid #c3d2e3;background:#fff;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;color:#33455f}
+.qopts button.on{border-color:var(--b);background:#e8f2ff;color:var(--d)}
+
+.footer{background:#0f2036;color:#a9bdd5;margin-top:40px;padding:34px 0 26px;font-size:13px}
+.footer .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.footer b{color:#fff;display:block;margin-bottom:9px;font-size:13px}
+.footer a{display:block;padding:3px 0;color:#a9bdd5}
+.footer a:hover{color:#fff}
+.footer .legal{border-top:1px solid #24384f;margin-top:24px;padding-top:16px;color:#7e93ab;font-size:12px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+/* ---------- responsive ---------- */
+@media(max-width:980px){
+  .pdp{grid-template-columns:1fr;gap:20px}
+  .buybox{position:static}
+  .twocol{grid-template-columns:1fr}
+  .console{grid-template-columns:1fr}
+  .tiles{grid-template-columns:repeat(2,1fr)}
+  .promos{grid-template-columns:1fr}
+}
+@media(max-width:800px){
+  .topbar{display:none}
+  .header .wrap{flex-wrap:wrap;gap:11px;padding:11px 16px}
+  .searchbox{order:3;flex-basis:100%}
+  .hnav span{display:none}
+  .wrap{padding:0 16px}
+  .shop{grid-template-columns:1fr}
+  .facets{display:none;position:static}
+  .facets.mobopen{display:block}
+  .products{grid-template-columns:repeat(2,1fr);gap:10px}
+  .pcard{padding:10px}
+  .pcard .viz{height:120px}
+  .pcard .viz .lap{transform:scale(.55)}
+  .hero{padding:28px 22px;margin:12px 0}
+  .hero h1{font-size:27px}
+  .hero .art{display:none}
+  .gallery .viz{height:240px}
+  .gallery .viz .lap{transform:scale(.9)}
+  .ratingsplit{grid-template-columns:1fr}
+  .footer .cols{grid-template-columns:1fr 1fr}
+  .facts{grid-template-columns:1fr}
+}
+
+/* ---------- added: prototype + mission bars, assistant hedge ---------- */
+.missionbar{display:none;background:#fff7ed;border-bottom:1px solid #fed7aa;color:#7c2d12;font-size:13px}
+.missionbar.show{display:block}
+.missionbar .wrap{padding:9px 24px;display:flex;gap:10px;align-items:center}
+.missionbar b{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#9a3412}
+.donetag{margin-left:auto;background:var(--ok);color:#fff;border-radius:99px;padding:3px 10px;font-size:11px;font-weight:800}
+body.hasmod .header{top:38px}
+body.hasmod{padding-top:38px}
+.hedge{display:block;margin-top:8px;font-size:11px;font-weight:700;color:#9a3412}
+.msg .bub b{font-weight:750}
+.asst .sugg input:focus{outline:2px solid var(--b);outline-offset:-1px}
+
+/* ---------- homepage: carousel ---------- */
+.carousel{position:relative;border-radius:16px;overflow:hidden;margin:16px 0 18px;height:330px}
+.cslide{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:40px 46px;color:#fff;opacity:0;transition:opacity .5s;pointer-events:none}
+.cslide.on{opacity:1;pointer-events:auto}
+.ctext{max-width:590px}
+.ctag{display:inline-block;background:#ffffff2e;border:1px solid #ffffff5c;border-radius:99px;padding:5px 12px;font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;margin-bottom:14px}
+.cslide h1{font-size:38px;line-height:1.05;letter-spacing:-1.4px;margin:0 0 10px}
+.cslide p{margin:0 0 20px;color:#eaf2ff;font-size:15px;max-width:480px}
+.cart2 .lap{transform:scale(1.08)}
+.cart2 .lap .scr{width:200px;height:124px}
+.cart2 .lap .base{width:242px}
+.cnav{position:absolute;bottom:14px;width:34px;height:34px;border-radius:99px;border:1px solid #ffffff4d;background:#ffffff26;color:#fff;font-size:20px;line-height:1}
+.cnav:hover{background:#ffffff4d}
+.cnav.prev{right:60px}
+.cnav.next{right:18px}
+.cdots{position:absolute;bottom:16px;left:46px;display:flex;gap:7px}
+.cdots button{width:9px;height:9px;border-radius:99px;border:0;background:#ffffff70;padding:0}
+.cdots button.on{background:#fff;width:26px}
+
+/* ---------- homepage: category strip ---------- */
+.catstrip{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin-bottom:20px}
+.catstrip a{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px 8px;text-align:center;transition:.15s}
+.catstrip a:hover{border-color:var(--b);transform:translateY(-2px)}
+.catstrip .ico{display:grid;place-items:center;width:44px;height:44px;margin:0 auto 8px;border-radius:99px;background:#eaf2ff}
+.catstrip svg{width:22px;height:22px;fill:none;stroke:var(--b);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.catstrip b{font-size:12px;color:#33455f;display:block}
+
+/* ---------- homepage: deal of the day ---------- */
+.dotd{display:grid;grid-template-columns:400px 1fr;gap:28px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;align-items:center;margin:22px 0}
+.dotdviz{position:relative;background:linear-gradient(160deg,#fbfdff,#eef4fa);border-radius:11px;height:250px;display:grid;place-items:center}
+.dotdviz .lap{transform:scale(1.05)}
+.dotdflag{position:absolute;top:12px;left:12px;background:var(--hot);color:#fff;border-radius:6px;padding:6px 11px;font-size:11px;font-weight:800;letter-spacing:.3px;text-transform:uppercase}
+.soldbar{height:8px;background:#eef2f7;border-radius:99px;overflow:hidden;max-width:340px}
+.soldbar span{display:block;height:100%;background:linear-gradient(90deg,#e8113c,#ff6a3d)}
+
+/* ---------- homepage: banners, brands, services ---------- */
+.dualbanner{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+.dbanner{border-radius:var(--radius);padding:26px;background:linear-gradient(120deg,#10294a,#1e4f8a);color:#fff;display:block;transition:.15s}
+.dbanner.alt{background:linear-gradient(120deg,#0f3d33,#1d7f66)}
+.dbanner:hover{transform:translateY(-2px)}
+.dbtag{display:inline-block;background:#ffffff2b;border-radius:99px;padding:4px 10px;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:11px}
+.dbanner b{display:block;font-size:19px;letter-spacing:-.4px;margin-bottom:5px}
+.dbanner span{font-size:13px;color:#d6e5f7}
+.brandstrip{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.brandstrip a{background:#fff;border:1px solid var(--line);border-radius:11px;padding:18px 12px;text-align:center;transition:.15s;border-top:3px solid hsl(var(--bh),62%,50%)}
+.brandstrip a:hover{transform:translateY(-2px);box-shadow:0 12px 30px #142d5514}
+.brandstrip b{display:block;font-size:14px}
+.brandstrip span{font-size:11px;color:var(--muted)}
+.svcs{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:26px 0}
+.svc{background:#fff;border:1px solid var(--line);border-radius:11px;padding:14px}
+.svc b{display:block;font-size:13px;margin-bottom:3px}
+.svc span{font-size:11px;color:var(--muted);line-height:1.45}
+.signup{background:#0f2036;color:#fff;border-radius:var(--radius);padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:40px}
+.signup b{display:block;font-size:19px;letter-spacing:-.4px;margin-bottom:4px}
+.signup span{font-size:13px;color:#a9bdd5}
+.signupform{display:flex;gap:8px}
+.signupform input{padding:12px 14px;border:1px solid #2b4667;border-radius:8px;background:#152c4b;color:#fff;width:250px}
+.signupform input::placeholder{color:#7e93ab}
+.chip button:hover{color:var(--hot)}
+
+@media(max-width:980px){
+  .catstrip{grid-template-columns:repeat(4,1fr)}
+  .dotd{grid-template-columns:1fr}
+  .dualbanner{grid-template-columns:1fr}
+  .brandstrip{grid-template-columns:repeat(3,1fr)}
+  .svcs{grid-template-columns:repeat(3,1fr)}
+  .carousel{height:auto;min-height:300px}
+  .cart2{display:none}
+}
+@media(max-width:800px){
+  .catstrip{grid-template-columns:repeat(4,1fr);gap:7px}
+  .cslide{padding:26px 22px}
+  .cslide h1{font-size:26px}
+  .svcs{grid-template-columns:1fr 1fr}
+  .signupform input{width:100%}
+}
+
+</style>
+</head>
+<body>
+<noscript>This research prototype needs JavaScript enabled.</noscript>
+<script>
+/* ===== catalog.js ===== */
+/* Novi catalog — 60 REAL laptop SKUs.
+   The retailer (Novi) is fictional. The products are real brands and real models,
+   because research findings only transfer if the stimulus is the real market.
+   Prices are typical US street prices and are indicative, not quotes.
+   Deterministic: same output every build. */
+
+const BRANDS = [
+  { name: 'HP',        tone: 'broad mainstream range',      hue: 199 },
+  { name: 'Lenovo',    tone: 'value through to ThinkPad',   hue: 355 },
+  { name: 'Dell',      tone: 'XPS premium and Inspiron',    hue: 212 },
+  { name: 'ASUS',      tone: 'design, OLED and ROG gaming', hue: 250 },
+  { name: 'Acer',      tone: 'value and Chromebooks',       hue: 122 },
+  { name: 'Apple',     tone: 'macOS ecosystem',             hue: 240 },
+  { name: 'Microsoft', tone: 'Surface, Copilot+ first',     hue: 195 },
+  { name: 'Samsung',   tone: 'AMOLED and Galaxy ecosystem', hue: 228 },
+  { name: 'Alienware', tone: 'high-end gaming',             hue: 265 },
+  { name: 'MSI',       tone: 'gaming and creator',          hue: 350 },
+  { name: 'LG',        tone: 'ultralight gram line',        hue: 330 }
+];
+
+const OS = ['Windows 11 Home', 'Windows 11 Pro', 'ChromeOS', 'macOS'];
+
+const USES = ['School', 'Work', 'Creative', 'Gaming', 'Everyday'];
+
+/* Merchandising groups, mirroring how large-format retailers band laptops.
+   Used by category tiles, collections and the "Type" facet. */
+const TYPES = ['Windows laptops', 'Copilot+ PCs', 'MacBooks', 'Chromebooks',
+               '2-in-1 laptops', 'Gaming laptops', 'Business laptops'];
+
+/* ---------------------------------------------------------------------------
+   The hand-authored model table. Every row is a real machine.
+   b=brand n=name f=family os cpu cb=cpu brand gpu ram st=storage GB
+   p=price w=was sz=screen res pan=panel hz t=touch bat=battery hrs
+   wt=weight lbs u=uses r=rating rc=review count col=colour tr=tier ty=type
+--------------------------------------------------------------------------- */
+const MODELS = [
+
+  /* ---- Budget Windows ---- */
+  { b:'HP', n:'HP 15.6" Laptop (15-fd0000)', f:'HP Laptop', os:'Windows 11 Home', cpu:'Intel Core i3-N305', cb:'Intel', gpu:'Intel UHD Graphics', ram:8, st:256, p:299, w:379, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:9, wt:3.53, u:['Everyday','School'], r:4.1, rc:3184, col:'Natural Silver', tr:0, ty:'Windows laptops' },
+  { b:'Acer', n:'Acer Aspire 3 15.6" (A315-24P)', f:'Aspire', os:'Windows 11 Home', cpu:'AMD Ryzen 3 7320U', cb:'AMD', gpu:'AMD Radeon 610M', ram:8, st:256, p:329, w:0, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:10, wt:3.92, u:['Everyday','School'], r:4.2, rc:5271, col:'Pure Silver', tr:0, ty:'Windows laptops' },
+  { b:'Lenovo', n:'Lenovo IdeaPad Slim 3 15.6"', f:'IdeaPad', os:'Windows 11 Home', cpu:'Intel Core i5-12450H', cb:'Intel', gpu:'Intel UHD Graphics', ram:8, st:512, p:429, w:499, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:9, wt:3.51, u:['Everyday','School','Work'], r:4.4, rc:19534, col:'Arctic Grey', tr:1, ty:'Windows laptops' },
+  { b:'ASUS', n:'ASUS Vivobook 15 (F1504)', f:'Vivobook', os:'Windows 11 Home', cpu:'Intel Core i3-1315U', cb:'Intel', gpu:'Intel UHD Graphics', ram:8, st:128, p:329, w:0, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:8, wt:3.75, u:['School','Everyday'], r:4.0, rc:2216, col:'Quiet Blue', tr:0, ty:'Windows laptops' },
+  { b:'Dell', n:'Dell Inspiron 15 3520', f:'Inspiron', os:'Windows 11 Home', cpu:'Intel Core i5-1235U', cb:'Intel', gpu:'Intel Iris Xe Graphics', ram:8, st:512, p:429, w:529, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:120, t:0, bat:9, wt:3.66, u:['Everyday','Work'], r:4.2, rc:7318, col:'Carbon Black', tr:1, ty:'Windows laptops' },
+  { b:'Acer', n:'Acer Aspire 5 15.6" (A515-58)', f:'Aspire', os:'Windows 11 Home', cpu:'Intel Core i5-1335U', cb:'Intel', gpu:'Intel Iris Xe Graphics', ram:8, st:512, p:549, w:0, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:11, wt:3.64, u:['Everyday','Work'], r:4.3, rc:4088, col:'Steel Gray', tr:1, ty:'Windows laptops' },
+
+  /* ---- Chromebooks ---- */
+  { b:'Acer', n:'Acer Chromebook 315 15.6"', f:'Chromebook', os:'ChromeOS', cpu:'Intel Celeron N4500', cb:'Intel', gpu:'Intel UHD Graphics', ram:4, st:64, p:229, w:299, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:12, wt:3.75, u:['School','Everyday'], r:4.1, rc:6642, col:'Silver', tr:0, ty:'Chromebooks' },
+  { b:'Lenovo', n:'Lenovo Chromebook Duet 11"', f:'Chromebook', os:'ChromeOS', cpu:'MediaTek Kompanio 838', cb:'MediaTek', gpu:'ARM Mali-G57 MC3', ram:8, st:128, p:329, w:399, sz:11, res:'2000 x 1200', pan:'IPS', hz:60, t:1, bat:12, wt:1.71, u:['School','Everyday'], r:4.4, rc:2903, col:'Luna Grey', tr:1, ty:'2-in-1 laptops' },
+  { b:'Acer', n:'Acer Chromebook Plus 514 14"', f:'Chromebook Plus', os:'ChromeOS', cpu:'AMD Ryzen 3 7320C', cb:'AMD', gpu:'AMD Radeon 610M', ram:8, st:128, p:399, w:0, sz:14, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:11, wt:3.09, u:['School','Work'], r:4.3, rc:1188, col:'Iron', tr:1, ty:'Chromebooks' },
+  { b:'HP', n:'HP Chromebook Plus x360 14"', f:'Chromebook Plus', os:'ChromeOS', cpu:'Intel Core i3-N305', cb:'Intel', gpu:'Intel UHD Graphics', ram:8, st:128, p:429, w:499, sz:14, res:'1920 x 1080', pan:'IPS', hz:60, t:1, bat:12, wt:3.24, u:['School','Everyday'], r:4.2, rc:942, col:'Mineral Silver', tr:1, ty:'2-in-1 laptops' },
+  { b:'ASUS', n:'ASUS Chromebook Plus CX34 14"', f:'Chromebook Plus', os:'ChromeOS', cpu:'Intel Core i5-1235U', cb:'Intel', gpu:'Intel Iris Xe Graphics', ram:8, st:128, p:499, w:0, sz:14, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:10, wt:3.17, u:['School','Work'], r:4.2, rc:806, col:'Cool Silver', tr:2, ty:'Chromebooks' },
+  { b:'Samsung', n:'Samsung Galaxy Chromebook Plus 15.6"', f:'Galaxy Chromebook', os:'ChromeOS', cpu:'Intel Core 3 100U', cb:'Intel', gpu:'Intel Graphics', ram:8, st:256, p:699, w:0, sz:15.6, res:'1920 x 1080', pan:'AMOLED', hz:60, t:0, bat:13, wt:2.58, u:['Work','School'], r:4.4, rc:412, col:'Cloudy Silver', tr:3, ty:'Chromebooks' },
+
+  /* ---- Mainstream Windows ---- */
+  { b:'Samsung', n:'Samsung Galaxy Book4 15.6"', f:'Galaxy Book', os:'Windows 11 Home', cpu:'Intel Core 7 150U', cb:'Intel', gpu:'Intel Graphics', ram:16, st:512, p:699, w:799, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:12, wt:3.44, u:['Everyday','Work'], r:4.3, rc:1961, col:'Gray', tr:2, ty:'Windows laptops' },
+  { b:'Acer', n:'Acer Swift Go 14', f:'Swift', os:'Windows 11 Home', cpu:'Intel Core Ultra 5 125H', cb:'Intel', gpu:'Intel Arc Graphics', ram:16, st:512, p:749, w:899, sz:14, res:'2880 x 1800', pan:'OLED', hz:90, t:0, bat:11, wt:2.87, u:['Work','School','Creative'], r:4.4, rc:1337, col:'Steel Gray', tr:3, ty:'Windows laptops' },
+  { b:'HP', n:'HP OmniBook 5 16"', f:'OmniBook', os:'Windows 11 Home', cpu:'AMD Ryzen AI 7 350', cb:'AMD', gpu:'AMD Radeon 860M', ram:16, st:1024, p:749, w:849, sz:16, res:'1920 x 1200', pan:'OLED', hz:60, t:0, bat:14, wt:4.12, u:['Work','Everyday'], r:4.4, rc:1297, col:'Glacier Silver', tr:3, ty:'Copilot+ PCs' },
+  { b:'Lenovo', n:'Lenovo IdeaPad Slim 5 16"', f:'IdeaPad', os:'Windows 11 Home', cpu:'AMD Ryzen 7 8845HS', cb:'AMD', gpu:'AMD Radeon 780M', ram:16, st:1024, p:749, w:899, sz:16, res:'1920 x 1200', pan:'OLED', hz:60, t:0, bat:12, wt:4.19, u:['Work','Creative'], r:4.4, rc:2288, col:'Cloud Grey', tr:3, ty:'Windows laptops' },
+  { b:'HP', n:'HP Pavilion Plus 14 OLED', f:'Pavilion', os:'Windows 11 Home', cpu:'Intel Core Ultra 5 125H', cb:'Intel', gpu:'Intel Arc Graphics', ram:16, st:512, p:799, w:949, sz:14, res:'2880 x 1800', pan:'OLED', hz:90, t:0, bat:10, wt:3.09, u:['School','Work','Creative'], r:4.3, rc:1704, col:'Sky Blue', tr:3, ty:'Windows laptops' },
+  { b:'Dell', n:'Dell Inspiron 14 2-in-1 (7440)', f:'Inspiron', os:'Windows 11 Home', cpu:'Intel Core Ultra 7 155H', cb:'Intel', gpu:'Intel Arc Graphics', ram:16, st:1024, p:849, w:999, sz:14, res:'2560 x 1600', pan:'IPS', hz:60, t:1, bat:10, wt:3.51, u:['Work','Everyday'], r:4.2, rc:1105, col:'Ice Blue', tr:3, ty:'2-in-1 laptops' },
+  { b:'ASUS', n:'ASUS Vivobook S 14 OLED (S5406)', f:'Vivobook S', os:'Windows 11 Home', cpu:'Intel Core Ultra 7 155H', cb:'Intel', gpu:'Intel Arc Graphics', ram:16, st:1024, p:899, w:1049, sz:14, res:'2880 x 1800', pan:'OLED', hz:120, t:0, bat:12, wt:2.87, u:['Creative','Work'], r:4.5, rc:1489, col:'Neutral Black', tr:4, ty:'Windows laptops' },
+  { b:'Lenovo', n:'Lenovo Yoga 7 2-in-1 14"', f:'Yoga', os:'Windows 11 Home', cpu:'AMD Ryzen 7 8840HS', cb:'AMD', gpu:'AMD Radeon 780M', ram:16, st:512, p:899, w:1099, sz:14, res:'2880 x 1800', pan:'OLED', hz:60, t:1, bat:12, wt:3.28, u:['Creative','Work'], r:4.4, rc:1783, col:'Storm Grey', tr:4, ty:'2-in-1 laptops' },
+  { b:'ASUS', n:'ASUS Zenbook 14 OLED (UX3405)', f:'Zenbook', os:'Windows 11 Home', cpu:'Intel Core Ultra 7 155H', cb:'Intel', gpu:'Intel Arc Graphics', ram:16, st:512, p:999, w:1199, sz:14, res:'2880 x 1800', pan:'OLED', hz:120, t:0, bat:15, wt:2.82, u:['Work','Creative'], r:4.6, rc:2641, col:'Ponder Blue', tr:4, ty:'Windows laptops' },
+  { b:'Dell', n:'Dell 16 Plus', f:'Dell Plus', os:'Windows 11 Home', cpu:'Intel Core Ultra 7 256V', cb:'Intel', gpu:'Intel Arc Graphics 140V', ram:16, st:512, p:1099, w:1249, sz:16, res:'2560 x 1600', pan:'IPS', hz:60, t:0, bat:14, wt:4.14, u:['Work','Creative'], r:4.3, rc:687, col:'Midnight Blue', tr:4, ty:'Copilot+ PCs' },
+
+  /* ---- Copilot+ PCs / Snapdragon X ---- */
+  { b:'Microsoft', n:'Surface Laptop, 7th Edition 13.8"', f:'Surface Laptop', os:'Windows 11 Home', cpu:'Snapdragon X Plus (10-core)', cb:'Qualcomm', gpu:'Qualcomm Adreno GPU', ram:16, st:256, p:999, w:1099, sz:13.8, res:'2304 x 1536', pan:'PixelSense IPS', hz:120, t:1, bat:20, wt:2.96, u:['Work','Everyday'], r:4.5, rc:1246, col:'Platinum', tr:4, ty:'Copilot+ PCs' },
+  { b:'Microsoft', n:'Surface Laptop, 7th Edition 15"', f:'Surface Laptop', os:'Windows 11 Home', cpu:'Snapdragon X Elite', cb:'Qualcomm', gpu:'Qualcomm Adreno GPU', ram:16, st:512, p:1499, w:1599, sz:15, res:'2496 x 1664', pan:'PixelSense IPS', hz:120, t:1, bat:22, wt:3.67, u:['Work','Creative'], r:4.5, rc:834, col:'Black', tr:5, ty:'Copilot+ PCs' },
+  { b:'Microsoft', n:'Surface Pro, 11th Edition 13"', f:'Surface Pro', os:'Windows 11 Home', cpu:'Snapdragon X Plus', cb:'Qualcomm', gpu:'Qualcomm Adreno GPU', ram:16, st:256, p:999, w:0, sz:13, res:'2880 x 1920', pan:'OLED', hz:120, t:1, bat:14, wt:1.97, u:['Work','Creative'], r:4.4, rc:1592, col:'Sapphire', tr:4, ty:'2-in-1 laptops' },
+  { b:'Microsoft', n:'Surface Laptop Go 3 12.4"', f:'Surface Laptop Go', os:'Windows 11 Home', cpu:'Intel Core i5-1235U', cb:'Intel', gpu:'Intel Iris Xe Graphics', ram:8, st:256, p:799, w:899, sz:12.4, res:'1536 x 1024', pan:'PixelSense IPS', hz:60, t:1, bat:15, wt:2.49, u:['School','Everyday'], r:4.3, rc:2071, col:'Ice Blue', tr:2, ty:'Windows laptops' },
+  { b:'HP', n:'HP OmniBook X 14', f:'OmniBook', os:'Windows 11 Home', cpu:'Snapdragon X Elite X1E-78-100', cb:'Qualcomm', gpu:'Qualcomm Adreno GPU', ram:16, st:512, p:899, w:1149, sz:14, res:'2240 x 1400', pan:'IPS', hz:60, t:1, bat:21, wt:2.97, u:['Work','Everyday'], r:4.4, rc:968, col:'Meteor Silver', tr:4, ty:'Copilot+ PCs' },
+  { b:'ASUS', n:'ASUS Vivobook S 15 (S5507)', f:'Vivobook S', os:'Windows 11 Home', cpu:'Snapdragon X Elite', cb:'Qualcomm', gpu:'Qualcomm Adreno GPU', ram:16, st:1024, p:999, w:1299, sz:15.6, res:'2880 x 1620', pan:'OLED', hz:120, t:0, bat:18, wt:3.06, u:['Creative','Work'], r:4.4, rc:1114, col:'Cool Silver', tr:4, ty:'Copilot+ PCs' },
+  { b:'Acer', n:'Acer Swift 14 AI', f:'Swift', os:'Windows 11 Home', cpu:'Snapdragon X Elite', cb:'Qualcomm', gpu:'Qualcomm Adreno GPU', ram:16, st:1024, p:1099, w:1199, sz:14.5, res:'2560 x 1600', pan:'OLED', hz:120, t:1, bat:19, wt:2.98, u:['Work','Creative'], r:4.3, rc:503, col:'Steel Gray', tr:4, ty:'Copilot+ PCs' },
+  { b:'Lenovo', n:'Lenovo Yoga Slim 7x 14"', f:'Yoga Slim', os:'Windows 11 Home', cpu:'Snapdragon X Elite', cb:'Qualcomm', gpu:'Qualcomm Adreno GPU', ram:16, st:1024, p:1199, w:1349, sz:14.5, res:'2944 x 1840', pan:'OLED', hz:90, t:1, bat:17, wt:2.82, u:['Creative','Work'], r:4.4, rc:741, col:'Cosmic Blue', tr:5, ty:'Copilot+ PCs' },
+  { b:'Dell', n:'Dell XPS 13 (9345)', f:'XPS', os:'Windows 11 Home', cpu:'Snapdragon X Elite', cb:'Qualcomm', gpu:'Qualcomm Adreno GPU', ram:16, st:512, p:1299, w:1499, sz:13.4, res:'1920 x 1200', pan:'IPS', hz:120, t:0, bat:20, wt:2.60, u:['Work'], r:4.2, rc:588, col:'Platinum', tr:5, ty:'Copilot+ PCs' },
+
+  /* ---- Premium Windows ultraportables ---- */
+  { b:'Lenovo', n:'Lenovo Yoga 9i 2-in-1 14"', f:'Yoga', os:'Windows 11 Home', cpu:'Intel Core Ultra 7 155H', cb:'Intel', gpu:'Intel Arc Graphics', ram:16, st:1024, p:1399, w:1599, sz:14, res:'2880 x 1800', pan:'OLED', hz:120, t:1, bat:13, wt:3.09, u:['Creative','Work'], r:4.5, rc:1327, col:'Tidal Teal', tr:5, ty:'2-in-1 laptops' },
+  { b:'Dell', n:'Dell XPS 13 (9350)', f:'XPS', os:'Windows 11 Home', cpu:'Intel Core Ultra 7 258V', cb:'Intel', gpu:'Intel Arc Graphics 140V', ram:16, st:512, p:1399, w:0, sz:13.4, res:'1920 x 1200', pan:'IPS', hz:120, t:0, bat:17, wt:2.62, u:['Work','Creative'], r:4.3, rc:914, col:'Graphite', tr:5, ty:'Copilot+ PCs' },
+  { b:'HP', n:'HP OmniBook Ultra Flip 14', f:'OmniBook Ultra', os:'Windows 11 Home', cpu:'Intel Core Ultra 7 258V', cb:'Intel', gpu:'Intel Arc Graphics 140V', ram:16, st:1024, p:1449, w:1649, sz:14, res:'2880 x 1800', pan:'OLED', hz:120, t:1, bat:16, wt:2.96, u:['Creative','Work'], r:4.4, rc:436, col:'Atmospheric Blue', tr:5, ty:'2-in-1 laptops' },
+  { b:'LG', n:'LG gram 16', f:'gram', os:'Windows 11 Home', cpu:'Intel Core Ultra 7 155H', cb:'Intel', gpu:'Intel Arc Graphics', ram:16, st:512, p:1499, w:1699, sz:16, res:'2560 x 1600', pan:'IPS', hz:144, t:0, bat:16, wt:2.62, u:['Work','Creative'], r:4.4, rc:1043, col:'Charcoal Grey', tr:5, ty:'Windows laptops' },
+  { b:'ASUS', n:'ASUS Zenbook S 14 (UX5406)', f:'Zenbook S', os:'Windows 11 Home', cpu:'Intel Core Ultra 7 258V', cb:'Intel', gpu:'Intel Arc Graphics 140V', ram:32, st:1024, p:1499, w:0, sz:14, res:'2880 x 1800', pan:'OLED', hz:120, t:1, bat:18, wt:2.65, u:['Creative','Work'], r:4.6, rc:812, col:'Zumaia Gray', tr:5, ty:'Copilot+ PCs' },
+  { b:'Dell', n:'Dell XPS 14 (9440)', f:'XPS', os:'Windows 11 Home', cpu:'Intel Core Ultra 7 155H', cb:'Intel', gpu:'NVIDIA GeForce RTX 4050 6GB', ram:16, st:1024, p:1699, w:1899, sz:14.5, res:'3200 x 2000', pan:'OLED', hz:120, t:1, bat:11, wt:3.70, u:['Creative','Work'], r:4.2, rc:521, col:'Platinum', tr:5, ty:'Windows laptops' },
+  { b:'Samsung', n:'Samsung Galaxy Book5 Pro 360 16"', f:'Galaxy Book', os:'Windows 11 Home', cpu:'Intel Core Ultra 7 256V', cb:'Intel', gpu:'Intel Arc Graphics 140V', ram:16, st:512, p:1799, w:0, sz:16, res:'2880 x 1800', pan:'AMOLED', hz:120, t:1, bat:16, wt:3.42, u:['Creative','Work'], r:4.5, rc:602, col:'Moonstone Gray', tr:5, ty:'2-in-1 laptops' },
+
+  /* ---- Business ---- */
+  { b:'Lenovo', n:'Lenovo ThinkPad E16 Gen 2', f:'ThinkPad', os:'Windows 11 Pro', cpu:'Intel Core Ultra 5 125U', cb:'Intel', gpu:'Intel Graphics', ram:16, st:512, p:899, w:1049, sz:16, res:'1920 x 1200', pan:'IPS', hz:60, t:0, bat:12, wt:4.06, u:['Work'], r:4.3, rc:774, col:'Black', tr:3, ty:'Business laptops' },
+  { b:'HP', n:'HP EliteBook 840 G11 14"', f:'EliteBook', os:'Windows 11 Pro', cpu:'Intel Core Ultra 5 135U', cb:'Intel', gpu:'Intel Graphics', ram:16, st:512, p:1499, w:1699, sz:14, res:'1920 x 1200', pan:'IPS', hz:60, t:0, bat:14, wt:2.91, u:['Work'], r:4.4, rc:509, col:'Atmospheric Blue', tr:4, ty:'Business laptops' },
+  { b:'Dell', n:'Dell Latitude 7450 14"', f:'Latitude', os:'Windows 11 Pro', cpu:'Intel Core Ultra 7 165U', cb:'Intel', gpu:'Intel Graphics', ram:16, st:512, p:1799, w:0, sz:14, res:'2560 x 1600', pan:'IPS', hz:60, t:0, bat:15, wt:2.98, u:['Work'], r:4.3, rc:287, col:'Aluminum', tr:5, ty:'Business laptops' },
+  { b:'Lenovo', n:'Lenovo ThinkPad X1 Carbon Gen 13 Aura Edition', f:'ThinkPad X1', os:'Windows 11 Pro', cpu:'Intel Core Ultra 7 258V', cb:'Intel', gpu:'Intel Arc Graphics 140V', ram:32, st:1024, p:2199, w:2399, sz:14, res:'2880 x 1800', pan:'OLED', hz:120, t:1, bat:17, wt:2.17, u:['Work','Creative'], r:4.6, rc:641, col:'Black', tr:5, ty:'Business laptops' },
+
+  /* ---- Apple ---- */
+  { b:'Apple', n:'MacBook Air 13" (M3)', f:'MacBook Air', os:'macOS', cpu:'Apple M3', cb:'Apple', gpu:'Apple 8-core GPU', ram:16, st:256, p:849, w:1099, sz:13.6, res:'2560 x 1664', pan:'Liquid Retina IPS', hz:60, t:0, bat:18, wt:2.70, u:['School','Everyday','Work'], r:4.8, rc:55472, col:'Midnight', tr:4, ty:'MacBooks' },
+  { b:'Apple', n:'MacBook Air 13" (M4)', f:'MacBook Air', os:'macOS', cpu:'Apple M4', cb:'Apple', gpu:'Apple 8-core GPU', ram:16, st:256, p:999, w:0, sz:13.6, res:'2560 x 1664', pan:'Liquid Retina IPS', hz:60, t:0, bat:18, wt:2.70, u:['Everyday','Work','School'], r:4.8, rc:12408, col:'Sky Blue', tr:4, ty:'MacBooks' },
+  { b:'Apple', n:'MacBook Air 15" (M4)', f:'MacBook Air', os:'macOS', cpu:'Apple M4', cb:'Apple', gpu:'Apple 10-core GPU', ram:16, st:256, p:1199, w:0, sz:15.3, res:'2880 x 1864', pan:'Liquid Retina IPS', hz:60, t:0, bat:18, wt:3.30, u:['Work','Creative'], r:4.8, rc:7487, col:'Starlight', tr:5, ty:'MacBooks' },
+  { b:'Apple', n:'MacBook Pro 14" (M4)', f:'MacBook Pro', os:'macOS', cpu:'Apple M4', cb:'Apple', gpu:'Apple 10-core GPU', ram:16, st:512, p:1599, w:0, sz:14.2, res:'3024 x 1964', pan:'Liquid Retina XDR', hz:120, t:0, bat:24, wt:3.40, u:['Creative','Work'], r:4.8, rc:9218, col:'Space Black', tr:5, ty:'MacBooks' },
+  { b:'Apple', n:'MacBook Pro 14" (M4 Pro)', f:'MacBook Pro', os:'macOS', cpu:'Apple M4 Pro', cb:'Apple', gpu:'Apple 20-core GPU', ram:24, st:512, p:1999, w:0, sz:14.2, res:'3024 x 1964', pan:'Liquid Retina XDR', hz:120, t:0, bat:22, wt:3.40, u:['Creative','Work'], r:4.8, rc:4106, col:'Space Black', tr:5, ty:'MacBooks' },
+  { b:'Apple', n:'MacBook Pro 16" (M4 Pro)', f:'MacBook Pro', os:'macOS', cpu:'Apple M4 Pro', cb:'Apple', gpu:'Apple 20-core GPU', ram:24, st:512, p:2499, w:0, sz:16.2, res:'3456 x 2234', pan:'Liquid Retina XDR', hz:120, t:0, bat:24, wt:4.70, u:['Creative','Work'], r:4.9, rc:5331, col:'Silver', tr:5, ty:'MacBooks' },
+
+  /* ---- Gaming ---- */
+  { b:'HP', n:'HP Victus 15', f:'Victus', os:'Windows 11 Home', cpu:'Intel Core i5-13420H', cb:'Intel', gpu:'NVIDIA GeForce RTX 3050 6GB', ram:8, st:512, p:699, w:849, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:144, t:0, bat:6, wt:5.06, u:['Gaming','School'], r:4.2, rc:4417, col:'Mica Silver', tr:3, ty:'Gaming laptops' },
+  { b:'Acer', n:'Acer Nitro V 15', f:'Nitro', os:'Windows 11 Home', cpu:'Intel Core i5-13420H', cb:'Intel', gpu:'NVIDIA GeForce RTX 4050 6GB', ram:16, st:512, p:799, w:949, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:165, t:0, bat:6, wt:4.85, u:['Gaming','School'], r:4.3, rc:3902, col:'Obsidian Black', tr:3, ty:'Gaming laptops' },
+  { b:'Lenovo', n:'Lenovo LOQ 15', f:'LOQ', os:'Windows 11 Home', cpu:'Intel Core i5-13450HX', cb:'Intel', gpu:'NVIDIA GeForce RTX 4050 6GB', ram:16, st:512, p:899, w:1049, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:144, t:0, bat:6, wt:5.35, u:['Gaming'], r:4.3, rc:2874, col:'Luna Grey', tr:4, ty:'Gaming laptops' },
+  { b:'ASUS', n:'ASUS TUF Gaming A15', f:'TUF Gaming', os:'Windows 11 Home', cpu:'AMD Ryzen 7 7435HS', cb:'AMD', gpu:'NVIDIA GeForce RTX 4060 8GB', ram:16, st:512, p:999, w:1199, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:144, t:0, bat:7, wt:5.07, u:['Gaming','Creative'], r:4.4, rc:3168, col:'Mecha Gray', tr:4, ty:'Gaming laptops' },
+  { b:'MSI', n:'MSI Katana 15', f:'Katana', os:'Windows 11 Home', cpu:'Intel Core i7-13620H', cb:'Intel', gpu:'NVIDIA GeForce RTX 4060 8GB', ram:16, st:1024, p:1099, w:1299, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:144, t:0, bat:6, wt:4.96, u:['Gaming'], r:4.2, rc:1476, col:'Black', tr:4, ty:'Gaming laptops' },
+  { b:'Lenovo', n:'Lenovo Legion 5i 16"', f:'Legion', os:'Windows 11 Home', cpu:'Intel Core i7-14650HX', cb:'Intel', gpu:'NVIDIA GeForce RTX 4060 8GB', ram:16, st:1024, p:1399, w:1599, sz:16, res:'2560 x 1600', pan:'IPS', hz:165, t:0, bat:7, wt:5.51, u:['Gaming','Creative'], r:4.5, rc:2019, col:'Luna Grey', tr:5, ty:'Gaming laptops' },
+  { b:'Acer', n:'Acer Predator Helios Neo 16', f:'Predator', os:'Windows 11 Home', cpu:'Intel Core i7-14650HX', cb:'Intel', gpu:'NVIDIA GeForce RTX 4070 8GB', ram:16, st:1024, p:1499, w:1749, sz:16, res:'2560 x 1600', pan:'IPS', hz:165, t:0, bat:6, wt:5.73, u:['Gaming','Creative'], r:4.4, rc:1288, col:'Steel Gray', tr:5, ty:'Gaming laptops' },
+  { b:'HP', n:'HP OMEN 16', f:'OMEN', os:'Windows 11 Home', cpu:'Intel Core Ultra 7 155H', cb:'Intel', gpu:'NVIDIA GeForce RTX 4070 8GB', ram:16, st:1024, p:1499, w:1699, sz:16.1, res:'2560 x 1440', pan:'IPS', hz:240, t:0, bat:6, wt:5.36, u:['Gaming','Creative'], r:4.3, rc:1104, col:'Shadow Black', tr:5, ty:'Gaming laptops' },
+  { b:'ASUS', n:'ASUS ROG Zephyrus G14', f:'ROG Zephyrus', os:'Windows 11 Home', cpu:'AMD Ryzen 9 8945HS', cb:'AMD', gpu:'NVIDIA GeForce RTX 4060 8GB', ram:16, st:1024, p:1599, w:1799, sz:14, res:'2880 x 1800', pan:'OLED', hz:120, t:0, bat:9, wt:3.31, u:['Gaming','Creative'], r:4.5, rc:2447, col:'Platinum White', tr:5, ty:'Gaming laptops' },
+  { b:'ASUS', n:'ASUS ROG Strix G16', f:'ROG Strix', os:'Windows 11 Home', cpu:'Intel Core i9-14900HX', cb:'Intel', gpu:'NVIDIA GeForce RTX 4070 8GB', ram:16, st:1024, p:1599, w:1899, sz:16, res:'2560 x 1600', pan:'IPS', hz:240, t:0, bat:6, wt:5.51, u:['Gaming'], r:4.4, rc:1663, col:'Eclipse Gray', tr:5, ty:'Gaming laptops' },
+  { b:'Alienware', n:'Alienware x16 R2', f:'Alienware x', os:'Windows 11 Home', cpu:'Intel Core Ultra 9 185H', cb:'Intel', gpu:'NVIDIA GeForce RTX 4080 12GB', ram:32, st:1024, p:2499, w:2799, sz:16, res:'2560 x 1600', pan:'IPS', hz:240, t:0, bat:5, wt:5.86, u:['Gaming','Creative'], r:4.4, rc:497, col:'Interstellar Indigo', tr:5, ty:'Gaming laptops' },
+
+  /* ---- Creator ---- */
+  { b:'ASUS', n:'ASUS ProArt P16', f:'ProArt', os:'Windows 11 Home', cpu:'AMD Ryzen AI 9 HX 370', cb:'AMD', gpu:'NVIDIA GeForce RTX 4060 8GB', ram:32, st:1024, p:1899, w:2099, sz:16, res:'3840 x 2400', pan:'OLED', hz:60, t:1, bat:10, wt:4.08, u:['Creative','Work'], r:4.6, rc:588, col:'Nano Black', tr:5, ty:'Copilot+ PCs' },
+];
+
+/* ---------------------------------------------------------------------------
+   Deterministic pseudo-random so every build is byte-identical.
+--------------------------------------------------------------------------- */
+let _s = 987654321;
+function rnd() { _s = (_s * 1664525 + 1013904223) % 4294967296; return _s / 4294967296; }
+function pick(a) { return a[Math.floor(rnd() * a.length)]; }
+function between(lo, hi) { return lo + Math.floor(rnd() * (hi - lo + 1)); }
+
+/* Review themes. Written to mirror the themes that genuinely dominate laptop
+   reviews: design, boot speed and display run positive; memory headroom,
+   port selection and battery claims run negative. */
+const REVIEW_POOL = {
+  pos: [
+    'Battery easily gets me through a full day of classes.',
+    'Screen is genuinely bright, I can work next to a window without squinting.',
+    'It starts up in seconds and I can have mail, music and a few tabs open with no lag.',
+    'Light enough that I stopped noticing it in my bag.',
+    'Handles a dozen browser tabs and a video call without breaking a sweat.',
+    'Keyboard is comfortable for long typing sessions.',
+    'Fan almost never spins up during normal work.',
+    'Build quality feels a class above what I paid.',
+    'Runs my editing software far better than I expected.',
+    'Looks smarter than anything else I looked at in this price range.'
+  ],
+  mid: [
+    'Solid machine, though I wish it had one more USB-C port.',
+    'Does everything I need, but the speakers are only adequate.',
+    'Good performance, average webcam.',
+    'Happy overall, the charging brick is bulkier than it needs to be.',
+    'Fine for the price, screen could be brighter outdoors.'
+  ],
+  neg: [
+    'Ran warm under sustained load, had to prop it up.',
+    'Storage filled up faster than I planned for.',
+    'Trackpad took some getting used to.',
+    'Battery is closer to six hours in real use than the claim.'
+  ],
+  /* Only surfaced on 8 GB machines. The objection in real reviews is almost never
+     the capacity on its own, it is that the memory is soldered and cannot be raised. */
+  ram8: [
+    'Works fine today, but the memory is soldered so there is no upgrade path later.',
+    'Windows uses a big chunk of the 8 GB before I have opened anything, so I watch my tabs.',
+    'If you keep a lot of tabs open alongside a call, look at a 16 GB version instead.',
+    'Non-upgradeable memory is the one thing that stopped this being five stars.'
+  ],
+  noUsbA: [
+    'No full-size USB-A at all, so budget for a dongle on day one.'
+  ]
+};
+
+const REVIEWERS = ['J. Rivera','M. Okafor','S. Lindqvist','D. Patel','A. Brennan',
+                   'T. Nakamura','K. Adeyemi','R. Fontaine','C. Whitlock','P. Moreau'];
+
+function makeReviews(rating, ram, portsHaveUsbA) {
+  const out = [];
+  const n = between(6, 10);
+  for (let i = 0; i < n; i++) {
+    let stars, body;
+    const r = rnd();
+    if (ram <= 8 && r > 0.82 && r < 0.90) { stars = between(3, 4); body = pick(REVIEW_POOL.ram8); }
+    else if (!portsHaveUsbA && r >= 0.90 && r < 0.93) { stars = 4; body = pick(REVIEW_POOL.noUsbA); }
+    else if (rating >= 4.5 ? r < 0.75 : r < 0.55) { stars = 5; body = pick(REVIEW_POOL.pos); }
+    else if (r < 0.9) { stars = 4; body = pick(REVIEW_POOL.mid); }
+    else { stars = between(2, 3); body = pick(REVIEW_POOL.neg); }
+    out.push({
+      stars,
+      title: stars >= 5 ? 'Exactly what I wanted'
+           : stars === 4 ? 'Very good with small caveats'
+           : 'Mixed feelings',
+      body,
+      author: REVIEWERS[i % 10],
+      verified: rnd() > 0.15,
+      daysAgo: between(3, 240)
+    });
+  }
+  return out;
+}
+
+function starDistribution(rating, count) {
+  const skew = (rating - 3) / 2;
+  const w = [0.03 + 0.05 * (1 - skew), 0.04 + 0.05 * (1 - skew), 0.08, 0.20 + 0.1 * skew, 0.55 + 0.25 * skew];
+  const tot = w.reduce((a, b) => a + b, 0);
+  const pct = w.map(x => x / tot);
+  return [5, 4, 3, 2, 1].map((s, i) => ({ stars: s, count: Math.round(count * pct[4 - i]) }));
+}
+
+/* The experiment variable. These 20 SKUs ship with thin structured content:
+   short spec sheet, no Q&A, no enriched description. They are deliberately
+   concentrated in the mainstream and value tiers, which is where retailer
+   product data is genuinely thinnest, and no Surface SKU is thin so the
+   contrast is never read as a comment on one vendor. */
+const THIN_NAMES = [
+  'HP 15.6" Laptop (15-fd0000)',
+  'Acer Aspire 3 15.6" (A315-24P)',
+  'ASUS Vivobook 15 (F1504)',
+  'Dell Inspiron 15 3520',
+  'Acer Aspire 5 15.6" (A515-58)',
+  'Acer Chromebook 315 15.6"',
+  'Lenovo Chromebook Duet 11"',
+  'HP Chromebook Plus x360 14"',
+  'ASUS Chromebook Plus CX34 14"',
+  'Samsung Galaxy Book4 15.6"',
+  'HP OmniBook 5 16"',
+  'Lenovo IdeaPad Slim 5 16"',
+  'Dell Inspiron 14 2-in-1 (7440)',
+  'Lenovo Yoga 7 2-in-1 14"',
+  'Acer Swift 14 AI',
+  'LG gram 16',
+  'HP EliteBook 840 G11 14"',
+  'HP Victus 15',
+  'MSI Katana 15',
+  'ASUS ROG Strix G16'
+];
+
+function portsFor(m) {
+  if (m.u.includes('Gaming')) return '2x USB-C (Thunderbolt 4), 3x USB-A, HDMI 2.1, RJ-45, 3.5 mm combo';
+  if (m.b === 'Apple') return m.f === 'MacBook Pro'
+    ? '3x Thunderbolt 4 (USB-C), HDMI, SDXC, MagSafe 3, 3.5 mm'
+    : '2x Thunderbolt 4 (USB-C), MagSafe 3, 3.5 mm';
+  if (m.tr >= 4) return '2x USB-C (Thunderbolt 4), 1x USB-A, HDMI 2.1, 3.5 mm combo';
+  if (m.os === 'ChromeOS') return '2x USB-C, 1x USB-A, microSD, 3.5 mm combo';
+  return '1x USB-C, 2x USB-A, HDMI 1.4, SD card reader, 3.5 mm combo';
+}
+
+function build() {
+  const items = [];
+  let id = 1;
+
+  for (const m of MODELS) {
+    const brand = BRANDS.find(b => b.name === m.b);
+    const gaming = m.u.includes('Gaming');
+    const ports = portsFor(m);
+    const contentRichness = THIN_NAMES.indexOf(m.n) >= 0 ? 'thin' : 'rich';
+
+    const tags = [];
+    if (m.r >= 4.7) tags.push('Top rated');
+    if (m.w) tags.push('Save $' + (m.w - m.p));
+    if (m.p < 500) tags.push('Budget pick');
+    if (m.cb === 'Qualcomm' || (m.cpu.indexOf('Ultra') >= 0 && m.cpu.indexOf('V') > 0) || m.cpu.indexOf('Ryzen AI') >= 0) tags.push('Copilot+ PC');
+    if (m.rc > 4000) tags.push('Best seller');
+    if (id % 11 === 0) tags.push('New');
+
+    items.push({
+      id,
+      sku: 'NV-' + String(100000 + id * 137).slice(0, 6),
+      model: (m.b.slice(0, 2).toUpperCase() + '-' + String(4100 + id * 7)),
+      brand: m.b,
+      name: m.n,
+      family: m.f,
+      type: m.ty,
+      use: m.u,
+      price: m.p,
+      wasPrice: m.w || null,
+      financing: Math.round(m.p / 12),
+      rating: m.r,
+      reviewCount: m.rc,
+      stars: starDistribution(m.r, m.rc),
+      reviews: makeReviews(m.r, m.ram, ports.indexOf('USB-A') >= 0),
+      tags,
+      sponsored: id % 9 === 0,
+      contentRichness,
+      os: m.os,
+      cpu: m.cpu,
+      cpuBrand: m.cb,
+      gpu: m.gpu,
+      ram: m.ram + ' GB',
+      ramGb: m.ram,
+      storage: m.st >= 1024 ? (m.st / 1024) + ' TB SSD' : m.st + ' GB SSD',
+      storageGb: m.st,
+      screenSize: m.sz,
+      resolution: m.res,
+      panel: m.pan,
+      refresh: m.hz + ' Hz',
+      touch: !!m.t,
+      battery: m.bat + ' hours',
+      weight: m.wt.toFixed(2) + ' lbs',
+      weightLb: m.wt,
+      dimensions: `${(m.sz * 0.85).toFixed(2)} x ${(m.sz * 0.6).toFixed(2)} x ${(0.55 + (gaming ? 0.45 : 0.1)).toFixed(2)} in`,
+      ports,
+      wifi: m.tr >= 4 ? 'Wi-Fi 7 (802.11be)' : 'Wi-Fi 6E (802.11ax)',
+      webcam: m.tr >= 3 ? '1080p FHD with privacy shutter' : '720p HD',
+      keyboard: m.tr >= 2 ? 'Backlit, full-size' : 'Full-size',
+      warranty: m.os === 'Windows 11 Pro' ? '3-year limited business warranty' : '1-year limited warranty',
+      color: m.col,
+      releaseYear: m.tr >= 4 ? 2026 : 2025,
+      stock: rnd() > 0.12 ? 'In stock' : 'Low stock',
+      deliveryDays: between(1, 4),
+      pickup: rnd() > 0.25,
+      openBox: m.rc > 1500 ? Math.round(m.p * 0.86) - 1 : null,
+      hue: brand.hue + between(-8, 8)
+    });
+    id++;
+  }
+  return items;
+}
+
+const CATALOG = build();
+if (typeof module !== 'undefined') module.exports = { CATALOG, BRANDS, USES, OS, TYPES };
+
+
+/* ===== app-core.js ===== */
+/* ==========================================================================
+   Novi — research storefront
+   Part 1: brand config, experiment engine, instrumentation, router
+   ========================================================================== */
+
+/* ---- brand: rename in one place ---- */
+const BRAND = {
+  name: 'novi',
+  legal: 'Novi Retail (fictional)',
+  tagline: 'Find a laptop that fits your life.',
+  currency: 'USD',
+  symbol: '$',
+  market: 'US'
+};
+
+/* ---- experiment conditions ----------------------------------------------
+   A researcher changes behaviour here, or from the moderator bar, without
+   touching any other code. Every event is stamped with the active condition.
+------------------------------------------------------------------------- */
+const CONDITIONS = {
+  A: {
+    label: 'A · Control (no assistant)',
+    assistant: false, pdpContent: 'asis', collections: true, sponsored: true,
+    advisor: 'subtle', searchRank: 'relevance', reviews: 'standard',
+    priceFormat: 'standard', deliveryPromise: 'standard'
+  },
+  B: {
+    label: 'B · Assistant present',
+    assistant: true, pdpContent: 'asis', collections: true, sponsored: true,
+    advisor: 'subtle', searchRank: 'relevance', reviews: 'standard',
+    priceFormat: 'standard', deliveryPromise: 'standard'
+  },
+  C: {
+    label: 'C · Assistant + rich content everywhere',
+    assistant: true, pdpContent: 'rich', collections: true, sponsored: true,
+    advisor: 'prominent', searchRank: 'relevance', reviews: 'prominent',
+    priceFormat: 'standard', deliveryPromise: 'strong'
+  },
+  D: {
+    label: 'D · Assistant + thin content everywhere',
+    assistant: true, pdpContent: 'thin', collections: false, sponsored: true,
+    advisor: 'hidden', searchRank: 'popularity', reviews: 'minimal',
+    priceFormat: 'standard', deliveryPromise: 'weak'
+  },
+  E: {
+    label: 'E · No collections, no guidance',
+    assistant: false, pdpContent: 'asis', collections: false, sponsored: true,
+    advisor: 'hidden', searchRank: 'popularity', reviews: 'standard',
+    priceFormat: 'standard', deliveryPromise: 'standard'
+  }
+};
+
+/* ---- missions: machine-checkable success conditions ---------------------- */
+const MISSIONS = {
+  0: { label: 'Free exploration', brief: 'Browse however you like.', success: () => false },
+  1: { label: 'Affordable laptop for school',
+       brief: 'Find a laptop for a student on a budget under $700 and add it to the cart.',
+       success: s => s.cart.some(l => P(l.id).price < 700 && P(l.id).use.includes('School')) },
+  2: { label: 'Work-from-home laptop',
+       brief: 'Choose a laptop suitable for full-time home working and add it to the cart.',
+       success: s => s.cart.some(l => P(l.id).use.includes('Work') && P(l.id).ramGb >= 16) },
+  3: { label: 'Creative laptop for photo and video',
+       brief: 'Find a laptop that can handle photo and video editing, and add it to the cart.',
+       success: s => s.cart.some(l => P(l.id).use.includes('Creative') && P(l.id).ramGb >= 16) },
+  4: { label: 'Gaming laptop under $1,600',
+       brief: 'Find a gaming laptop under $1,600 and add it to the cart.',
+       success: s => s.cart.some(l => P(l.id).use.includes('Gaming') && P(l.id).price < 1600) },
+  5: { label: 'Compare and choose',
+       brief: 'Compare at least three laptops, then add your preferred one to the cart.',
+       success: s => s.maxCompared >= 3 && s.cart.length > 0 },
+  6: { label: 'Replace an ageing laptop',
+       brief: 'Your five-year-old laptop is slow. Find a replacement and complete checkout.',
+       success: s => s.checkoutComplete },
+  7: { label: 'Lightest laptop with all-day battery',
+       brief: 'Find the lightest laptop you can that still claims all-day battery, and add it.',
+       success: s => s.cart.some(l => parseFloat(P(l.id).weight) < 3.0 && parseInt(P(l.id).battery) >= 10) }
+};
+
+/* ---- session state ------------------------------------------------------ */
+const DEFAULT_SESSION = () => ({
+  sessionId: 'S' + Date.now().toString(36).toUpperCase(),
+  participantId: '',
+  condition: 'B',
+  mission: 0,
+  startedAt: Date.now(),
+  taskStartedAt: Date.now(),
+  consented: false,
+  cart: [],
+  compare: [],
+  maxCompared: 0,
+  checkoutComplete: false,
+  filters: { use: [], brand: [], os: [], cpu: [], type: [], ram: [], storage: [], screen: [],
+             price: [null, null], rating: 0, touch: false, deals: false },
+  sort: 'rec',
+  page: 1,
+  query: '',
+  bookmarks: []
+});
+
+let S = DEFAULT_SESSION();
+let EVENTS = [];
+let MOD = false;          // moderator bar visible
+let ASSIST_OPEN = false;
+
+const LS_S = 'novi.session.v2';
+const LS_E = 'novi.events.v2';
+
+function cond() { return CONDITIONS[S.condition] || CONDITIONS.B; }
+function P(id) { return CATALOG.find(p => p.id === id); }
+function money(n) { return BRAND.symbol + n.toLocaleString('en-US'); }
+
+/* ---- persistence -------------------------------------------------------- */
+function save() {
+  try {
+    localStorage.setItem(LS_S, JSON.stringify(S));
+    localStorage.setItem(LS_E, JSON.stringify(EVENTS.slice(-4000)));
+  } catch (e) { /* storage full or blocked; session continues in memory */ }
+}
+function restore() {
+  try {
+    const s = localStorage.getItem(LS_S), e = localStorage.getItem(LS_E);
+    if (s) {
+      const saved = JSON.parse(s);
+      S = Object.assign(DEFAULT_SESSION(), saved);
+      /* backfill any filter keys added since the session was saved, so a
+         participant mid-study never hits a broken build */
+      S.filters = Object.assign(DEFAULT_SESSION().filters, saved.filters || {});
+    }
+    if (e) EVENTS = JSON.parse(e);
+    return !!s;
+  } catch (err) { return false; }
+}
+
+/* ---- instrumentation ---------------------------------------------------- */
+function track(name, detail) {
+  const now = Date.now();
+  const ev = {
+    ts: new Date(now).toISOString(),
+    msSinceSession: now - S.startedAt,
+    msSinceTask: now - S.taskStartedAt,
+    sessionId: S.sessionId,
+    participantId: S.participantId || 'unassigned',
+    condition: S.condition,
+    conditionLabel: cond().label,
+    mission: S.mission,
+    missionLabel: MISSIONS[S.mission].label,
+    route: location.hash || '#/',
+    event: name,
+    detail: detail === undefined ? '' : (typeof detail === 'object' ? JSON.stringify(detail) : String(detail))
+  };
+  EVENTS.push(ev);
+  save();
+  paintLog();
+  checkSuccess();
+}
+
+/* success is evaluated continuously, so time-to-success is real */
+let SUCCESS_FIRED = false;
+function checkSuccess() {
+  if (SUCCESS_FIRED || !MISSIONS[S.mission]) return;
+  let ok = false;
+  try { ok = MISSIONS[S.mission].success(S); } catch (e) { ok = false; }
+  if (ok) {
+    SUCCESS_FIRED = true;
+    const ms = Date.now() - S.taskStartedAt;
+    EVENTS.push({
+      ts: new Date().toISOString(), msSinceSession: Date.now() - S.startedAt, msSinceTask: ms,
+      sessionId: S.sessionId, participantId: S.participantId || 'unassigned',
+      condition: S.condition, conditionLabel: cond().label,
+      mission: S.mission, missionLabel: MISSIONS[S.mission].label,
+      route: location.hash || '#/', event: 'task_success', detail: 'ms=' + ms
+    });
+    save(); paintLog(); paintMod();
+  }
+}
+
+/* scroll depth + dwell, sampled per route */
+let _routeEnter = Date.now(), _maxScroll = 0, _lastRoute = '';
+function scrollWatch() {
+  const h = document.documentElement;
+  const d = h.scrollHeight - h.clientHeight;
+  const pct = d > 0 ? Math.round((h.scrollTop / d) * 100) : 0;
+  if (pct > _maxScroll) _maxScroll = pct;
+}
+function leaveRoute() {
+  if (!_lastRoute) return;
+  track('page_exit', { route: _lastRoute, dwellMs: Date.now() - _routeEnter, maxScrollPct: _maxScroll });
+}
+
+/* ---- export ------------------------------------------------------------- */
+function exportJSON() {
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    brand: BRAND.name, market: BRAND.market,
+    session: {
+      sessionId: S.sessionId, participantId: S.participantId || 'unassigned',
+      condition: S.condition, conditionLabel: cond().label,
+      conditionFlags: cond(),
+      mission: S.mission, missionLabel: MISSIONS[S.mission].label,
+      startedAt: new Date(S.startedAt).toISOString(),
+      durationMs: Date.now() - S.startedAt,
+      taskSuccess: SUCCESS_FIRED,
+      cart: S.cart.map(l => ({ id: l.id, sku: P(l.id).sku, name: P(l.id).name, qty: l.qty, price: P(l.id).price })),
+      maxCompared: S.maxCompared,
+      checkoutComplete: S.checkoutComplete,
+      bookmarks: S.bookmarks
+    },
+    eventCount: EVENTS.length,
+    events: EVENTS
+  };
+  download(`novi_${S.participantId || 'unassigned'}_${S.sessionId}.json`,
+    JSON.stringify(payload, null, 2), 'application/json');
+  track('data_exported', 'json');
+}
+function exportCSV() {
+  const cols = ['ts','msSinceSession','msSinceTask','sessionId','participantId','condition','conditionLabel','mission','missionLabel','route','event','detail'];
+  const esc = v => '"' + String(v === undefined ? '' : v).replace(/"/g, '""') + '"';
+  const rows = [cols.join(',')].concat(EVENTS.map(e => cols.map(c => esc(e[c])).join(',')));
+  download(`novi_${S.participantId || 'unassigned'}_${S.sessionId}.csv`, rows.join('\r\n'), 'text/csv');
+  track('data_exported', 'csv');
+}
+function download(fname, text, mime) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type: mime }));
+  a.download = fname; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 400);
+}
+
+/* ---- session control ---------------------------------------------------- */
+function softReset(silent) {
+  S.cart = []; S.compare = []; S.maxCompared = 0; S.checkoutComplete = false;
+  S.filters = DEFAULT_SESSION().filters; S.sort = 'rec'; S.page = 1; S.query = '';
+  S.taskStartedAt = Date.now();
+  SUCCESS_FIRED = false;
+  ASSIST_MSGS = [];
+  if (!silent) { track('journey_reset', 'soft'); toast('Journey reset. Same participant.'); }
+  go('#/'); paintChrome(); paintMod();
+}
+function hardReset() {
+  openModal(`<button class="x" onclick="closeModal()">&times;</button>
+    <h2 class="h2">Start a new participant?</h2>
+    <p class="sub" style="margin:9px 0 18px">This clears the cart, the journey and <b>all ${EVENTS.length} captured events</b>. Export first if you have not already.</p>
+    <div style="display:flex;gap:9px;flex-wrap:wrap">
+      <button class="btn out" onclick="exportJSON()">Export JSON first</button>
+      <button class="btn out" onclick="exportCSV()">Export CSV first</button>
+      <button class="btn pri" onclick="confirmHardReset()">Clear and start new participant</button>
+    </div>`, 'sm');
+}
+function confirmHardReset() {
+  const keepCond = S.condition, keepMission = S.mission;
+  EVENTS = []; S = DEFAULT_SESSION();
+  S.condition = keepCond; S.mission = keepMission;
+  SUCCESS_FIRED = false; ASSIST_MSGS = [];
+  save(); closeModal(); go('#/'); paintChrome(); paintMod(); paintLog();
+  track('session_started', 'after_hard_reset');
+  toast('New participant session started.');
+}
+function setCondition(c, silent) {
+  S.condition = c;
+  if (!silent) track('condition_changed', c);
+  paintChrome(); paintMod(); render();
+}
+function setMission(m, silent) {
+  S.mission = +m; S.taskStartedAt = Date.now(); SUCCESS_FIRED = false;
+  if (!silent) track('mission_changed', MISSIONS[S.mission].label);
+  paintChrome(); paintMod();
+}
+function setParticipant(v) { S.participantId = v.trim(); save(); track('participant_set', S.participantId || 'cleared'); paintMod(); }
+function bookmark() {
+  const b = { ts: new Date().toISOString(), route: location.hash, msSinceTask: Date.now() - S.taskStartedAt };
+  S.bookmarks.push(b); track('moderator_bookmark', b); toast('Moment bookmarked.');
+}
+
+/* ---- routing ------------------------------------------------------------ */
+const ROUTES = [
+  [/^#\/$/,                       () => viewHome()],
+  [/^#\/computers$/,              () => viewCategory()],
+  [/^#\/laptops$/,                () => viewBrowse()],
+  [/^#\/search$/,                 () => viewSearch()],
+  [/^#\/search\?q=(.*)$/,         m  => { const q = decodeURIComponent(m[1].replace(/\+/g, ' '));
+                                          if (S.query !== q) { S.query = q; save(); }
+                                          return viewSearch(); }],
+  [/^#\/product\/(\d+)$/,         m  => viewPDP(+m[1])],
+  [/^#\/compare$/,                () => viewCompare()],
+  [/^#\/advisor$/,                () => viewAdvisor()],
+  [/^#\/collections\/([\w-]+)$/,  m  => viewCollection(m[1])],
+  [/^#\/collections$/,            () => viewCollectionsIndex()],
+  [/^#\/guide$/,                  () => viewGuide()],
+  [/^#\/brand\/([\w%20-]+)$/,     m  => viewBrand(decodeURIComponent(m[1]))],
+  [/^#\/cart$/,                   () => viewCart()],
+  [/^#\/checkout$/,               () => viewCheckout()],
+  [/^#\/order\/(\w+)$/,           m  => viewOrder(m[1])],
+  [/^#\/research$/,               () => viewConsole()]
+];
+
+function go(hash) { if (location.hash === hash) render(); else location.hash = hash; }
+
+function render() {
+  const h = location.hash || '#/';
+  if (h !== _lastRoute) {
+    leaveRoute();
+    _routeEnter = Date.now(); _maxScroll = 0; _lastRoute = h;
+  }
+  let handled = false;
+  for (const [re, fn] of ROUTES) {
+    const m = h.match(re);
+    if (m) { document.getElementById('app').innerHTML = fn(m); handled = true; break; }
+  }
+  if (!handled) document.getElementById('app').innerHTML = view404();
+  window.scrollTo(0, 0);
+  paintChrome();
+  afterRender(h);
+}
+
+/* per-route side effects that need the DOM to exist */
+let _cdT = null;
+function afterRender(h) {
+  if (/^#\/laptops|^#\/search|^#\/brand|^#\/collections\//.test(h)) bindFacets();
+  if (h === '#/' || h === '') { startHero(); tickCountdown(); clearInterval(_cdT); _cdT = setInterval(tickCountdown, 1000); }
+  else clearInterval(_cdT);
+  if (/^#\/product\/(\d+)$/.test(h)) {
+    const id = +h.match(/(\d+)$/)[1];
+    track('product_viewed', { id, sku: P(id).sku, name: P(id).name, richness: effectiveRichness(P(id)) });
+  }
+  if (h === '#/research') paintConsole();
+  paintCompareBar();
+}
+
+
+/* ===== app-views1.js ===== */
+/* ==========================================================================
+   Part 2: shared components, home, category, browse, search
+   ========================================================================== */
+
+function vizLap(p, cls) {
+  const h = p ? p.hue : 210;
+  return `<div class="viz ${cls || ''}"><div class="lap" style="--c1:hsl(${h},70%,72%);--c2:hsl(${h},64%,40%)">
+    <div class="scr"></div><div class="base"></div></div></div>`;
+}
+function starRow(r) {
+  const full = Math.round(r);
+  return `<span class="stars" aria-label="${r} out of 5">${'★'.repeat(full)}${'☆'.repeat(5 - full)}</span>`;
+}
+function effectiveRichness(p) {
+  const c = cond().pdpContent;
+  if (c === 'rich') return 'rich';
+  if (c === 'thin') return 'thin';
+  return p.contentRichness;
+}
+function deliveryText(p) {
+  const dp = cond().deliveryPromise;
+  if (dp === 'weak') return 'Delivery available';
+  const d = new Date(); d.setDate(d.getDate() + p.deliveryDays);
+  const day = d.toLocaleDateString('en-US', { weekday: 'long' });
+  return dp === 'strong' ? `✓ Free delivery by ${day}, order within 4 hrs` : `✓ Free delivery by ${day}`;
+}
+
+function pcard(p) {
+  const sp = cond().sponsored && p.sponsored;
+  return `<article class="pcard">
+    ${vizLap(p)}
+    ${p.tags[0] ? `<div style="margin-bottom:6px"><span class="tag ${/Save/.test(p.tags[0]) ? 'hot' : ''}">${p.tags[0]}</span>${sp ? ' <span class="tag sp">Sponsored</span>' : ''}</div>` : (sp ? '<div style="margin-bottom:6px"><span class="tag sp">Sponsored</span></div>' : '')}
+    <div class="pbrand">${p.brand}</div>
+    <a class="pname" onclick="go('#/product/${p.id}')">${p.name}</a>
+    <div class="rline">${starRow(p.rating)} <b>${p.rating}</b> <span>(${p.reviewCount.toLocaleString()})</span></div>
+    <div class="specrow">
+      <span class="spec">${p.cpu.split(' ').slice(0, 3).join(' ')}</span>
+      <span class="spec">${p.ram}</span>
+      <span class="spec">${p.storage}</span>
+      <span class="spec">${p.screenSize}"</span>
+    </div>
+    <div class="price">${money(p.price)} ${p.wasPrice ? `<span class="was">${money(p.wasPrice)}</span>` : ''}</div>
+    <div class="fin">or ${money(p.financing)}/mo for 12 months</div>
+    <div class="delivery">${deliveryText(p)}</div>
+    <div class="pactions">
+      <button class="btn ghost" onclick="go('#/product/${p.id}')">View details</button>
+      <button class="btn pri" onclick="addToCart(${p.id})">Add to cart</button>
+    </div>
+    <label class="cmpline"><input type="checkbox" ${S.compare.includes(p.id) ? 'checked' : ''}
+      onchange="toggleCompare(${p.id},this.checked)"> Compare</label>
+  </article>`;
+}
+
+/* ---------------- filtering + sorting + pagination ---------------- */
+const PER_PAGE = 12;
+
+function applyFilters(list) {
+  /* the query only narrows results on the search route. Carrying it into browse,
+     a brand shop or a collection would silently distort every later session. */
+  const f = S.filters, q = /^#\/search/.test(location.hash) ? S.query.trim().toLowerCase() : '';
+  return list.filter(p => {
+    if (q) {
+      const hay = (p.name + ' ' + p.brand + ' ' + p.use.join(' ') + ' ' + p.cpu + ' ' + p.os).toLowerCase();
+      if (!q.split(/\s+/).every(t => hay.includes(t))) return false;
+    }
+    if (f.use.length && !f.use.some(u => p.use.includes(u))) return false;
+    if (f.brand.length && !f.brand.includes(p.brand)) return false;
+    if (f.os.length && !f.os.includes(p.os)) return false;
+    if (f.cpu.length && !f.cpu.includes(p.cpuBrand)) return false;
+    if (f.type.length && !f.type.includes(p.type)) return false;
+    if (f.ram.length && !f.ram.includes(ramBand(p))) return false;
+    if (f.storage.length && !f.storage.includes(storageBand(p))) return false;
+    if (f.screen.length && !f.screen.includes(screenBand(p))) return false;
+    if (f.price[0] != null && p.price < f.price[0]) return false;
+    if (f.price[1] != null && p.price > f.price[1]) return false;
+    if (f.rating && p.rating < f.rating) return false;
+    if (f.touch && !p.touch) return false;
+    if (f.deals && !p.wasPrice) return false;
+    return true;
+  });
+}
+function applySort(list) {
+  const a = list.slice();
+  const rank = cond().searchRank;
+  if (S.sort === 'low') a.sort((x, y) => x.price - y.price);
+  else if (S.sort === 'high') a.sort((x, y) => y.price - x.price);
+  else if (S.sort === 'rating') a.sort((x, y) => y.rating - x.rating || y.reviewCount - x.reviewCount);
+  else if (S.sort === 'selling') a.sort((x, y) => y.reviewCount - x.reviewCount);
+  else if (S.sort === 'discount') a.sort((x, y) => ((y.wasPrice || y.price) - y.price) - ((x.wasPrice || x.price) - x.price));
+  else if (S.sort === 'new') a.sort((x, y) => y.releaseYear - x.releaseYear || y.id - x.id);
+  else {
+    if (rank === 'popularity') a.sort((x, y) => y.reviewCount - x.reviewCount);
+    else a.sort((x, y) => (y.rating * 40 + (y.tags.length * 8) + (y.sponsored ? 30 : 0)) -
+                          (x.rating * 40 + (x.tags.length * 8) + (x.sponsored ? 30 : 0)));
+    if (cond().sponsored) { const sp = a.filter(p => p.sponsored), rest = a.filter(p => !p.sponsored); return sp.slice(0, 2).concat(rest, sp.slice(2)); }
+  }
+  return a;
+}
+/* Banded facet values, following US large-format retailer convention:
+   inch bands for screen size, discrete tiers for memory and storage. */
+const PRICE_BANDS = [
+  { label: 'Under $300',        lo: null, hi: 299 },
+  { label: '$300 - $499.99',    lo: 300,  hi: 499 },
+  { label: '$500 - $749.99',    lo: 500,  hi: 749 },
+  { label: '$750 - $999.99',    lo: 750,  hi: 999 },
+  { label: '$1,000 - $1,499.99',lo: 1000, hi: 1499 },
+  { label: '$1,500 - $1,999.99',lo: 1500, hi: 1999 },
+  { label: '$2,000 and above',  lo: 2000, hi: null }
+];
+function ramBand(p) { return p.ramGb + ' GB'; }
+function storageBand(p) { return p.storageGb >= 1024 ? (p.storageGb / 1024) + ' TB' : p.storageGb + ' GB'; }
+function screenBand(p) {
+  const n = Math.floor(p.screenSize);
+  if (n <= 11) return '11 - 11.9 inches';
+  if (n >= 17) return '17 inches & up';
+  return n + ' - ' + n + '.9 inches';
+}
+function bandValues(base, fn, order) {
+  const seen = [...new Set(base.map(fn))];
+  return order ? order.filter(v => seen.includes(v)) : seen.sort();
+}
+
+function facetCount(key, val, base) {
+  return base.filter(p => key === 'use' ? p.use.includes(val)
+    : key === 'brand' ? p.brand === val
+    : key === 'os' ? p.os === val
+    : key === 'type' ? p.type === val
+    : key === 'ram' ? ramBand(p) === val
+    : key === 'storage' ? storageBand(p) === val
+    : key === 'screen' ? screenBand(p) === val
+    : key === 'cpu' ? p.cpuBrand === val : false).length;
+}
+
+function priceBandOn(b) {
+  const f = S.filters.price;
+  return f[0] === b.lo && f[1] === b.hi;
+}
+function setPriceBand(i) {
+  const b = PRICE_BANDS[i];
+  if (priceBandOn(b)) S.filters.price = [null, null];
+  else S.filters.price = [b.lo, b.hi];
+  S.page = 1; track('filter_changed', { facet: 'price', value: b.label }); render();
+}
+
+function facetPanel(base) {
+  const f = S.filters;
+  const grp = (title, key, values, open) => `<div class="fgroup"><b>${title}</b>
+    ${values.map(v => `<label><input type="checkbox" data-k="${key}" value="${v}" ${f[key].includes(v) ? 'checked' : ''}> ${v}
+      <span class="cnt">${facetCount(key, v, base)}</span></label>`).join('')}</div>`;
+  const brandsByCount = BRANDS.map(b => b.name)
+    .filter(n => facetCount('brand', n, base) > 0)
+    .sort((a, b) => facetCount('brand', b, base) - facetCount('brand', a, base));
+  return `<aside class="card facets" id="facets">
+    <h3>Filter results</h3>
+    ${grp('Category', 'type', bandValues(base, p => p.type, TYPES))}
+    ${grp('Brand', 'brand', brandsByCount)}
+    <div class="fgroup"><b>Price</b>
+      ${PRICE_BANDS.map((b, i) => {
+        const n = base.filter(p => (b.lo == null || p.price >= b.lo) && (b.hi == null || p.price <= b.hi)).length;
+        return n ? `<label><input type="checkbox" ${priceBandOn(b) ? 'checked' : ''}
+          onchange="setPriceBand(${i})"> ${b.label} <span class="cnt">${n}</span></label>` : '';
+      }).join('')}
+      <div class="prices" style="margin-top:8px">
+        <input id="pmin" type="number" placeholder="$ Min" value="${f.price[0] ?? ''}">
+        <input id="pmax" type="number" placeholder="$ Max" value="${f.price[1] ?? ''}">
+      </div>
+      <button class="btn ghost" style="margin-top:9px;width:100%;padding:8px" onclick="applyPrice()">Apply</button>
+    </div>
+    <div class="fgroup"><b>Customer rating</b>
+      ${[4.5, 4, 3.5].map(r => `<label><input type="radio" name="rt" ${f.rating === r ? 'checked' : ''}
+        onchange="S.filters.rating=${r};S.page=1;track('filter_changed',{rating:${r}});render()"> ${r} &amp; up</label>`).join('')}
+      <label><input type="radio" name="rt" ${!f.rating ? 'checked' : ''}
+        onchange="S.filters.rating=0;S.page=1;track('filter_changed',{rating:'any'});render()"> Any rating</label>
+    </div>
+    ${grp('Screen size', 'screen', bandValues(base, screenBand,
+      ['11 - 11.9 inches','12 - 12.9 inches','13 - 13.9 inches','14 - 14.9 inches','15 - 15.9 inches','16 - 16.9 inches','17 inches & up']))}
+    ${grp('System memory (RAM)', 'ram', bandValues(base, ramBand, ['4 GB','8 GB','16 GB','24 GB','32 GB']))}
+    ${grp('Total storage capacity', 'storage', bandValues(base, storageBand, ['64 GB','128 GB','256 GB','512 GB','1 TB']))}
+    ${grp('Processor brand', 'cpu', bandValues(base, p => p.cpuBrand, ['Intel','AMD','Qualcomm','Apple','MediaTek']))}
+    ${grp('Operating system', 'os', bandValues(base, p => p.os, OS))}
+    ${grp('Best for', 'use', ['School', 'Work', 'Creative', 'Gaming', 'Everyday'])}
+    <div class="fgroup"><b>Features</b>
+      <label><input type="checkbox" ${f.touch ? 'checked' : ''}
+        onchange="S.filters.touch=this.checked;S.page=1;track('filter_changed',{facet:'touch',on:this.checked});render()">
+        Touchscreen <span class="cnt">${base.filter(p => p.touch).length}</span></label>
+      <label><input type="checkbox" ${f.deals ? 'checked' : ''}
+        onchange="S.filters.deals=this.checked;S.page=1;track('filter_changed',{facet:'deals',on:this.checked});render()">
+        On sale <span class="cnt">${base.filter(p => p.wasPrice).length}</span></label>
+    </div>
+    <button class="btn ghost" style="width:100%;margin-top:6px" onclick="clearFilters()">Clear all filters</button>
+  </aside>`;
+}
+function bindFacets() {
+  document.querySelectorAll('#facets input[type=checkbox][data-k]').forEach(el => {
+    el.onchange = () => {
+      const k = el.dataset.k, v = el.value, arr = S.filters[k];
+      if (el.checked) { if (!arr.includes(v)) arr.push(v); } else S.filters[k] = arr.filter(x => x !== v);
+      S.page = 1;
+      track('filter_changed', { facet: k, value: v, on: el.checked, active: activeFilterList() });
+      render();
+    };
+  });
+}
+function applyPrice() {
+  const lo = document.getElementById('pmin').value, hi = document.getElementById('pmax').value;
+  S.filters.price = [lo === '' ? null : +lo, hi === '' ? null : +hi];
+  S.page = 1; track('filter_changed', { facet: 'price', value: S.filters.price }); render();
+}
+function clearFilters() {
+  S.filters = DEFAULT_SESSION().filters; S.page = 1;
+  track('filters_cleared'); render();
+}
+function activeFilterList() {
+  const f = S.filters, out = [];
+  ['use', 'brand', 'os', 'cpu', 'type', 'ram', 'storage', 'screen'].forEach(k => f[k].forEach(v => out.push(k + ':' + v)));
+  if (f.price[0] != null || f.price[1] != null) out.push('price:' + (f.price[0] ?? '') + '-' + (f.price[1] ?? ''));
+  if (f.rating) out.push('rating:' + f.rating);
+  if (f.touch) out.push('touch:Touchscreen');
+  if (f.deals) out.push('deals:On sale');
+  return out;
+}
+function chipsBar() {
+  const a = activeFilterList();
+  if (!a.length) return '';
+  return `<div class="chips">${a.map(x => `<span class="chip">${chipLabel(x)}
+    <button onclick="removeFilter('${x}')" aria-label="Remove">×</button></span>`).join('')}
+    <button class="chip" style="background:#fff" onclick="clearFilters()">Clear all</button></div>`;
+}
+function chipLabel(token) {
+  const k = token.slice(0, token.indexOf(':')), v = token.slice(token.indexOf(':') + 1);
+  if (k === 'price') {
+    const [lo, hi] = v.split('-');
+    if (lo && hi) return money(+lo) + ' to ' + money(+hi);
+    if (hi) return 'Under ' + money(+hi);
+    return money(+lo) + ' and up';
+  }
+  if (k === 'rating') return v + ' stars and up';
+  return v;
+}
+function removeFilter(token) {
+  const [k, v] = token.split(':');
+  if (k === 'price') S.filters.price = [null, null];
+  else if (k === 'rating') S.filters.rating = 0;
+  else if (k === 'touch') S.filters.touch = false;
+  else if (k === 'deals') S.filters.deals = false;
+  else S.filters[k] = S.filters[k].filter(x => x !== v);
+  S.page = 1; track('filter_removed', token); render();
+}
+function setSort(v) { S.sort = v; S.page = 1; track('sort_changed', v); render(); }
+function setPage(n) { S.page = n; track('page_changed', n); render(); window.scrollTo(0, 240); }
+
+function resultsGrid(list, emptyMsg) {
+  const total = list.length;
+  const pages = Math.max(1, Math.ceil(total / PER_PAGE));
+  if (S.page > pages) S.page = 1;
+  const slice = list.slice((S.page - 1) * PER_PAGE, S.page * PER_PAGE);
+  if (!total) return `<div class="empty"><b>${emptyMsg || 'No laptops match those filters.'}</b>
+    <div style="margin-top:12px"><button class="btn out" onclick="clearFilters()">Clear filters</button></div></div>`;
+  return `<div class="products">${slice.map(pcard).join('')}</div>
+    ${pages > 1 ? pager(pages) : ''}`;
+}
+function pager(pages) {
+  const cur = S.page;
+  let btns = '';
+  for (let i = 1; i <= pages; i++) btns += `<button class="${i === cur ? 'on' : ''}" onclick="setPage(${i})">${i}</button>`;
+  return `<nav class="pager" aria-label="Pagination">
+    <button onclick="setPage(${Math.max(1, cur - 1)})" ${cur === 1 ? 'disabled' : ''}>‹</button>
+    ${btns}
+    <button onclick="setPage(${Math.min(pages, cur + 1)})" ${cur === pages ? 'disabled' : ''}>›</button>
+  </nav>`;
+}
+
+/* ---------------- home ---------------- */
+/* ---------------- homepage ---------------- */
+
+const HERO_SLIDES = [
+  { tag: 'Back to school', h: 'Everything they need, nothing they don\'t.',
+    p: 'Student laptops from $269, with free delivery and 15-day returns.',
+    cta: 'Shop student picks', act: "go('#/collections/student')", hue: 205, from: '#0b5bd3', to: '#22a3e0' },
+  { tag: 'New season', h: 'Creative machines, built to keep up.',
+    p: 'Colour-accurate displays and real horsepower for photo and video.',
+    cta: 'Shop creators', act: "go('#/collections/creator')", hue: 268, from: '#3b1a8f', to: '#8b3fd6' },
+  { tag: 'Not sure yet?', h: 'Answer four questions. We\'ll do the rest.',
+    p: 'We narrow 60 laptops down to the handful that actually fit you.',
+    cta: 'Help me choose', act: "go('#/advisor')", hue: 168, from: '#0d7a5f', to: '#25b389' }
+];
+let HERO_I = 0, HERO_T = null;
+
+function heroCarousel() {
+  return `<section class="carousel" id="carousel">
+    ${HERO_SLIDES.map((s, i) => `<div class="cslide ${i === HERO_I ? 'on' : ''}"
+      style="background:linear-gradient(120deg,${s.from},${s.to})">
+      <div class="ctext">
+        <span class="ctag">${s.tag}</span>
+        <h1>${s.h}</h1><p>${s.p}</p>
+        <button class="btn lg" style="background:#fff;color:#0f2036"
+          onclick="track('hero_cta_clicked','${s.tag}');${s.act}">${s.cta}</button>
+      </div>
+      <div class="cart2">${vizLap({ hue: s.hue })}</div>
+    </div>`).join('')}
+    <button class="cnav prev" onclick="heroGo(${'-1'})" aria-label="Previous">&#8249;</button>
+    <button class="cnav next" onclick="heroGo(1)" aria-label="Next">&#8250;</button>
+    <div class="cdots">${HERO_SLIDES.map((s, i) => `<button class="${i === HERO_I ? 'on' : ''}"
+      onclick="heroSet(${i})" aria-label="Slide ${i + 1}"></button>`).join('')}</div>
+  </section>`;
+}
+function heroSet(i, auto) {
+  HERO_I = (i + HERO_SLIDES.length) % HERO_SLIDES.length;
+  if (!auto) track('hero_slide_changed', HERO_I);
+  const slides = document.querySelectorAll('.cslide');
+  const dots = document.querySelectorAll('.cdots button');
+  slides.forEach((el, n) => el.classList.toggle('on', n === HERO_I));
+  dots.forEach((el, n) => el.classList.toggle('on', n === HERO_I));
+}
+function heroGo(d) { heroSet(HERO_I + d); }
+function startHero() {
+  clearInterval(HERO_T);
+  HERO_T = setInterval(() => {
+    if (!document.getElementById('carousel')) { clearInterval(HERO_T); return; }
+    heroSet(HERO_I + 1, true);
+  }, 7000);
+}
+
+const CATSTRIP = [
+  ['All laptops', '#/laptops', 'all'],
+  ['Copilot+ PCs', 'type:Copilot+ PCs', ''],
+  ['Gaming laptops', 'type:Gaming laptops', ''],
+  ['2-in-1 laptops', 'type:2-in-1 laptops', ''],
+  ['Chromebooks', 'type:Chromebooks', ''],
+  ['MacBooks', 'type:MacBooks', ''],
+  ['Business laptops', 'type:Business laptops', ''],
+  ['Deals', 'deals', '']
+];
+
+function dealOfDay() {
+  const d = CATALOG.filter(p => p.wasPrice)
+    .sort((a, b) => (b.wasPrice - b.price) - (a.wasPrice - a.price))[0];
+  const sold = 60 + (d.id * 7) % 30, left = 100 - sold;
+  return `<section class="dotd">
+    <div class="dotdviz">${vizLap(d)}<span class="dotdflag">Deal of the day</span></div>
+    <div class="dotdbody">
+      <div class="pbrand">${d.brand}</div>
+      <h2 class="h2" style="margin:4px 0 6px">${d.name}</h2>
+      <div class="rline">${starRow(d.rating)} <b>${d.rating}</b> <span>(${d.reviewCount.toLocaleString()})</span></div>
+      <div class="price" style="font-size:28px;margin:0">${money(d.price)}
+        <span class="was">${money(d.wasPrice)}</span>
+        <span class="tag hot">Save ${money(d.wasPrice - d.price)}</span></div>
+      <div class="specrow" style="margin:10px 0">
+        ${[d.cpu, d.ram, d.storage, d.screenSize + '"'].map(s => `<span class="spec">${s}</span>`).join('')}
+      </div>
+      <div class="soldbar"><span style="width:${sold}%"></span></div>
+      <div class="sub" style="margin:6px 0 12px">${sold} sold &middot; ${left} left at this price
+        &middot; ends in <b id="dcount">05:59:59</b></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn pri lg" onclick="addToCart(${d.id})">Add to cart</button>
+        <button class="btn out lg" onclick="go('#/product/${d.id}')">View details</button>
+      </div>
+    </div>
+  </section>`;
+}
+function tickCountdown() {
+  const el = document.getElementById('dcount');
+  if (!el) return;
+  const end = new Date(); end.setHours(23, 59, 59, 0);
+  let s = Math.max(0, Math.floor((end - Date.now()) / 1000));
+  const p = n => String(n).padStart(2, '0');
+  el.textContent = `${p(Math.floor(s / 3600))}:${p(Math.floor(s / 60) % 60)}:${p(s % 60)}`;
+}
+
+function viewHome() {
+  const deals = CATALOG.filter(p => p.wasPrice)
+    .sort((a, b) => (b.wasPrice - b.price) - (a.wasPrice - a.price));
+  const top = CATALOG.slice().sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount).slice(0, 10);
+  const budget = CATALOG.filter(p => p.price < 700).sort((a, b) => a.price - b.price).slice(0, 10);
+  const gaming = CATALOG.filter(p => p.use.includes('Gaming')).sort((a, b) => b.rating - a.rating).slice(0, 10);
+  const fresh = CATALOG.filter(p => p.releaseYear >= 2025).sort((a, b) => b.price - a.price).slice(0, 10);
+  const recent = recentlyViewed();
+  const sponsored = cond().sponsored ? CATALOG.filter(p => p.sponsored).slice(0, 4) : [];
+
+  return `
+  ${heroCarousel()}
+
+  <nav class="catstrip">${CATSTRIP.map(c => `<a onclick="tileGo('${c[1]}')">
+    <span class="ico">${catIcon(c[0])}</span><b>${c[0]}</b></a>`).join('')}</nav>
+
+  <div class="promos">
+    <div class="promo a"><div><h3>Back to school savings</h3>
+      <p>Up to ${money(320)} off selected laptops for students and families.</p></div>
+      <div><button class="btn" style="background:#fff;color:var(--d)" onclick="go('#/collections/student')">Shop the event</button></div></div>
+    <div class="promo b"><div><h3>Trade in, trade up</h3><p>Get credit towards a new machine.</p></div>
+      <div><button class="btn" style="background:#ffffff26;color:#fff;border-color:#ffffff55" onclick="toast('Trade-in is not part of this prototype')">Estimate value</button></div></div>
+    <div class="promo c"><div><h3>Free delivery</h3><p>On orders over ${money(35)}. Most laptops arrive in 2 to 4 days.</p></div></div>
+  </div>
+
+  ${dealOfDay()}
+
+  <div class="sectionhead"><div><h2 class="h2">Today's top deals</h2>
+    <p class="sub">${deals.length} laptops reduced this week.</p></div>
+    <button class="btn ghost" onclick="tileGo('deals')">See all deals</button></div>
+  <div class="products">${deals.slice(0, 6).map(pcard).join('')}</div>
+
+  ${cond().collections ? `
+  <div class="sectionhead"><div><h2 class="h2">Shop by what you need</h2>
+    <p class="sub">Curated picks, chosen by our team for a specific job.</p></div>
+    <button class="btn ghost" onclick="go('#/collections')">See all collections</button></div>
+  <div class="tiles">${COLLECTIONS.map(c => `<a class="tile" onclick="go('#/collections/${c.slug}')">
+    <b>${c.title}</b><span>${c.blurb} &middot; ${CATALOG.filter(c.pick).length} picks</span></a>`).join('')}</div>` : ''}
+
+  ${rail('Top rated laptops', top, "tileGo('rating')")}
+
+  ${cond().advisor !== 'hidden' ? `<div class="helpbar">
+    <div><strong>Not sure where to start?</strong>
+      <span>Answer four quick questions and we'll narrow ${CATALOG.length} laptops down to a few that fit.</span></div>
+    <button class="btn out" onclick="go('#/advisor')">Start the guide</button>
+  </div>` : ''}
+
+  ${rail("Great value under " + money(700), budget, "tileGo('price:700')")}
+
+  <div class="dualbanner">
+    <a class="dbanner" onclick="go('#/guide')">
+      <span class="dbtag">Buying guide</span>
+      <b>How much memory do you actually need?</b>
+      <span>8 GB, 16 GB or 32 GB, explained without the jargon.</span></a>
+    <a class="dbanner alt" onclick="go('#/compare')">
+      <span class="dbtag">Tool</span>
+      <b>Compare up to four laptops side by side</b>
+      <span>Differences highlighted automatically.</span></a>
+  </div>
+
+  ${rail('Built for gaming', gaming, "tileGo('use:Gaming')")}
+  ${rail('New for 2025 and 2026', fresh, "go('#/laptops')")}
+
+  ${sponsored.length ? `<div class="sectionhead"><div><h2 class="h2">Featured brands</h2>
+    <p class="sub">Sponsored placements</p></div></div>
+  <div class="products">${sponsored.map(pcard).join('')}</div>` : ''}
+
+  ${recent.length ? `${rail('Recently viewed', recent, "go('#/laptops')")}` : ''}
+
+  <div class="sectionhead"><h2 class="h2">Shop by brand</h2></div>
+  <div class="brandstrip">${BRANDS.map(b => `<a onclick="go('#/brand/${encodeURIComponent(b.name)}')"
+    style="--bh:${b.hue}"><b>${b.name}</b><span>${CATALOG.filter(p => p.brand === b.name).length} models</span></a>`).join('')}</div>
+
+  <div class="sectionhead"><h2 class="h2">Trending searches</h2></div>
+  <div class="chips" style="margin-bottom:22px">${['gaming laptop', '16 GB', 'chromebook for school',
+    'lightest laptop', 'OLED', 'under $500', 'touchscreen', 'best battery']
+    .map(t => `<button class="chip" onclick="doSearch('${t}')">${t}</button>`).join('')}</div>
+
+  <div class="svcs">
+    ${[['Free delivery', 'On orders over $35, most laptops in 2 to 4 days'],
+       ['Store pickup', 'Ready in an hour at selected stores'],
+       ['15-day returns', 'Free, in store or by post'],
+       ['Protection plans', 'Accidental damage cover from $89'],
+       ['Financing', 'From $22 a month with a Novi Card'],
+       ['Expert help', 'Talk to someone before you buy']]
+      .map(s => `<div class="svc"><b>${s[0]}</b><span>${s[1]}</span></div>`).join('')}
+  </div>
+
+  <section class="signup">
+    <div><b>Deals worth knowing about</b>
+      <span>Price drops on the laptops you're watching. No spam, unsubscribe any time.</span></div>
+    <div class="signupform">
+      <input placeholder="you@example.com" aria-label="Email address">
+      <button class="btn pri" onclick="track('newsletter_signup');toast('Simulated. Nothing was sent.')">Sign up</button>
+    </div>
+  </section>`;
+}
+
+function catIcon(name) {
+  const map = {
+    'Laptops': '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M2 19h20"/></svg>',
+    'Gaming': '<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="5"/><path d="M7 12h3M8.5 10.5v3M16 11h.01M18 13h.01"/></svg>',
+    '2-in-1 &amp; touch': '<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 18h6"/></svg>',
+    'Chromebooks': '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l7 4"/></svg>',
+    'Mac': '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M9 21h6"/></svg>',
+    'Business': '<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>',
+    'Under $700': '<svg viewBox="0 0 24 24"><path d="M12 3v18M8 7h6a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6"/></svg>',
+    'Deals': '<svg viewBox="0 0 24 24"><path d="M20 12l-8 8-8-8V4h8z"/><circle cx="9" cy="9" r="1.4"/></svg>'
+  };
+  return map[name] || map['Laptops'];
+}
+
+function recentlyViewed() {
+  const ids = [];
+  for (let i = EVENTS.length - 1; i >= 0 && ids.length < 8; i--) {
+    if (EVENTS[i].event !== 'product_viewed') continue;
+    let id = null;
+    try { id = JSON.parse(EVENTS[i].detail).id; } catch (e) { }
+    if (id != null && !ids.includes(id)) ids.push(id);
+  }
+  return ids.map(P).filter(Boolean);
+}
+
+function rail(title, items, seeAll) {
+  return `<div class="sectionhead"><h2 class="h2">${title}</h2>
+    <button class="btn ghost" onclick="${seeAll || "go('#/laptops')"}">See all</button></div>
+    <div class="railwrap"><div class="rail">${items.map(pcard).join('')}</div></div>`;
+}
+
+function tileGo(h) {
+  S.filters = DEFAULT_SESSION().filters;
+  S.page = 1; S.sort = 'rec';
+  if (h.startsWith('use:')) S.filters.use = [h.slice(4)];
+  else if (h.startsWith('type:')) S.filters.type = [h.slice(5)];
+  else if (h.startsWith('os:')) S.filters.os = [h.slice(3)];
+  else if (h.startsWith('price:')) S.filters.price = [null, +h.slice(6)];
+  else if (h === 'touch') S.filters.touch = true;
+  else if (h === 'deals') S.filters.deals = true;
+  else if (h === 'rating') S.sort = 'rating';
+  track('category_tile_clicked', h);
+  go('#/laptops');
+}
+
+/* ---------------- category landing ---------------- */
+function viewCategory() {
+  const subs = TYPES.map(t => [t, CATALOG.filter(p => p.type === t).length, 'type:' + t])
+    .filter(s => s[1] > 0);
+  subs.unshift(['All laptops', CATALOG.length, '#/laptops']);
+  return `${crumbs([['Home', '#/'], ['Computers & Tablets', '#/computers']])}
+  <div class="sectionhead"><div><h1 class="h1">Computers & Tablets</h1>
+    <p class="sub">${CATALOG.length} laptops in stock across ${BRANDS.length} brands.</p></div></div>
+  <div class="tiles">${subs.map(s => `<a class="tile" onclick="subGo('${s[2]}')">
+    <b>${s[0]}</b><span>${s[1]} products</span></a>`).join('')}</div>
+  <div class="sectionhead"><h2 class="h2">Popular brands</h2></div>
+  <div class="tiles">${BRANDS.map(b => `<a class="tile" onclick="go('#/brand/${encodeURIComponent(b.name)}')">
+    <b>${b.name}</b><span>${b.tone}</span></a>`).join('')}</div>
+  <div class="sectionhead"><h2 class="h2">Helpful guides</h2></div>
+  <div class="tiles"><a class="tile" onclick="go('#/guide')"><b>How to choose a laptop</b>
+    <span>Processors, memory and storage explained in plain language</span></a></div>`;
+}
+function subGo(token) {
+  if (token.startsWith('#/')) { go(token); return; }
+  S.filters = DEFAULT_SESSION().filters;
+  if (token.startsWith('use:')) S.filters.use = [token.slice(4)];
+  else if (token.startsWith('type:')) S.filters.type = [token.slice(5)];
+  else if (token.startsWith('os:')) S.filters.os = [token.slice(3)];
+  S.page = 1; track('subcategory_clicked', token); go('#/laptops');
+}
+
+/* ---------------- browse ---------------- */
+function viewBrowse() {
+  const base = CATALOG;
+  const filtered = applySort(applyFilters(base));
+  return `${crumbs([['Home', '#/'], ['Computers & Tablets', '#/computers'], ['Laptops', '#/laptops']])}
+  <div class="sectionhead"><div><h1 class="h1">Laptops</h1>
+    <p class="sub" id="resultcount">Showing ${Math.min(PER_PAGE, filtered.length)} of ${filtered.length} results</p></div>
+    ${cond().advisor !== 'hidden' ? `<button class="btn ${cond().advisor === 'prominent' ? 'pri' : 'out'}" onclick="go('#/advisor')">Help me choose</button>` : ''}</div>
+  ${cond().advisor === 'prominent' ? `<div class="helpbar"><div><strong>Answer three questions, see your matches</strong>
+    <span>We'll narrow ${CATALOG.length} laptops down to the few that fit how you'll actually use it.</span></div>
+    <button class="btn pri" onclick="go('#/advisor')">Start the guide</button></div>` : ''}
+  <div class="shop">
+    ${facetPanel(base)}
+    <section>
+      ${chipsBar()}
+      <div class="toolbar">
+        <span class="sub">${activeFilterList().length ? 'Filtered results' : 'Recommended for you'}</span>
+        ${sortSelect()}
+      </div>
+      ${resultsGrid(filtered)}
+    </section>
+  </div>`;
+}
+function sortSelect() {
+  const opts = [['rec', 'Best Match'], ['discount', 'Best Discount'],
+                ['low', 'Price Low to High'], ['high', 'Price High to Low'],
+                ['rating', 'Customer Rating'], ['selling', 'Best Selling'], ['new', 'Newest']];
+  return `<select onchange="setSort(this.value)" aria-label="Sort results">
+    ${opts.map(o => `<option value="${o[0]}" ${S.sort === o[0] ? 'selected' : ''}>Sort: ${o[1]}</option>`).join('')}</select>`;
+}
+
+/* ---------------- search ---------------- */
+function viewSearch() {
+  const q = S.query.trim();
+  const filtered = applySort(applyFilters(CATALOG));
+  const suggestions = ['laptop', 'gaming laptop', 'cheap laptop', '16gb laptop', 'lightweight laptop', 'laptop for school'];
+  if (!filtered.length) {
+    return `${crumbs([['Home', '#/'], ['Search', '#/search']])}
+      <div class="sectionhead"><h1 class="h1">No results for "${esc(q)}"</h1></div>
+      <div class="card" style="padding:26px">
+        <p>We couldn't find a match. Try one of these instead:</p>
+        <div class="chips" style="margin-top:12px">${suggestions.map(s =>
+          `<button class="chip" onclick="doSearch('${s}')">${s}</button>`).join('')}</div>
+        <div style="margin-top:18px"><button class="btn out" onclick="go('#/laptops')">Browse all laptops</button></div>
+      </div>`;
+  }
+  const sponsored = cond().sponsored ? CATALOG.filter(p => p.sponsored)[0] : null;
+  return `${crumbs([['Home', '#/'], ['Search', '#/search']])}
+  <div class="sectionhead"><div><h1 class="h1">Results for "${esc(q)}"</h1>
+    <p class="sub">${filtered.length} results</p></div></div>
+  ${sponsored ? `<div class="card" style="padding:16px;display:flex;gap:16px;align-items:center;margin-bottom:16px">
+    <span class="tag sp">Sponsored</span>
+    <div style="flex:1"><b>${sponsored.brand}</b> — ${sponsored.name}, from ${money(sponsored.price)}</div>
+    <button class="btn out" onclick="go('#/product/${sponsored.id}')">Shop now</button></div>` : ''}
+  <div class="shop">
+    ${facetPanel(CATALOG)}
+    <section>
+      ${chipsBar()}
+      <div class="toolbar"><span class="sub">Results for "${esc(q)}"</span>${sortSelect()}</div>
+      ${resultsGrid(filtered)}
+      <div style="margin-top:24px"><b style="font-size:13px">Related searches</b>
+        <div class="chips" style="margin-top:9px">${suggestions.map(s =>
+          `<button class="chip" onclick="doSearch('${s}')">${s}</button>`).join('')}</div></div>
+    </section>
+  </div>`;
+}
+function doSearch(q) {
+  S.query = q; S.page = 1;
+  document.getElementById('q').value = q;
+  closeAC();
+  track('search_submitted', { query: q, results: applyFilters(CATALOG).length });
+  go('#/search');
+}
+function submitSearch() { const v = document.getElementById('q').value.trim(); if (v) doSearch(v); }
+function acInput() {
+  const v = document.getElementById('q').value.trim().toLowerCase();
+  const box = document.getElementById('ac');
+  if (v.length < 2) { closeAC(); return; }
+  const hits = CATALOG.filter(p => (p.name + ' ' + p.brand).toLowerCase().includes(v)).slice(0, 6);
+  const terms = ['gaming laptop', 'laptop for school', 'lightweight laptop', '16gb laptop']
+    .filter(t => t.includes(v)).slice(0, 2);
+  if (!hits.length && !terms.length) { closeAC(); return; }
+  box.innerHTML = terms.map(t => `<div onclick="doSearch('${t}')">🔍 <b>${t}</b></div>`).join('') +
+    hits.map(p => `<div onclick="go('#/product/${p.id}')">${p.name} <span class="sub">· ${money(p.price)}</span></div>`).join('');
+  box.classList.add('open');
+  track('autocomplete_shown', { query: v, count: hits.length + terms.length });
+}
+function closeAC() { const b = document.getElementById('ac'); if (b) b.classList.remove('open'); }
+function esc(s) { return String(s).replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c])); }
+function crumbs(parts) {
+  return `<div class="crumb">${parts.map((p, i) => i === parts.length - 1
+    ? `<span>${p[0]}</span>` : `<a onclick="go('${p[1]}')">${p[0]}</a> / `).join('')}</div>`;
+}
+function view404() {
+  return `<div class="empty" style="padding:80px 20px"><h2 class="h2">Page not found</h2>
+    <p class="sub" style="margin:10px 0 18px">That link doesn't lead anywhere in this prototype.</p>
+    <button class="btn pri" onclick="go('#/')">Back to home</button></div>`;
+}
+
+
+/* ===== app-views2.js ===== */
+/* ==========================================================================
+   Part 3: PDP, compare, cart, checkout, order, advisor, collections, guide, brand
+   ========================================================================== */
+
+let PDP_TAB = 'specs';
+
+function viewPDP(id) {
+  const p = P(id);
+  if (!p) return view404();
+  const rich = effectiveRichness(p) === 'rich';
+  const others = CATALOG.filter(x => x.id !== p.id && x.use.some(u => p.use.includes(u)))
+    .sort((a, b) => Math.abs(a.price - p.price) - Math.abs(b.price - p.price)).slice(0, 4);
+
+  return `${crumbs([['Home', '#/'], ['Computers & Tablets', '#/computers'], ['Laptops', '#/laptops'], [p.name, '']])}
+  <div class="pdp">
+    <div class="gallery">
+      ${vizLap(p)}
+      <div class="thumbs">${[0, 1, 2, 3].map(i => `<div class="thumb ${i === 0 ? 'on' : ''}"
+        onclick="track('pdp_image_changed',${i});document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('on'));this.classList.add('on')"></div>`).join('')}</div>
+
+      <div class="tabs">
+        ${[['specs', 'Specifications'], ['reviews', `Reviews (${p.reviewCount.toLocaleString()})`], ['qa', 'Questions'], ['ship', 'Delivery & returns']]
+          .map(t => `<button class="${PDP_TAB === t[0] ? 'on' : ''}" onclick="setTab('${t[0]}',${p.id})">${t[1]}</button>`).join('')}
+      </div>
+      <div id="tabbody">${pdpTab(p, rich)}</div>
+    </div>
+
+    <div class="buybox">
+      <div class="pbrand">${p.brand}</div>
+      <h1 class="h1" style="font-size:25px;margin:4px 0 6px">${p.name}</h1>
+      <div class="rline">${starRow(p.rating)} <b>${p.rating}</b>
+        <a onclick="setTab('reviews',${p.id})" style="color:var(--b);text-decoration:underline">${p.reviewCount.toLocaleString()} reviews</a></div>
+      <div class="sub" style="margin-bottom:12px">Model ${p.sku}${cond().sponsored && p.sponsored ? ' · <span class="tag sp">Sponsored</span>' : ''}</div>
+
+      <div class="price">${money(p.price)} ${p.wasPrice ? `<span class="was">${money(p.wasPrice)}</span>` : ''}</div>
+      ${p.wasPrice ? `<div style="color:var(--hot);font-weight:700;font-size:13px">Save ${money(p.wasPrice - p.price)}</div>` : ''}
+      <div class="fin">or ${money(p.financing)}/mo for 12 months with Novi Card</div>
+
+      <div class="variants">
+        ${[[p.ramGb, p.storageGb, p.price, true],
+           [p.ramGb === 8 ? 16 : 32, p.storageGb, p.price + 180, false],
+           [p.ramGb, p.storageGb >= 1024 ? 2048 : p.storageGb * 2, p.price + 130, false]]
+          .map((v, i) => `<button class="variant ${v[3] ? 'on' : ''}" onclick="pickVariant(${p.id},${i})">
+            <b>${v[0]} GB / ${v[1] >= 1024 ? (v[1] / 1024) + ' TB' : v[1] + ' GB'}</b>${money(v[2])}</button>`).join('')}
+      </div>
+
+      <div class="fulfil">
+        <label><input type="radio" name="ff" checked onchange="track('fulfilment_changed','delivery')">
+          <span><b>Delivery</b><br><span class="sub">${deliveryText(p)}</span></span></label>
+        <label><input type="radio" name="ff" ${!p.pickup ? 'disabled' : ''} onchange="track('fulfilment_changed','pickup')">
+          <span><b>Store pickup</b><br><span class="sub">${p.pickup ? 'Ready today at Novi Downtown' : 'Not available at nearby stores'}</span></span></label>
+      </div>
+
+      <div style="font-size:13px;font-weight:700;color:${p.stock === 'In stock' ? 'var(--ok)' : 'var(--warn)'};margin-bottom:12px">${p.stock}</div>
+
+      <button class="btn pri wide lg" onclick="addToCart(${p.id})">Add to cart</button>
+      <div style="display:flex;gap:8px;margin-top:9px">
+        <button class="btn ghost" style="flex:1" onclick="toggleCompare(${p.id},!S.compare.includes(${p.id}));render()">
+          ${S.compare.includes(p.id) ? 'Remove from compare' : 'Add to compare'}</button>
+        ${cond().assistant ? `<button class="btn out" style="flex:1" onclick="askAboutProduct(${p.id})">Ask about this</button>` : ''}
+      </div>
+
+      <div class="attach"><div style="flex:1"><b>2-year protection plan</b>
+        <div class="sub">Accidental damage and technical support</div></div>
+        <button class="btn ghost" onclick="track('protection_plan_added',${p.id});toast('Protection plan added')">Add ${money(89)}</button></div>
+
+      <div class="facts">
+        <div><b>Processor</b>${p.cpu}</div>
+        <div><b>Memory</b>${p.ram}</div>
+        <div><b>Storage</b>${p.storage}</div>
+        <div><b>Display</b>${p.screenSize}" ${p.panel}</div>
+        <div><b>Operating system</b>${p.os}</div>
+        <div><b>Weight</b>${p.weight}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sectionhead"><h2 class="h2">Customers also considered</h2></div>
+  <div class="products">${others.map(pcard).join('')}</div>`;
+}
+
+function pdpTab(p, rich) {
+  if (PDP_TAB === 'specs') {
+    const full = [
+      ['Operating system', p.os], ['Processor', p.cpu], ['Graphics', p.gpu],
+      ['Memory', p.ram], ['Storage', p.storage],
+      ['Display size', p.screenSize + ' inches'], ['Resolution', p.resolution],
+      ['Panel type', p.panel], ['Refresh rate', p.refresh], ['Touchscreen', p.touch ? 'Yes' : 'No'],
+      ['Battery life', 'Up to ' + p.battery], ['Weight', p.weight], ['Dimensions', p.dimensions],
+      ['Ports', p.ports], ['Wireless', p.wifi], ['Webcam', p.webcam], ['Keyboard', p.keyboard],
+      ['Colour', p.color], ['Warranty', p.warranty], ['Released', p.releaseYear]
+    ];
+    const thin = [['Operating system', p.os], ['Processor', p.cpu], ['Memory', p.ram],
+                  ['Storage', p.storage], ['Display size', p.screenSize + ' inches']];
+    const rows = rich ? full : thin;
+    return `${!rich ? `<div class="thinnote"><b>Limited product information.</b>
+      This listing has ${thin.length} published attributes. Some details are not supplied for this model.</div>` : ''}
+      <table class="spectable">${rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table>
+      ${rich ? `<h3 style="margin:22px 0 8px;font-size:16px">In the box</h3>
+        <p class="sub">${p.name}, ${p.cpu.includes('Apple') ? '70W USB-C adapter' : '65W USB-C adapter'}, quick start guide, ${p.warranty}.</p>
+        <h3 style="margin:20px 0 8px;font-size:16px">What it is good for</h3>
+        <p class="sub">Built for ${p.use.join(', ').toLowerCase()}. With ${p.ram} of memory and ${p.storage},
+        it handles ${p.ramGb >= 16 ? 'heavy multitasking, large photo libraries and creative software' : 'browsing, documents, video calls and streaming'}
+        comfortably. The ${p.screenSize}" ${p.panel} display runs at ${p.resolution}${p.refresh !== '60 Hz' ? ` with a ${p.refresh} refresh rate` : ''}.</p>` : ''}`;
+  }
+  if (PDP_TAB === 'reviews') {
+    if (cond().reviews === 'minimal')
+      return `<p class="sub">${p.reviewCount.toLocaleString()} customer ratings. Average ${p.rating} out of 5.</p>`;
+    const max = Math.max(...p.stars.map(s => s.count));
+    return `<div class="ratingsplit">
+      <div class="bigrating"><div class="n">${p.rating}</div>${starRow(p.rating)}
+        <div class="sub" style="margin-top:6px">${p.reviewCount.toLocaleString()} ratings</div></div>
+      <div>${p.stars.map(s => `<div class="bar"><span>${s.stars}★</span>
+        <span class="track"><span class="fill" style="width:${max ? (s.count / max * 100) : 0}%"></span></span>
+        <span>${s.count.toLocaleString()}</span></div>`).join('')}</div></div>
+      <div style="margin-top:18px">${p.reviews.map(r => `<div class="review">
+        <b>${r.title}</b> ${starRow(r.stars)}
+        <div class="meta">${r.author}${r.verified ? ' · Verified purchase' : ''} · ${r.daysAgo} days ago</div>
+        <div>${r.body}</div></div>`).join('')}</div>`;
+  }
+  if (PDP_TAB === 'qa') {
+    if (!rich) return `<div class="thinnote">No questions have been answered for this product yet.</div>`;
+    const qs = [
+      ['Does this come with an office suite included?', 'It ships with the operating system only. Productivity software is sold separately.'],
+      ['Can the memory be upgraded later?', p.ramGb >= 16 ? 'This model ships with ' + p.ram + ' soldered to the board and is not user upgradeable.' : 'Memory is not user upgradeable on this model.'],
+      ['Is it good for video calls?', 'Yes. It has a ' + p.webcam + ' and dual microphones.'],
+      ['How long does the battery really last?', 'Rated up to ' + p.battery + '. Real-world use with brightness at half is typically a little less.']
+    ];
+    return qs.map(q => `<div class="qa"><b>Q: ${q[0]}</b><div class="sub">A: ${q[1]}</div></div>`).join('');
+  }
+  return `<table class="spectable">
+    <tr><td>Delivery</td><td>${deliveryText(p)}</td></tr>
+    <tr><td>Store pickup</td><td>${p.pickup ? 'Available today at Novi Downtown' : 'Not available nearby'}</td></tr>
+    <tr><td>Returns</td><td>15 days, free returns in store or by post</td></tr>
+    <tr><td>Warranty</td><td>${p.warranty}</td></tr></table>`;
+}
+function setTab(t, id) { PDP_TAB = t; track('pdp_tab_opened', t); render(); }
+function pickVariant(id, i) { track('variant_selected', { id, variant: i }); toast('Configuration updated'); }
+
+/* ---------------- compare ---------------- */
+function toggleCompare(id, on) {
+  if (on) { if (!S.compare.includes(id)) S.compare.push(id); }
+  else S.compare = S.compare.filter(x => x !== id);
+  S.maxCompared = Math.max(S.maxCompared, S.compare.length);
+  track('compare_changed', { id, on, count: S.compare.length });
+  paintCompareBar();
+}
+function paintCompareBar() {
+  const bar = document.getElementById('cmpbar');
+  if (!bar) return;
+  bar.classList.toggle('show', S.compare.length > 0);
+  const t = document.getElementById('cmptext');
+  if (t) t.textContent = S.compare.length + ' selected to compare';
+}
+function viewCompare() {
+  if (S.compare.length < 2) {
+    return `${crumbs([['Home', '#/'], ['Compare', '#/compare']])}
+      <div class="empty" style="padding:70px 20px"><h2 class="h2">Pick at least two laptops</h2>
+      <p class="sub" style="margin:10px 0 18px">Tick "Compare" on any product to build a side-by-side view.</p>
+      <button class="btn pri" onclick="go('#/laptops')">Browse laptops</button></div>`;
+  }
+  const items = S.compare.map(P);
+  const rows = [['Price', p => money(p.price)], ['Rating', p => p.rating + ' ★ (' + p.reviewCount.toLocaleString() + ')'],
+    ['Operating system', p => p.os], ['Processor', p => p.cpu], ['Graphics', p => p.gpu],
+    ['Memory', p => p.ram], ['Storage', p => p.storage], ['Display', p => p.screenSize + '" ' + p.panel],
+    ['Resolution', p => p.resolution], ['Refresh rate', p => p.refresh], ['Touchscreen', p => p.touch ? 'Yes' : 'No'],
+    ['Battery', p => 'Up to ' + p.battery], ['Weight', p => p.weight], ['Ports', p => p.ports],
+    ['Warranty', p => p.warranty]];
+  return `${crumbs([['Home', '#/'], ['Compare', '#/compare']])}
+  <div class="sectionhead"><div><h1 class="h1">Compare ${items.length} laptops</h1>
+    <p class="sub">Differences are highlighted.</p></div>
+    <button class="btn ghost" onclick="clearCompare()">Clear all</button></div>
+  <div class="card" style="overflow:auto"><table class="cmptable">
+    <tr><th></th>${items.map(p => `<th>${vizLap(p, 'mini')}<div style="margin-top:8px">${p.name}</div>
+      <button class="btn pri" style="margin-top:8px;padding:7px 11px;font-size:12px" onclick="addToCart(${p.id})">Add to cart</button>
+      <button class="btn ghost" style="margin-top:5px;padding:6px 11px;font-size:12px" onclick="toggleCompare(${p.id},false);render()">Remove</button></th>`).join('')}</tr>
+    ${rows.map(r => {
+      const vals = items.map(r[1]);
+      const diff = new Set(vals).size > 1;
+      return `<tr class="${diff ? 'diff' : ''}"><td class="k">${r[0]}</td>${vals.map(v => `<td>${v}</td>`).join('')}</tr>`;
+    }).join('')}
+  </table></div>`;
+}
+function clearCompare() { S.compare = []; track('compare_cleared'); render(); }
+
+/* ---------------- cart ---------------- */
+function addToCart(id) {
+  const line = S.cart.find(l => l.id === id);
+  if (line) line.qty++; else S.cart.push({ id, qty: 1 });
+  track('add_to_cart', { id, sku: P(id).sku, name: P(id).name, price: P(id).price, cartSize: S.cart.length });
+  paintChrome(); toast(P(id).name + ' added to cart');
+}
+function setQty(id, d) {
+  const l = S.cart.find(x => x.id === id); if (!l) return;
+  l.qty += d;
+  if (l.qty <= 0) { S.cart = S.cart.filter(x => x.id !== id); track('remove_from_cart', id); }
+  else track('cart_qty_changed', { id, qty: l.qty });
+  paintChrome(); render();
+}
+function cartTotal() { return S.cart.reduce((s, l) => s + P(l.id).price * l.qty, 0); }
+function viewCart() {
+  if (!S.cart.length) {
+    return `${crumbs([['Home', '#/'], ['Cart', '#/cart']])}
+      <div class="empty" style="padding:70px 20px"><h2 class="h2">Your cart is empty</h2>
+      <p class="sub" style="margin:10px 0 18px">Once you add a laptop it will appear here.</p>
+      <button class="btn pri" onclick="go('#/laptops')">Browse laptops</button></div>`;
+  }
+  const sub = cartTotal(), tax = Math.round(sub * 0.0875), ship = sub > 35 ? 0 : 9;
+  const acc = CATALOG.filter(p => !S.cart.some(l => l.id === p.id)).slice(0, 3);
+  return `${crumbs([['Home', '#/'], ['Cart', '#/cart']])}
+  <div class="sectionhead"><h1 class="h1">Your cart (${S.cart.reduce((s, l) => s + l.qty, 0)} items)</h1></div>
+  <div class="twocol">
+    <div class="card" style="padding:6px 18px 18px">
+      ${S.cart.map(l => { const p = P(l.id); return `<div class="lineitem">
+        ${vizLap(p)}
+        <div style="flex:1">
+          <div class="pbrand">${p.brand}</div>
+          <a class="pname" onclick="go('#/product/${p.id}')">${p.name}</a>
+          <div class="sub">${p.ram} · ${p.storage} · ${p.os}</div>
+          <div class="delivery">${deliveryText(p)}</div>
+          <div class="qty"><button onclick="setQty(${p.id},-1)">−</button><span>${l.qty}</span><button onclick="setQty(${p.id},1)">+</button></div>
+        </div>
+        <div style="text-align:right"><b style="font-size:17px">${money(p.price * l.qty)}</b>
+          <div><button class="btn ghost" style="margin-top:9px;padding:6px 10px;font-size:12px" onclick="setQty(${p.id},-99)">Remove</button></div></div>
+      </div>`; }).join('')}
+      <div class="sectionhead" style="margin:22px 0 10px"><h3 class="h2" style="font-size:17px">Frequently bought together</h3></div>
+      ${acc.map(p => `<div class="attach"><div style="flex:1"><b>${p.name}</b>
+        <div class="sub">${money(p.price)} · ${p.ram} · ${p.storage}</div></div>
+        <button class="btn ghost" onclick="addToCart(${p.id})">Add</button></div>`).join('')}
+    </div>
+    <div class="card summary">
+      <div class="srow"><span>Subtotal</span><b>${money(sub)}</b></div>
+      <div class="srow"><span>Delivery</span><b>${ship ? money(ship) : 'Free'}</b></div>
+      <div class="srow"><span>Estimated tax</span><b>${money(tax)}</b></div>
+      <div class="srow total"><span>Total</span><span>${money(sub + tax + ship)}</span></div>
+      <button class="btn pri wide lg" style="margin-top:14px" onclick="startCheckout()">Continue to checkout</button>
+      <div class="field" style="margin-top:14px"><label>Promo code</label>
+        <input placeholder="Enter code" onchange="track('promo_entered',this.value)"></div>
+      <p class="sub" style="font-size:11px">Simulated cart. No payment will be taken.</p>
+    </div>
+  </div>`;
+}
+
+/* ---------------- checkout ---------------- */
+let CO_STEP = 1;
+function startCheckout() { CO_STEP = 1; track('checkout_started', { items: S.cart.length, value: cartTotal() }); go('#/checkout'); }
+function coNext() {
+  CO_STEP++;
+  track('checkout_step', CO_STEP);
+  if (CO_STEP > 3) completeOrder(); else render();
+}
+function viewCheckout() {
+  if (!S.cart.length) return viewCart();
+  const sub = cartTotal(), tax = Math.round(sub * 0.0875), ship = sub > 35 ? 0 : 9;
+  const step = (n, label) => `<div class="step ${CO_STEP === n ? 'on' : ''} ${CO_STEP > n ? 'done' : ''}">
+    <span class="n">${CO_STEP > n ? '✓' : n}</span>${label}</div>`;
+  let body = '';
+  if (CO_STEP === 1) body = `<h2 class="h2">How would you like to get it?</h2>
+    <div class="fulfil" style="margin-top:14px">
+      <label><input type="radio" name="d" checked onchange="track('checkout_fulfilment','delivery')">
+        <span><b>Delivery to my address</b><br><span class="sub">Free, arrives in 2 to 4 days</span></span></label>
+      <label><input type="radio" name="d" onchange="track('checkout_fulfilment','pickup')">
+        <span><b>Pick up in store</b><br><span class="sub">Ready today at Novi Downtown</span></span></label>
+    </div>
+    <div class="fieldrow"><div class="field"><label>First name</label><input placeholder="First name"></div>
+      <div class="field"><label>Last name</label><input placeholder="Last name"></div></div>
+    <div class="field"><label>Address</label><input placeholder="Street address"></div>
+    <div class="fieldrow"><div class="field"><label>City</label><input placeholder="City"></div>
+      <div class="field"><label>ZIP code</label><input placeholder="ZIP"></div></div>`;
+  else if (CO_STEP === 2) body = `<h2 class="h2">Contact</h2>
+    <div class="field"><label>Email for order updates</label><input placeholder="you@example.com"></div>
+    <div class="field"><label>Checkout as</label><select onchange="track('checkout_account',this.value)">
+      <option>Guest checkout</option><option>Sign in to my Novi account</option><option>Create an account</option></select></div>`;
+  else body = `<h2 class="h2">Payment</h2>
+    <div class="thinnote" style="background:#eef5ff;border-color:#bfd9ff;color:var(--d)">
+      This is a simulated checkout. Do not enter real card details. No payment will be processed.</div>
+    <div class="field"><label>Card number</label><input placeholder="Simulated, leave blank"></div>
+    <div class="fieldrow"><div class="field"><label>Expiry</label><input placeholder="MM/YY"></div>
+      <div class="field"><label>Security code</label><input placeholder="CVC"></div></div>`;
+  return `${crumbs([['Home', '#/'], ['Cart', '#/cart'], ['Checkout', '#/checkout']])}
+  <div class="sectionhead"><h1 class="h1">Checkout</h1></div>
+  <div class="steps">${step(1, 'Fulfilment')}${step(2, 'Contact')}${step(3, 'Payment')}</div>
+  <div class="twocol">
+    <div class="card" style="padding:22px">${body}
+      <div style="display:flex;gap:9px;margin-top:18px">
+        ${CO_STEP > 1 ? `<button class="btn ghost" onclick="CO_STEP--;track('checkout_back',CO_STEP);render()">Back</button>` : `<button class="btn ghost" onclick="go('#/cart')">Back to cart</button>`}
+        <button class="btn pri" onclick="coNext()">${CO_STEP === 3 ? 'Place simulated order' : 'Continue'}</button>
+      </div>
+    </div>
+    <div class="card summary">
+      <h3 style="font-size:15px;margin-bottom:10px">Order summary</h3>
+      ${S.cart.map(l => `<div class="srow"><span>${P(l.id).name} ×${l.qty}</span><b>${money(P(l.id).price * l.qty)}</b></div>`).join('')}
+      <div class="srow"><span>Delivery</span><b>${ship ? money(ship) : 'Free'}</b></div>
+      <div class="srow"><span>Estimated tax</span><b>${money(tax)}</b></div>
+      <div class="srow total"><span>Total</span><span>${money(sub + tax + ship)}</span></div>
+    </div>
+  </div>`;
+}
+function completeOrder() {
+  S.checkoutComplete = true;
+  const oid = 'NV' + Math.random().toString(36).slice(2, 8).toUpperCase();
+  track('checkout_completed', { orderId: oid, items: S.cart.length, value: cartTotal() });
+  go('#/order/' + oid);
+}
+function viewOrder(oid) {
+  const items = S.cart.slice();
+  return `<div style="max-width:680px;margin:40px auto;text-align:center">
+    <div style="font-size:46px;color:var(--ok);line-height:1">✓</div>
+    <h1 class="h1" style="margin-top:10px">Order simulation complete</h1>
+    <p class="sub">Reference ${oid}. No payment was taken and no order was placed.</p>
+    <div class="card" style="padding:20px;margin:22px 0;text-align:left">
+      ${items.map(l => `<div class="srow"><span>${P(l.id).name} ×${l.qty}</span><b>${money(P(l.id).price * l.qty)}</b></div>`).join('')}
+      <div class="srow total"><span>Total</span><span>${money(cartTotal())}</span></div>
+    </div>
+    <button class="btn pri lg" onclick="softReset()">Start another session</button>
+  </div>`;
+}
+
+/* ---------------- advisor ---------------- */
+let ADV = { step: 0, answers: {} };
+const ADV_Q = [
+  { k: 'use', q: 'What will you mainly use it for?', opts: ['School', 'Work', 'Creative', 'Gaming', 'Everyday'] },
+  { k: 'priority', q: 'What matters most?', opts: ['Lowest price', 'Long battery life', 'Fast performance', 'Light to carry'] },
+  { k: 'budget', q: "What's your budget?", opts: ['Under $600', '$600 to $1,000', '$1,000 to $1,500', 'Over $1,500'] },
+  { k: 'size', q: 'Preferred screen size?', opts: ['13 to 14 inches', '15 inches', '16 inches or larger', 'No preference'] }
+];
+function viewAdvisor() {
+  if (ADV.step >= ADV_Q.length) return advisorResults();
+  const q = ADV_Q[ADV.step];
+  return `${crumbs([['Home', '#/'], ['Help me choose', '#/advisor']])}
+  <div style="max-width:660px;margin:26px auto">
+    <div class="sub">Question ${ADV.step + 1} of ${ADV_Q.length}</div>
+    <h1 class="h1" style="margin:6px 0 18px">${q.q}</h1>
+    <div class="qopts">${q.opts.map(o => `<button class="${ADV.answers[q.k] === o ? 'on' : ''}"
+      onclick="advPick('${q.k}','${o}')">${o}</button>`).join('')}</div>
+    <div style="display:flex;gap:9px;margin-top:24px">
+      ${ADV.step > 0 ? `<button class="btn ghost" onclick="ADV.step--;render()">Back</button>` : ''}
+      <button class="btn pri" onclick="advNext()">${ADV.step === ADV_Q.length - 1 ? 'Show my matches' : 'Continue'}</button>
+      <button class="btn ghost" onclick="track('advisor_abandoned',ADV.step);go('#/laptops')">Skip, just browse</button>
+    </div>
+  </div>`;
+}
+function advPick(k, v) { ADV.answers[k] = v; track('advisor_answer', { q: k, a: v }); render(); }
+function advNext() {
+  if (ADV.step === 0 && !ADV.answers.use) { toast('Pick an option to continue'); return; }
+  ADV.step++;
+  if (ADV.step >= ADV_Q.length) track('advisor_completed', ADV.answers);
+  render();
+}
+function advisorMatches() {
+  const a = ADV.answers;
+  let list = CATALOG.slice();
+  if (a.use) list = list.filter(p => p.use.includes(a.use));
+  if (a.budget === 'Under $600') list = list.filter(p => p.price < 600);
+  if (a.budget === '$600 to $1,000') list = list.filter(p => p.price >= 600 && p.price <= 1000);
+  if (a.budget === '$1,000 to $1,500') list = list.filter(p => p.price > 1000 && p.price <= 1500);
+  if (a.budget === 'Over $1,500') list = list.filter(p => p.price > 1500);
+  if (a.size === '13 to 14 inches') list = list.filter(p => p.screenSize <= 14);
+  if (a.size === '15 inches') list = list.filter(p => p.screenSize > 14 && p.screenSize < 16);
+  if (a.size === '16 inches or larger') list = list.filter(p => p.screenSize >= 16);
+  if (!list.length) list = CATALOG.filter(p => a.use ? p.use.includes(a.use) : true);
+  if (a.priority === 'Lowest price') list.sort((x, y) => x.price - y.price);
+  else if (a.priority === 'Long battery life') list.sort((x, y) => parseInt(y.battery) - parseInt(x.battery));
+  else if (a.priority === 'Light to carry') list.sort((x, y) => parseFloat(x.weight) - parseFloat(y.weight));
+  else list.sort((x, y) => y.rating - x.rating);
+  return list.slice(0, 6);
+}
+function advisorResults() {
+  const m = advisorMatches(), a = ADV.answers;
+  return `${crumbs([['Home', '#/'], ['Help me choose', '#/advisor']])}
+  <div class="sectionhead"><div><h1 class="h1">Your matches</h1>
+    <p class="sub">Based on ${Object.values(a).join(', ').toLowerCase()}. ${m.length} laptops fit.</p></div>
+    <button class="btn ghost" onclick="ADV={step:0,answers:{}};track('advisor_restarted');render()">Start over</button></div>
+  <div class="products">${m.map(pcard).join('')}</div>
+  <div style="margin-top:20px"><button class="btn out" onclick="go('#/laptops')">See all laptops instead</button></div>`;
+}
+
+/* ---------------- collections ---------------- */
+const COLLECTIONS = [
+  { slug: 'student', title: 'Set up for school', blurb: 'Light, affordable, all-day battery',
+    pick: p => p.use.includes('School') && p.price < 900 },
+  { slug: 'home-office', title: 'The home office', blurb: 'Good webcam, comfortable keyboard, fast enough',
+    pick: p => p.use.includes('Work') && p.ramGb >= 16 },
+  { slug: 'creator', title: 'For creators', blurb: 'Colour-accurate screens and real horsepower',
+    pick: p => p.use.includes('Creative') },
+  { slug: 'gaming', title: 'Serious gaming', blurb: 'High refresh, dedicated graphics',
+    pick: p => p.use.includes('Gaming') }
+];
+function viewCollectionsIndex() {
+  return `${crumbs([['Home', '#/'], ['Collections', '#/collections']])}
+  <div class="sectionhead"><div><h1 class="h1">Collections</h1>
+    <p class="sub">Curated sets, chosen for a specific job rather than a spec sheet.</p></div></div>
+  <div class="tiles">${COLLECTIONS.map(c => `<a class="tile" onclick="go('#/collections/${c.slug}')">
+    <b>${c.title}</b><span>${c.blurb} · ${CATALOG.filter(c.pick).length} picks</span></a>`).join('')}</div>`;
+}
+function viewCollection(slug) {
+  const c = COLLECTIONS.find(x => x.slug === slug);
+  if (!c) return view404();
+  const items = applySort(applyFilters(CATALOG.filter(c.pick)));
+  return `${crumbs([['Home', '#/'], ['Collections', '#/collections'], [c.title, '']])}
+  <section class="hero" style="padding:34px 40px"><div><h1 style="font-size:31px;margin-bottom:8px">${c.title}</h1>
+    <p style="margin:0">${c.blurb}. ${items.length} laptops chosen by our team.</p></div></section>
+  <div class="shop">${facetPanel(CATALOG.filter(c.pick))}
+    <section>${chipsBar()}<div class="toolbar"><span class="sub">${items.length} in this collection</span>${sortSelect()}</div>
+    ${resultsGrid(items, 'Nothing in this collection matches those filters.')}</section></div>`;
+}
+
+/* ---------------- buying guide ---------------- */
+function viewGuide() {
+  return `${crumbs([['Home', '#/'], ['Guides', '#/guide']])}
+  <div style="max-width:760px;margin:0 auto;padding-bottom:50px">
+    <h1 class="h1" style="margin:16px 0 6px">How to choose a laptop</h1>
+    <p class="sub">A plain-language guide to the four things that actually matter.</p>
+    ${[['Processor', 'The processor sets how much work the machine can do at once. For browsing, documents and video calls, an entry-level chip is genuinely fine. For photo and video editing, or anything with a lot of tabs and apps open, step up a tier.'],
+       ['Memory', 'Memory is how much the laptop can hold in its head at one time. 8 GB is workable for light use. 16 GB is the comfortable modern baseline. 32 GB is for heavy creative work.'],
+       ['Storage', 'Storage is how much you can keep on it. 256 GB fills up faster than people expect once photos and downloads accumulate. 512 GB is the safer choice for most people.'],
+       ['Display', 'Screen size drives portability more than anything else. 13 to 14 inches travels well, 15 to 16 inches is easier to work on all day. Higher resolution and OLED panels look better and cost more battery.']]
+      .map(s => `<h2 class="h2" style="margin:24px 0 7px">${s[0]}</h2><p>${s[1]}</p>`).join('')}
+    <div class="helpbar" style="margin-top:26px"><div><strong>Prefer to be walked through it?</strong>
+      <span>Answer four questions and we'll shortlist for you.</span></div>
+      <button class="btn out" onclick="go('#/advisor')">Start the guide</button></div>
+  </div>`;
+}
+
+/* ---------------- brand shop ---------------- */
+function viewBrand(name) {
+  const b = BRANDS.find(x => x.name === name);
+  if (!b) return view404();
+  const items = applySort(applyFilters(CATALOG.filter(p => p.brand === name)));
+  return `${crumbs([['Home', '#/'], ['Computers & Tablets', '#/computers'], [name, '']])}
+  <section class="hero" style="background:linear-gradient(120deg,hsl(${b.hue},62%,38%),hsl(${b.hue},66%,52%));padding:34px 40px">
+    <div><h1 style="font-size:32px;margin-bottom:8px">${name}</h1>
+      <p style="margin:0">${b.tone.charAt(0).toUpperCase() + b.tone.slice(1)}. ${CATALOG.filter(p => p.brand === name).length} models available at ${BRAND.name}.</p></div>
+    <div class="art">${vizLap({ hue: b.hue })}</div></section>
+  <div class="shop">${facetPanel(CATALOG.filter(p => p.brand === name))}
+    <section>${chipsBar()}<div class="toolbar"><span class="sub">${items.length} ${name} laptops</span>${sortSelect()}</div>
+    ${resultsGrid(items)}</section></div>`;
+}
+
+
+/* ===== app-assistant.js ===== */
+/* ==========================================================================
+   Part 5: scripted shopping assistant
+   Deterministic, grounded strictly in CATALOG, no network, identical every run.
+   Answer quality degrades on thin-data SKUs on purpose. That contrast is the
+   point of the demo.
+   ========================================================================== */
+
+let ASSIST_MSGS = [];
+let ASSIST_CTX = null;   // product currently under discussion
+
+const ASSIST_CHIPS = [
+  'Help me pick a laptop for school',
+  'What is good for photo editing?',
+  'Which of these has the best battery?',
+  'Show me something under $700',
+  'What is the difference between 8 GB and 16 GB?'
+];
+
+function paintAssistant() {
+  const root = document.getElementById('assistroot');
+  if (!root) return;
+  if (!cond().assistant) { root.innerHTML = ''; return; }
+  root.innerHTML = `
+    ${ASSIST_OPEN ? '' : `<button class="asstbtn" onclick="toggleAssist(true)">Ask novi</button>`}
+    <section class="asst ${ASSIST_OPEN ? 'open' : ''}" aria-label="Shopping assistant">
+      <div class="head">
+        <div><b>Shopping assistant</b><div style="font-size:11px;opacity:.85">Answers from novi's product data</div></div>
+        <button onclick="toggleAssist(false)" aria-label="Close"
+          style="background:none;border:0;color:#fff;font-size:22px;line-height:1">&times;</button>
+      </div>
+      <div class="body" id="amsgs">${ASSIST_MSGS.map(renderMsg).join('') || greeting()}</div>
+      <div class="sugg">${ASSIST_CHIPS.map(c => `<button data-q="${esc(c)}" onclick="assistSend(this.dataset.q)">${c}</button>`).join('')}</div>
+      <div class="sugg" style="border-top:0;gap:8px">
+        <input id="ain" placeholder="Ask about any laptop" style="flex:1;padding:10px;border:1px solid #c3d2e3;border-radius:8px"
+          onkeydown="if(event.key==='Enter')assistSubmit()">
+        <button class="btn pri" onclick="assistSubmit()">Send</button>
+      </div>
+    </section>`;
+  const m = document.getElementById('amsgs');
+  if (m) m.scrollTop = m.scrollHeight;
+}
+function greeting() {
+  return `<div class="msg a"><div class="bub">Hi. I can help you narrow this down.
+    Tell me what you'll use the laptop for, or ask me about anything on the site.</div></div>`;
+}
+function renderMsg(m) {
+  return `<div class="msg ${m.role}"><div class="bub">${m.text}
+    ${m.cards && m.cards.length ? m.cards.map(id => acard(P(id))).join('') : ''}
+    ${m.actions ? `<div style="margin-top:10px;display:flex;gap:7px;flex-wrap:wrap">${m.actions}</div>` : ''}</div></div>`;
+}
+function acard(p) {
+  if (!p) return '';
+  return `<div class="asstcard" onclick="track('assistant_card_clicked','${p.sku}');go('#/product/${p.id}')">
+    ${vizLap(p)}
+    <div style="flex:1"><b>${p.name}</b><small>${money(p.price)} · ${p.ram} · ${p.storage} · ${p.rating} ★</small></div>
+    <button class="btn pri" style="padding:7px 11px;font-size:12px;align-self:center"
+      onclick="event.stopPropagation();addToCart(${p.id})">Add</button>
+  </div>`;
+}
+
+function toggleAssist(on) {
+  ASSIST_OPEN = on;
+  track(on ? 'assistant_opened' : 'assistant_closed', location.hash);
+  paintAssistant();
+  if (on) setTimeout(() => { const i = document.getElementById('ain'); if (i) i.focus(); }, 60);
+}
+function assistSubmit() {
+  const i = document.getElementById('ain');
+  if (!i || !i.value.trim()) return;
+  const v = i.value.trim(); i.value = '';
+  assistSend(v);
+}
+function assistSend(text) {
+  ASSIST_MSGS.push({ role: 'u', text: esc(text) });
+  track('assistant_question', text);
+  paintAssistant();
+  const reply = assistAnswer(text);
+  setTimeout(() => {
+    ASSIST_MSGS.push(reply);
+    track('assistant_answer', { grounded: reply.grounded, hedged: !!reply.hedged });
+    paintAssistant();
+  }, 420);
+}
+function askAboutProduct(id) {
+  ASSIST_CTX = id;
+  ASSIST_OPEN = true;
+  paintAssistant();
+  assistSend('Tell me about the ' + P(id).name);
+}
+
+/* ---- intent matching ----------------------------------------------------- */
+/* Real model names are long ("Surface Laptop, 7th Edition 13.8""), so a shopper
+   never types them in full. Match on brand and product family instead, on whole
+   words, and ignore family words that are too generic to identify anything. */
+const GENERIC_TOKENS = new Set(['laptop','laptops','chromebook','book','plus','gaming',
+  'pro','air','go','slim','flex','ultra','x','s','edition','the','and']);
+
+function familyTokens(p) {
+  return [...new Set((p.brand + ' ' + p.family).toLowerCase().split(/[^a-z0-9]+/))]
+    .filter(t => t.length > 1);
+}
+/* The words that actually identify a product line: the family, minus its brand
+   and minus words too generic to name anything ("laptop", "pro", "plus"). */
+function keyTokens(p) {
+  const brand = new Set(p.brand.toLowerCase().split(/[^a-z0-9]+/));
+  return p.family.toLowerCase().split(/[^a-z0-9]+/)
+    .filter(t => t.length > 1 && !GENERIC_TOKENS.has(t) && !brand.has(t));
+}
+function hasWord(q, t) {
+  return new RegExp('\\b' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(q);
+}
+function matchProduct(q) {
+  let best = null, bestScore = 0;
+  for (const p of CATALOG) {
+    const key = keyTokens(p);
+    if (!key.length) continue;                       // nothing distinctive to match on
+    if (!key.every(t => hasWord(q, t))) continue;    // every distinctive word must be present
+    let score = familyTokens(p).filter(t => hasWord(q, t)).length * 10;
+    if (q.includes(String(p.screenSize))) score += 25;
+    if (q.includes(p.name.toLowerCase())) score += 100;
+    score += p.rating;                               // stable tie-break
+    if (score > bestScore) { bestScore = score; best = p; }
+  }
+  return best;
+}
+
+function assistAnswer(qRaw) {
+  const q = qRaw.toLowerCase();
+
+  // 1. a named product, or the product currently in context
+  let target = matchProduct(q);
+  if (!target && ASSIST_CTX && /\b(it|this|that|the laptop)\b/.test(q)) target = P(ASSIST_CTX);
+  if (target) { ASSIST_CTX = target.id; return answerAboutProduct(target, q); }
+
+  // 2. concept explainers
+  const concept = CONCEPTS.find(c => c.re.test(q));
+  if (concept) return { role: 'a', text: concept.a, grounded: 'general' };
+
+  // 3. otherwise treat it as a shortlist request
+  return answerShortlist(q);
+}
+
+const CONCEPTS = [
+  { re: /8\s*gb.*16\s*gb|16\s*gb.*8\s*gb|how much (ram|memory)|difference.*(ram|memory)/,
+    a: `Memory is how much the laptop holds in its head at once. <b>8 GB</b> copes with browsing, documents and video calls, but it slows down with a lot of tabs and apps open. <b>16 GB</b> is the comfortable modern baseline and is what I would pick if the machine needs to last four or five years. <b>32 GB</b> only pays off for video editing or large photo libraries.` },
+  { re: /ssd|hard drive|storage|how much space|gb.*storage/,
+    a: `Storage is what you keep on it. 256 GB fills faster than people expect once photos and downloads pile up. <b>512 GB</b> is the safe default for most people. All the laptops here use solid-state storage, so all of them boot quickly.` },
+  { re: /oled|panel|ips|screen type|display type/,
+    a: `<b>IPS</b> panels are accurate and cost less. <b>OLED</b> gives you true blacks and much better contrast, which matters for film and photo work, but costs more and uses more battery. High refresh rates above 60 Hz mainly help gaming.` },
+  { re: /refresh rate|hz/,
+    a: `Refresh rate is how many times a second the screen redraws. 60 Hz is fine for everyday work. 120 Hz and above makes motion look smoother and is worth it for gaming.` },
+  { re: /warranty|returns|return policy/,
+    a: `Everything here carries at least a one-year limited warranty, and some models carry two. Returns are 15 days, free, in store or by post. A two-year protection plan covering accidental damage can be added on any product page.` },
+  { re: /windows|chromeos|macos|operating system|which os/,
+    a: `<b>Windows</b> runs the widest range of software and covers everything from budget machines to gaming. <b>ChromeOS</b> is simple, cheap and secure but relies on web apps. <b>macOS</b> is efficient and well integrated if the rest of your devices already are. You can filter by operating system on the laptops page.` }
+];
+
+/* ---- product answers, where richness bites ------------------------------- */
+function answerAboutProduct(p, q) {
+  const rich = effectiveRichness(p) === 'rich';
+  const wantsBattery = /battery|last|charge/.test(q);
+  const wantsWeight = /weight|heavy|light|carry|travel/.test(q);
+  const wantsPorts = /port|hdmi|usb|thunderbolt|connect/.test(q);
+  const wantsGaming = /game|gaming|fps|graphics|gpu/.test(q);
+
+  if (!rich) {
+    // thin data: the assistant can only answer from five published attributes
+    let gap = 'the full specification';
+    if (wantsBattery) gap = 'battery life';
+    else if (wantsWeight) gap = 'weight and dimensions';
+    else if (wantsPorts) gap = 'the port selection';
+    else if (wantsGaming) gap = 'the graphics hardware';
+    return {
+      role: 'a', grounded: 'thin', hedged: true,
+      text: `I can only tell you part of this. The listing for the <b>${p.name}</b> publishes
+        five attributes: ${p.os}, ${p.cpu}, ${p.ram}, ${p.storage} and a ${p.screenSize}" display, at ${money(p.price)}.
+        <b>${gap.charAt(0).toUpperCase() + gap.slice(1)} is not supplied for this model</b>, so I would be guessing,
+        and I would rather not guess on something you're spending ${money(p.price)} on.
+        <span class="hedge">Answer limited by missing product data.</span>`,
+      cards: [p.id],
+      actions: `<button class="btn out" onclick="assistSend('Show me something similar with full details')">Show me one with full details</button>`
+    };
+  }
+
+  let text = `The <b>${p.name}</b> is ${money(p.price)}. It runs ${p.os} on ${p.cpu} with ${p.ram} of memory and ${p.storage}.`;
+  if (wantsBattery) text += ` Battery is rated up to <b>${p.battery}</b>, which in real use with the screen at half brightness usually means a full working day${parseInt(p.battery) >= 12 ? ' with room to spare' : ''}.`;
+  if (wantsWeight) text += ` It weighs <b>${p.weight}</b> and measures ${p.dimensions}, so it ${parseFloat(p.weight) < 3.2 ? 'travels easily' : 'is better suited to sitting on a desk'}.`;
+  if (wantsPorts) text += ` Ports: ${p.ports}.`;
+  if (wantsGaming) text += ` Graphics are handled by ${p.gpu}, which ${/RTX|Radeon RX/.test(p.gpu) ? 'is dedicated hardware and will run modern titles well' : 'is integrated, so it is fine for everyday work but not for demanding games'}.`;
+  if (!wantsBattery && !wantsWeight && !wantsPorts && !wantsGaming)
+    text += ` The ${p.screenSize}" ${p.panel} runs at ${p.resolution}, battery is rated up to ${p.battery}, and it weighs ${p.weight}. It suits ${p.use.join(', ').toLowerCase()}.`;
+  text += ` It holds ${p.rating} stars across ${p.reviewCount.toLocaleString()} reviews.`;
+
+  return { role: 'a', grounded: 'rich', text, cards: [p.id] };
+}
+
+/* ---- shortlist answers --------------------------------------------------- */
+function answerShortlist(q) {
+  let list = CATALOG.slice();
+  const notes = [];
+
+  const budget = q.match(/\$?\s?(\d{3,4})/);
+  if (budget && /under|below|less than|max|budget|cheap/.test(q)) {
+    const cap = +budget[1]; list = list.filter(p => p.price <= cap); notes.push('under ' + money(cap));
+  }
+  const useMap = [[/school|student|college|study|homework/, 'School'], [/work|office|business|meetings|home working/, 'Work'],
+                  [/photo|video|creative|design|edit|render/, 'Creative'], [/game|gaming|fps/, 'Gaming'],
+                  [/everyday|browsing|email|streaming|basic|simple/, 'Everyday']];
+  const use = useMap.find(u => u[0].test(q));
+  if (use) { list = list.filter(p => p.use.includes(use[1])); notes.push('for ' + use[1].toLowerCase()); }
+  if (/chromebook|chromeos/.test(q)) { list = list.filter(p => p.os === 'ChromeOS'); notes.push('ChromeOS'); }
+  if (/mac|macos/.test(q)) { list = list.filter(p => p.os === 'macOS'); notes.push('macOS'); }
+  if (/windows/.test(q)) { list = list.filter(p => /Windows/.test(p.os)); notes.push('Windows'); }
+  if (/light|thin|portable|carry|travel/.test(q)) { list.sort((a, b) => parseFloat(a.weight) - parseFloat(b.weight)); notes.push('lightest first'); }
+  else if (/battery|all.?day|long lasting/.test(q)) { list.sort((a, b) => parseInt(b.battery) - parseInt(a.battery)); notes.push('longest battery first'); }
+  else if (/cheap|budget|afford|low price/.test(q)) { list.sort((a, b) => a.price - b.price); notes.push('lowest price first'); }
+  else list.sort((a, b) => (b.rating - b.price / 3000) - (a.rating - a.price / 3000) || b.reviewCount - a.reviewCount);
+
+  if (!list.length) {
+    return { role: 'a', grounded: 'catalog', hedged: true,
+      text: `Nothing in the range matches all of that. If you can relax one of the constraints, price is usually the one with most give. Or I can show you the closest three.`,
+      actions: `<button class="btn out" onclick="assistSend('Show me the closest options')">Show closest options</button>` };
+  }
+
+  const picks = list.slice(0, 3);
+  const why = picks.map(p => `<b>${p.name}</b> at ${money(p.price)}, ${p.ram} and ${p.storage}, ${p.battery} battery, ${p.rating} stars`);
+  return {
+    role: 'a', grounded: 'catalog',
+    text: `${list.length} laptops fit${notes.length ? ' ' + notes.join(', ') : ''}. The three I would look at first:
+      <br><br>${why.map((w, i) => (i + 1) + '. ' + w).join('<br>')}
+      <br><br>${picks[0].price < picks[2].price
+        ? `The ${picks[0].name} is the value pick. Stepping up to the ${picks[2].name} buys you ${picks[2].ramGb > picks[0].ramGb ? 'more memory' : 'a better screen'} for ${money(picks[2].price - picks[0].price)} more.`
+        : `They are close on price, so this comes down to size and screen.`}`,
+    cards: picks.map(p => p.id),
+    actions: `<button class="btn out" onclick="S.compare=[${picks.map(p => p.id).join(',')}];track('assistant_compare_built');go('#/compare')">Compare these three</button>`
+  };
+}
+
+
+/* ===== app-chrome.js ===== */
+/* ==========================================================================
+   Part 4: chrome, moderator bar, research console, boot
+   ========================================================================== */
+
+function shell() {
+  return `
+  <div id="modbar" class="modbar"></div>
+
+  <div class="topbar"><div class="wrap">
+    <span>Research prototype. Novi is not a real retailer and no real orders are placed.</span>
+    <span>Ship to 98052 &middot; US &middot; USD</span>
+  </div></div>
+
+  <header class="header"><div class="wrap">
+    <a class="logo" onclick="go('#/')">nov<i>i</i></a>
+    <div class="searchbox">
+      <input id="q" placeholder="Search laptops, brands and specs" autocomplete="off" aria-label="Search"
+        oninput="acInput()" onkeydown="if(event.key==='Enter')submitSearch()">
+      <button class="go" onclick="submitSearch()" aria-label="Search">&#9906;</button>
+      <div id="ac" class="ac"></div>
+    </div>
+    <nav class="hnav">
+      <a onclick="go('#/advisor')">Help me choose</a>
+      <a onclick="go('#/collections')">Collections</a>
+      <a onclick="go('#/compare')">Compare</a>
+      <button class="cartbtn" onclick="go('#/cart')">Cart <span id="cartn" class="pill">0</span></button>
+    </nav>
+  </div></header>
+
+  <nav class="mainnav"><div class="wrap">
+    <a onclick="go('#/computers')">Computers &amp; Tablets</a>
+    <a onclick="go('#/laptops')">Laptops</a>
+    <a onclick="go('#/collections/student')">Student</a>
+    <a onclick="go('#/collections/home-office')">Home office</a>
+    <a onclick="go('#/collections/creator')">Creators</a>
+    <a onclick="go('#/collections/gaming')">Gaming</a>
+    <a onclick="go('#/guide')">Buying guides</a>
+    <a onclick="go('#/laptops')">Deals</a>
+  </div></nav>
+
+  <div id="missionbar" class="missionbar"></div>
+
+  <main id="app" class="wrap"></main>
+
+  <footer class="footer"><div class="wrap">
+    <div class="cols">
+      <div><b>novi</b><span>A fictional retailer built for customer research. Nothing here is a real product, price or offer.</span></div>
+      <div><b>Shop</b><a onclick="go('#/laptops')">Laptops</a><a onclick="go('#/collections')">Collections</a><a onclick="go('#/advisor')">Help me choose</a></div>
+      <div><b>Learn</b><a onclick="go('#/guide')">Buying guides</a><a onclick="go('#/computers')">Computers &amp; Tablets</a></div>
+      <div><b>Session</b><a onclick="go('#/research')">Research console</a><a onclick="softReset()">Reset journey</a></div>
+    </div>
+    <div class="legal"><span>Prototype. No payments are processed and no orders are placed.</span>
+      <span>Built for research use only.</span></div>
+  </div></footer>
+
+  <div id="cmpbar" class="cmpbar">
+    <span id="cmptext">0 selected to compare</span>
+    <button class="btn ghost" onclick="clearCompare()">Clear</button>
+    <button class="btn pri" onclick="go('#/compare')">Compare now</button>
+  </div>
+
+  <div id="assistroot"></div>
+  <div id="toast" class="toast"></div>
+  <div id="back" class="back"><div class="modal" id="mbox"></div></div>`;
+}
+
+function paintChrome() {
+  const n = S.cart.reduce((s, l) => s + l.qty, 0);
+  const b = document.getElementById('cartn');
+  if (b) b.textContent = n;
+  paintMod();
+  paintMission();
+  paintAssistant();
+}
+
+function paintMission() {
+  const el = document.getElementById('missionbar');
+  if (!el) return;
+  const m = MISSIONS[S.mission];
+  const on = S.mission && m;
+  el.className = 'missionbar' + (on ? ' show' : '');
+  el.innerHTML = on
+    ? `<div class="wrap"><b>Your task</b> ${m.brief}${SUCCESS_FIRED ? '<span class="donetag">Done</span>' : ''}</div>`
+    : '';
+}
+
+/* ---------------- moderator bar ---------------- */
+function paintMod() {
+  const bar = document.getElementById('modbar');
+  if (!bar) return;
+  document.body.classList.toggle('hasmod', MOD);
+  if (!MOD) { bar.innerHTML = ''; bar.classList.remove('show'); return; }
+  bar.classList.add('show');
+  bar.innerHTML = `
+    <b style="color:#7ee787;letter-spacing:.5px">MODERATOR</b>
+    <label>Participant <input value="${esc(S.participantId || '')}" placeholder="P001" style="width:74px"
+      onchange="setParticipant(this.value)"></label>
+    <label>Condition <select onchange="setCondition(this.value)">
+      ${Object.keys(CONDITIONS).map(k => `<option value="${k}" ${S.condition === k ? 'selected' : ''}>${CONDITIONS[k].label}</option>`).join('')}
+    </select></label>
+    <label>Task <select onchange="setMission(this.value)">
+      ${Object.keys(MISSIONS).map(k => `<option value="${k}" ${String(S.mission) === k ? 'selected' : ''}>${MISSIONS[k].label}</option>`).join('')}
+    </select></label>
+    <span>${SUCCESS_FIRED ? '<b style="color:#7ee787">TASK COMPLETE</b>' : 'in progress'} &middot; ${EVENTS.length} events &middot; ${elapsed()}</span>
+    <span class="sp">
+      <button onclick="bookmark()">Flag moment</button>
+      <button class="gh" onclick="softReset()">Reset journey</button>
+      <button class="gh" onclick="go('#/research')">Console</button>
+      <button class="gh" onclick="MOD=false;paintMod()">Hide</button>
+    </span>`;
+}
+function elapsed() {
+  const s = Math.floor((Date.now() - S.startedAt) / 1000);
+  return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+}
+
+/* ---------------- research console ---------------- */
+function viewConsole() {
+  return `<div class="sectionhead" style="margin-top:22px">
+      <div><h1 class="h1">Research console</h1>
+      <p class="sub">Moderator only. Participants should not see this screen.</p></div>
+      <button class="btn ghost" onclick="go('#/')">Back to store</button></div>
+    <div class="console" id="consolebody"></div>`;
+}
+function paintConsole() {
+  const el = document.getElementById('consolebody');
+  if (!el) return;
+  const c = cond(), m = MISSIONS[S.mission];
+  const viewed = new Set(EVENTS.filter(e => e.event === 'product_viewed').map(e => e.detail)).size;
+  el.innerHTML = `
+  <div>
+    <div class="statgrid">
+      ${stat('Participant', S.participantId || '&mdash;')}
+      ${stat('Condition', S.condition)}
+      ${stat('Elapsed', elapsed())}
+      ${stat('Events', EVENTS.length)}
+      ${stat('Products viewed', viewed)}
+      ${stat('Task', SUCCESS_FIRED ? 'done' : 'open')}
+    </div>
+
+    <div class="card panel">
+      <h3>Session controls</h3>
+      <div class="field"><label>Participant ID</label>
+        <input value="${esc(S.participantId || '')}" placeholder="P001" onchange="setParticipant(this.value)"></div>
+      <div class="field"><label>Condition</label>
+        <select onchange="setCondition(this.value)">
+          ${Object.keys(CONDITIONS).map(k => `<option value="${k}" ${S.condition === k ? 'selected' : ''}>${CONDITIONS[k].label}</option>`).join('')}
+        </select>
+        <p class="sub" style="font-size:11px;margin-top:6px">${condSummary(c)}</p></div>
+      <div class="field"><label>Task</label>
+        <select onchange="setMission(this.value)">
+          ${Object.keys(MISSIONS).map(k => `<option value="${k}" ${String(S.mission) === k ? 'selected' : ''}>${MISSIONS[k].label}</option>`).join('')}
+        </select>
+        <p class="sub" style="font-size:11px;margin-top:6px">${m ? m.brief : ''}</p></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn out" onclick="softReset()">Soft reset, keep data</button>
+        <button class="btn ghost" onclick="hardReset()">New participant, wipe data</button>
+      </div>
+    </div>
+
+    <div class="card panel" style="margin-top:16px">
+      <h3>Export and handoff</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn pri" onclick="exportCSV()">Download CSV</button>
+        <button class="btn out" onclick="exportJSON()">Download JSON</button>
+        <button class="btn ghost" onclick="copyLink()">Copy session link</button>
+        <button class="btn ghost" onclick="showConsent()">Show consent screen</button>
+      </div>
+      <p class="sub" style="font-size:11px;margin-top:9px">The session link reopens the store with this condition,
+        task and participant already set, so an unmoderated participant lands in the right cell.</p>
+      ${S.bookmarks.length ? `<h3 style="margin-top:18px">Flagged moments</h3>
+        <div class="kv">${S.bookmarks.map(b => `<div>${(b.msSinceTask / 1000).toFixed(0)}s</div><div>${b.route}</div>`).join('')}</div>` : ''}
+    </div>
+  </div>
+
+  <div class="card panel">
+    <h3>Live event stream</h3>
+    <div id="log" class="evtlog"></div>
+  </div>`;
+  paintLog();
+}
+function stat(k, v) { return `<div class="stat"><b>${v}</b><span>${k}</span></div>`; }
+function condSummary(c) {
+  return ['assistant ' + (c.assistant ? 'on' : 'off'), 'PDP ' + c.pdpContent,
+    'collections ' + (c.collections ? 'on' : 'off'), 'sponsored ' + (c.sponsored ? 'on' : 'off'),
+    'advisor ' + c.advisor, 'search ' + c.searchRank, 'reviews ' + c.reviews].join(' · ');
+}
+function paintLog() {
+  const el = document.getElementById('log');
+  if (!el) return;
+  el.innerHTML = EVENTS.slice(-300).reverse().map(e => `<div>
+    <span class="t">${(e.msSinceTask / 1000).toFixed(1)}s</span>
+    <span class="n">${e.event}</span>
+    <span class="v">${esc(e.detail || '').slice(0, 120)}</span></div>`).join('')
+    || '<div style="padding:12px;color:#93a3b8">No events yet.</div>';
+}
+function copyLink() {
+  const base = location.href.split('#')[0].split('?')[0];
+  const url = `${base}?cond=${S.condition}&mission=${S.mission}&consent=1${S.participantId ? '&pid=' + encodeURIComponent(S.participantId) : ''}#/`;
+  if (navigator.clipboard) navigator.clipboard.writeText(url);
+  track('session_link_copied', url);
+  toast('Session link copied');
+}
+
+/* ---------------- toast and modal ---------------- */
+let _toastT;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(_toastT);
+  _toastT = setTimeout(() => t.classList.remove('show'), 2300);
+}
+function openModal(html, size) {
+  const box = document.getElementById('mbox');
+  box.className = 'modal' + (size === 'sm' ? ' sm' : '');
+  box.innerHTML = html;
+  document.getElementById('back').classList.add('open');
+}
+function closeModal() { document.getElementById('back').classList.remove('open'); }
+
+/* ---------------- consent ---------------- */
+function showConsent() {
+  openModal(`<h2 class="h2">Before we begin</h2>
+    <p class="sub" style="margin:12px 0">You are about to use a prototype shopping website built for research.
+    Novi is not a real retailer. The products are real models, but the prices, stock, delivery dates and
+    customer reviews shown here are simulated. Nothing you do places a real order, and no payment is ever taken.</p>
+    <p class="sub" style="margin-bottom:14px">We record what you click and how long you spend on each page.
+    We do not collect your name, your email or any personal information. Your session is identified only
+    by a code the moderator assigns. You can stop at any time.</p>
+    <button class="btn pri lg" onclick="acceptConsent()">I understand, start</button>`, 'sm');
+}
+function acceptConsent() { S.consented = true; save(); track('consent_given'); closeModal(); }
+
+/* ---------------- boot ---------------- */
+function boot() {
+  document.body.innerHTML = shell();
+
+  const qs = new URLSearchParams(location.search);
+  const had = restore();
+
+  if (qs.get('mod') === '1') MOD = true;
+  if (qs.get('cond') && CONDITIONS[qs.get('cond')]) setCondition(qs.get('cond'), true);
+  if (qs.get('mission') && MISSIONS[qs.get('mission')]) setMission(qs.get('mission'), true);
+  if (qs.get('pid')) { S.participantId = qs.get('pid'); save(); }
+
+  window.addEventListener('hashchange', render);
+  window.addEventListener('scroll', scrollWatch, { passive: true });
+  window.addEventListener('beforeunload', leaveRoute);
+  document.addEventListener('click', e => { if (!e.target.closest('.searchbox')) closeAC(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModal(); closeAC(); }
+    if (e.altKey && e.shiftKey && /^m$/i.test(e.key)) { MOD = !MOD; paintMod(); }
+    if (e.altKey && e.shiftKey && /^r$/i.test(e.key)) softReset();
+  });
+  document.getElementById('back').addEventListener('click', e => { if (e.target.id === 'back') closeModal(); });
+
+  if (!location.hash) location.hash = '#/';
+  render();
+  if (!had) track('session_started', 'condition=' + S.condition);
+  if (qs.get('consent') === '1' && !S.consented) showConsent();
+  setInterval(() => { if (MOD) paintMod(); }, 5000);
+}
+document.addEventListener('DOMContentLoaded', boot);
+
+</script>
+</body>
+</html>

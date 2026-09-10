@@ -130,6 +130,62 @@ h1,h2,h3{margin:0}
 .tile:hover{border-color:var(--b);transform:translateY(-2px)}
 .tile b{display:block;margin-bottom:3px}
 .tile span{font-size:12px;color:var(--muted)}
+
+/* ---- Collections ------------------------------------------------------- */
+.collgrid{grid-template-columns:repeat(5,1fr)}
+.tile.coll{display:flex;flex-direction:column;gap:7px;min-height:132px;justify-content:flex-start;
+  background:linear-gradient(160deg,#f6faff,#fff 62%)}
+.tile.coll b{font-size:13px;font-weight:600;color:var(--d);line-height:1.35;margin:0}
+.tile.coll:hover{box-shadow:0 10px 26px #16305514}
+.collbadge{display:inline-block;align-self:flex-start;background:var(--b);color:#fff;font-size:11px;
+  font-weight:700;letter-spacing:.02em;padding:4px 9px;border-radius:20px;white-space:nowrap}
+.collbadge.lg{font-size:12px;padding:5px 12px}
+.collbadge.sm{font-size:10px;padding:3px 8px}
+.collhero{background:linear-gradient(120deg,#0b3f8f,#1273d4)}
+.collhero .collbadge{background:#ffffff2e;border:1px solid #ffffff5c}
+.collnav{margin:0 0 14px;padding:12px 15px;background:#fff;border:1px solid var(--line);border-radius:var(--radius)}
+.collnavlab{display:block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:9px}
+.collnavrow{display:flex;gap:8px;flex-wrap:wrap}
+.collchip{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:22px;cursor:pointer;
+  border:1px solid var(--line);background:#f7fafd;font-size:13px;font-weight:600;color:var(--d);transition:.14s}
+.collchip:hover{border-color:var(--b);background:#eaf3ff;color:var(--b)}
+.collchip.on{background:var(--b);border-color:var(--b);color:#fff}
+.collchip.on .ccn{background:#ffffff33;color:#fff}
+.collchip.ghost{background:none;font-weight:500;color:var(--muted)}
+.ccn{background:#e4edf8;color:var(--muted);border-radius:11px;padding:1px 7px;font-size:11px;font-weight:700}
+.achead{padding:8px 14px 5px!important;font-size:10px!important;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--muted);background:#f7fafd;border-bottom:1px solid #eef3f9}
+.achead:hover{background:#f7fafd!important}
+.acoll{display:flex;align-items:center;gap:10px;cursor:pointer}
+.acollchips{display:flex;flex-wrap:wrap;gap:6px}
+.acollchips button{padding:6px 11px;border-radius:20px;border:1px solid var(--line);background:#fff;
+  font-size:12px;font-weight:600;cursor:pointer;color:var(--d)}
+.acollchips button:hover{border-color:var(--b);background:#eaf3ff;color:var(--b)}
+.navcoll{font-weight:700!important}
+
+/* ---- retail density ---------------------------------------------------- */
+.ribbon{background:#eaf3ff;border-bottom:1px solid #d3e4f7;overflow:hidden}
+.ribwrap{max-width:1280px;margin:0 auto;padding:7px 20px;display:flex;gap:10px;align-items:center;
+  font-size:12px;color:#12406f;white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+.ribwrap::-webkit-scrollbar{display:none}
+.ribwrap i{color:#9dbbd8;font-style:normal}
+.adtile{padding:18px;display:flex;flex-direction:column;gap:7px;justify-content:center;
+  border-left:4px solid var(--adc);background:linear-gradient(160deg,#fbfdff,#fff)}
+.adtile b{font-size:15px;color:var(--d)}
+.adtile p{font-size:12px;color:var(--muted);margin:0;flex:1}
+.adtile .btn{align-self:flex-start}
+.railad{padding:16px;margin-top:14px;display:flex;flex-direction:column;gap:8px;align-self:start;
+  background:linear-gradient(165deg,#f2f8ff,#fff)}
+.railad b{font-size:14px}
+.railad p{font-size:12px;color:var(--muted);margin:0}
+.emailcap{margin-top:26px;padding:20px 22px;border-radius:var(--radius);background:#12305a;color:#fff;
+  display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.emailcap b{display:block;font-size:16px}
+.emailcap span{font-size:12.5px;color:#b9cde6}
+.ecform{display:flex;gap:8px}
+.ecform input{padding:10px 13px;border:1px solid #3a5e91;border-radius:8px;min-width:230px;font-size:13px}
+@media(max-width:900px){.collgrid{grid-template-columns:repeat(2,1fr)}}
 .promos{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px;margin:18px 0}
 .promo{border-radius:var(--radius);padding:22px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;min-height:132px}
 .promo h3{font-size:19px;margin:0 0 6px;letter-spacing:-.4px}
@@ -436,6 +492,39 @@ const USES = ['School', 'Work', 'Creative', 'Gaming', 'Everyday'];
 const TYPES = ['Windows laptops', 'Copilot+ PCs', 'MacBooks', 'Chromebooks',
                '2-in-1 laptops', 'Gaming laptops', 'Business laptops'];
 
+/* The Collections framework. Names and descriptors are the in-market set:
+   a three-rung ladder from entry to premium, plus two specialist collections.
+   Every SKU carries exactly one, so a shopper is never asked to guess. */
+const COLLECTIONS = [
+  { id: 'core-essentials', name: 'Core essentials',
+    blurb: 'For browsing, email and streaming.',
+    long: 'The everyday basics done well. Email, the web, streaming and documents, without paying for power you will not use.' },
+  { id: 'everyday-productivity', name: 'Everyday productivity',
+    blurb: 'For everyday projects, school and multitasking.',
+    long: 'Enough headroom to keep a dozen tabs, a video call and your coursework open at the same time.' },
+  { id: 'premium-performance', name: 'Premium performance',
+    blurb: 'For all day performance for work or gaming.',
+    long: 'Faster silicon, better screens and batteries that last a working day. For people who live on their machine.' },
+  { id: 'creator-pro', name: 'Creator pro',
+    blurb: 'For advanced apps, creation and design.',
+    long: 'Colour-accurate displays and serious graphics for editing, rendering, design and photography.' },
+  { id: 'gaming', name: 'Gaming',
+    blurb: 'For high performance gaming and beyond.',
+    long: 'High refresh displays and dedicated graphics, built to hold a frame rate under load.' }
+];
+
+/* One collection per machine. Specialist collections win over the price ladder,
+   so a creator machine is never merchandised as merely expensive. */
+function collectionFor(m) {
+  if (m.ty === 'Gaming laptops') return 'Gaming';
+  const creatorGrade = /RTX|GeForce|Radeon RX/.test(m.gpu) ||
+                       /M\d+\s+(Pro|Max)/.test(m.cpu) || m.pan === 'OLED';
+  if (m.u.includes('Creative') && creatorGrade && m.p >= 1000) return 'Creator pro';
+  if (m.p >= 1000) return 'Premium performance';
+  if (m.p >= 500) return 'Everyday productivity';
+  return 'Core essentials';
+}
+
 /* ---------------------------------------------------------------------------
    The hand-authored model table. Every row is a real machine.
    b=brand n=name f=family os cpu cb=cpu brand gpu ram st=storage GB
@@ -712,6 +801,7 @@ function build() {
       deliveryDays: between(1, 4),
       pickup: rnd() > 0.25,
       openBox: m.rc > 1500 ? Math.round(m.p * 0.86) - 1 : null,
+      collection: collectionFor(m),
       hue: brand.hue + between(-8, 8)
     });
     id++;
@@ -720,7 +810,7 @@ function build() {
 }
 
 const CATALOG = build();
-if (typeof module !== 'undefined') module.exports = { CATALOG, BRANDS, USES, OS, TYPES };
+if (typeof module !== 'undefined') module.exports = { CATALOG, BRANDS, USES, OS, TYPES, COLLECTIONS };
 
 
 /* ===== app-core.js ===== */
@@ -748,31 +838,31 @@ const CONDITIONS = {
     label: 'A · Control (no assistant)',
     assistant: false, pdpContent: 'asis', collections: true, sponsored: true,
     advisor: 'subtle', searchRank: 'relevance', reviews: 'standard',
-    priceFormat: 'standard', deliveryPromise: 'standard'
+    priceFormat: 'standard', deliveryPromise: 'standard', density: 'busy'
   },
   B: {
     label: 'B · Assistant present',
     assistant: true, pdpContent: 'asis', collections: true, sponsored: true,
     advisor: 'subtle', searchRank: 'relevance', reviews: 'standard',
-    priceFormat: 'standard', deliveryPromise: 'standard'
+    priceFormat: 'standard', deliveryPromise: 'standard', density: 'busy'
   },
   C: {
     label: 'C · Assistant + rich content everywhere',
     assistant: true, pdpContent: 'rich', collections: true, sponsored: true,
     advisor: 'prominent', searchRank: 'relevance', reviews: 'prominent',
-    priceFormat: 'standard', deliveryPromise: 'strong'
+    priceFormat: 'standard', deliveryPromise: 'strong', density: 'busy'
   },
   D: {
     label: 'D · Assistant + thin content everywhere',
     assistant: true, pdpContent: 'thin', collections: false, sponsored: true,
     advisor: 'hidden', searchRank: 'popularity', reviews: 'minimal',
-    priceFormat: 'standard', deliveryPromise: 'weak'
+    priceFormat: 'standard', deliveryPromise: 'weak', density: 'busy'
   },
   E: {
     label: 'E · No collections, no guidance',
     assistant: false, pdpContent: 'asis', collections: false, sponsored: true,
     advisor: 'hidden', searchRank: 'popularity', reviews: 'standard',
-    priceFormat: 'standard', deliveryPromise: 'standard'
+    priceFormat: 'standard', deliveryPromise: 'standard', density: 'busy'
   }
 };
 
@@ -815,7 +905,8 @@ const DEFAULT_SESSION = () => ({
   compare: [],
   maxCompared: 0,
   checkoutComplete: false,
-  filters: { use: [], brand: [], os: [], cpu: [], type: [], ram: [], storage: [], screen: [],
+  density: null,
+  filters: { use: [], collection: [], brand: [], os: [], cpu: [], type: [], ram: [], storage: [], screen: [],
              price: [null, null], rating: 0, touch: false, deals: false },
   sort: 'rec',
   page: 1,
@@ -832,6 +923,16 @@ const LS_S = 'novi.session.v2';
 const LS_E = 'novi.events.v2';
 
 function cond() { return CONDITIONS[S.condition] || CONDITIONS.B; }
+/* Visual density is a research variable in its own right, orthogonal to the
+   lettered conditions, so a moderator can strip the retail noise mid-session
+   and see whether guidance still lands. */
+function density() { return S.density || cond().density || 'busy'; }
+function setDensity(d) {
+  S.density = d; save();
+  track('density_changed', { density: d });
+  render();
+  toast(d === 'busy' ? 'Retail density on' : 'Retail density off');
+}
 function P(id) { return CATALOG.find(p => p.id === id); }
 function money(n) { return BRAND.symbol + n.toLocaleString('en-US'); }
 
@@ -868,6 +969,7 @@ function track(name, detail) {
     participantId: S.participantId || 'unassigned',
     condition: S.condition,
     conditionLabel: cond().label,
+    density: density(),
     mission: S.mission,
     missionLabel: MISSIONS[S.mission].label,
     route: location.hash || '#/',
@@ -939,7 +1041,7 @@ function exportJSON() {
   track('data_exported', 'json');
 }
 function exportCSV() {
-  const cols = ['ts','msSinceSession','msSinceTask','sessionId','participantId','condition','conditionLabel','mission','missionLabel','route','event','detail'];
+  const cols = ['ts','msSinceSession','msSinceTask','sessionId','participantId','condition','conditionLabel','density','mission','missionLabel','route','event','detail'];
   const esc = v => '"' + String(v === undefined ? '' : v).replace(/"/g, '""') + '"';
   const rows = [cols.join(',')].concat(EVENTS.map(e => cols.map(c => esc(e[c])).join(',')));
   download(`novi_${S.participantId || 'unassigned'}_${S.sessionId}.csv`, rows.join('\r\n'), 'text/csv');
@@ -1002,6 +1104,7 @@ const ROUTES = [
   [/^#\/$/,                       () => viewHome()],
   [/^#\/computers$/,              () => viewCategory()],
   [/^#\/laptops$/,                () => viewBrowse()],
+  [/^#\/deals$/,                  () => { S.filters.deals = true; return viewBrowse(); }],
   [/^#\/search$/,                 () => viewSearch()],
   [/^#\/search\?q=(.*)$/,         m  => { const q = decodeURIComponent(m[1].replace(/\+/g, ' '));
                                           if (S.query !== q) { S.query = q; save(); }
@@ -1041,7 +1144,9 @@ function render() {
 /* per-route side effects that need the DOM to exist */
 let _cdT = null;
 function afterRender(h) {
-  if (/^#\/laptops|^#\/search|^#\/brand|^#\/collections\//.test(h)) bindFacets();
+  const rb = document.getElementById('ribbon');
+  if (rb) rb.innerHTML = promoRibbon();
+  if (/^#\/laptops|^#\/deals|^#\/search|^#\/brand|^#\/collections\//.test(h)) bindFacets();
   if (h === '#/' || h === '') { startHero(); tickCountdown(); clearInterval(_cdT); _cdT = setInterval(tickCountdown, 1000); }
   else clearInterval(_cdT);
   if (/^#\/product\/(\d+)$/.test(h)) {
@@ -1120,6 +1225,7 @@ function applyFilters(list) {
       if (!q.split(/\s+/).every(t => hay.includes(t))) return false;
     }
     if (f.use.length && !f.use.some(u => p.use.includes(u))) return false;
+    if (f.collection.length && !f.collection.includes(p.collection)) return false;
     if (f.brand.length && !f.brand.includes(p.brand)) return false;
     if (f.os.length && !f.os.includes(p.os)) return false;
     if (f.cpu.length && !f.cpu.includes(p.cpuBrand)) return false;
@@ -1178,6 +1284,7 @@ function bandValues(base, fn, order) {
 
 function facetCount(key, val, base) {
   return base.filter(p => key === 'use' ? p.use.includes(val)
+    : key === 'collection' ? p.collection === val
     : key === 'brand' ? p.brand === val
     : key === 'os' ? p.os === val
     : key === 'type' ? p.type === val
@@ -1234,7 +1341,7 @@ function facetPanel(base) {
     ${grp('Total storage capacity', 'storage', bandValues(base, storageBand, ['64 GB','128 GB','256 GB','512 GB','1 TB']))}
     ${grp('Processor brand', 'cpu', bandValues(base, p => p.cpuBrand, ['Intel','AMD','Qualcomm','Apple','MediaTek']))}
     ${grp('Operating system', 'os', bandValues(base, p => p.os, OS))}
-    ${grp('Best for', 'use', ['School', 'Work', 'Creative', 'Gaming', 'Everyday'])}
+    ${grp('Shop by use case', 'collection', COLLECTIONS.map(c => c.name))}
     <div class="fgroup"><b>Features</b>
       <label><input type="checkbox" ${f.touch ? 'checked' : ''}
         onchange="S.filters.touch=this.checked;S.page=1;track('filter_changed',{facet:'touch',on:this.checked});render()">
@@ -1268,7 +1375,7 @@ function clearFilters() {
 }
 function activeFilterList() {
   const f = S.filters, out = [];
-  ['use', 'brand', 'os', 'cpu', 'type', 'ram', 'storage', 'screen'].forEach(k => f[k].forEach(v => out.push(k + ':' + v)));
+  ['use', 'collection', 'brand', 'os', 'cpu', 'type', 'ram', 'storage', 'screen'].forEach(k => f[k].forEach(v => out.push(k + ':' + v)));
   if (f.price[0] != null || f.price[1] != null) out.push('price:' + (f.price[0] ?? '') + '-' + (f.price[1] ?? ''));
   if (f.rating) out.push('rating:' + f.rating);
   if (f.touch) out.push('touch:Touchscreen');
@@ -1305,6 +1412,61 @@ function removeFilter(token) {
 function setSort(v) { S.sort = v; S.page = 1; track('sort_changed', v); render(); }
 function setPage(n) { S.page = n; track('page_changed', n); render(); window.scrollTo(0, 240); }
 
+/* ---- retail density ------------------------------------------------------
+   Real large-format retail is noisy: sponsored slots, promo ribbons, member
+   pricing, upsells. A prototype that is too clean tests a shop that does not
+   exist, so the noise is here and can be switched off as a variable. */
+const RIBBON = [
+  'Free shipping on orders $35 and up',
+  'Members get an extra 5% back in rewards',
+  'Open-Box: save up to 20% on selected laptops',
+  'Price match guarantee on identical in-stock items',
+  'Free 15-day returns, in store or by post'
+];
+function promoRibbon() {
+  if (density() !== 'busy') return '';
+  return `<div class="ribbon"><div class="ribwrap">${RIBBON.map(r =>
+    `<span>${r}</span>`).join('<i>&bull;</i>')}</div></div>`;
+}
+function adTile(i) {
+  const ads = [
+    { t: 'Trade in and save', s: 'Get up to $450 credit toward a new laptop.', c: '#0b3f8f', cta: 'Estimate value' },
+    { t: 'Protection plans', s: 'Cover accidental damage from day one, from $4.99/mo.', c: '#7a2fa8', cta: 'See plans' },
+    { t: 'Microsoft 365', s: 'Pair your new PC with Microsoft 365 Family.', c: '#0d7a5f', cta: 'Add to cart' }
+  ];
+  const a = ads[i % ads.length];
+  return `<div class="card adtile" style="--adc:${a.c}">
+    <span class="tag sp">Sponsored</span>
+    <b>${a.t}</b><p>${a.s}</p>
+    <button class="btn out" onclick="track('ad_clicked',{ad:'${a.t}'});toast('Not part of this prototype')">${a.cta}</button>
+  </div>`;
+}
+function railAd() {
+  if (density() !== 'busy') return '';
+  return `<div class="card railad">
+    <span class="tag sp">Sponsored</span>
+    <b>Copilot+ PCs</b>
+    <p>All-day battery and on-device AI. See what a Copilot+ PC does differently.</p>
+    <button class="btn out" onclick="track('ad_clicked',{ad:'copilot-rail'});tileGo('type:Copilot+ PCs')">Shop Copilot+ PCs</button>
+  </div>`;
+}
+function recentlyViewedRail() {
+  if (density() !== 'busy') return '';
+  const items = recentlyViewed();
+  if (items.length < 2) return '';
+  return `<div class="sectionhead" style="margin-top:26px"><div><h2 class="h2">Recently viewed</h2></div>
+      <button class="btn ghost" onclick="go('#/laptops')">Keep shopping</button></div>
+    <div class="railwrap"><div class="rail">${items.slice(0, 6).map(pcard).join('')}</div></div>`;
+}
+function emailCapture() {
+  if (density() !== 'busy') return '';
+  return `<div class="emailcap">
+    <div><b>Deals in your inbox</b><span>Weekly offers, price drops and early access.</span></div>
+    <div class="ecform"><input placeholder="you@example.com" aria-label="Email address">
+      <button class="btn pri" onclick="track('email_signup');toast('Not part of this prototype')">Sign up</button></div>
+  </div>`;
+}
+
 function resultsGrid(list, emptyMsg) {
   const total = list.length;
   const pages = Math.max(1, Math.ceil(total / PER_PAGE));
@@ -1312,7 +1474,10 @@ function resultsGrid(list, emptyMsg) {
   const slice = list.slice((S.page - 1) * PER_PAGE, S.page * PER_PAGE);
   if (!total) return `<div class="empty"><b>${emptyMsg || 'No laptops match those filters.'}</b>
     <div style="margin-top:12px"><button class="btn out" onclick="clearFilters()">Clear filters</button></div></div>`;
-  return `<div class="products">${slice.map(pcard).join('')}</div>
+  // Interleave a sponsored tile mid-grid, the way large-format retailers do.
+  const cards = slice.map(pcard);
+  if (density() === 'busy' && cards.length > 6) cards.splice(6, 0, adTile(S.page));
+  return `<div class="products">${cards.join('')}</div>
     ${pages > 1 ? pager(pages) : ''}`;
 }
 function pager(pages) {
@@ -1330,15 +1495,15 @@ function pager(pages) {
 /* ---------------- homepage ---------------- */
 
 const HERO_SLIDES = [
-  { tag: 'Back to school', h: 'Everything they need, nothing they don\'t.',
-    p: 'Student laptops from $269, with free delivery and 15-day returns.',
-    cta: 'Shop student picks', act: "go('#/collections/student')", hue: 205, from: '#0b5bd3', to: '#22a3e0' },
-  { tag: 'New season', h: 'Creative machines, built to keep up.',
-    p: 'Colour-accurate displays and real horsepower for photo and video.',
-    cta: 'Shop creators', act: "go('#/collections/creator')", hue: 268, from: '#3b1a8f', to: '#8b3fd6' },
+  { tag: 'Windows PC Collections', h: 'Five ways to shop. Pick the one that sounds like you.',
+    p: 'Every laptop sits in exactly one collection, so you can start from what you want to do rather than a spec sheet.',
+    cta: 'Explore collections', act: "go('#/collections')", hue: 205, from: '#0b5bd3', to: '#22a3e0' },
+  { tag: 'Creator pro', h: 'Creative machines, built to keep up.',
+    p: 'Colour-accurate displays and real horsepower for photo, video and design.',
+    cta: 'Shop Creator pro', act: "go('#/collections/creator-pro')", hue: 268, from: '#3b1a8f', to: '#8b3fd6' },
   { tag: 'Not sure yet?', h: 'Answer four questions. We\'ll do the rest.',
     p: 'We narrow 60 laptops down to the handful that actually fit you.',
-    cta: 'Help me choose', act: "go('#/advisor')", hue: 168, from: '#0d7a5f', to: '#25b389' }
+    cta: 'Find your PC', act: "go('#/advisor')", hue: 168, from: '#0d7a5f', to: '#25b389' }
 ];
 let HERO_I = 0, HERO_T = null;
 
@@ -1387,6 +1552,21 @@ const CATSTRIP = [
   ['Business laptops', 'type:Business laptops', ''],
   ['Deals', 'deals', '']
 ];
+
+/* The Collections nav. Sits above the results on every listing surface, so
+   collections are the first thing a shopper meets rather than a page they
+   have to go looking for. */
+function collNav(activeId) {
+  return `<nav class="collnav" aria-label="Shop by collection">
+    <span class="collnavlab">Shop by collection</span>
+    <div class="collnavrow">
+      ${COLLECTIONS.map(c => `<button class="collchip${activeId === c.id ? ' on' : ''}"
+        onclick="track('collection_nav',{collection:'${c.id}',from:'${activeId || 'listing'}'});go('#/collections/${c.id}')"
+        title="${c.blurb}">${c.name}<span class="ccn">${CATALOG.filter(p => p.collection === c.name).length}</span></button>`).join('')}
+      <button class="collchip ghost" onclick="go('#/collections')">All collections</button>
+    </div>
+  </nav>`;
+}
 
 function dealOfDay() {
   const d = CATALOG.filter(p => p.wasPrice)
@@ -1439,10 +1619,16 @@ function viewHome() {
   <nav class="catstrip">${CATSTRIP.map(c => `<a onclick="tileGo('${c[1]}')">
     <span class="ico">${catIcon(c[0])}</span><b>${c[0]}</b></a>`).join('')}</nav>
 
+  ${cond().collections ? `
+  <div class="sectionhead"><div><h2 class="h2">Shop Windows PC Collections</h2>
+    <p class="sub">Five ways to shop, organised by what you want to do. Every laptop sits in exactly one.</p></div>
+    <button class="btn ghost" onclick="go('#/collections')">See all collections</button></div>
+  <div class="tiles collgrid">${COLLECTIONS.map(c => collTile(c, true)).join('')}</div>` : ''}
+
   <div class="promos">
     <div class="promo a"><div><h3>Back to school savings</h3>
       <p>Up to ${money(320)} off selected laptops for students and families.</p></div>
-      <div><button class="btn" style="background:#fff;color:var(--d)" onclick="go('#/collections/student')">Shop the event</button></div></div>
+      <div><button class="btn" style="background:#fff;color:var(--d)" onclick="go('#/collections/everyday-productivity')">Shop the event</button></div></div>
     <div class="promo b"><div><h3>Trade in, trade up</h3><p>Get credit towards a new machine.</p></div>
       <div><button class="btn" style="background:#ffffff26;color:#fff;border-color:#ffffff55" onclick="toast('Trade-in is not part of this prototype')">Estimate value</button></div></div>
     <div class="promo c"><div><h3>Free delivery</h3><p>On orders over ${money(35)}. Most laptops arrive in 2 to 4 days.</p></div></div>
@@ -1454,13 +1640,6 @@ function viewHome() {
     <p class="sub">${deals.length} laptops reduced this week.</p></div>
     <button class="btn ghost" onclick="tileGo('deals')">See all deals</button></div>
   <div class="products">${deals.slice(0, 6).map(pcard).join('')}</div>
-
-  ${cond().collections ? `
-  <div class="sectionhead"><div><h2 class="h2">Shop by what you need</h2>
-    <p class="sub">Curated picks, chosen by our team for a specific job.</p></div>
-    <button class="btn ghost" onclick="go('#/collections')">See all collections</button></div>
-  <div class="tiles">${COLLECTIONS.map(c => `<a class="tile" onclick="go('#/collections/${c.slug}')">
-    <b>${c.title}</b><span>${c.blurb} &middot; ${CATALOG.filter(c.pick).length} picks</span></a>`).join('')}</div>` : ''}
 
   ${rail('Top rated laptops', top, "tileGo('rating')")}
 
@@ -1599,12 +1778,13 @@ function viewBrowse() {
   return `${crumbs([['Home', '#/'], ['Computers & Tablets', '#/computers'], ['Laptops', '#/laptops']])}
   <div class="sectionhead"><div><h1 class="h1">Laptops</h1>
     <p class="sub" id="resultcount">Showing ${Math.min(PER_PAGE, filtered.length)} of ${filtered.length} results</p></div>
-    ${cond().advisor !== 'hidden' ? `<button class="btn ${cond().advisor === 'prominent' ? 'pri' : 'out'}" onclick="go('#/advisor')">Help me choose</button>` : ''}</div>
+    ${cond().advisor !== 'hidden' ? `<button class="btn ${cond().advisor === 'prominent' ? 'pri' : 'out'}" onclick="go('#/advisor')">Find your PC</button>` : ''}</div>
+  ${collNav('')}
   ${cond().advisor === 'prominent' ? `<div class="helpbar"><div><strong>Answer three questions, see your matches</strong>
     <span>We'll narrow ${CATALOG.length} laptops down to the few that fit how you'll actually use it.</span></div>
-    <button class="btn pri" onclick="go('#/advisor')">Start the guide</button></div>` : ''}
+    <button class="btn pri" onclick="go('#/advisor')">Find your PC</button></div>` : ''}
   <div class="shop">
-    ${facetPanel(base)}
+    ${facetPanel(base)}${railAd()}
     <section>
       ${chipsBar()}
       <div class="toolbar">
@@ -1612,6 +1792,8 @@ function viewBrowse() {
         ${sortSelect()}
       </div>
       ${resultsGrid(filtered)}
+      ${recentlyViewedRail()}
+      ${emailCapture()}
     </section>
   </div>`;
 }
@@ -1642,6 +1824,7 @@ function viewSearch() {
   return `${crumbs([['Home', '#/'], ['Search', '#/search']])}
   <div class="sectionhead"><div><h1 class="h1">Results for "${esc(q)}"</h1>
     <p class="sub">${filtered.length} results</p></div></div>
+  ${collNav('')}
   ${sponsored ? `<div class="card" style="padding:16px;display:flex;gap:16px;align-items:center;margin-bottom:16px">
     <span class="tag sp">Sponsored</span>
     <div style="flex:1"><b>${sponsored.brand}</b> — ${sponsored.name}, from ${money(sponsored.price)}</div>
@@ -1666,18 +1849,40 @@ function doSearch(q) {
   go('#/search');
 }
 function submitSearch() { const v = document.getElementById('q').value.trim(); if (v) doSearch(v); }
+/* Search autocomplete. Collections lead, because they are the entry point we
+   most want a shopper to notice. With an empty box we show all five. */
+function collRow(c) {
+  return `<div class="acoll" onclick="track('autocomplete_collection',{collection:'${c.id}'});go('#/collections/${c.id}')">
+    <span class="collbadge sm">${c.name}</span><span class="sub">${c.blurb}</span></div>`;
+}
+function acFocus() {
+  const v = document.getElementById('q').value.trim();
+  if (v.length) { acInput(); return; }
+  const box = document.getElementById('ac');
+  box.innerHTML = `<div class="achead">Shop by collection</div>` +
+    COLLECTIONS.map(collRow).join('') +
+    `<div class="achead">Popular searches</div>` +
+    ['gaming laptop', 'laptop for school', 'lightweight laptop']
+      .map(t => `<div onclick="doSearch('${t}')">&#9906; <b>${t}</b></div>`).join('');
+  box.classList.add('open');
+  track('autocomplete_shown', { query: '', mode: 'collections', count: COLLECTIONS.length });
+}
 function acInput() {
   const v = document.getElementById('q').value.trim().toLowerCase();
   const box = document.getElementById('ac');
-  if (v.length < 2) { closeAC(); return; }
+  if (!v.length) { acFocus(); return; }
+  const colls = COLLECTIONS.filter(c => (c.name + ' ' + c.blurb).toLowerCase().includes(v)).slice(0, 3);
   const hits = CATALOG.filter(p => (p.name + ' ' + p.brand).toLowerCase().includes(v)).slice(0, 6);
   const terms = ['gaming laptop', 'laptop for school', 'lightweight laptop', '16gb laptop']
     .filter(t => t.includes(v)).slice(0, 2);
-  if (!hits.length && !terms.length) { closeAC(); return; }
-  box.innerHTML = terms.map(t => `<div onclick="doSearch('${t}')">🔍 <b>${t}</b></div>`).join('') +
-    hits.map(p => `<div onclick="go('#/product/${p.id}')">${p.name} <span class="sub">· ${money(p.price)}</span></div>`).join('');
+  if (!hits.length && !terms.length && !colls.length) { closeAC(); return; }
+  box.innerHTML =
+    (colls.length ? `<div class="achead">Collections</div>` + colls.map(collRow).join('') : '') +
+    (terms.length ? terms.map(t => `<div onclick="doSearch('${t}')">&#9906; <b>${t}</b></div>`).join('') : '') +
+    (hits.length ? `<div class="achead">Products</div>` + hits.map(p =>
+      `<div onclick="go('#/product/${p.id}')">${p.name} <span class="sub">&middot; ${money(p.price)}</span></div>`).join('') : '');
   box.classList.add('open');
-  track('autocomplete_shown', { query: v, count: hits.length + terms.length });
+  track('autocomplete_shown', { query: v, count: hits.length + terms.length + colls.length });
 }
 function closeAC() { const b = document.getElementById('ac'); if (b) b.classList.remove('open'); }
 function esc(s) { return String(s).replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c])); }
@@ -2022,7 +2227,7 @@ const ADV_Q = [
 function viewAdvisor() {
   if (ADV.step >= ADV_Q.length) return advisorResults();
   const q = ADV_Q[ADV.step];
-  return `${crumbs([['Home', '#/'], ['Help me choose', '#/advisor']])}
+  return `${crumbs([['Home', '#/'], ['Find your PC', '#/advisor']])}
   <div style="max-width:660px;margin:26px auto">
     <div class="sub">Question ${ADV.step + 1} of ${ADV_Q.length}</div>
     <h1 class="h1" style="margin:6px 0 18px">${q.q}</h1>
@@ -2062,7 +2267,7 @@ function advisorMatches() {
 }
 function advisorResults() {
   const m = advisorMatches(), a = ADV.answers;
-  return `${crumbs([['Home', '#/'], ['Help me choose', '#/advisor']])}
+  return `${crumbs([['Home', '#/'], ['Find your PC', '#/advisor']])}
   <div class="sectionhead"><div><h1 class="h1">Your matches</h1>
     <p class="sub">Based on ${Object.values(a).join(', ').toLowerCase()}. ${m.length} laptops fit.</p></div>
     <button class="btn ghost" onclick="ADV={step:0,answers:{}};track('advisor_restarted');render()">Start over</button></div>
@@ -2070,32 +2275,42 @@ function advisorResults() {
   <div style="margin-top:20px"><button class="btn out" onclick="go('#/laptops')">See all laptops instead</button></div>`;
 }
 
-/* ---------------- collections ---------------- */
-const COLLECTIONS = [
-  { slug: 'student', title: 'Set up for school', blurb: 'Light, affordable, all-day battery',
-    pick: p => p.use.includes('School') && p.price < 900 },
-  { slug: 'home-office', title: 'The home office', blurb: 'Good webcam, comfortable keyboard, fast enough',
-    pick: p => p.use.includes('Work') && p.ramGb >= 16 },
-  { slug: 'creator', title: 'For creators', blurb: 'Colour-accurate screens and real horsepower',
-    pick: p => p.use.includes('Creative') },
-  { slug: 'gaming', title: 'Serious gaming', blurb: 'High refresh, dedicated graphics',
-    pick: p => p.use.includes('Gaming') }
-];
+/* ---------------- collections ----------------
+   The Collections framework is the spine of the site, not a side door.
+   Names and descriptors come from the catalog so search, nav, facets, the
+   assistant and these pages can never drift apart. */
+function collItems(c) { return CATALOG.filter(p => p.collection === c.name); }
+function collBySlug(slug) { return COLLECTIONS.find(c => c.id === slug); }
+function collTile(c, big) {
+  const n = collItems(c).length;
+  return `<a class="tile coll${big ? ' big' : ''}" onclick="go('#/collections/${c.id}')">
+    <span class="collbadge">${c.name}</span>
+    <b>${c.blurb}</b><span>${n} ${n === 1 ? 'laptop' : 'laptops'}</span></a>`;
+}
 function viewCollectionsIndex() {
+  track('collections_index_viewed', '');
   return `${crumbs([['Home', '#/'], ['Collections', '#/collections']])}
-  <div class="sectionhead"><div><h1 class="h1">Collections</h1>
-    <p class="sub">Curated sets, chosen for a specific job rather than a spec sheet.</p></div></div>
-  <div class="tiles">${COLLECTIONS.map(c => `<a class="tile" onclick="go('#/collections/${c.slug}')">
-    <b>${c.title}</b><span>${c.blurb} · ${CATALOG.filter(c.pick).length} picks</span></a>`).join('')}</div>`;
+  <div class="sectionhead"><div><h1 class="h1">Windows PC Collections</h1>
+    <p class="sub">Five ways to shop, organised by what you actually want to do rather than by spec sheet.
+      Every laptop sits in exactly one.</p></div></div>
+  <div class="tiles collgrid">${COLLECTIONS.map(c => collTile(c, true)).join('')}</div>
+  <div class="helpbar" style="margin-top:26px"><div><strong>Not sure which one you are?</strong>
+    <span>Answer four questions and we will point you at the right collection.</span></div>
+    <button class="btn pri" onclick="go('#/advisor')">Find your PC</button></div>`;
 }
 function viewCollection(slug) {
-  const c = COLLECTIONS.find(x => x.slug === slug);
+  const c = collBySlug(slug);
   if (!c) return view404();
-  const items = applySort(applyFilters(CATALOG.filter(c.pick)));
-  return `${crumbs([['Home', '#/'], ['Collections', '#/collections'], [c.title, '']])}
-  <section class="hero" style="padding:34px 40px"><div><h1 style="font-size:31px;margin-bottom:8px">${c.title}</h1>
-    <p style="margin:0">${c.blurb}. ${items.length} laptops chosen by our team.</p></div></section>
-  <div class="shop">${facetPanel(CATALOG.filter(c.pick))}
+  const base = collItems(c);
+  const items = applySort(applyFilters(base));
+  track('collection_viewed', c.name + ' (' + items.length + ' shown)');
+  return `${crumbs([['Home', '#/'], ['Collections', '#/collections'], [c.name, '']])}
+  ${collNav(c.id)}
+  <section class="hero collhero" style="padding:34px 40px"><div>
+    <span class="collbadge lg">${c.name}</span>
+    <h1 style="font-size:31px;margin:10px 0 8px">${c.blurb}</h1>
+    <p style="margin:0;max-width:620px">${c.long}</p></div></section>
+  <div class="shop">${facetPanel(base)}
     <section>${chipsBar()}<div class="toolbar"><span class="sub">${items.length} in this collection</span>${sortSelect()}</div>
     ${resultsGrid(items, 'Nothing in this collection matches those filters.')}</section></div>`;
 }
@@ -2145,7 +2360,7 @@ let ASSIST_MSGS = [];
 let ASSIST_CTX = null;   // product currently under discussion
 
 const ASSIST_CHIPS = [
-  'Help me pick a laptop for school',
+  'Which collection is right for me?',
   'What is good for photo editing?',
   'Which of these has the best battery?',
   'Show me something under $700',
@@ -2177,7 +2392,30 @@ function paintAssistant() {
 }
 function greeting() {
   return `<div class="msg a"><div class="bub">Hi. I can help you narrow this down.
-    Tell me what you'll use the laptop for, or ask me about anything on the site.</div></div>`;
+    <div style="margin:10px 0 4px;font-weight:600">Start with a collection</div>
+    <div class="acollchips">${COLLECTIONS.map(c =>
+      `<button onclick="assistCollection('${c.id}')" title="${c.blurb}">${c.name}</button>`).join('')}</div>
+    <div style="margin-top:9px">Or tell me what you'll use it for, and I'll work it out.</div></div></div>`;
+}
+/* Picking a collection in the assistant is the same act as picking one in the
+   nav, so it lands the shopper on the collection rather than a dead-end reply. */
+function assistCollection(id) {
+  const c = COLLECTIONS.find(x => x.id === id);
+  if (!c) return;
+  const items = CATALOG.filter(p => p.collection === c.name)
+    .sort((a, b) => (b.rating - b.price / 3000) - (a.rating - a.price / 3000)).slice(0, 3);
+  ASSIST_MSGS.push({ role: 'u', text: c.name });
+  ASSIST_MSGS.push({
+    role: 'a',
+    text: `<b>${c.name}</b> is ${c.blurb.replace(/^For /, 'for ').replace(/\.$/, '')}. ${c.long}
+      <div style="margin-top:8px">Here are three to start with, out of
+      ${CATALOG.filter(p => p.collection === c.name).length} in the collection.</div>`,
+    cards: items.map(p => p.id),
+    actions: `<button class="btn out" style="padding:7px 11px;font-size:12px"
+      onclick="toggleAssist(false);go('#/collections/${c.id}')">See all ${c.name}</button>`
+  });
+  track('assistant_collection_picked', { collection: c.id });
+  paintAssistant();
 }
 function renderMsg(m) {
   return `<div class="msg ${m.role}"><div class="bub">${m.text}
@@ -2263,17 +2501,46 @@ function matchProduct(q) {
 function assistAnswer(qRaw) {
   const q = qRaw.toLowerCase();
 
-  // 1. a named product, or the product currently in context
+  // 1. a collection asked for by name, or a request to be placed in one
+  const namedColl = COLLECTIONS.find(c => q.includes(c.name.toLowerCase()));
+  if (namedColl) return answerCollection(namedColl);
+  if (/which collection|what collection|collections?\b.*(right|for me|should i)|explain.*collections?/.test(q))
+    return answerCollectionsOverview();
+
+  // 2. a named product, or the product currently in context
   let target = matchProduct(q);
   if (!target && ASSIST_CTX && /\b(it|this|that|the laptop)\b/.test(q)) target = P(ASSIST_CTX);
   if (target) { ASSIST_CTX = target.id; return answerAboutProduct(target, q); }
 
-  // 2. concept explainers
+  // 3. concept explainers
   const concept = CONCEPTS.find(c => c.re.test(q));
   if (concept) return { role: 'a', text: concept.a, grounded: 'general' };
 
-  // 3. otherwise treat it as a shortlist request
+  // 4. otherwise treat it as a shortlist request
   return answerShortlist(q);
+}
+function answerCollection(c) {
+  const pool = CATALOG.filter(p => p.collection === c.name);
+  const items = pool.sort((a, b) => (b.rating - b.price / 3000) - (a.rating - a.price / 3000)).slice(0, 3);
+  return {
+    role: 'a', grounded: 'collection',
+    text: `<b>${c.name}</b> is ${c.blurb.replace(/^For /, 'for ').replace(/\.$/, '')}. ${c.long}
+      <div style="margin-top:8px">${pool.length} laptops sit in it, from
+      ${money(Math.min(...pool.map(p => p.price)))}. Three worth a look:</div>`,
+    cards: items.map(p => p.id),
+    actions: `<button class="btn out" style="padding:7px 11px;font-size:12px"
+      onclick="toggleAssist(false);go('#/collections/${c.id}')">See all ${c.name}</button>`
+  };
+}
+function answerCollectionsOverview() {
+  return {
+    role: 'a', grounded: 'collection',
+    text: `There are five, and every laptop sits in exactly one. Pick the one that sounds most like you.
+      <div class="acollchips" style="margin-top:9px">${COLLECTIONS.map(c =>
+        `<button onclick="assistCollection('${c.id}')" title="${c.blurb}">${c.name}</button>`).join('')}</div>
+      <div style="margin-top:9px">${COLLECTIONS.map(c =>
+        `<div style="margin-bottom:3px"><b>${c.name}</b> &middot; ${c.blurb.replace(/^For /, '')}</div>`).join('')}</div>`
+  };
 }
 
 const CONCEPTS = [
@@ -2391,12 +2658,12 @@ function shell() {
     <a class="logo" onclick="go('#/')">nov<i>i</i></a>
     <div class="searchbox">
       <input id="q" placeholder="Search laptops, brands and specs" autocomplete="off" aria-label="Search"
-        oninput="acInput()" onkeydown="if(event.key==='Enter')submitSearch()">
+        oninput="acInput()" onfocus="acFocus()" onkeydown="if(event.key==='Enter')submitSearch()">
       <button class="go" onclick="submitSearch()" aria-label="Search">&#9906;</button>
       <div id="ac" class="ac"></div>
     </div>
     <nav class="hnav">
-      <a onclick="go('#/advisor')">Help me choose</a>
+      <a onclick="go('#/advisor')">Find your PC</a>
       <a onclick="go('#/collections')">Collections</a>
       <a onclick="go('#/compare')">Compare</a>
       <button class="cartbtn" onclick="go('#/cart')">Cart <span id="cartn" class="pill">0</span></button>
@@ -2406,22 +2673,24 @@ function shell() {
   <nav class="mainnav"><div class="wrap">
     <a onclick="go('#/computers')">Computers &amp; Tablets</a>
     <a onclick="go('#/laptops')">Laptops</a>
-    <a onclick="go('#/collections/student')">Student</a>
-    <a onclick="go('#/collections/home-office')">Home office</a>
-    <a onclick="go('#/collections/creator')">Creators</a>
+    <a class="navcoll" onclick="go('#/collections')">Collections</a>
+    <a onclick="go('#/collections/core-essentials')">Core essentials</a>
+    <a onclick="go('#/collections/everyday-productivity')">Everyday productivity</a>
+    <a onclick="go('#/collections/premium-performance')">Premium performance</a>
+    <a onclick="go('#/collections/creator-pro')">Creator pro</a>
     <a onclick="go('#/collections/gaming')">Gaming</a>
     <a onclick="go('#/guide')">Buying guides</a>
-    <a onclick="go('#/laptops')">Deals</a>
   </div></nav>
 
   <div id="missionbar" class="missionbar"></div>
+  <div id="ribbon"></div>
 
   <main id="app" class="wrap"></main>
 
   <footer class="footer"><div class="wrap">
     <div class="cols">
       <div><b>novi</b><span>A fictional retailer built for customer research. Nothing here is a real product, price or offer.</span></div>
-      <div><b>Shop</b><a onclick="go('#/laptops')">Laptops</a><a onclick="go('#/collections')">Collections</a><a onclick="go('#/advisor')">Help me choose</a></div>
+      <div><b>Shop</b><a onclick="go('#/laptops')">Laptops</a><a onclick="go('#/collections')">Collections</a><a onclick="go('#/advisor')">Find your PC</a></div>
       <div><b>Learn</b><a onclick="go('#/guide')">Buying guides</a><a onclick="go('#/computers')">Computers &amp; Tablets</a></div>
       <div><b>Session</b><a onclick="go('#/research')">Research console</a><a onclick="softReset()">Reset journey</a></div>
     </div>
@@ -2477,6 +2746,10 @@ function paintMod() {
     <label>Task <select onchange="setMission(this.value)">
       ${Object.keys(MISSIONS).map(k => `<option value="${k}" ${String(S.mission) === k ? 'selected' : ''}>${MISSIONS[k].label}</option>`).join('')}
     </select></label>
+    <label>Density <select onchange="setDensity(this.value)">
+      <option value="busy" ${density() === 'busy' ? 'selected' : ''}>Busy (retail)</option>
+      <option value="clean" ${density() === 'clean' ? 'selected' : ''}>Clean</option>
+    </select></label>
     <span>${SUCCESS_FIRED ? '<b style="color:#7ee787">TASK COMPLETE</b>' : 'in progress'} &middot; ${EVENTS.length} events &middot; ${elapsed()}</span>
     <span class="sp">
       <button onclick="bookmark()">Flag moment</button>
@@ -2528,6 +2801,13 @@ function paintConsole() {
           ${Object.keys(MISSIONS).map(k => `<option value="${k}" ${String(S.mission) === k ? 'selected' : ''}>${MISSIONS[k].label}</option>`).join('')}
         </select>
         <p class="sub" style="font-size:11px;margin-top:6px">${m ? m.brief : ''}</p></div>
+      <div class="field"><label>Retail density</label>
+        <select onchange="setDensity(this.value)">
+          <option value="busy" ${density() === 'busy' ? 'selected' : ''}>Busy &middot; sponsored slots, promo ribbon, upsells</option>
+          <option value="clean" ${density() === 'clean' ? 'selected' : ''}>Clean &middot; no advertising or promotional noise</option>
+        </select>
+        <p class="sub" style="font-size:11px;margin-top:6px">Real retail is noisy. Switch this off to test whether
+          guidance still lands once the commercial clutter is removed.</p></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn out" onclick="softReset()">Soft reset, keep data</button>
         <button class="btn ghost" onclick="hardReset()">New participant, wipe data</button>
@@ -2619,6 +2899,7 @@ function boot() {
   if (qs.get('cond') && CONDITIONS[qs.get('cond')]) setCondition(qs.get('cond'), true);
   if (qs.get('mission') && MISSIONS[qs.get('mission')]) setMission(qs.get('mission'), true);
   if (qs.get('pid')) { S.participantId = qs.get('pid'); save(); }
+  if (qs.get('density') === 'clean' || qs.get('density') === 'busy') { S.density = qs.get('density'); save(); }
 
   window.addEventListener('hashchange', render);
   window.addEventListener('scroll', scrollWatch, { passive: true });

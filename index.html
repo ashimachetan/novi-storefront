@@ -458,6 +458,34 @@ body.hasmod{padding-top:38px}
   .signupform input{width:100%}
 }
 
+/* ---- PDP guidance modules (9 optimizations) ------------------------------ */
+.collbadge.inbuybox{display:inline-flex;align-items:center;align-self:flex-start;width:max-content;max-width:100%;
+  margin:0 0 10px;cursor:pointer;white-space:nowrap;text-decoration:none;flex:0 0 auto;line-height:1.4}
+.fresh{font-weight:700}
+.fresh.ok{color:var(--ok)}
+.fresh.warn{color:var(--warn)}
+.usecase{margin:0 0 14px;padding:10px 12px;background:#f2f7fc;border-left:3px solid var(--b);
+  border-radius:0 7px 7px 0;font-size:13.5px;line-height:1.5;color:#173650}
+.answerfirst{margin:16px 0 0;font-size:15px;line-height:1.6;color:#1b2a3a}
+.fit{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 4px}
+.fitcol{border:1px solid var(--line);border-radius:10px;padding:13px 15px;background:#fff}
+.fitcol h3{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.4px}
+.fitcol.good h3{color:var(--ok)}
+.fitcol.bad h3{color:var(--warn)}
+.fitcol ul{margin:0;padding-left:17px}
+.fitcol li{font-size:13.5px;line-height:1.75;color:#33465a}
+.proof{display:grid;gap:9px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.proof div{display:flex;flex-direction:column}
+.proof b{font-size:13.5px;color:#12263a}
+.proof span{font-size:12px;color:var(--mut)}
+.spectable.benefit .means{display:block;margin-top:3px;font-size:12.5px;color:var(--mut);line-height:1.5}
+.schemabox{margin:26px 0 8px;border:1px solid var(--line);border-radius:10px;background:#fbfcfe;padding:13px 16px}
+.schemabox summary{cursor:pointer;font-weight:700;font-size:14px;color:#12263a}
+.schemacount{font-weight:400;color:var(--mut);font-size:12.5px;margin-left:6px}
+.schemabox pre{margin:11px 0 2px;padding:13px;background:#0f2233;color:#cfe6ff;border-radius:8px;
+  font-size:11.5px;line-height:1.55;overflow:auto;max-height:340px}
+@media(max-width:760px){.fit{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -1905,6 +1933,186 @@ function view404() {
 
 let PDP_TAB = 'specs';
 
+/* ==========================================================================
+   PDP optimizations 1-9.
+   Everything below is derived from catalog fields rather than hand-written per
+   SKU, so all 60 listings stay internally consistent and the rich/thin contrast
+   stays honest. Thin listings deliberately lose most of this, which is the
+   whole point of the comparison.
+   ========================================================================== */
+
+/* 5. Fit signaling, keyed to the collection so it can never contradict how the
+   product is merchandised elsewhere on the site. */
+const FIT = {
+  'Core essentials': {
+    best: ['Browsing, email and streaming', 'Documents and everyday admin', 'A second machine for the house'],
+    not:  ['Video editing or 3D work', 'Modern games at high settings', 'Running many heavy apps at once'] },
+  'Everyday productivity': {
+    best: ['School and coursework', 'Hybrid work and video calls', 'A dozen tabs and a call at the same time'],
+    not:  ['Sustained 4K video rendering', 'High refresh rate gaming', 'Colour critical professional work'] },
+  'Premium performance': {
+    best: ['A full day of work away from a desk', 'Frequent travel and commuting', 'Demanding multitasking'],
+    not:  ['Tight budgets', 'People who only browse and stream', 'Desktop replacement gaming'] },
+  'Creator pro': {
+    best: ['Photo and video editing', 'Design and illustration', 'Colour accurate work'],
+    not:  ['People who mainly browse', 'The lightest possible carry', 'The lowest upfront price'] },
+  'Gaming': {
+    best: ['High frame rate gaming', 'Streaming and capture', 'GPU accelerated creative work'],
+    not:  ['All day battery away from power', 'Quiet library or office use', 'A light, slim carry'] }
+};
+
+/* 7. Use-case declaration: one plain-language line, placed next to the hero. */
+const USECASE_LINE = {
+  'Core essentials': 'Best for light users who want the everyday basics done reliably, without paying for power they will not use.',
+  'Everyday productivity': 'Best for students and hybrid workers who need to multitask without thinking about it.',
+  'Premium performance': 'Best for professionals who need premium portability and all-day productivity.',
+  'Creator pro': 'Best for creators and designers who need colour accuracy and real graphics power.',
+  'Gaming': 'Best for gamers who want a high frame rate, with the headroom to create as well as play.'
+};
+
+/* 9. Freshness hygiene. */
+const CATALOG_YEAR = 2026;
+function freshness(p) {
+  const age = CATALOG_YEAR - p.releaseYear;
+  if (age <= 0) return { label: 'Current model', tone: 'ok' };
+  if (age === 1) return { label: 'Current model', tone: 'ok' };
+  if (age === 2) return { label: 'Previous generation', tone: 'warn' };
+  return { label: 'Older model, still sold', tone: 'warn' };
+}
+
+/* 2. Answer-first hero messaging: says what the thing is and when to surface it,
+   before any marketing framing. */
+function answerFirst(p) {
+  return `${p.name} is a ${p.screenSize}-inch ${p.collection.toLowerCase()} laptop with ${p.cpu},
+    ${p.ram} of memory and ${p.storage}, rated up to ${p.battery} of battery.
+    ${USECASE_LINE[p.collection] || ''}`;
+}
+
+/* 4. Spec-to-benefit translation: every spec answers a shopper question rather
+   than reporting a number. */
+function benefitFor(label, p) {
+  switch (label) {
+    case 'Memory':
+      return p.ramGb >= 32 ? 'Headroom for large projects, big photo libraries and heavy multitasking.'
+           : p.ramGb >= 16 ? 'Keeps a dozen tabs, a video call and your work open at the same time.'
+           : 'Comfortable for browsing, email, documents and streaming.';
+    case 'Storage':
+      return p.storageGb >= 1024 ? 'Room for large video and photo libraries without an external drive.'
+           : p.storageGb >= 512 ? 'Enough for years of documents, photos and a few large games.'
+           : 'Fine for documents and photos. Plan on cloud storage for anything large.';
+    case 'Battery life':
+      return parseFloat(p.battery) >= 15 ? 'Comfortably a full working day away from a charger.'
+           : parseFloat(p.battery) >= 10 ? 'A normal working day with light charging.'
+           : 'Expect to carry the charger for a full day out.';
+    case 'Graphics':
+      return /RTX|GeForce|Radeon RX/.test(p.gpu) ? 'Dedicated graphics for gaming, rendering and GPU accelerated editing.'
+           : /M\d+\s+(Pro|Max)/.test(p.cpu) ? 'Strong integrated graphics for editing and design work.'
+           : 'Integrated graphics. Good for everyday use and video, not for modern gaming.';
+    case 'Display size':
+      return p.screenSize >= 16 ? 'A large canvas for multitasking, less convenient to carry.'
+           : p.screenSize >= 14 ? 'The usual balance between screen space and portability.'
+           : 'Small and easy to carry, tighter for side-by-side windows.';
+    case 'Panel type':
+      return /OLED/i.test(p.panel) ? 'Deeper contrast and more accurate colour, better for photo and video work.'
+           : 'A standard panel, well suited to everyday work and browsing.';
+    case 'Refresh rate':
+      return parseInt(p.refresh) >= 120 ? 'Noticeably smoother motion for gaming and fast scrolling.'
+           : 'Standard smoothness, fine for everyday use.';
+    case 'Weight':
+      return parseFloat(p.weight) <= 3 ? 'Light enough to carry every day without noticing.'
+           : parseFloat(p.weight) <= 4.5 ? 'Easy enough to carry daily in a backpack.'
+           : 'Heavy. Best if it mostly stays on a desk.';
+    default: return '';
+  }
+}
+
+/* 6. Query-led answers: phrased the way shoppers actually ask, so the same text
+   works for a person reading and a model answering. */
+function pdpFaqs(p) {
+  const dgpu = /RTX|GeForce|Radeon RX/.test(p.gpu);
+  const creatorish = dgpu || /M\d+\s+(Pro|Max)/.test(p.cpu) || /OLED/i.test(p.panel);
+  return [
+    ['Is this good for video calls?',
+     `Yes. It has a ${p.webcam} and dual microphones, and ${p.ramGb >= 16
+       ? 'enough memory to keep a call running alongside your other work.'
+       : 'handles a call comfortably on its own.'}`],
+    ['Can it replace a desktop?',
+     p.ramGb >= 16 && p.storageGb >= 512
+       ? `For most people, yes. With ${p.ram} and ${p.storage} it will handle a full workload. Add a monitor and keyboard and it is a desk setup.`
+       : `As a main machine for everyday work, yes. For heavy or sustained workloads, a desktop still has the advantage.`],
+    ['Is it good for students?',
+     p.collection === 'Gaming'
+       ? `It will handle coursework easily, but it is heavy and the battery is short for a day on campus.`
+       : parseFloat(p.weight) <= 4 && parseFloat(p.battery) >= 10
+         ? `Yes. At ${p.weight} and up to ${p.battery}, it will get through a day of classes.`
+         : `It will do the work, though the ${parseFloat(p.weight) > 4 ? 'weight' : 'battery'} is worth considering for campus use.`],
+    ['Will it handle photo and video editing?',
+     creatorish
+       ? `Yes. ${dgpu ? p.gpu + ' handles rendering and GPU accelerated effects.' : 'The graphics and display are suited to colour work.'} ${/OLED/i.test(p.panel) ? 'The OLED panel helps with colour accuracy.' : ''}`
+       : `Light photo editing is fine. For serious video work, look at the Creator pro collection instead.`],
+    ['How long does the battery really last?',
+     `Rated up to ${p.battery}. In normal use with brightness around half, expect somewhat less.`],
+    ['Is this the current model?',
+     `${freshness(p).label}. Released ${p.releaseYear}, model number ${p.sku}.`]
+  ];
+}
+
+/* 3. Machine-readable product data. Product, Offer, AggregateRating and FAQPage.
+   Thin listings emit a deliberately sparse graph, which is the demonstration:
+   the same shopper question is answerable on one page and not on the other. */
+function productSchema(p, rich) {
+  const g = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: p.name,
+    sku: p.sku,
+    brand: { '@type': 'Brand', name: p.brand },
+    offers: {
+      '@type': 'Offer',
+      price: p.price,
+      priceCurrency: 'USD',
+      availability: p.stock === 'In stock'
+        ? 'https://schema.org/InStock' : 'https://schema.org/LimitedAvailability'
+    }
+  };
+  if (rich) {
+    g.category = p.collection;
+    g.description = answerFirst(p).replace(/\s+/g, ' ').trim();
+    g.aggregateRating = {
+      '@type': 'AggregateRating', ratingValue: p.rating, reviewCount: p.reviewCount
+    };
+    g.additionalProperty = [
+      ['Processor', p.cpu], ['Graphics', p.gpu], ['Memory', p.ram], ['Storage', p.storage],
+      ['Display', p.screenSize + '" ' + p.panel + ' ' + p.resolution], ['Battery life', p.battery],
+      ['Weight', p.weight], ['Operating system', p.os]
+    ].map(r => ({ '@type': 'PropertyValue', name: r[0], value: r[1] }));
+    g.audience = { '@type': 'PeopleAudience', audienceType: FIT[p.collection].best.join('; ') };
+    g.releaseDate = String(p.releaseYear);
+  }
+  const faq = rich ? {
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: pdpFaqs(p).map(q => ({
+      '@type': 'Question', name: q[0],
+      acceptedAnswer: { '@type': 'Answer', text: String(q[1]).replace(/\s+/g, ' ').trim() }
+    }))
+  } : null;
+  return faq ? [g, faq] : [g];
+}
+
+/* The structured data is the RISE argument made visible. A moderator can open
+   this mid-session and show exactly what an assistant can and cannot read. */
+function schemaPanel(p, rich) {
+  const json = JSON.stringify(productSchema(p, rich), null, 2);
+  const fields = rich ? 'full graph' : 'name, sku, brand, price and availability only';
+  return `<details class="schemabox" ontoggle="if(this.open)track('structured_data_opened','${p.sku}')">
+    <summary>What an AI assistant can read from this page <span class="schemacount">${fields}</span></summary>
+    <p class="sub" style="margin:8px 0 0">This is the structured data published with this listing. Assistants and
+      search engines read this, not the page layout. ${rich
+        ? 'Everything a shopper needs to be matched to this product is here.'
+        : 'Specifications, ratings, fit and answers are all absent, so this product cannot be recommended with confidence.'}</p>
+    <pre>${esc(json)}</pre></details>`;
+}
+
 function viewPDP(id) {
   const p = P(id);
   if (!p) return view404();
@@ -1919,6 +2127,13 @@ function viewPDP(id) {
       <div class="thumbs">${[0, 1, 2, 3].map(i => `<div class="thumb ${i === 0 ? 'on' : ''}"
         onclick="track('pdp_image_changed',${i});document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('on'));this.classList.add('on')"></div>`).join('')}</div>
 
+      ${rich ? `<p class="answerfirst">${answerFirst(p)}</p>` : ''}
+
+      ${rich ? `<div class="fit">
+        <div class="fitcol good"><h3>Best for</h3><ul>${FIT[p.collection].best.map(x => `<li>${x}</li>`).join('')}</ul></div>
+        <div class="fitcol bad"><h3>Not ideal for</h3><ul>${FIT[p.collection].not.map(x => `<li>${x}</li>`).join('')}</ul></div>
+      </div>` : ''}
+
       <div class="tabs">
         ${[['specs', 'Specifications'], ['reviews', `Reviews (${p.reviewCount.toLocaleString()})`], ['qa', 'Questions'], ['ship', 'Delivery & returns']]
           .map(t => `<button class="${PDP_TAB === t[0] ? 'on' : ''}" onclick="setTab('${t[0]}',${p.id})">${t[1]}</button>`).join('')}
@@ -1929,9 +2144,14 @@ function viewPDP(id) {
     <div class="buybox">
       <div class="pbrand">${p.brand}</div>
       <h1 class="h1" style="font-size:25px;margin:4px 0 6px">${p.name}</h1>
+      ${rich ? `<a class="collbadge inbuybox" onclick="go('#/collections/${(COLLECTIONS.find(c=>c.name===p.collection)||{}).id}')"
+        title="${esc(p.collection)} collection">${p.collection}</a>` : ''}
       <div class="rline">${starRow(p.rating)} <b>${p.rating}</b>
         <a onclick="setTab('reviews',${p.id})" style="color:var(--b);text-decoration:underline">${p.reviewCount.toLocaleString()} reviews</a></div>
-      <div class="sub" style="margin-bottom:12px">Model ${p.sku}${cond().sponsored && p.sponsored ? ' · <span class="tag sp">Sponsored</span>' : ''}</div>
+      <div class="sub" style="margin-bottom:12px">Model ${p.sku}
+        ${rich ? ` · <span class="fresh ${freshness(p).tone}">${freshness(p).label}</span>` : ''}${cond().sponsored && p.sponsored ? ' · <span class="tag sp">Sponsored</span>' : ''}</div>
+
+      ${rich ? `<p class="usecase">${USECASE_LINE[p.collection] || ''}</p>` : ''}
 
       <div class="price">${money(p.price)} ${p.wasPrice ? `<span class="was">${money(p.wasPrice)}</span>` : ''}</div>
       ${p.wasPrice ? `<div style="color:var(--hot);font-weight:700;font-size:13px">Save ${money(p.wasPrice - p.price)}</div>` : ''}
@@ -1973,11 +2193,17 @@ function viewPDP(id) {
         <div><b>Operating system</b>${p.os}</div>
         <div><b>Weight</b>${p.weight}</div>
       </div>
+      ${rich ? `<div class="proof">
+        <div><b>${p.rating} out of 5</b><span>from ${p.reviewCount.toLocaleString()} verified ratings</span></div>
+        <div><b>${Math.round(p.stars.filter(s => s.stars >= 4).reduce((a, s) => a + s.count, 0) / p.reviewCount * 100)}% rate it 4 stars or higher</b><span>across all reviews</span></div>
+        <div><b>${p.warranty}</b><span>plus 15 day free returns</span></div>
+      </div>` : ''}
     </div>
   </div>
 
   <div class="sectionhead"><h2 class="h2">Customers also considered</h2></div>
-  <div class="products">${others.map(pcard).join('')}</div>`;
+  <div class="products">${others.map(pcard).join('')}</div>
+  ${schemaPanel(p, rich)}`;
 }
 
 function pdpTab(p, rich) {
@@ -1996,7 +2222,10 @@ function pdpTab(p, rich) {
     const rows = rich ? full : thin;
     return `${!rich ? `<div class="thinnote"><b>Limited product information.</b>
       This listing has ${thin.length} published attributes. Some details are not supplied for this model.</div>` : ''}
-      <table class="spectable">${rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table>
+      <table class="spectable${rich ? ' benefit' : ''}">${rows.map(r => {
+        const b = rich ? benefitFor(r[0], p) : '';
+        return `<tr><td>${r[0]}</td><td>${r[1]}${b ? `<span class="means">${b}</span>` : ''}</td></tr>`;
+      }).join('')}</table>
       ${rich ? `<h3 style="margin:22px 0 8px;font-size:16px">In the box</h3>
         <p class="sub">${p.name}, ${p.cpu.includes('Apple') ? '70W USB-C adapter' : '65W USB-C adapter'}, quick start guide, ${p.warranty}.</p>
         <h3 style="margin:20px 0 8px;font-size:16px">What it is good for</h3>
@@ -2021,13 +2250,7 @@ function pdpTab(p, rich) {
   }
   if (PDP_TAB === 'qa') {
     if (!rich) return `<div class="thinnote">No questions have been answered for this product yet.</div>`;
-    const qs = [
-      ['Does this come with an office suite included?', 'It ships with the operating system only. Productivity software is sold separately.'],
-      ['Can the memory be upgraded later?', p.ramGb >= 16 ? 'This model ships with ' + p.ram + ' soldered to the board and is not user upgradeable.' : 'Memory is not user upgradeable on this model.'],
-      ['Is it good for video calls?', 'Yes. It has a ' + p.webcam + ' and dual microphones.'],
-      ['How long does the battery really last?', 'Rated up to ' + p.battery + '. Real-world use with brightness at half is typically a little less.']
-    ];
-    return qs.map(q => `<div class="qa"><b>Q: ${q[0]}</b><div class="sub">A: ${q[1]}</div></div>`).join('');
+    return pdpFaqs(p).map(q => `<div class="qa"><b>Q: ${q[0]}</b><div class="sub">A: ${q[1]}</div></div>`).join('');
   }
   return `<table class="spectable">
     <tr><td>Delivery</td><td>${deliveryText(p)}</td></tr>

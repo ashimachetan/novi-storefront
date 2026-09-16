@@ -11,6 +11,7 @@
   --b:#0b5bd3;--b2:#1b80ed;--d:#073b8e;--dd:#062e70;
   --ink:#172033;--muted:#64748b;--line:#dbe5f0;--bg:#f4f7fb;--white:#fff;
   --ok:#087f5b;--warn:#a16207;--hot:#e11d48;
+  --acc:#f5a623;
   --radius:11px;--max:1280px;
 }
 *{box-sizing:border-box}
@@ -131,6 +132,51 @@ h1,h2,h3{margin:0}
 .tile:hover{border-color:var(--b);transform:translateY(-2px)}
 .tile b{display:block;margin-bottom:3px}
 .tile span{font-size:12px;color:var(--muted)}
+
+/* ---- Full-line retailer: departments, store cards, store home ---------- */
+.herorow{margin:16px 0 4px}
+.hero2{border-radius:16px;background:linear-gradient(120deg,var(--b),var(--b2));color:#fff;
+  padding:38px 42px;overflow:hidden}
+.hero2 .h1{color:#fff;max-width:620px;margin:0 0 10px}
+.hero2 .sub{color:#e4efff;margin:0 0 18px;max-width:560px}
+.hero2 .eyebrow{display:inline-block;background:#ffffff28;border-radius:99px;padding:5px 11px;
+  font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px}
+.hero2 .btn{background:#fff;color:var(--d);border-color:#fff}
+
+.depts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.dept{padding:18px;border-radius:var(--radius);background:#fff;border:1px solid var(--line);
+  display:flex;flex-direction:column;gap:5px;transition:.15s}
+.dept:hover{border-color:var(--b);transform:translateY(-2px);box-shadow:0 12px 30px #142d5514}
+.dept .dicon{font-size:26px;line-height:1}
+.dept b{font-size:14px}
+.dept .dsub{font-size:12px;color:var(--muted)}
+
+.grid{grid-template-columns:repeat(4,1fr)}
+.card.prod{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;
+  display:flex;flex-direction:column;transition:.16s;cursor:pointer}
+.card.prod:hover{box-shadow:0 14px 38px #142d5518;transform:translateY(-2px)}
+.card.prod .viz{height:150px;margin-bottom:12px}
+.boxviz{width:132px;height:88px;border-radius:9px;
+  background:linear-gradient(140deg,var(--c1),var(--c2));position:relative;
+  box-shadow:0 8px 20px #142d5520}
+.boxviz:after{content:"";position:absolute;inset:0;border-radius:9px;
+  background:linear-gradient(115deg,#ffffff50,#ffffff00 58%)}
+.viz.big .boxviz{width:230px;height:158px}
+.brandline{color:var(--muted);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+.rating{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:9px}
+.priceline{font-size:20px;font-weight:800;margin-top:auto;display:flex;align-items:baseline;gap:7px}
+.priceline.big{font-size:28px;margin:10px 0 4px}
+.tagrow{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+.seeall{font-size:13px;font-weight:700;color:var(--b);white-space:nowrap}
+.notecard{background:#f6f9fd;border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px 16px;font-size:13px;color:#42546e;margin:18px 0}
+.notecard a{color:var(--b);font-weight:700}
+.buyrow{display:flex;gap:9px;margin:16px 0 4px}
+.collrail{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.collcard{padding:16px;border-radius:var(--radius);background:linear-gradient(160deg,#f6faff,#fff 62%);
+  border:1px solid var(--line);display:flex;flex-direction:column;gap:8px;transition:.15s}
+.collcard:hover{border-color:var(--b);transform:translateY(-2px)}
+.collcard span:last-child{font-size:12px;color:var(--muted)}
 
 /* ---- Collections ------------------------------------------------------- */
 .collgrid{grid-template-columns:repeat(5,1fr)}
@@ -315,6 +361,63 @@ body.modon .header{top:38px}
 .stat b{display:block;font-size:22px;line-height:1.1}
 .stat span{font-size:11px;color:var(--muted)}
 
+/* ---------- research console v2 ---------- */
+.console.wide{grid-template-columns:1fr 1fr}
+.statgrid.tight{grid-template-columns:repeat(3,1fr);margin-bottom:0}
+.statgrid.tight .stat b{font-size:19px}
+.ctabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--line);padding-top:6px}
+.ctabs button{border:0;background:none;padding:10px 15px;font-weight:600;font-size:13px;color:var(--muted);
+  border-bottom:3px solid transparent;margin-bottom:-2px;border-radius:7px 7px 0 0}
+.ctabs button:hover{background:#eef4fb;color:var(--ink)}
+.ctabs button.on{color:var(--b);border-bottom-color:var(--b);background:#eff6ff}
+
+.fbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 11px;margin-bottom:5px;
+  border:1px solid var(--line);border-radius:8px;font-size:12.5px;background:#fbfdff}
+.fbar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fbar b{flex:none;color:var(--muted);font-variant-numeric:tabular-nums}
+.fbar.hit{background:#f0f9f4;border-color:#bfe3cf}
+.fbar.hit b{color:var(--ok)}
+
+.heatwrap{position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:
+  linear-gradient(#fff,#f2f6fb);aspect-ratio:8/5}
+.heatwrap canvas{width:100%;height:100%;display:block}
+.heatempty{position:absolute;inset:0;align-items:center;justify-content:center;color:var(--muted);font-size:13px;
+  text-align:center;padding:20px}
+.heatlegend{display:flex;align-items:center;gap:8px;margin-top:9px;font-size:11px;color:var(--muted)}
+.heatlegend i{flex:none;width:130px;height:9px;border-radius:5px;
+  background:linear-gradient(90deg,#1e50dc,#1ebedc,#4ad23c,#ebd232,#eb3c32)}
+
+.jpath{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.jnode{display:inline-flex;align-items:center;gap:6px;background:#eff6ff;border:1px solid #cfe0f7;color:var(--d);
+  border-radius:20px;padding:5px 11px;font-size:12px;font-weight:600}
+.jnode i{font-style:normal;background:var(--b);color:#fff;width:17px;height:17px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;font-size:10px}
+.jnode.pdp{background:#f0f9f4;border-color:#bfe3cf;color:var(--ok)}
+.jnode.pdp i{background:var(--ok)}
+.jarrow{color:#9fb3cc;font-size:12px}
+.flowrow{display:grid;grid-template-columns:1fr 130px 34px;gap:10px;align-items:center;padding:6px 0;font-size:12px;
+  border-bottom:1px solid #eef3f9}
+.flowrow span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.flowrow i{font-style:normal;color:#9fb3cc}
+.flowrow b{text-align:right;font-variant-numeric:tabular-nums}
+.flowbar{background:#eef3f9;border-radius:5px;height:9px;overflow:hidden}
+.flowbar div{height:100%;background:linear-gradient(90deg,var(--b2),var(--b))}
+
+.condrow{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid #eef3f9}
+.condrow div{flex:1;min-width:0}
+.condrow b{display:block;font-size:13px}
+.condrow small{color:var(--muted);font-size:11px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.condrow.live{background:#eff6ff;border-radius:8px;padding:10px;border-bottom:0}
+.swatch{flex:none;width:17px;height:17px;border-radius:5px;border:1px solid #0001}
+
+.cohort{width:100%;border-collapse:collapse;margin-top:12px;font-size:12.5px}
+.cohort th,.cohort td{text-align:left;padding:7px 9px;border-bottom:1px solid #eef3f9}
+.cohort th{background:#f6f9fc;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+.cohort td:not(:first-child){font-variant-numeric:tabular-nums;font-weight:600}
+
+.scrub{width:100%;margin:4px 0 2px}
+.evtlog div.now{background:#fff8e1;border-left:3px solid var(--acc)}
+
 /* ---------- overlays ---------- */
 .back{position:fixed;inset:0;background:#0a1a347a;z-index:70;display:none;align-items:center;justify-content:center;padding:20px}
 .back.open{display:flex}
@@ -458,6 +561,25 @@ body.hasmod{padding-top:38px}
   .signupform input{width:100%}
 }
 
+/* ---- Full-line retailer responsive ------------------------------------- */
+@media(max-width:1100px){
+  .grid{grid-template-columns:repeat(3,1fr)}
+  .collrail{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:980px){
+  .depts{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .collrail{grid-template-columns:repeat(2,1fr)}
+  .hero2{padding:30px 26px}
+}
+@media(max-width:620px){
+  .depts{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .collrail{grid-template-columns:1fr}
+  .card.prod .viz{height:130px}
+  .buyrow{flex-direction:column}
+}
+
 /* ---- PDP guidance modules (9 optimizations) ------------------------------ */
 .collbadge.inbuybox{display:inline-flex;align-items:center;align-self:flex-start;width:max-content;max-width:100%;
   margin:0 0 10px;cursor:pointer;white-space:nowrap;text-decoration:none;flex:0 0 auto;line-height:1.4}
@@ -542,12 +664,19 @@ const COLLECTIONS = [
     long: 'High refresh displays and dedicated graphics, built to hold a frame rate under load.' }
 ];
 
+/* Collections is a Windows merchandising framework, already in market via Zoovu.
+   A macOS or ChromeOS machine was never eligible for it. Those SKUs stay fully
+   shoppable and keep competing in search, filters and the grid; they simply carry
+   no collection. Gating here rather than re-ranking downstream keeps the assistant
+   honest: nothing is rigged, the ineligible stock is just not in the framework. */
+function isWindows(m) { return /^Windows/.test(m.os); }
+
 /* One collection per machine. Specialist collections win over the price ladder,
    so a creator machine is never merchandised as merely expensive. */
 function collectionFor(m) {
+  if (!isWindows(m)) return null;
   if (m.ty === 'Gaming laptops') return 'Gaming';
-  const creatorGrade = /RTX|GeForce|Radeon RX/.test(m.gpu) ||
-                       /M\d+\s+(Pro|Max)/.test(m.cpu) || m.pan === 'OLED';
+  const creatorGrade = /RTX|GeForce|Radeon RX/.test(m.gpu) || m.pan === 'OLED';
   if (m.u.includes('Creative') && creatorGrade && m.p >= 1000) return 'Creator pro';
   if (m.p >= 1000) return 'Premium performance';
   if (m.p >= 500) return 'Everyday productivity';
@@ -569,6 +698,14 @@ const MODELS = [
   { b:'ASUS', n:'ASUS Vivobook 15 (F1504)', f:'Vivobook', os:'Windows 11 Home', cpu:'Intel Core i3-1315U', cb:'Intel', gpu:'Intel UHD Graphics', ram:8, st:128, p:329, w:0, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:8, wt:3.75, u:['School','Everyday'], r:4.0, rc:2216, col:'Quiet Blue', tr:0, ty:'Windows laptops' },
   { b:'Dell', n:'Dell Inspiron 15 3520', f:'Inspiron', os:'Windows 11 Home', cpu:'Intel Core i5-1235U', cb:'Intel', gpu:'Intel Iris Xe Graphics', ram:8, st:512, p:429, w:529, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:120, t:0, bat:9, wt:3.66, u:['Everyday','Work'], r:4.2, rc:7318, col:'Carbon Black', tr:1, ty:'Windows laptops' },
   { b:'Acer', n:'Acer Aspire 5 15.6" (A515-58)', f:'Aspire', os:'Windows 11 Home', cpu:'Intel Core i5-1335U', cb:'Intel', gpu:'Intel Iris Xe Graphics', ram:8, st:512, p:549, w:0, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:11, wt:3.64, u:['Everyday','Work'], r:4.3, rc:4088, col:'Steel Gray', tr:1, ty:'Windows laptops' },
+  /* Entry Windows added 16 Sep: Collections became Windows-only, so the Chromebooks
+     that were propping up Core essentials left the framework. These restore a credible
+     entry tier rather than leaving the cheapest collection looking empty on stage. */
+  { b:'HP', n:'HP 14" Laptop (14-em0000)', f:'HP Laptop', os:'Windows 11 Home', cpu:'AMD Ryzen 3 7320U', cb:'AMD', gpu:'AMD Radeon 610M', ram:8, st:256, p:279, w:349, sz:14, res:'1366 x 768', pan:'TN', hz:60, t:0, bat:10, wt:3.24, u:['Everyday','School'], r:3.9, rc:2447, col:'Jet Black', tr:0, ty:'Windows laptops' },
+  { b:'Lenovo', n:'Lenovo IdeaPad 1 14"', f:'IdeaPad', os:'Windows 11 Home', cpu:'Intel Core i3-1215U', cb:'Intel', gpu:'Intel UHD Graphics', ram:8, st:256, p:349, w:429, sz:14, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:10, wt:3.20, u:['School','Everyday'], r:4.1, rc:8126, col:'Cloud Grey', tr:0, ty:'Windows laptops' },
+  { b:'ASUS', n:'ASUS Vivobook Go 15 (E1504)', f:'Vivobook Go', os:'Windows 11 Home', cpu:'AMD Ryzen 5 7520U', cb:'AMD', gpu:'AMD Radeon 610M', ram:8, st:512, p:399, w:499, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:11, wt:3.53, u:['Everyday','School'], r:4.2, rc:3671, col:'Mixed Black', tr:0, ty:'Windows laptops' },
+  { b:'Dell', n:'Dell Inspiron 14 (3440)', f:'Inspiron', os:'Windows 11 Home', cpu:'Intel Core i5-1334U', cb:'Intel', gpu:'Intel Graphics', ram:8, st:512, p:449, w:549, sz:14, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:10, wt:3.37, u:['School','Work'], r:4.1, rc:1923, col:'Carbon Black', tr:1, ty:'Windows laptops' },
+  { b:'HP', n:'HP Pavilion Aero 13"', f:'Pavilion Aero', os:'Windows 11 Home', cpu:'AMD Ryzen 5 7535U', cb:'AMD', gpu:'AMD Radeon 660M', ram:8, st:256, p:479, w:599, sz:13.3, res:'1920 x 1200', pan:'IPS', hz:60, t:0, bat:11, wt:2.20, u:['Everyday','Work','School'], r:4.4, rc:2088, col:'Ceramic White', tr:1, ty:'Windows laptops' },
 
   /* ---- Chromebooks ---- */
   { b:'Acer', n:'Acer Chromebook 315 15.6"', f:'Chromebook', os:'ChromeOS', cpu:'Intel Celeron N4500', cb:'Intel', gpu:'Intel UHD Graphics', ram:4, st:64, p:229, w:299, sz:15.6, res:'1920 x 1080', pan:'IPS', hz:60, t:0, bat:12, wt:3.75, u:['School','Everyday'], r:4.1, rc:6642, col:'Silver', tr:0, ty:'Chromebooks' },
@@ -842,6 +979,335 @@ const CATALOG = build();
 if (typeof module !== 'undefined') module.exports = { CATALOG, BRANDS, USES, OS, TYPES, COLLECTIONS };
 
 
+/* ===== store.js ===== */
+/* ==========================================================================
+   Part 1b: the full-line retailer
+
+   Ashima, 16 Sep: "there are no retailers selling only laptops".
+
+   A laptop-only store assumes away the single most important thing we are
+   trying to observe: whether a shopper can FIND a laptop, and whether the
+   Windows merchandising framework survives contact with a sea of TVs, phones
+   and appliances competing for the same attention.
+
+   Two grades of product data, deliberately:
+     research grade      - laptops. Full PDP, the 9 RISE PDP principles,
+                           JSON-LD, reviews, thin/rich split. Lives in CATALOG.
+     merchandising grade - everything else. Real brand and model, price,
+                           rating, badge, department page, basic PDP. Enough
+                           to be a credible distraction and a credible search
+                           competitor. Lives in STORE.
+
+   Merchandising-grade stock is never dressed up as research data. It exists
+   to make the laptop journey honest.
+   ========================================================================== */
+
+const DEPARTMENTS = [
+  { id: 'computers',  name: 'Computers & Tablets', icon: '\u{1F4BB}', route: '#/computers',
+    blurb: 'Laptops, desktops, tablets and monitors.' },
+  { id: 'tv',         name: 'TV & Home Theatre',   icon: '\u{1F4FA}',
+    blurb: 'TVs, soundbars, projectors and streaming.' },
+  { id: 'mobile',     name: 'Mobile & Wearables',  icon: '\u{1F4F1}',
+    blurb: 'Phones, smartwatches and tablets on contract.' },
+  { id: 'audio',      name: 'Audio & Headphones',  icon: '\u{1F3A7}',
+    blurb: 'Headphones, earbuds, speakers and turntables.' },
+  { id: 'gaming',     name: 'Gaming',              icon: '\u{1F3AE}',
+    blurb: 'Consoles, games and accessories.' },
+  { id: 'appliances', name: 'Appliances',          icon: '\u{1F9FA}',
+    blurb: 'Kitchen, laundry and floor care.' },
+  { id: 'cameras',    name: 'Cameras & Drones',    icon: '\u{1F4F7}',
+    blurb: 'Mirrorless, action cameras and drones.' },
+  { id: 'smarthome',  name: 'Smart Home',          icon: '\u{1F4A1}',
+    blurb: 'Lighting, security, doorbells and hubs.' }
+];
+
+/* b=brand n=name c=subcategory p=price w=was r=rating rc=reviewCount h=hue */
+const STORE_MODELS = [
+  /* ---- TV & Home Theatre ---- */
+  { d:'tv', c:'TVs', b:'Samsung', n:'55" Class QN90D Neo QLED 4K Smart TV', p:1197, w:1499, r:4.7, rc:3124, h:215 },
+  { d:'tv', c:'TVs', b:'LG', n:'65" Class C4 Series OLED evo 4K Smart TV', p:1696, w:2099, r:4.8, rc:2410, h:330 },
+  { d:'tv', c:'TVs', b:'TCL', n:'75" Class Q6 Series QLED 4K Smart TV', p:598, w:799, r:4.5, rc:5821, h:200 },
+  { d:'tv', c:'TVs', b:'Sony', n:'65" Class BRAVIA 7 QLED 4K Smart TV', p:1798, w:2199, r:4.7, rc:944, h:225 },
+  { d:'tv', c:'TVs', b:'Hisense', n:'50" Class U6 Series ULED 4K Smart TV', p:379, w:499, r:4.4, rc:7233, h:190 },
+  { d:'tv', c:'TVs', b:'Samsung', n:'85" Class DU8000 Crystal UHD 4K Smart TV', p:1297, w:1599, r:4.5, rc:1188, h:210 },
+  { d:'tv', c:'Soundbars', b:'Sonos', n:'Arc Ultra Soundbar with Dolby Atmos', p:999, r:4.8, rc:1402, h:20 },
+  { d:'tv', c:'Soundbars', b:'Samsung', n:'HW-Q990D 11.1.4ch Soundbar with Rear Speakers', p:1397, w:1799, r:4.7, rc:2266, h:215 },
+  { d:'tv', c:'Soundbars', b:'Bose', n:'Smart Ultra Soundbar', p:899, r:4.6, rc:1810, h:0 },
+  { d:'tv', c:'Streaming', b:'Roku', n:'Ultra 4K Streaming Player', p:99, w:129, r:4.6, rc:9120, h:280 },
+  { d:'tv', c:'Streaming', b:'Apple', n:'TV 4K 128GB Wi-Fi + Ethernet', p:149, r:4.8, rc:6740, h:0 },
+  { d:'tv', c:'Projectors', b:'Epson', n:'Home Cinema 2350 4K PRO-UHD Projector', p:999, w:1199, r:4.5, rc:612, h:220 },
+
+  /* ---- Mobile & Wearables ---- */
+  { d:'mobile', c:'Phones', b:'Samsung', n:'Galaxy S25 Ultra 256GB', p:1299, r:4.7, rc:4120, h:215 },
+  { d:'mobile', c:'Phones', b:'Apple', n:'iPhone 16 Pro 256GB', p:1099, r:4.8, rc:8891, h:0 },
+  { d:'mobile', c:'Phones', b:'Google', n:'Pixel 9 Pro 256GB', p:999, w:1099, r:4.6, rc:2231, h:150 },
+  { d:'mobile', c:'Phones', b:'Motorola', n:'moto g Power 5G 128GB', p:249, w:299, r:4.3, rc:5044, h:260 },
+  { d:'mobile', c:'Phones', b:'Samsung', n:'Galaxy A55 5G 128GB', p:399, r:4.4, rc:3312, h:210 },
+  { d:'mobile', c:'Watches', b:'Apple', n:'Watch Series 10 GPS 46mm', p:429, r:4.8, rc:5510, h:0 },
+  { d:'mobile', c:'Watches', b:'Samsung', n:'Galaxy Watch7 44mm Bluetooth', p:329, w:379, r:4.5, rc:1877, h:215 },
+  { d:'mobile', c:'Watches', b:'Garmin', n:'Forerunner 265 GPS Running Watch', p:449, r:4.7, rc:1342, h:190 },
+  { d:'mobile', c:'Tablets', b:'Apple', n:'iPad Air 11" M3 Wi-Fi 128GB', p:599, r:4.8, rc:4402, h:0 },
+  { d:'mobile', c:'Tablets', b:'Samsung', n:'Galaxy Tab S10 FE 128GB', p:499, w:549, r:4.5, rc:988, h:215 },
+  { d:'mobile', c:'Accessories', b:'Anker', n:'Nano Power Bank 10000mAh USB-C', p:49, w:69, r:4.6, rc:11204, h:200 },
+
+  /* ---- Audio & Headphones ---- */
+  { d:'audio', c:'Headphones', b:'Sony', n:'WH-1000XM6 Wireless Noise Cancelling Headphones', p:449, r:4.8, rc:6621, h:225 },
+  { d:'audio', c:'Headphones', b:'Bose', n:'QuietComfort Ultra Headphones', p:429, w:499, r:4.7, rc:4188, h:0 },
+  { d:'audio', c:'Headphones', b:'Apple', n:'AirPods Max USB-C', p:549, r:4.6, rc:3390, h:0 },
+  { d:'audio', c:'Earbuds', b:'Apple', n:'AirPods Pro 3 with Active Noise Cancellation', p:249, r:4.8, rc:14022, h:0 },
+  { d:'audio', c:'Earbuds', b:'Samsung', n:'Galaxy Buds3 Pro', p:249, w:279, r:4.4, rc:2044, h:215 },
+  { d:'audio', c:'Earbuds', b:'JBL', n:'Tune Flex 2 True Wireless Earbuds', p:79, w:99, r:4.3, rc:6712, h:35 },
+  { d:'audio', c:'Speakers', b:'Sonos', n:'Era 300 Wireless Smart Speaker', p:449, r:4.7, rc:1522, h:20 },
+  { d:'audio', c:'Speakers', b:'JBL', n:'Charge 6 Portable Bluetooth Speaker', p:199, w:229, r:4.7, rc:8811, h:35 },
+  { d:'audio', c:'Turntables', b:'Audio-Technica', n:'AT-LP70XBT Bluetooth Turntable', p:249, r:4.5, rc:742, h:270 },
+
+  /* ---- Gaming ---- */
+  { d:'gaming', c:'Consoles', b:'Sony', n:'PlayStation 5 Pro Console', p:699, r:4.8, rc:5210, h:225 },
+  { d:'gaming', c:'Consoles', b:'Microsoft', n:'Xbox Series X 1TB Console', p:499, w:549, r:4.7, rc:7402, h:120 },
+  { d:'gaming', c:'Consoles', b:'Nintendo', n:'Switch 2 Console', p:449, r:4.8, rc:9911, h:0 },
+  { d:'gaming', c:'Consoles', b:'Valve', n:'Steam Deck OLED 1TB Handheld', p:649, r:4.7, rc:2244, h:220 },
+  { d:'gaming', c:'Games', b:'Nintendo', n:'Mario Kart World for Switch 2', p:69, r:4.9, rc:4012, h:0 },
+  { d:'gaming', c:'Games', b:'Sony', n:'Ghost of Yotei for PlayStation 5', p:69, r:4.7, rc:1880, h:225 },
+  { d:'gaming', c:'Accessories', b:'Microsoft', n:'Xbox Wireless Controller Carbon Black', p:59, w:69, r:4.6, rc:12403, h:120 },
+  { d:'gaming', c:'Accessories', b:'Razer', n:'BlackShark V2 Pro Wireless Gaming Headset', p:199, w:249, r:4.5, rc:2109, h:100 },
+  { d:'gaming', c:'Accessories', b:'Logitech', n:'G Pro X Superlight 2 Wireless Gaming Mouse', p:159, r:4.7, rc:3320, h:200 },
+
+  /* ---- Appliances ---- */
+  { d:'appliances', c:'Kitchen', b:'LG', n:'26 cu. ft. French Door Refrigerator with InstaView', p:2199, w:2799, r:4.5, rc:1204, h:330 },
+  { d:'appliances', c:'Kitchen', b:'Samsung', n:'Bespoke 4-Door Flex Refrigerator 29 cu. ft.', p:2899, w:3499, r:4.4, rc:822, h:215 },
+  { d:'appliances', c:'Kitchen', b:'Bosch', n:'800 Series 24" Built-In Dishwasher', p:1249, w:1499, r:4.7, rc:1911, h:0 },
+  { d:'appliances', c:'Kitchen', b:'Ninja', n:'Foodi 8-Qt. Dual-Zone Air Fryer', p:179, w:229, r:4.8, rc:16204, h:120 },
+  { d:'appliances', c:'Kitchen', b:'Keurig', n:'K-Elite Single Serve Coffee Maker', p:149, w:189, r:4.6, rc:9022, h:0 },
+  { d:'appliances', c:'Laundry', b:'LG', n:'4.5 cu. ft. Front Load Washer with Steam', p:899, w:1149, r:4.5, rc:2044, h:330 },
+  { d:'appliances', c:'Laundry', b:'Whirlpool', n:'7.4 cu. ft. Smart Electric Dryer', p:849, w:999, r:4.4, rc:1502, h:200 },
+  { d:'appliances', c:'Floor care', b:'Dyson', n:'V15 Detect Absolute Cordless Vacuum', p:749, w:849, r:4.7, rc:5120, h:280 },
+  { d:'appliances', c:'Floor care', b:'iRobot', n:'Roomba j9+ Self-Emptying Robot Vacuum', p:699, w:899, r:4.3, rc:3388, h:190 },
+
+  /* ---- Cameras & Drones ---- */
+  { d:'cameras', c:'Mirrorless', b:'Sony', n:'Alpha a7 IV Mirrorless Camera with 28-70mm Lens', p:2698, r:4.8, rc:1120, h:225 },
+  { d:'cameras', c:'Mirrorless', b:'Canon', n:'EOS R8 Mirrorless Camera with RF 24-50mm', p:1699, w:1899, r:4.7, rc:842, h:0 },
+  { d:'cameras', c:'Mirrorless', b:'Fujifilm', n:'X-T50 Mirrorless Camera with 16-50mm Lens', p:1799, r:4.7, rc:502, h:150 },
+  { d:'cameras', c:'Action', b:'GoPro', n:'HERO13 Black Action Camera', p:399, w:449, r:4.6, rc:4210, h:35 },
+  { d:'cameras', c:'Action', b:'DJI', n:'Osmo Pocket 3 Creator Combo', p:799, r:4.8, rc:2044, h:200 },
+  { d:'cameras', c:'Drones', b:'DJI', n:'Mini 4 Pro Drone Fly More Combo', p:1099, r:4.7, rc:1388, h:200 },
+  { d:'cameras', c:'Drones', b:'DJI', n:'Neo Lightweight Drone', p:199, r:4.5, rc:911, h:200 },
+
+  /* ---- Smart Home ---- */
+  { d:'smarthome', c:'Security', b:'Ring', n:'Battery Doorbell Pro with Head-to-Toe Video', p:229, w:269, r:4.5, rc:6220, h:200 },
+  { d:'smarthome', c:'Security', b:'Arlo', n:'Pro 5S 2K Spotlight Camera 3-Pack', p:449, w:599, r:4.4, rc:2011, h:190 },
+  { d:'smarthome', c:'Security', b:'Google', n:'Nest Cam Indoor Wired 2nd Gen', p:99, w:129, r:4.5, rc:4402, h:150 },
+  { d:'smarthome', c:'Lighting', b:'Philips', n:'Hue White and Colour Starter Kit A19 4-Pack', p:199, w:249, r:4.7, rc:5810, h:200 },
+  { d:'smarthome', c:'Hubs', b:'Amazon', n:'Echo Show 8 Smart Display 3rd Gen', p:129, w:149, r:4.5, rc:12044, h:30 },
+  { d:'smarthome', c:'Hubs', b:'Google', n:'Nest Hub Max Smart Display', p:179, w:229, r:4.4, rc:3320, h:150 },
+  { d:'smarthome', c:'Climate', b:'Google', n:'Nest Learning Thermostat 4th Gen', p:279, r:4.6, rc:4120, h:150 },
+  { d:'smarthome', c:'Locks', b:'Yale', n:'Assure Lock 2 Touchscreen Smart Lock', p:199, w:249, r:4.4, rc:1502, h:50 }
+];
+
+const STORE = (function buildStore() {
+  const out = [];
+  let i = 1;
+  for (const m of STORE_MODELS) {
+    const tags = [];
+    if (m.r >= 4.7) tags.push('Top rated');
+    if (m.rc > 5000) tags.push('Best seller');
+    out.push({
+      id: 's' + i,
+      grade: 'merch',
+      dept: m.d,
+      cat: m.c,
+      brand: m.b,
+      name: m.n,
+      title: m.b + ' ' + m.n,
+      price: m.p,
+      wasPrice: m.w || null,
+      rating: m.r,
+      reviewCount: m.rc,
+      hue: m.h,
+      sku: 'NV-M' + String(200000 + i * 173).slice(0, 6),
+      tags
+    });
+    i++;
+  }
+  return out;
+})();
+
+function deptById(id) { return DEPARTMENTS.find(d => d.id === id); }
+function storeById(id) { return STORE.find(p => p.id === id); }
+function deptItems(id) { return STORE.filter(p => p.dept === id); }
+
+/* A merchandising-grade product gets a generic box render, not the laptop
+   silhouette. Visually distinct on purpose: a participant should never mistake
+   a TV tile for a laptop tile. */
+function vizBox(p, cls) {
+  const h = p ? p.hue : 210;
+  return `<div class="viz ${cls || ''}"><div class="boxviz"
+    style="--c1:hsl(${h},60%,74%);--c2:hsl(${h},55%,42%)"></div></div>`;
+}
+
+function storeCard(p) {
+  const save = p.wasPrice ? `<span class="was">${money(p.wasPrice)}</span>` : '';
+  const tags = (p.wasPrice ? ['Save ' + money(p.wasPrice - p.price)] : []).concat(p.tags);
+  return `<article class="card prod" onclick="go('#/s/${p.id}')">
+    ${vizBox(p)}
+    <div class="pbody">
+      <span class="brandline">${esc(p.brand)}</span>
+      <h3 class="pname">${esc(p.name)}</h3>
+      <div class="rating">${starRow(p.rating)}<span>${p.rating} (${p.reviewCount.toLocaleString('en-US')})</span></div>
+      <div class="priceline"><b>${money(p.price)}</b>${save}</div>
+      <div class="tagrow">${tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+    </div>
+  </article>`;
+}
+
+/* ---------------- store-wide homepage ---------------- */
+/* This is the change Ashima asked for. The front door is a full-line
+   electronics retailer. Laptops are one department among eight, and the
+   Windows collections rail sits below general merchandising, where it has to
+   compete for attention exactly as it would in a real store. */
+function viewStoreHome() {
+  const showColl = !!cond().collections;
+  const deals = STORE.filter(p => p.wasPrice).slice(0, 4);
+  const top = [...STORE].sort((a, b) => b.reviewCount - a.reviewCount).slice(0, 4);
+
+  return `
+  <section class="herorow">
+    <div class="hero2">
+      <span class="eyebrow">This week</span>
+      <h1 class="h1">Save across TV, audio, mobile and computing</h1>
+      <p class="sub">Hundreds of deals in store and online. Free shipping on orders ${money(35)} and up.</p>
+      <button class="btn" onclick="go('#/deals')">Shop all deals</button>
+    </div>
+  </section>
+
+  <div class="sectionhead"><h2 class="h2">Shop by department</h2></div>
+  <div class="depts">${DEPARTMENTS.map(d => `<a class="dept" onclick="go('${d.route || ('#/d/' + d.id)}')">
+    <span class="dicon">${d.icon}</span><b>${esc(d.name)}</b><span class="dsub">${esc(d.blurb)}</span></a>`).join('')}</div>
+
+  <div class="sectionhead"><h2 class="h2">Top deals right now</h2>
+    <a class="seeall" onclick="go('#/deals')">See all deals</a></div>
+  <div class="grid">${deals.map(storeCard).join('')}</div>
+
+  <div class="sectionhead"><h2 class="h2">Most reviewed this month</h2></div>
+  <div class="grid">${top.map(storeCard).join('')}</div>
+
+  ${showColl ? `
+  <div class="sectionhead"><div><h2 class="h2">Shop Windows PC Collections</h2>
+    <p class="sub">Five ways to shop laptops, organised by what you want to do.
+      Every Windows laptop sits in exactly one.</p></div>
+    <a class="seeall" onclick="go('#/collections')">See all collections</a></div>
+  <div class="collrail">${COLLECTIONS.map(c => `<a class="collcard" onclick="go('#/collections/${c.id}')">
+    <span class="badge">${esc(c.name)}</span><span>${esc(c.blurb)}</span></a>`).join('')}</div>` : `
+  <div class="sectionhead"><div><h2 class="h2">Laptops</h2>
+    <p class="sub">Browse every laptop we stock.</p></div>
+    <a class="seeall" onclick="go('#/laptops')">Shop laptops</a></div>`}
+
+  <div class="sectionhead"><h2 class="h2">Help me choose</h2></div>
+  <div class="tiles">
+    <a class="tile" onclick="go('#/advisor')"><b>Find your PC</b>
+      <span>Answer a few questions and we will shortlist laptops for you</span></a>
+    <a class="tile" onclick="go('#/guide')"><b>Buying guides</b>
+      <span>Processors, memory and storage explained in plain language</span></a>
+  </div>`;
+}
+
+/* ---------------- department page ---------------- */
+function viewDept(id) {
+  const d = deptById(id);
+  if (!d) return view404();
+  const items = deptItems(id);
+  const cats = [...new Set(items.map(p => p.cat))];
+  track('department_viewed', id);
+  return `${crumbs([['Home', '#/'], [d.name, '#/d/' + d.id]])}
+  <div class="sectionhead"><div><h1 class="h1">${esc(d.name)}</h1>
+    <p class="sub">${items.length} products across ${cats.length} categories.</p></div></div>
+  ${cats.map(c => `
+    <div class="sectionhead"><h2 class="h2">${esc(c)}</h2></div>
+    <div class="grid">${items.filter(p => p.cat === c).map(storeCard).join('')}</div>`).join('')}
+  <div class="notecard">Brands and models in this department are real. Prices, ratings and
+    availability are simulated for research and are not real offers.</div>
+  <div class="notecard">Looking for a laptop? They are in
+    <a onclick="go('#/laptops')">Computers &amp; Tablets</a>.</div>`;
+}
+
+/* ---------------- merchandising-grade PDP ---------------- */
+/* Deliberately thinner than the laptop PDP. It is a real page a shopper can
+   land on and bounce from, not a research instrument. */
+function viewStorePDP(id) {
+  const p = storeById(id);
+  if (!p) return view404();
+  const d = deptById(p.dept);
+  track('product_viewed', { id: p.id, sku: p.sku, grade: 'merch', dept: p.dept });
+  const save = p.wasPrice ? `<span class="was">${money(p.wasPrice)}</span>
+    <span class="tag">Save ${money(p.wasPrice - p.price)}</span>` : '';
+  return `${crumbs([['Home', '#/'], [d.name, '#/d/' + d.id], [p.cat, '#/d/' + d.id], [p.name, '#']])}
+  <div class="pdp">
+    <div>${vizBox(p, 'big')}</div>
+    <div>
+      <span class="brandline">${esc(p.brand)}</span>
+      <h1 class="h1">${esc(p.name)}</h1>
+      <div class="rating">${starRow(p.rating)}<span>${p.rating} out of 5
+        (${p.reviewCount.toLocaleString('en-US')} reviews)</span></div>
+      <div class="priceline big"><b>${money(p.price)}</b>${save}</div>
+      <p class="sub">Model ${esc(p.sku)} &middot; ${esc(p.cat)} &middot; ${esc(d.name)}</p>
+      <div class="buyrow">
+        <button class="btn" onclick="addToCartStore('${p.id}')">Add to cart</button>
+        <button class="btn ghost" onclick="go('#/d/${p.dept}')">Back to ${esc(d.name)}</button>
+      </div>
+      <div class="notecard">Simulated listing. The brand and model are real, but the price,
+        rating, review count and availability shown here are invented for research and are
+        not a real offer or a claim about this product. Novi's full research instrumentation
+        runs on laptops.</div>
+    </div>
+  </div>
+  <div class="sectionhead"><h2 class="h2">More in ${esc(p.cat)}</h2></div>
+  <div class="grid">${deptItems(p.dept).filter(x => x.cat === p.cat && x.id !== p.id)
+    .slice(0, 4).map(storeCard).join('')}</div>`;
+}
+
+/* Store-wide deals. Laptops compete with TVs and appliances for the same
+   promotional attention, which is the realistic condition. */
+function viewDeals() {
+  const merchDeals = STORE.filter(p => p.wasPrice)
+    .sort((a, b) => (b.wasPrice - b.price) - (a.wasPrice - a.price));
+  const lapDeals = CATALOG.filter(p => p.wasPrice)
+    .sort((a, b) => (b.wasPrice - b.price) - (a.wasPrice - a.price)).slice(0, 8);
+  track('deals_viewed', merchDeals.length + lapDeals.length);
+  const byDept = DEPARTMENTS.filter(d => d.id !== 'computers')
+    .map(d => [d, merchDeals.filter(p => p.dept === d.id)]).filter(x => x[1].length);
+  return `${crumbs([['Home', '#/'], ['Deals', '#/deals']])}
+  <div class="sectionhead"><div><h1 class="h1">Deals</h1>
+    <p class="sub">${merchDeals.length + lapDeals.length} products on promotion across the store.</p></div></div>
+  <div class="sectionhead"><h2 class="h2">Computers &amp; Tablets</h2>
+    <a class="seeall" onclick="go('#/laptops')">Shop all laptops</a></div>
+  <div class="grid">${lapDeals.map(p => pcard(p)).join('')}</div>
+  ${byDept.map(([d, items]) => `
+    <div class="sectionhead"><h2 class="h2">${esc(d.name)}</h2>
+      <a class="seeall" onclick="go('#/d/${d.id}')">Shop ${esc(d.name)}</a></div>
+    <div class="grid">${items.map(storeCard).join('')}</div>`).join('')}`;
+}
+
+function addToCartStore(id) {
+  const p = storeById(id);
+  if (!p) return;
+  const line = S.cart.find(l => l.id === id);
+  if (line) line.qty++;
+  else S.cart.push({ id: p.id, qty: 1, grade: 'merch', name: p.title, price: p.price });
+  save(); track('add_to_cart', { id: p.id, grade: 'merch' });
+  paintChrome(); toast('Added to cart');
+}
+
+/* Store-wide search. A shopper typing "pro" should see laptops competing with
+   a PlayStation and an iPad, which is the whole point. */
+function searchStore(q) {
+  const t = q.toLowerCase().trim();
+  if (!t) return [];
+  return STORE.filter(p =>
+    p.title.toLowerCase().includes(t) ||
+    p.cat.toLowerCase().includes(t) ||
+    p.brand.toLowerCase().includes(t));
+}
+
+
 /* ===== app-core.js ===== */
 /* ==========================================================================
    Novi — research storefront
@@ -974,7 +1440,8 @@ function save() {
 }
 function restore() {
   try {
-    const s = localStorage.getItem(LS_S), e = localStorage.getItem(LS_E);
+    const s = localStorage.getItem(LS_S), e = localStorage.getItem(LS_E), c = localStorage.getItem(LS_C);
+    if (c) CLICKS = JSON.parse(c) || [];
     if (s) {
       const saved = JSON.parse(s);
       S = Object.assign(DEFAULT_SESSION(), saved);
@@ -1044,6 +1511,63 @@ function leaveRoute() {
   track('page_exit', { route: _lastRoute, dwellMs: Date.now() - _routeEnter, maxScrollPct: _maxScroll });
 }
 
+/* ---- heatmap capture ----------------------------------------------------- */
+/* Every click is stored as a viewport-relative percentage plus the element it hit,
+   so the overlay reproduces faithfully at any window size and survives export.
+   Percentages rather than pixels is the whole trick: a 1440px moderator screen and
+   a 1080px participant screen produce comparable maps. */
+let CLICKS = [];
+const LS_C = 'novi.clicks.v1';
+const MAX_CLICKS = 4000;
+
+function clickLabel(t) {
+  if (!t || !t.tagName) return 'page';
+  const el = t.closest('[data-hm]') || t;
+  if (el.dataset && el.dataset.hm) return el.dataset.hm;
+  const b = el.closest('button, a, .card, .prod, .asstcard, .thumb, input, select');
+  if (!b) return el.tagName.toLowerCase();
+  const txt = (b.getAttribute('aria-label') || b.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 40);
+  return (b.tagName.toLowerCase() + (txt ? ':' + txt : ''));
+}
+
+function captureClick(e) {
+  const vw = window.innerWidth || 1, vh = window.innerHeight || 1;
+  const docH = Math.max(document.documentElement.scrollHeight, 1);
+  CLICKS.push({
+    ts: Date.now(),
+    route: location.hash || '#/',
+    condition: S.condition,
+    density: density(),
+    participantId: S.participantId || 'unassigned',
+    sessionId: S.sessionId,
+    xPct: +((e.clientX / vw) * 100).toFixed(2),
+    yPct: +((e.clientY / vh) * 100).toFixed(2),
+    pageYPct: +(((e.pageY) / docH) * 100).toFixed(2),
+    label: clickLabel(e.target)
+  });
+  if (CLICKS.length > MAX_CLICKS) CLICKS = CLICKS.slice(-MAX_CLICKS);
+  try { localStorage.setItem(LS_C, JSON.stringify(CLICKS.slice(-MAX_CLICKS))); } catch (err) {}
+}
+
+/* ---- path to laptops: the headline metric -------------------------------- */
+/* In a full-line store a laptop has to be found. This records how many navigation
+   steps and how many milliseconds it took to reach the first laptop PDP, which is
+   the number that says whether the merchandising is working. */
+let PATH = { steps: 0, firstLaptopMs: null, firstLaptopSteps: null, hijacks: 0 };
+
+function notePathStep(hash) {
+  PATH.steps++;
+  if (PATH.firstLaptopMs === null && /^#\/product\//.test(hash)) {
+    const id = parseInt(hash.split('/')[2], 10);
+    const p = P(id);
+    if (p) {
+      PATH.firstLaptopMs = Date.now() - S.taskStartedAt;
+      PATH.firstLaptopSteps = PATH.steps;
+      track('path_to_laptops', { ms: PATH.firstLaptopMs, steps: PATH.firstLaptopSteps });
+    }
+  }
+}
+
 /* ---- export ------------------------------------------------------------- */
 function exportJSON() {
   const payload = {
@@ -1090,6 +1614,7 @@ function softReset(silent) {
   S.taskStartedAt = Date.now();
   SUCCESS_FIRED = false;
   ASSIST_MSGS = [];
+  PATH = { steps: 0, firstLaptopMs: null, firstLaptopSteps: null, hijacks: 0 };
   if (!silent) { track('journey_reset', 'soft'); toast('Journey reset. Same participant.'); }
   go('#/'); paintChrome(); paintMod();
 }
@@ -1106,6 +1631,8 @@ function hardReset() {
 function confirmHardReset() {
   const keepCond = S.condition, keepMission = S.mission;
   EVENTS = []; S = DEFAULT_SESSION();
+  CLICKS = []; try { localStorage.removeItem(LS_C); } catch (e) {}
+  PATH = { steps: 0, firstLaptopMs: null, firstLaptopSteps: null, hijacks: 0 };
   S.condition = keepCond; S.mission = keepMission;
   SUCCESS_FIRED = false; ASSIST_MSGS = [];
   save(); closeModal(); go('#/'); paintChrome(); paintMod(); paintLog();
@@ -1130,10 +1657,13 @@ function bookmark() {
 
 /* ---- routing ------------------------------------------------------------ */
 const ROUTES = [
-  [/^#\/$/,                       () => viewHome()],
+  [/^#\/$/,                       () => viewStoreHome()],
+  [/^#\/legacy-home$/,            () => viewHome()],
+  [/^#\/d\/([\w-]+)$/,            m  => viewDept(m[1])],
+  [/^#\/s\/(s\d+)$/,              m  => viewStorePDP(m[1])],
   [/^#\/computers$/,              () => viewCategory()],
   [/^#\/laptops$/,                () => viewBrowse()],
-  [/^#\/deals$/,                  () => { S.filters.deals = true; return viewBrowse(); }],
+  [/^#\/deals$/,                  () => viewDeals()],
   [/^#\/search$/,                 () => viewSearch()],
   [/^#\/search\?q=(.*)$/,         m  => { const q = decodeURIComponent(m[1].replace(/\+/g, ' '));
                                           if (S.query !== q) { S.query = q; save(); }
@@ -1158,6 +1688,7 @@ function render() {
   if (h !== _lastRoute) {
     leaveRoute();
     _routeEnter = Date.now(); _maxScroll = 0; _lastRoute = h;
+    notePathStep(h);
   }
   let handled = false;
   for (const [re, fn] of ROUTES) {
@@ -1525,7 +2056,7 @@ function pager(pages) {
 
 const HERO_SLIDES = [
   { tag: 'Windows PC Collections', h: 'Five ways to shop. Pick the one that sounds like you.',
-    p: 'Every laptop sits in exactly one collection, so you can start from what you want to do rather than a spec sheet.',
+    p: 'Every Windows laptop sits in exactly one collection, so you can start from what you want to do rather than a spec sheet.',
     cta: 'Explore collections', act: "go('#/collections')", hue: 205, from: '#0b5bd3', to: '#22a3e0' },
   { tag: 'Creator pro', h: 'Creative machines, built to keep up.',
     p: 'Colour-accurate displays and real horsepower for photo, video and design.',
@@ -1650,7 +2181,7 @@ function viewHome() {
 
   ${cond().collections ? `
   <div class="sectionhead"><div><h2 class="h2">Shop Windows PC Collections</h2>
-    <p class="sub">Five ways to shop, organised by what you want to do. Every laptop sits in exactly one.</p></div>
+    <p class="sub">Five ways to shop, organised by what you want to do. Every Windows laptop sits in exactly one.</p></div>
     <button class="btn ghost" onclick="go('#/collections')">See all collections</button></div>
   <div class="tiles collgrid">${COLLECTIONS.map(c => collTile(c, true)).join('')}</div>` : ''}
 
@@ -1838,16 +2369,23 @@ function sortSelect() {
 function viewSearch() {
   const q = S.query.trim();
   const filtered = applySort(applyFilters(CATALOG));
+  const merch = searchStore(q);
+  const merchBlock = merch.length ? `
+    <div class="sectionhead"><div><h2 class="h2">Also in other departments</h2>
+      <p class="sub">${merch.length} matching ${merch.length === 1 ? 'product' : 'products'} outside Computers &amp; Tablets.</p></div></div>
+    <div class="grid">${merch.slice(0, 8).map(storeCard).join('')}</div>` : '';
   const suggestions = ['laptop', 'gaming laptop', 'cheap laptop', '16gb laptop', 'lightweight laptop', 'laptop for school'];
   if (!filtered.length) {
     return `${crumbs([['Home', '#/'], ['Search', '#/search']])}
-      <div class="sectionhead"><h1 class="h1">No results for "${esc(q)}"</h1></div>
+      <div class="sectionhead"><h1 class="h1">${merch.length ? `Results for "${esc(q)}"` : `No results for "${esc(q)}"`}</h1></div>
+      ${merch.length ? `<p class="sub">No laptops matched, but we found ${merch.length} in other departments.</p>
+        <div class="grid">${merch.slice(0, 12).map(storeCard).join('')}</div>` : `
       <div class="card" style="padding:26px">
         <p>We couldn't find a match. Try one of these instead:</p>
         <div class="chips" style="margin-top:12px">${suggestions.map(s =>
           `<button class="chip" onclick="doSearch('${s}')">${s}</button>`).join('')}</div>
         <div style="margin-top:18px"><button class="btn out" onclick="go('#/laptops')">Browse all laptops</button></div>
-      </div>`;
+      </div>`}`;
   }
   const sponsored = cond().sponsored ? CATALOG.filter(p => p.sponsored)[0] : null;
   return `${crumbs([['Home', '#/'], ['Search', '#/search']])}
@@ -1868,7 +2406,8 @@ function viewSearch() {
         <div class="chips" style="margin-top:9px">${suggestions.map(s =>
           `<button class="chip" onclick="doSearch('${s}')">${s}</button>`).join('')}</div></div>
     </section>
-  </div>`;
+  </div>
+  ${merchBlock}`;
 }
 function doSearch(q) {
   S.query = q; S.page = 1;
@@ -1958,8 +2497,24 @@ const FIT = {
     not:  ['People who mainly browse', 'The lightest possible carry', 'The lowest upfront price'] },
   'Gaming': {
     best: ['High frame rate gaming', 'Streaming and capture', 'GPU accelerated creative work'],
-    not:  ['All day battery away from power', 'Quiet library or office use', 'A light, slim carry'] }
+    not:  ['All day battery away from power', 'Quiet library or office use', 'A light, slim carry'] },
+  /* Collections is Windows-only, but a macOS or ChromeOS listing still has to tell
+     the truth about fit. These bands drive PDP fit signalling only. They are never
+     labelled as Collections and never appear in collection navigation. */
+  'macOS': {
+    best: ['People already in the Apple ecosystem', 'Long battery life away from power', 'Quiet, cool everyday use'],
+    not:  ['Windows-only software', 'PC gaming', 'Upgrading memory or storage later'] },
+  'ChromeOS': {
+    best: ['Web, email and cloud documents', 'Simple setup and low maintenance', 'A low cost first or spare machine'],
+    not:  ['Installed desktop software', 'Photo, video or 3D work', 'Working offline for long periods'] }
 };
+
+/* Fit and use-case band. Returns the Windows collection when the machine is in one,
+   otherwise a platform band so non-Windows listings still render honest PDP content
+   without being merchandised inside a framework they were never eligible for. */
+function merchBand(p) {
+  return p.collection || (/^mac/i.test(p.os) ? 'macOS' : /^Chrome/i.test(p.os) ? 'ChromeOS' : 'Core essentials');
+}
 
 /* 7. Use-case declaration: one plain-language line, placed next to the hero. */
 const USECASE_LINE = {
@@ -1967,7 +2522,9 @@ const USECASE_LINE = {
   'Everyday productivity': 'Best for students and hybrid workers who need to multitask without thinking about it.',
   'Premium performance': 'Best for professionals who need premium portability and all-day productivity.',
   'Creator pro': 'Best for creators and designers who need colour accuracy and real graphics power.',
-  'Gaming': 'Best for gamers who want a high frame rate, with the headroom to create as well as play.'
+  'Gaming': 'Best for gamers who want a high frame rate, with the headroom to create as well as play.',
+  'macOS': 'Best for people already in the Apple ecosystem who want long battery life and a quiet machine.',
+  'ChromeOS': 'Best for web, email and cloud documents, with very little to maintain.'
 };
 
 /* 9. Freshness hygiene. */
@@ -1983,9 +2540,13 @@ function freshness(p) {
 /* 2. Answer-first hero messaging: says what the thing is and when to surface it,
    before any marketing framing. */
 function answerFirst(p) {
-  return `${p.name} is a ${p.screenSize}-inch ${p.collection.toLowerCase()} laptop with ${p.cpu},
+  const band = merchBand(p);
+  const kind = p.collection ? p.collection.toLowerCase() + ' laptop'
+             : /^mac/i.test(p.os) ? 'macOS laptop'
+             : /^Chrome/i.test(p.os) ? 'Chromebook' : 'laptop';
+  return `${p.name} is a ${p.screenSize}-inch ${kind} with ${p.cpu},
     ${p.ram} of memory and ${p.storage}, rated up to ${p.battery} of battery.
-    ${USECASE_LINE[p.collection] || ''}`;
+    ${USECASE_LINE[band] || ''}`;
 }
 
 /* 4. Spec-to-benefit translation: every spec answers a shopper question rather
@@ -2076,7 +2637,7 @@ function productSchema(p, rich) {
     }
   };
   if (rich) {
-    g.category = p.collection;
+    g.category = p.collection || p.type;
     g.description = answerFirst(p).replace(/\s+/g, ' ').trim();
     g.aggregateRating = {
       '@type': 'AggregateRating', ratingValue: p.rating, reviewCount: p.reviewCount
@@ -2086,7 +2647,7 @@ function productSchema(p, rich) {
       ['Display', p.screenSize + '" ' + p.panel + ' ' + p.resolution], ['Battery life', p.battery],
       ['Weight', p.weight], ['Operating system', p.os]
     ].map(r => ({ '@type': 'PropertyValue', name: r[0], value: r[1] }));
-    g.audience = { '@type': 'PeopleAudience', audienceType: FIT[p.collection].best.join('; ') };
+    g.audience = { '@type': 'PeopleAudience', audienceType: FIT[merchBand(p)].best.join('; ') };
     g.releaseDate = String(p.releaseYear);
   }
   const faq = rich ? {
@@ -2130,8 +2691,8 @@ function viewPDP(id) {
       ${rich ? `<p class="answerfirst">${answerFirst(p)}</p>` : ''}
 
       ${rich ? `<div class="fit">
-        <div class="fitcol good"><h3>Best for</h3><ul>${FIT[p.collection].best.map(x => `<li>${x}</li>`).join('')}</ul></div>
-        <div class="fitcol bad"><h3>Not ideal for</h3><ul>${FIT[p.collection].not.map(x => `<li>${x}</li>`).join('')}</ul></div>
+        <div class="fitcol good"><h3>Best for</h3><ul>${FIT[merchBand(p)].best.map(x => `<li>${x}</li>`).join('')}</ul></div>
+        <div class="fitcol bad"><h3>Not ideal for</h3><ul>${FIT[merchBand(p)].not.map(x => `<li>${x}</li>`).join('')}</ul></div>
       </div>` : ''}
 
       <div class="tabs">
@@ -2144,14 +2705,14 @@ function viewPDP(id) {
     <div class="buybox">
       <div class="pbrand">${p.brand}</div>
       <h1 class="h1" style="font-size:25px;margin:4px 0 6px">${p.name}</h1>
-      ${rich ? `<a class="collbadge inbuybox" onclick="go('#/collections/${(COLLECTIONS.find(c=>c.name===p.collection)||{}).id}')"
+      ${rich && p.collection ? `<a class="collbadge inbuybox" onclick="go('#/collections/${(COLLECTIONS.find(c=>c.name===p.collection)||{}).id}')"
         title="${esc(p.collection)} collection">${p.collection}</a>` : ''}
       <div class="rline">${starRow(p.rating)} <b>${p.rating}</b>
         <a onclick="setTab('reviews',${p.id})" style="color:var(--b);text-decoration:underline">${p.reviewCount.toLocaleString()} reviews</a></div>
       <div class="sub" style="margin-bottom:12px">Model ${p.sku}
         ${rich ? ` · <span class="fresh ${freshness(p).tone}">${freshness(p).label}</span>` : ''}${cond().sponsored && p.sponsored ? ' · <span class="tag sp">Sponsored</span>' : ''}</div>
 
-      ${rich ? `<p class="usecase">${USECASE_LINE[p.collection] || ''}</p>` : ''}
+      ${rich ? `<p class="usecase">${USECASE_LINE[merchBand(p)] || ''}</p>` : ''}
 
       <div class="price">${money(p.price)} ${p.wasPrice ? `<span class="was">${money(p.wasPrice)}</span>` : ''}</div>
       ${p.wasPrice ? `<div style="color:var(--hot);font-weight:700;font-size:13px">Save ${money(p.wasPrice - p.price)}</div>` : ''}
@@ -2516,7 +3077,7 @@ function viewCollectionsIndex() {
   return `${crumbs([['Home', '#/'], ['Collections', '#/collections']])}
   <div class="sectionhead"><div><h1 class="h1">Windows PC Collections</h1>
     <p class="sub">Five ways to shop, organised by what you actually want to do rather than by spec sheet.
-      Every laptop sits in exactly one.</p></div></div>
+      Every Windows laptop sits in exactly one.</p></div></div>
   <div class="tiles collgrid">${COLLECTIONS.map(c => collTile(c, true)).join('')}</div>
   <div class="helpbar" style="margin-top:26px"><div><strong>Not sure which one you are?</strong>
     <span>Answer four questions and we will point you at the right collection.</span></div>
@@ -2596,7 +3157,7 @@ function paintAssistant() {
   if (!root) return;
   if (!cond().assistant) { root.innerHTML = ''; return; }
   root.innerHTML = `
-    ${ASSIST_OPEN ? '' : `<button class="asstbtn" onclick="toggleAssist(true)">Ask novi</button>`}
+    ${ASSIST_OPEN ? '' : `<button class="asstbtn" onclick="toggleAssist(true)">Ask ${esc(BRAND.name || 'novi')}</button>`}
     <section class="asst ${ASSIST_OPEN ? 'open' : ''}" aria-label="Shopping assistant">
       <div class="head">
         <div><b>Shopping assistant</b><div style="font-size:11px;opacity:.85">Answers from novi's product data</div></div>
@@ -2725,6 +3286,12 @@ function matchProduct(q) {
 function assistAnswer(qRaw) {
   const q = qRaw.toLowerCase();
 
+  // 0. a question about another department. Novi is a full-line retailer, so the
+  // assistant must not answer "I need a TV" with a laptop shortlist. It is
+  // grounded on laptops only, and it should say so and hand the shopper over.
+  const other = matchDepartment(q);
+  if (other) return answerDepartment(other);
+
   // 1. a collection asked for by name, or a request to be placed in one
   const namedColl = COLLECTIONS.find(c => q.includes(c.name.toLowerCase()));
   if (namedColl) return answerCollection(namedColl);
@@ -2743,8 +3310,37 @@ function assistAnswer(qRaw) {
   // 4. otherwise treat it as a shortlist request
   return answerShortlist(q);
 }
-function answerCollection(c) {
-  const pool = CATALOG.filter(p => p.collection === c.name);
+/* Department cues. Deliberately narrow: a laptop shopper saying "I want a big
+   screen" must not be bounced to TVs, so we only match explicit product words. */
+const DEPT_CUES = [
+  { d: 'tv',         re: /\b(tv|tvs|television|oled|qled|soundbar|projector|home theatre|home theater|roku|streaming stick)\b/ },
+  { d: 'mobile',     re: /\b(phone|phones|iphone|galaxy s\d|pixel \d|smartwatch|smart watch|apple watch|fitbit|garmin)\b/ },
+  { d: 'audio',      re: /\b(headphone|headphones|earbud|earbuds|airpod|airpods|speaker|speakers|turntable|soundsystem)\b/ },
+  { d: 'gaming',     re: /\b(playstation|ps5|xbox|nintendo|switch|console|steam deck)\b/ },
+  { d: 'appliances', re: /\b(fridge|refrigerator|washer|washing machine|dryer|dishwasher|air fryer|vacuum|roomba|coffee maker)\b/ },
+  { d: 'cameras',    re: /\b(camera|cameras|mirrorless|dslr|gopro|drone|drones)\b/ },
+  { d: 'smarthome',  re: /\b(doorbell|thermostat|smart lock|smart light|smart bulb|security camera|echo show|nest hub)\b/ }
+];
+function matchDepartment(q) {
+  /* If they also say laptop, they mean a laptop. Stay on task. */
+  if (/\b(laptop|notebook|macbook|chromebook|ultrabook|pc)\b/.test(q)) return null;
+  const hit = DEPT_CUES.find(c => c.re.test(q));
+  return hit ? deptById(hit.d) : null;
+}
+function answerDepartment(d) {
+  const items = deptItems(d.id)
+    .sort((a, b) => b.reviewCount - a.reviewCount).slice(0, 3);
+  return {
+    role: 'a', grounded: 'department', hedged: true,
+    text: `I help with laptops, so I can't advise on ${esc(d.name.toLowerCase())} in any detail.
+      We do stock ${deptItems(d.id).length} products there. Our most reviewed are
+      ${items.map(p => `<b>${esc(p.brand)} ${esc(p.name)}</b>`).join(', ')}.`,
+    actions: `<button class="btn out" style="padding:7px 11px;font-size:12px"
+      onclick="track('assistant_dept_handoff','${d.id}');go('#/d/${d.id}')">Browse ${esc(d.name)}</button>`
+  };
+}
+
+function answerCollection(c) {  const pool = CATALOG.filter(p => p.collection === c.name);
   const items = pool.sort((a, b) => (b.rating - b.price / 3000) - (a.rating - a.price / 3000)).slice(0, 3);
   return {
     role: 'a', grounded: 'collection',
@@ -2759,7 +3355,7 @@ function answerCollection(c) {
 function answerCollectionsOverview() {
   return {
     role: 'a', grounded: 'collection',
-    text: `There are five, and every laptop sits in exactly one. Pick the one that sounds most like you.
+    text: `There are five, and every Windows laptop sits in exactly one. Pick the one that sounds most like you.
       <div class="acollchips" style="margin-top:9px">${COLLECTIONS.map(c =>
         `<button onclick="assistCollection('${c.id}')" title="${c.blurb}">${c.name}</button>`).join('')}</div>
       <div style="margin-top:9px">${COLLECTIONS.map(c =>
@@ -2864,6 +3460,608 @@ function answerShortlist(q) {
 }
 
 
+/* ===== app-console.js ===== */
+/* ==========================================================================
+   Part 5: the research console.
+
+   This is the product. The storefront is the stimulus; everything here is what
+   makes it a research instrument rather than a mock website:
+
+     Overview    engagement, funnel, time to task
+     Heatmap     where people actually clicked, per route
+     Journeys    route to route flow with drop-off
+     Designer    reconfigure the experience live, no code, no rebuild
+     Cohorts     two conditions side by side on identical metrics
+     Replay      scrub the session as a timeline
+     Roadshow    rebrand to a named retailer in one click
+     Data        export, session links, raw stream
+   ========================================================================== */
+
+let CTAB = 'overview';
+function setCTab(t) { CTAB = t; track('console_tab', t); paintConsole(); }
+
+/* ---- shared helpers ------------------------------------------------------ */
+function evDetail(e) { try { return JSON.parse(e.detail); } catch (x) { return {}; } }
+function pct(n, d) { return d ? Math.round((n / d) * 100) : 0; }
+function ms(n) { return n === null || n === undefined ? '—' : (n / 1000).toFixed(1) + 's'; }
+function routeName(r) {
+  if (!r || r === '#/' || r === '') return 'Home';
+  if (/^#\/product\//.test(r)) { const p = P(+r.split('/')[2]); return p ? p.name.slice(0, 28) : 'Product'; }
+  if (/^#\/collections\/(.+)/.test(r)) {
+    const id = r.match(/^#\/collections\/(.+)/)[1];
+    const c = COLLECTIONS.find(x => x.id === id);
+    return c ? c.name : 'Collection';
+  }
+  return r.replace('#/', '').replace(/\//g, ' ').replace(/^\w/, c => c.toUpperCase()) || 'Home';
+}
+
+/* Metrics are computed from the event stream on demand rather than accumulated,
+   so a moderator can change the condition mid-session and the numbers stay
+   attributable to the cell the participant was actually in. */
+function metrics(filterCond) {
+  const ev = filterCond ? EVENTS.filter(e => e.condition === filterCond) : EVENTS;
+  const of = n => ev.filter(e => e.event === n);
+  const exits = of('page_exit').map(evDetail);
+  const dwell = exits.map(d => d.dwellMs || 0).filter(Boolean);
+  const scroll = exits.map(d => d.maxScrollPct || 0);
+  const viewed = new Set(of('product_viewed').map(e => e.detail));
+  const ptl = of('path_to_laptops').map(evDetail);
+  const succ = of('task_success');
+  return {
+    events: ev.length,
+    productsViewed: viewed.size,
+    pdpViews: of('product_viewed').length,
+    searches: of('search_submitted').length,
+    assistOpens: of('assistant_opened').length,
+    assistMsgs: of('assistant_message').length,
+    collViews: of('collection_viewed').length + of('collections_index_viewed').length,
+    schemaOpens: of('structured_data_opened').length,
+    addToCart: of('add_to_cart').length,
+    checkouts: of('checkout_complete').length,
+    compares: of('compare_added').length,
+    medianDwell: dwell.length ? dwell.slice().sort((a, b) => a - b)[Math.floor(dwell.length / 2)] : 0,
+    avgScroll: scroll.length ? Math.round(scroll.reduce((a, b) => a + b, 0) / scroll.length) : 0,
+    pathMs: ptl.length ? ptl[0].ms : null,
+    pathSteps: ptl.length ? ptl[0].steps : null,
+    successMs: succ.length ? parseInt(String(succ[0].detail).replace('ms=', ''), 10) : null,
+    success: succ.length > 0
+  };
+}
+
+/* ========================================================================== */
+function viewConsole() {
+  return `<div class="sectionhead" style="margin-top:22px">
+      <div><h1 class="h1">Research console</h1>
+      <p class="sub">Moderator only. Participants should not see this screen.</p></div>
+      <button class="btn ghost" onclick="go('#/')">Back to store</button></div>
+    <div class="ctabs" id="ctabs"></div>
+    <div class="console" id="consolebody"></div>`;
+}
+
+const CTABS = [
+  ['overview', 'Overview'], ['heatmap', 'Heatmap'], ['journeys', 'Journeys'],
+  ['designer', 'Designer'], ['cohorts', 'Cohorts'], ['replay', 'Replay'],
+  ['roadshow', 'Roadshow'], ['data', 'Data']
+];
+
+function paintConsole() {
+  const tabs = document.getElementById('ctabs');
+  if (tabs) tabs.innerHTML = CTABS.map(t =>
+    `<button class="${CTAB === t[0] ? 'on' : ''}" onclick="setCTab('${t[0]}')">${t[1]}</button>`).join('');
+  const el = document.getElementById('consolebody');
+  if (!el) return;
+  el.className = 'console' + (CTAB === 'overview' || CTAB === 'data' ? '' : ' wide');
+  el.innerHTML =
+      CTAB === 'heatmap'  ? cHeatmap()
+    : CTAB === 'journeys' ? cJourneys()
+    : CTAB === 'designer' ? cDesigner()
+    : CTAB === 'cohorts'  ? cCohorts()
+    : CTAB === 'replay'   ? cReplay()
+    : CTAB === 'roadshow' ? cRoadshow()
+    : CTAB === 'data'     ? cData()
+    : cOverview();
+  if (CTAB === 'overview' || CTAB === 'data') paintLog();
+  if (CTAB === 'heatmap') drawHeat();
+  if (CTAB === 'replay') paintReplay();
+}
+
+/* ---------------- Overview ---------------- */
+function cOverview() {
+  const m = metrics();
+  const c = cond(), mi = MISSIONS[S.mission];
+  const funnel = [
+    ['Session started', 1, 1],
+    ['Reached a product', m.pdpViews > 0 ? 1 : 0, 1],
+    ['Compared or shortlisted', m.compares > 0 ? 1 : 0, 1],
+    ['Added to cart', m.addToCart > 0 ? 1 : 0, 1],
+    ['Completed checkout', m.checkouts > 0 ? 1 : 0, 1]
+  ];
+  return `
+  <div>
+    <div class="statgrid">
+      ${stat('Participant', S.participantId || '&mdash;')}
+      ${stat('Condition', S.condition)}
+      ${stat('Elapsed', elapsed())}
+      ${stat('Events', m.events)}
+      ${stat('Products viewed', m.productsViewed)}
+      ${stat('Task', m.success ? 'done ' + ms(m.successMs) : 'open')}
+    </div>
+
+    <div class="card panel">
+      <h3>Headline: path to a laptop</h3>
+      <div class="statgrid tight">
+        ${stat('Time to first PDP', ms(m.pathMs))}
+        ${stat('Steps to first PDP', m.pathSteps === null ? '&mdash;' : m.pathSteps)}
+        ${stat('Time to task success', ms(m.successMs))}
+      </div>
+      <p class="sub" style="font-size:11px;margin-top:9px">In a full-line store a laptop has to be found.
+        These two numbers say whether the merchandising is doing that job.</p>
+    </div>
+
+    <div class="card panel" style="margin-top:16px">
+      <h3>Engagement</h3>
+      <div class="statgrid tight">
+        ${stat('Median dwell', ms(m.medianDwell))}
+        ${stat('Avg scroll depth', m.avgScroll + '%')}
+        ${stat('Searches', m.searches)}
+        ${stat('Collection views', m.collViews)}
+        ${stat('Assistant messages', m.assistMsgs)}
+        ${stat('Schema panel opens', m.schemaOpens)}
+      </div>
+    </div>
+
+    <div class="card panel" style="margin-top:16px">
+      <h3>Funnel</h3>
+      ${funnel.map(f => `<div class="fbar ${f[1] ? 'hit' : ''}">
+        <span>${f[0]}</span><b>${f[1] ? 'yes' : 'no'}</b></div>`).join('')}
+    </div>
+
+    <div class="card panel" style="margin-top:16px">
+      <h3>Session controls</h3>
+      <div class="field"><label>Participant ID</label>
+        <input value="${esc(S.participantId || '')}" placeholder="P001" onchange="setParticipant(this.value)"></div>
+      <div class="field"><label>Condition</label>
+        <select onchange="setCondition(this.value)">
+          ${Object.keys(CONDITIONS).map(k => `<option value="${k}" ${S.condition === k ? 'selected' : ''}>${CONDITIONS[k].label}</option>`).join('')}
+        </select>
+        <p class="sub" style="font-size:11px;margin-top:6px">${condSummary(c)}</p></div>
+      <div class="field"><label>Task</label>
+        <select onchange="setMission(this.value)">
+          ${Object.keys(MISSIONS).map(k => `<option value="${k}" ${String(S.mission) === k ? 'selected' : ''}>${MISSIONS[k].label}</option>`).join('')}
+        </select>
+        <p class="sub" style="font-size:11px;margin-top:6px">${mi ? mi.brief : ''}</p></div>
+      <div class="field"><label>Retail density</label>
+        <select onchange="setDensity(this.value)">
+          <option value="busy" ${density() === 'busy' ? 'selected' : ''}>Busy &middot; sponsored slots, promo ribbon, upsells</option>
+          <option value="clean" ${density() === 'clean' ? 'selected' : ''}>Clean &middot; no advertising or promotional noise</option>
+        </select></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn out" onclick="softReset()">Soft reset, keep data</button>
+        <button class="btn ghost" onclick="hardReset()">New participant, wipe data</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card panel">
+    <h3>Live event stream</h3>
+    <div id="log" class="evtlog"></div>
+  </div>`;
+}
+
+/* ---------------- Heatmap ---------------- */
+/* Clicks are stored as viewport percentages, so the map is comparable across
+   screen sizes. Rendered to a canvas as additive radial gradients, then a
+   palette is applied per pixel, which is how real heatmap tools do it. */
+let HEAT_ROUTE = 'all';
+function heatRoutes() {
+  const seen = {};
+  CLICKS.forEach(c => { seen[c.route] = (seen[c.route] || 0) + 1; });
+  return Object.keys(seen).sort((a, b) => seen[b] - seen[a]).map(r => [r, seen[r]]);
+}
+function setHeatRoute(r) { HEAT_ROUTE = r; paintConsole(); }
+
+function cHeatmap() {
+  const routes = heatRoutes();
+  const pool = HEAT_ROUTE === 'all' ? CLICKS : CLICKS.filter(c => c.route === HEAT_ROUTE);
+  const byLabel = {};
+  pool.forEach(c => { byLabel[c.label] = (byLabel[c.label] || 0) + 1; });
+  const top = Object.keys(byLabel).sort((a, b) => byLabel[b] - byLabel[a]).slice(0, 12);
+  return `
+  <div class="card panel">
+    <h3>Click heatmap</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 10px">${CLICKS.length} clicks captured this session.
+      Positions are stored as a percentage of the viewport, so the map stays comparable across screen sizes.</p>
+    <div class="field"><label>Page</label>
+      <select onchange="setHeatRoute(this.value)">
+        <option value="all" ${HEAT_ROUTE === 'all' ? 'selected' : ''}>All pages (${CLICKS.length})</option>
+        ${routes.map(r => `<option value="${esc(r[0])}" ${HEAT_ROUTE === r[0] ? 'selected' : ''}>${esc(routeName(r[0]))} (${r[1]})</option>`).join('')}
+      </select></div>
+    <div class="heatwrap">
+      <canvas id="heatcv" width="960" height="600"></canvas>
+      <div class="heatempty" id="heatempty" style="display:${pool.length ? 'none' : 'flex'}">
+        No clicks captured yet. Browse the store, then come back.</div>
+    </div>
+    <div class="heatlegend"><span>cold</span><i></i><span>hot</span>
+      <span style="margin-left:auto">${pool.length} clicks shown</span></div>
+  </div>
+
+  <div class="card panel">
+    <h3>Most clicked elements</h3>
+    ${top.length ? top.map(l => `<div class="fbar hit">
+      <span title="${esc(l)}">${esc(l.slice(0, 44))}</span><b>${byLabel[l]}</b></div>`).join('')
+      : '<p class="sub">Nothing yet.</p>'}
+  </div>`;
+}
+
+function drawHeat() {
+  const cv = document.getElementById('heatcv');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  ctx.clearRect(0, 0, W, H);
+  const pool = HEAT_ROUTE === 'all' ? CLICKS : CLICKS.filter(c => c.route === HEAT_ROUTE);
+  if (!pool.length) return;
+
+  /* pass 1: additive greyscale intensity */
+  ctx.globalAlpha = 1;
+  pool.forEach(c => {
+    const x = (c.xPct / 100) * W, y = (c.yPct / 100) * H, r = 46;
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, 'rgba(0,0,0,0.30)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  });
+
+  /* pass 2: map accumulated alpha to a heat palette */
+  const img = ctx.getImageData(0, 0, W, H), d = img.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const a = d[i + 3];
+    if (!a) continue;
+    const t = Math.min(1, a / 190);
+    let r, g, b;
+    if (t < 0.25)      { r = 30;  g = 80 + t * 400;  b = 220; }
+    else if (t < 0.5)  { r = 30;  g = 190;           b = 220 - (t - 0.25) * 600; }
+    else if (t < 0.75) { r = 30 + (t - 0.5) * 900; g = 210;  b = 60; }
+    else               { r = 235; g = 210 - (t - 0.75) * 700; b = 50; }
+    d[i] = Math.min(255, r); d[i + 1] = Math.min(255, Math.max(0, g)); d[i + 2] = Math.max(0, b);
+    d[i + 3] = Math.min(235, a * 2.4);
+  }
+  ctx.putImageData(img, 0, 0);
+}
+
+/* ---------------- Journeys ---------------- */
+/* Route-to-route transitions, reconstructed from page_exit plus the ordered
+   event stream. Drop-off is the share of sessions that never went further. */
+function transitions() {
+  const seq = [];
+  EVENTS.forEach(e => {
+    const r = e.route || '#/';
+    if (!seq.length || seq[seq.length - 1] !== r) seq.push(r);
+  });
+  const pairs = {};
+  for (let i = 0; i < seq.length - 1; i++) {
+    const k = seq[i] + ' \u2192 ' + seq[i + 1];
+    pairs[k] = (pairs[k] || 0) + 1;
+  }
+  return { seq, pairs };
+}
+function cJourneys() {
+  const { seq, pairs } = transitions();
+  const keys = Object.keys(pairs).sort((a, b) => pairs[b] - pairs[a]);
+  const max = keys.length ? pairs[keys[0]] : 1;
+  const m = metrics();
+  return `
+  <div class="card panel">
+    <h3>Click journey</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 12px">The ordered path this participant took.
+      ${seq.length} distinct steps. Time to first laptop PDP: <b>${ms(m.pathMs)}</b> in
+      <b>${m.pathSteps === null ? '—' : m.pathSteps}</b> steps.</p>
+    <div class="jpath">
+      ${seq.length ? seq.map((r, i) => `<span class="jnode${/^#\/product\//.test(r) ? ' pdp' : ''}">
+        <i>${i + 1}</i>${esc(routeName(r))}</span>`).join('<span class="jarrow">\u2192</span>')
+        : '<p class="sub">No navigation yet.</p>'}
+    </div>
+  </div>
+
+  <div class="card panel">
+    <h3>Transitions by frequency</h3>
+    ${keys.length ? keys.slice(0, 16).map(k => {
+      const [from, to] = k.split(' \u2192 ');
+      return `<div class="flowrow">
+        <span>${esc(routeName(from))} <i>\u2192</i> ${esc(routeName(to))}</span>
+        <div class="flowbar"><div style="width:${pct(pairs[k], max)}%"></div></div>
+        <b>${pairs[k]}</b></div>`;
+    }).join('') : '<p class="sub">Nothing yet.</p>'}
+  </div>`;
+}
+
+/* ---------------- Designer ---------------- */
+/* Conditions are edited live in the UI. This is what makes the prototype a
+   platform: a researcher can invent condition F in front of a retailer, apply
+   it, and run a participant through it without a rebuild or a developer. */
+const FLAGS = [
+  ['assistant', 'Shopping assistant', 'bool'],
+  ['collections', 'Collections framework', 'bool'],
+  ['sponsored', 'Sponsored placements', 'bool'],
+  ['pdpContent', 'PDP content', ['asis', 'rich', 'thin']],
+  ['advisor', 'Guided advisor', ['subtle', 'prominent', 'hidden']],
+  ['searchRank', 'Search ranking', ['relevance', 'popularity']],
+  ['reviews', 'Reviews treatment', ['standard', 'prominent', 'minimal']],
+  ['deliveryPromise', 'Delivery promise', ['standard', 'strong', 'weak']],
+  ['density', 'Retail density', ['busy', 'clean']]
+];
+let DESIGN_KEY = null;
+function designKey() { return DESIGN_KEY || S.condition; }
+function setDesignKey(k) { DESIGN_KEY = k; paintConsole(); }
+
+function setFlag(key, field, val) {
+  const c = CONDITIONS[key];
+  if (!c) return;
+  c[field] = (val === 'true') ? true : (val === 'false') ? false : val;
+  track('condition_edited', { condition: key, field: field, value: String(c[field]) });
+  if (key === S.condition) { render(); paintChrome(); }
+  paintConsole();
+  toast(key + ' · ' + field + ' set to ' + c[field]);
+}
+function newCondition() {
+  const used = Object.keys(CONDITIONS);
+  const next = 'FGHIJKLMNO'.split('').find(l => used.indexOf(l) < 0) || ('X' + used.length);
+  CONDITIONS[next] = Object.assign({}, CONDITIONS[designKey()], { label: next + ' · Custom' });
+  DESIGN_KEY = next;
+  track('condition_created', next);
+  paintConsole(); paintMod();
+  toast('Condition ' + next + ' created');
+}
+function applyDesign() {
+  setCondition(designKey());
+  toast('Now running condition ' + designKey());
+  paintConsole();
+}
+function cDesigner() {
+  const k = designKey(), c = CONDITIONS[k];
+  return `
+  <div class="card panel">
+    <h3>Experience designer</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 12px">Change the experience live, with no code and no rebuild.
+      Edits to the running condition take effect on the store immediately.</p>
+    <div class="field"><label>Editing condition</label>
+      <select onchange="setDesignKey(this.value)">
+        ${Object.keys(CONDITIONS).map(x => `<option value="${x}" ${k === x ? 'selected' : ''}>${CONDITIONS[x].label}</option>`).join('')}
+      </select></div>
+    <div class="field"><label>Label</label>
+      <input value="${esc(c.label)}" onchange="setFlag('${k}','label',this.value)"></div>
+
+    ${FLAGS.map(f => `<div class="field"><label>${f[1]}</label>
+      ${f[2] === 'bool'
+        ? `<select onchange="setFlag('${k}','${f[0]}',this.value)">
+             <option value="true" ${c[f[0]] ? 'selected' : ''}>On</option>
+             <option value="false" ${!c[f[0]] ? 'selected' : ''}>Off</option></select>`
+        : `<select onchange="setFlag('${k}','${f[0]}',this.value)">
+             ${f[2].map(o => `<option value="${o}" ${c[f[0]] === o ? 'selected' : ''}>${o}</option>`).join('')}</select>`}
+      </div>`).join('')}
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+      <button class="btn pri" onclick="applyDesign()">Run this condition</button>
+      <button class="btn out" onclick="newCondition()">Duplicate as new condition</button>
+    </div>
+  </div>
+
+  <div class="card panel">
+    <h3>All conditions</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 10px">${Object.keys(CONDITIONS).length} defined.
+      The one in bold is running now.</p>
+    ${Object.keys(CONDITIONS).map(x => `<div class="condrow ${x === S.condition ? 'live' : ''}">
+      <div><b>${esc(CONDITIONS[x].label)}</b><small>${condSummary(CONDITIONS[x])}</small></div>
+      <button class="btn ghost" onclick="setCondition('${x}');paintConsole()">Run</button>
+    </div>`).join('')}
+  </div>`;
+}
+
+/* ---------------- Cohorts ---------------- */
+let COH_A = 'B', COH_B = 'D';
+function setCoh(which, v) { if (which === 'a') COH_A = v; else COH_B = v; paintConsole(); }
+function cCohorts() {
+  const a = metrics(COH_A), b = metrics(COH_B);
+  const rows = [
+    ['Events captured', a.events, b.events],
+    ['Products viewed', a.productsViewed, b.productsViewed],
+    ['PDP views', a.pdpViews, b.pdpViews],
+    ['Searches', a.searches, b.searches],
+    ['Collection views', a.collViews, b.collViews],
+    ['Assistant messages', a.assistMsgs, b.assistMsgs],
+    ['Schema panel opens', a.schemaOpens, b.schemaOpens],
+    ['Added to cart', a.addToCart, b.addToCart],
+    ['Median dwell', ms(a.medianDwell), ms(b.medianDwell)],
+    ['Avg scroll depth', a.avgScroll + '%', b.avgScroll + '%'],
+    ['Time to first PDP', ms(a.pathMs), ms(b.pathMs)],
+    ['Time to task success', ms(a.successMs), ms(b.successMs)]
+  ];
+  return `
+  <div class="card panel">
+    <h3>Cohort comparison</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 12px">Same metrics, two cells, from the events captured so far.
+      Run a participant through each condition and the contrast is the finding.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <div class="field" style="flex:1;min-width:190px"><label>Cohort A</label>
+        <select onchange="setCoh('a',this.value)">
+          ${Object.keys(CONDITIONS).map(x => `<option value="${x}" ${COH_A === x ? 'selected' : ''}>${CONDITIONS[x].label}</option>`).join('')}
+        </select></div>
+      <div class="field" style="flex:1;min-width:190px"><label>Cohort B</label>
+        <select onchange="setCoh('b',this.value)">
+          ${Object.keys(CONDITIONS).map(x => `<option value="${x}" ${COH_B === x ? 'selected' : ''}>${CONDITIONS[x].label}</option>`).join('')}
+        </select></div>
+    </div>
+    <table class="cohort">
+      <thead><tr><th>Metric</th><th>${COH_A}</th><th>${COH_B}</th></tr></thead>
+      <tbody>${rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody>
+    </table>
+  </div>`;
+}
+
+/* ---------------- Replay ---------------- */
+let REPLAY_AT = 0;
+function setReplay(v) { REPLAY_AT = +v; paintReplay(); }
+function cReplay() {
+  return `
+  <div class="card panel">
+    <h3>Session replay</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 12px">Scrub the captured stream. Everything the participant did,
+      in order, with the elapsed clock.</p>
+    <input class="scrub" type="range" min="0" max="${Math.max(0, EVENTS.length - 1)}"
+      value="${REPLAY_AT}" oninput="setReplay(this.value)">
+    <div id="replaybody"></div>
+  </div>`;
+}
+function paintReplay() {
+  const el = document.getElementById('replaybody');
+  if (!el) return;
+  if (!EVENTS.length) { el.innerHTML = '<p class="sub">No events captured yet.</p>'; return; }
+  const i = Math.min(REPLAY_AT, EVENTS.length - 1);
+  const e = EVENTS[i];
+  const window_ = EVENTS.slice(Math.max(0, i - 6), i + 7);
+  el.innerHTML = `
+    <div class="statgrid tight" style="margin:12px 0">
+      ${stat('Step', (i + 1) + ' of ' + EVENTS.length)}
+      ${stat('Clock', ms(e.msSinceTask))}
+      ${stat('Page', esc(routeName(e.route)))}
+      ${stat('Condition', e.condition)}
+    </div>
+    <div class="evtlog">${window_.map((x, j) => {
+      const isNow = (Math.max(0, i - 6) + j) === i;
+      return `<div class="${isNow ? 'now' : ''}">
+        <span class="t">${(x.msSinceTask / 1000).toFixed(1)}s</span>
+        <span class="n">${x.event}</span>
+        <span class="v">${esc(x.detail || '').slice(0, 110)}</span></div>`;
+    }).join('')}</div>`;
+}
+
+/* ---------------- Roadshow ---------------- */
+/* One click reskins the store to a named retailer, loads a scenario and resets
+   clean. This is what makes it demoable in front of a retail partner: they see
+   their own shelf, not a generic one. */
+const ROADSHOW = [
+  { id: 'novi',    name: 'Novi (default)', primary: '#0a4d8c', accent: '#f5a623', symbol: '$',
+    tag: 'The neutral house brand used for unbranded research.' },
+  { id: 'bigbox',  name: 'Big-box electronics', primary: '#0046be', accent: '#ffe000', symbol: '$',
+    tag: 'Blue and yellow large-format electronics retailer profile.' },
+  { id: 'club',    name: 'Warehouse club', primary: '#e31837', accent: '#0072ce', symbol: '$',
+    tag: 'Membership warehouse profile, fewer SKUs, price-led.' },
+  { id: 'etail',   name: 'Pure-play etailer', primary: '#232f3e', accent: '#ff9900', symbol: '$',
+    tag: 'Marketplace profile, dense grid, heavy sponsored inventory.' },
+  { id: 'carrier', name: 'Carrier / telco', primary: '#cd040b', accent: '#000000', symbol: '$',
+    tag: 'Telco profile, financing-led merchandising.' },
+  { id: 'eu',      name: 'EU specialist', primary: '#5c2d91', accent: '#00b294', symbol: '\u00a3',
+    tag: 'European specialist profile, GBP pricing.' }
+];
+function applyRoadshow(id) {
+  const r = ROADSHOW.find(x => x.id === id);
+  if (!r) return;
+  BRAND.name = r.name === 'Novi (default)' ? 'novi' : r.name;
+  BRAND.symbol = r.symbol;
+  document.documentElement.style.setProperty('--b', r.primary);
+  document.documentElement.style.setProperty('--acc', r.accent);
+  paintBrand();
+  track('roadshow_profile_applied', r.id);
+  paintConsole();
+  toast('Profile applied: ' + r.name);
+}
+function roadshowRun(id) {
+  applyRoadshow(id);
+  softReset(true);
+  track('roadshow_session_started', id);
+  go('#/');
+  toast('Clean session started in ' + (ROADSHOW.find(x => x.id === id) || {}).name);
+}
+function cRoadshow() {
+  return `
+  <div class="card panel">
+    <h3>Retailer roadshow mode</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 12px">Reskin the store to a retailer profile, reset to a clean
+      session and hand over the laptop. The catalog, the collections and the instrumentation are unchanged, so
+      findings stay comparable across profiles.</p>
+    ${ROADSHOW.map(r => `<div class="condrow">
+      <div><b>${r.name}</b><small>${r.tag}</small></div>
+      <span class="swatch" style="background:${r.primary}"></span>
+      <span class="swatch" style="background:${r.accent}"></span>
+      <button class="btn ghost" onclick="applyRoadshow('${r.id}')">Preview</button>
+      <button class="btn pri" onclick="roadshowRun('${r.id}')">Run clean</button>
+    </div>`).join('')}
+  </div>
+
+  <div class="card panel">
+    <h3>Handoff links</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 10px">Send a participant straight into a cell. The link carries
+      condition, task and participant, so an unmoderated session lands in the right place.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn pri" onclick="copyLink()">Copy session link</button>
+      <button class="btn out" onclick="showConsent()">Show consent screen</button>
+    </div>
+  </div>`;
+}
+
+/* ---------------- Data ---------------- */
+function exportClicksCSV() {
+  const cols = ['ts', 'sessionId', 'participantId', 'condition', 'density', 'route', 'xPct', 'yPct', 'pageYPct', 'label'];
+  const esq = v => '"' + String(v === undefined ? '' : v).replace(/"/g, '""') + '"';
+  const rows = [cols.join(',')].concat(CLICKS.map(c => cols.map(k =>
+    esq(k === 'ts' ? new Date(c.ts).toISOString() : c[k])).join(',')));
+  download(`novi_clicks_${S.participantId || 'unassigned'}_${S.sessionId}.csv`, rows.join('\r\n'), 'text/csv');
+  track('data_exported', 'clicks_csv');
+}
+function cData() {
+  const m = metrics();
+  return `
+  <div>
+    <div class="card panel">
+      <h3>Export and handoff</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn pri" onclick="exportCSV()">Events CSV</button>
+        <button class="btn pri" onclick="exportClicksCSV()">Clicks CSV</button>
+        <button class="btn out" onclick="exportJSON()">Full JSON</button>
+        <button class="btn ghost" onclick="copyLink()">Copy session link</button>
+      </div>
+      <p class="sub" style="font-size:11px;margin-top:9px">${m.events} events and ${CLICKS.length} clicks captured.
+        The JSON export carries the session, the conditions as configured, the events and the click map together,
+        so a cell is reproducible from the file alone.</p>
+      ${S.bookmarks.length ? `<h3 style="margin-top:18px">Flagged moments</h3>
+        <div class="kv">${S.bookmarks.map(b => `<div>${(b.msSinceTask / 1000).toFixed(0)}s</div><div>${esc(routeName(b.route))}</div>`).join('')}</div>` : ''}
+    </div>
+  </div>
+
+  <div class="card panel">
+    <h3>Live event stream</h3>
+    <div id="log" class="evtlog"></div>
+  </div>`;
+}
+
+function stat(k, v) { return `<div class="stat"><b>${v}</b><span>${k}</span></div>`; }
+function condSummary(c) {
+  return ['assistant ' + (c.assistant ? 'on' : 'off'), 'PDP ' + c.pdpContent,
+    'collections ' + (c.collections ? 'on' : 'off'), 'sponsored ' + (c.sponsored ? 'on' : 'off'),
+    'advisor ' + c.advisor, 'search ' + c.searchRank, 'reviews ' + c.reviews].join(' \u00b7 ');
+}
+function paintLog() {
+  const el = document.getElementById('log');
+  if (!el) return;
+  el.innerHTML = EVENTS.slice(-300).reverse().map(e => `<div>
+    <span class="t">${(e.msSinceTask / 1000).toFixed(1)}s</span>
+    <span class="n">${e.event}</span>
+    <span class="v">${esc(e.detail || '').slice(0, 120)}</span></div>`).join('')
+    || '<div style="padding:12px;color:#93a3b8">No events yet.</div>';
+}
+
+/* The session link reopens the store with this condition, task and participant
+   already set, so an unmoderated participant lands in the right cell. */
+function copyLink() {
+  const base = location.href.split('#')[0].split('?')[0];
+  const url = `${base}?cond=${S.condition}&mission=${S.mission}&consent=1${S.participantId ? '&pid=' + encodeURIComponent(S.participantId) : ''}#/`;
+  if (navigator.clipboard) navigator.clipboard.writeText(url);
+  track('session_link_copied', url);
+  toast('Session link copied');
+}
+
+
 /* ===== app-chrome.js ===== */
 /* ==========================================================================
    Part 4: chrome, moderator bar, research console, boot
@@ -2879,32 +4077,22 @@ function shell() {
   </div></div>
 
   <header class="header"><div class="wrap">
-    <a class="logo" onclick="go('#/')">nov<i>i</i></a>
+    <a class="logo" id="brandlogo" onclick="go('#/')">nov<i>i</i></a>
     <div class="searchbox">
-      <input id="q" placeholder="Search laptops, brands and specs" autocomplete="off" aria-label="Search"
+      <input id="q" placeholder="Search products, brands and categories" autocomplete="off" aria-label="Search"
         oninput="acInput()" onfocus="acFocus()" onkeydown="if(event.key==='Enter')submitSearch()">
       <button class="go" onclick="submitSearch()" aria-label="Search">&#9906;</button>
       <div id="ac" class="ac"></div>
     </div>
     <nav class="hnav">
       <a onclick="go('#/advisor')">Find your PC</a>
-      <a onclick="go('#/collections')">Collections</a>
+      <a id="hnavcoll" onclick="go('#/collections')">Collections</a>
       <a onclick="go('#/compare')">Compare</a>
       <button class="cartbtn" onclick="go('#/cart')">Cart <span id="cartn" class="pill">0</span></button>
     </nav>
   </div></header>
 
-  <nav class="mainnav"><div class="wrap">
-    <a onclick="go('#/computers')">Computers &amp; Tablets</a>
-    <a onclick="go('#/laptops')">Laptops</a>
-    <a class="navcoll" onclick="go('#/collections')">Collections</a>
-    <a onclick="go('#/collections/core-essentials')">Core essentials</a>
-    <a onclick="go('#/collections/everyday-productivity')">Everyday productivity</a>
-    <a onclick="go('#/collections/premium-performance')">Premium performance</a>
-    <a onclick="go('#/collections/creator-pro')">Creator pro</a>
-    <a onclick="go('#/collections/gaming')">Gaming</a>
-    <a onclick="go('#/guide')">Buying guides</a>
-  </div></nav>
+  <nav class="mainnav"><div class="wrap" id="mainnav"></div></nav>
 
   <div id="missionbar" class="missionbar"></div>
   <div id="ribbon"></div>
@@ -2937,9 +4125,41 @@ function paintChrome() {
   const n = S.cart.reduce((s, l) => s + l.qty, 0);
   const b = document.getElementById('cartn');
   if (b) b.textContent = n;
+  paintNav();
   paintMod();
   paintMission();
   paintAssistant();
+}
+
+/* The department nav is condition-aware: with collections switched off in the
+   Designer, the Windows merchandising framework leaves the store entirely and
+   the shopper falls back to raw category browsing. That contrast is the study. */
+function paintNav() {
+  const el = document.getElementById('mainnav');
+  if (!el) return;
+  const showColl = !!cond().collections;
+  const a = (href, label, cls) =>
+    `<a${cls ? ` class="${cls}"` : ''} onclick="go('${href}')">${label}</a>`;
+  let h = DEPARTMENTS.map(d => a(d.route || ('#/d/' + d.id), esc(d.name))).join('');
+  h += a('#/laptops', 'Laptops');
+  if (showColl) {
+    h += a('#/collections', 'Collections', 'navcoll');
+  }
+  h += a('#/deals', 'Deals') + a('#/guide', 'Buying guides');
+  el.innerHTML = h;
+  const hc = document.getElementById('hnavcoll');
+  if (hc) hc.style.display = showColl ? '' : 'none';
+  paintBrand();
+}
+
+/* Roadshow mode swaps the store identity, so the wordmark and the tab title
+   have to follow the profile, not stay hard-coded to Novi. */
+function paintBrand() {
+  const lg = document.getElementById('brandlogo');
+  if (!lg) return;
+  const nm = (BRAND.name || 'novi');
+  lg.innerHTML = nm === 'novi' ? 'nov<i>i</i>' : esc(nm);
+  document.title = nm + ' | Laptops, computers and tablets';
 }
 
 function paintMission() {
@@ -2987,100 +4207,9 @@ function elapsed() {
   return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
 }
 
-/* ---------------- research console ---------------- */
-function viewConsole() {
-  return `<div class="sectionhead" style="margin-top:22px">
-      <div><h1 class="h1">Research console</h1>
-      <p class="sub">Moderator only. Participants should not see this screen.</p></div>
-      <button class="btn ghost" onclick="go('#/')">Back to store</button></div>
-    <div class="console" id="consolebody"></div>`;
-}
-function paintConsole() {
-  const el = document.getElementById('consolebody');
-  if (!el) return;
-  const c = cond(), m = MISSIONS[S.mission];
-  const viewed = new Set(EVENTS.filter(e => e.event === 'product_viewed').map(e => e.detail)).size;
-  el.innerHTML = `
-  <div>
-    <div class="statgrid">
-      ${stat('Participant', S.participantId || '&mdash;')}
-      ${stat('Condition', S.condition)}
-      ${stat('Elapsed', elapsed())}
-      ${stat('Events', EVENTS.length)}
-      ${stat('Products viewed', viewed)}
-      ${stat('Task', SUCCESS_FIRED ? 'done' : 'open')}
-    </div>
+/* The research console lives in app-console.js. viewConsole, paintConsole,
+   paintLog, stat and condSummary are defined there. */
 
-    <div class="card panel">
-      <h3>Session controls</h3>
-      <div class="field"><label>Participant ID</label>
-        <input value="${esc(S.participantId || '')}" placeholder="P001" onchange="setParticipant(this.value)"></div>
-      <div class="field"><label>Condition</label>
-        <select onchange="setCondition(this.value)">
-          ${Object.keys(CONDITIONS).map(k => `<option value="${k}" ${S.condition === k ? 'selected' : ''}>${CONDITIONS[k].label}</option>`).join('')}
-        </select>
-        <p class="sub" style="font-size:11px;margin-top:6px">${condSummary(c)}</p></div>
-      <div class="field"><label>Task</label>
-        <select onchange="setMission(this.value)">
-          ${Object.keys(MISSIONS).map(k => `<option value="${k}" ${String(S.mission) === k ? 'selected' : ''}>${MISSIONS[k].label}</option>`).join('')}
-        </select>
-        <p class="sub" style="font-size:11px;margin-top:6px">${m ? m.brief : ''}</p></div>
-      <div class="field"><label>Retail density</label>
-        <select onchange="setDensity(this.value)">
-          <option value="busy" ${density() === 'busy' ? 'selected' : ''}>Busy &middot; sponsored slots, promo ribbon, upsells</option>
-          <option value="clean" ${density() === 'clean' ? 'selected' : ''}>Clean &middot; no advertising or promotional noise</option>
-        </select>
-        <p class="sub" style="font-size:11px;margin-top:6px">Real retail is noisy. Switch this off to test whether
-          guidance still lands once the commercial clutter is removed.</p></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn out" onclick="softReset()">Soft reset, keep data</button>
-        <button class="btn ghost" onclick="hardReset()">New participant, wipe data</button>
-      </div>
-    </div>
-
-    <div class="card panel" style="margin-top:16px">
-      <h3>Export and handoff</h3>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn pri" onclick="exportCSV()">Download CSV</button>
-        <button class="btn out" onclick="exportJSON()">Download JSON</button>
-        <button class="btn ghost" onclick="copyLink()">Copy session link</button>
-        <button class="btn ghost" onclick="showConsent()">Show consent screen</button>
-      </div>
-      <p class="sub" style="font-size:11px;margin-top:9px">The session link reopens the store with this condition,
-        task and participant already set, so an unmoderated participant lands in the right cell.</p>
-      ${S.bookmarks.length ? `<h3 style="margin-top:18px">Flagged moments</h3>
-        <div class="kv">${S.bookmarks.map(b => `<div>${(b.msSinceTask / 1000).toFixed(0)}s</div><div>${b.route}</div>`).join('')}</div>` : ''}
-    </div>
-  </div>
-
-  <div class="card panel">
-    <h3>Live event stream</h3>
-    <div id="log" class="evtlog"></div>
-  </div>`;
-  paintLog();
-}
-function stat(k, v) { return `<div class="stat"><b>${v}</b><span>${k}</span></div>`; }
-function condSummary(c) {
-  return ['assistant ' + (c.assistant ? 'on' : 'off'), 'PDP ' + c.pdpContent,
-    'collections ' + (c.collections ? 'on' : 'off'), 'sponsored ' + (c.sponsored ? 'on' : 'off'),
-    'advisor ' + c.advisor, 'search ' + c.searchRank, 'reviews ' + c.reviews].join(' · ');
-}
-function paintLog() {
-  const el = document.getElementById('log');
-  if (!el) return;
-  el.innerHTML = EVENTS.slice(-300).reverse().map(e => `<div>
-    <span class="t">${(e.msSinceTask / 1000).toFixed(1)}s</span>
-    <span class="n">${e.event}</span>
-    <span class="v">${esc(e.detail || '').slice(0, 120)}</span></div>`).join('')
-    || '<div style="padding:12px;color:#93a3b8">No events yet.</div>';
-}
-function copyLink() {
-  const base = location.href.split('#')[0].split('?')[0];
-  const url = `${base}?cond=${S.condition}&mission=${S.mission}&consent=1${S.participantId ? '&pid=' + encodeURIComponent(S.participantId) : ''}#/`;
-  if (navigator.clipboard) navigator.clipboard.writeText(url);
-  track('session_link_copied', url);
-  toast('Session link copied');
-}
 
 /* ---------------- toast and modal ---------------- */
 let _toastT;
@@ -3122,12 +4251,31 @@ function boot() {
   if (qs.get('mod') === '1') MOD = true;
   if (qs.get('cond') && CONDITIONS[qs.get('cond')]) setCondition(qs.get('cond'), true);
   if (qs.get('mission') && MISSIONS[qs.get('mission')]) setMission(qs.get('mission'), true);
-  if (qs.get('pid')) { S.participantId = qs.get('pid'); save(); }
+  if (qs.get('pid')) {
+    /* A new participant ID in the link means a new participant. Inheriting the
+       previous session's clock and event stream would corrupt the headline
+       path-to-laptop metric and attribute one person's clicks to another. */
+    const incoming = qs.get('pid');
+    if (had && S.participantId && S.participantId !== incoming) {
+      const keepCond = S.condition, keepMission = S.mission;
+      EVENTS = []; CLICKS = []; S = DEFAULT_SESSION();
+      try { localStorage.removeItem(LS_C); } catch (e) {}
+      PATH = { steps: 0, firstLaptopMs: null, firstLaptopSteps: null, hijacks: 0 };
+      S.condition = keepCond; S.mission = keepMission;
+      SUCCESS_FIRED = false; ASSIST_MSGS = [];
+    }
+    S.participantId = incoming; save();
+  }
   if (qs.get('density') === 'clean' || qs.get('density') === 'busy') { S.density = qs.get('density'); save(); }
 
   window.addEventListener('hashchange', render);
   window.addEventListener('scroll', scrollWatch, { passive: true });
   window.addEventListener('beforeunload', leaveRoute);
+  /* Capture phase, so a click is recorded even when a handler stops propagation.
+     The research console is excluded: moderator clicks are not participant data. */
+  document.addEventListener('click', e => {
+    if (!/^#\/research/.test(location.hash || '')) captureClick(e);
+  }, true);
   document.addEventListener('click', e => { if (!e.target.closest('.searchbox')) closeAC(); });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeModal(); closeAC(); }

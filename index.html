@@ -44,7 +44,10 @@ img{max-width:100%}
 .cartbtn{border:0;background:#fff;color:var(--b);font-weight:700;display:flex;gap:6px;align-items:center}
 .pill{background:var(--hot);color:#fff;border-radius:99px;padding:2px 7px;font-size:11px;font-weight:700}
 .mainnav{background:#fff;border-bottom:1px solid var(--line)}
-.mainnav .wrap{display:flex;gap:20px;padding:9px 24px;font-size:13px;color:#3c4d67;overflow:auto}
+.mainnav .wrap{display:flex;gap:20px;padding:9px 24px;font-size:13px;color:#3c4d67;
+  overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.mainnav .wrap::-webkit-scrollbar{display:none}
+.mainnav .wrap a{white-space:nowrap;flex:0 0 auto}
 .mainnav a:hover{color:var(--b)}
 .mainnav a.on{color:var(--b);font-weight:700}
 .crumb{color:var(--muted);font-size:12px;padding:16px 0 0}
@@ -70,19 +73,24 @@ h1,h2,h3{margin:0}
 .tag.sp{background:#f1f5f9;color:#5b6b82}
 .tag.hot{background:#ffe9ef;color:#b1123c}
 
-/* ---------- product visual ---------- */
-.viz{background:linear-gradient(160deg,#fbfdff,#eef4fa);border-radius:8px;display:grid;place-items:center;position:relative;overflow:hidden}
-.lap{position:relative;transform-origin:center}
-.lap .scr{width:150px;height:94px;border:5px solid #dbe6f2;border-bottom:0;border-radius:8px 8px 0 0;background:linear-gradient(140deg,var(--c1),var(--c2));position:relative}
-.lap .scr:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,#ffffff45,#ffffff00 55%)}
-.lap .base{width:186px;height:9px;background:linear-gradient(#e4ecf5,#c9d7e6);border-radius:0 0 9px 9px;margin-left:-18px}
-.viz .badge{position:absolute;top:9px;left:9px}
+/* ---------- product visual ----------
+   Every product image is inline SVG drawn at render time. The .viz box sets the
+   footprint and the SVG scales into it, so one drawing serves a 66px thumbnail
+   and a 340px gallery without a second asset. */
+.viz{background:radial-gradient(120% 96% at 50% 8%,#ffffff 0%,#f4f8fc 46%,#e7eef6 100%);
+  border-radius:10px;display:grid;place-items:center;position:relative;overflow:hidden}
+.viz:after{content:"";position:absolute;inset:0;border-radius:10px;
+  box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px #0a2a4a08;pointer-events:none}
+.viz .pa{width:100%;height:100%;display:block;padding:6%;box-sizing:border-box}
+.pcard:hover .viz .pa,.card.prod:hover .viz .pa{transform:scale(1.035)}
+.viz .pa{transition:transform .25s ease}
+.viz .badge{position:absolute;top:9px;left:9px;z-index:2}
+.dicon{width:26px;height:26px;display:block;color:var(--b)}
 
 /* ---------- product card ---------- */
 .pcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;position:relative;transition:.16s}
 .pcard:hover{box-shadow:0 14px 38px #142d5518;transform:translateY(-2px)}
 .pcard .viz{height:158px;margin-bottom:12px}
-.pcard .viz .lap{transform:scale(.72)}
 .pbrand{color:var(--muted);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
 .pname{font-size:15px;font-weight:700;margin:5px 0 4px;line-height:1.25}
 .stars{color:#f0a500;font-size:12px;letter-spacing:-1px}
@@ -98,7 +106,9 @@ h1,h2,h3{margin:0}
 .cmpline{font-size:11px;margin-top:10px;color:#52627b;display:flex;gap:6px;align-items:center}
 
 /* ---------- layout: browse ---------- */
-.shop{display:grid;grid-template-columns:242px 1fr;gap:24px;align-items:start;padding-bottom:60px}
+.shop{display:grid;grid-template-columns:242px minmax(0,1fr);gap:24px;align-items:start;padding-bottom:60px}
+.shopside{position:sticky;top:126px}
+.shopside .facets{position:static;top:auto}
 .facets{padding:18px;position:sticky;top:126px}
 .facets h3{font-size:14px;margin:0 0 4px}
 .fgroup{border-top:1px solid var(--line);padding:13px 0}
@@ -125,8 +135,6 @@ h1,h2,h3{margin:0}
 .hero{border-radius:16px;background:linear-gradient(120deg,var(--b),var(--b2));color:#fff;padding:44px 46px;display:flex;justify-content:space-between;gap:20px;overflow:hidden;margin:16px 0 20px}
 .hero h1{font-size:38px;line-height:1.05;letter-spacing:-1.4px;margin:0 0 12px;max-width:560px}
 .hero p{color:#e4efff;margin:0 0 20px;max-width:520px}
-.hero .lap .scr{width:190px;height:118px}
-.hero .lap .base{width:230px}
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .tile{padding:18px;border-radius:var(--radius);background:#fff;border:1px solid var(--line);transition:.15s}
 .tile:hover{border-color:var(--b);transform:translateY(-2px)}
@@ -135,8 +143,17 @@ h1,h2,h3{margin:0}
 
 /* ---- Full-line retailer: departments, store cards, store home ---------- */
 .herorow{margin:16px 0 4px}
-.hero2{border-radius:16px;background:linear-gradient(120deg,var(--b),var(--b2));color:#fff;
-  padding:38px 42px;overflow:hidden}
+.hero2{position:relative;border-radius:16px;background:linear-gradient(120deg,var(--b),var(--b2));color:#fff;
+  padding:38px 42px;overflow:hidden;display:flex;align-items:center;gap:26px;min-height:250px}
+.herocopy{flex:1 1 auto;min-width:0;position:relative;z-index:2}
+.herofan{flex:0 0 46%;position:relative;height:210px;display:block}
+.herofan .hf{position:absolute;display:block;filter:drop-shadow(0 16px 26px rgba(4,22,50,.36))}
+.herofan .hf svg{width:100%;height:100%}
+.herofan .hf0{left:0%;top:6%;width:52%;height:66%;z-index:2}
+.herofan .hf1{left:30%;top:36%;width:48%;height:62%;z-index:4}
+.herofan .hf2{left:66%;top:4%;width:30%;height:44%;z-index:3}
+.herofan .hf3{left:70%;top:50%;width:30%;height:46%;z-index:1}
+@media(max-width:1080px){.herofan{display:none}.hero2{min-height:0}}
 .hero2 .h1{color:#fff;max-width:620px;margin:0 0 10px}
 .hero2 .sub{color:#e4efff;margin:0 0 18px;max-width:560px}
 .hero2 .eyebrow{display:inline-block;background:#ffffff28;border-radius:99px;padding:5px 11px;
@@ -147,7 +164,7 @@ h1,h2,h3{margin:0}
 .dept{padding:18px;border-radius:var(--radius);background:#fff;border:1px solid var(--line);
   display:flex;flex-direction:column;gap:5px;transition:.15s}
 .dept:hover{border-color:var(--b);transform:translateY(-2px);box-shadow:0 12px 30px #142d5514}
-.dept .dicon{font-size:26px;line-height:1}
+.dept .dicon{width:30px;height:30px;margin-bottom:2px}
 .dept b{font-size:14px}
 .dept .dsub{font-size:12px;color:var(--muted)}
 
@@ -156,12 +173,6 @@ h1,h2,h3{margin:0}
   display:flex;flex-direction:column;transition:.16s;cursor:pointer}
 .card.prod:hover{box-shadow:0 14px 38px #142d5518;transform:translateY(-2px)}
 .card.prod .viz{height:150px;margin-bottom:12px}
-.boxviz{width:132px;height:88px;border-radius:9px;
-  background:linear-gradient(140deg,var(--c1),var(--c2));position:relative;
-  box-shadow:0 8px 20px #142d5520}
-.boxviz:after{content:"";position:absolute;inset:0;border-radius:9px;
-  background:linear-gradient(115deg,#ffffff50,#ffffff00 58%)}
-.viz.big .boxviz{width:230px;height:158px}
 .brandline{color:var(--muted);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
 .rating{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:9px}
 .priceline{font-size:20px;font-weight:800;margin-top:auto;display:flex;align-items:baseline;gap:7px}
@@ -249,9 +260,10 @@ h1,h2,h3{margin:0}
 /* ---------- PDP ---------- */
 .pdp{display:grid;grid-template-columns:1.15fr 1fr;gap:34px;padding:20px 0 40px;align-items:start}
 .gallery .viz{height:340px;margin-bottom:10px}
-.gallery .viz .lap{transform:scale(1.25)}
 .thumbs{display:flex;gap:9px}
-.thumb{width:66px;height:52px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(160deg,#fbfdff,#eaf1f8);cursor:pointer}
+.thumb{width:66px;height:52px;border:1px solid var(--line);border-radius:7px;background:radial-gradient(120% 96% at 50% 8%,#fff,#eef4fa);cursor:pointer;overflow:hidden;display:grid;place-items:center;transition:.15s}
+.thumb .pa{width:100%;height:100%;padding:8%;box-sizing:border-box}
+.thumb:hover{border-color:#9dbde6}
 .thumb.on{border-color:var(--b);box-shadow:0 0 0 2px #bfd9ff}
 .buybox{position:sticky;top:126px}
 .pdp .price{font-size:30px}
@@ -297,7 +309,6 @@ h1,h2,h3{margin:0}
 .twocol{display:grid;grid-template-columns:1fr 340px;gap:26px;align-items:start;padding-bottom:50px}
 .lineitem{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
 .lineitem .viz{width:118px;height:86px;flex:none}
-.lineitem .viz .lap{transform:scale(.52)}
 .qty{display:flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:6px;width:max-content}
 .qty button{border:0;background:#fff;width:30px;height:30px;font-weight:800;color:var(--b)}
 .qty span{width:32px;text-align:center;font-weight:700}
@@ -333,7 +344,6 @@ h1,h2,h3{margin:0}
 .sugg button:hover{border-color:var(--b);color:var(--b)}
 .asstcard{display:flex;gap:10px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px;margin-top:9px}
 .asstcard .viz{width:66px;height:50px;flex:none}
-.asstcard .viz .lap{transform:scale(.3)}
 .asstcard b{font-size:13px;display:block}
 .asstcard small{color:var(--muted)}
 
@@ -362,7 +372,7 @@ body.modon .header{top:38px}
 .stat span{font-size:11px;color:var(--muted)}
 
 /* ---------- research console v2 ---------- */
-.console.wide{grid-template-columns:1fr 1fr}
+.console.wide{grid-template-columns:repeat(auto-fit,minmax(520px,1fr))}
 .statgrid.tight{grid-template-columns:repeat(3,1fr);margin-bottom:0}
 .statgrid.tight .stat b{font-size:19px}
 .ctabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--line);padding-top:6px}
@@ -456,17 +466,16 @@ body.modon .header{top:38px}
   .hnav span{display:none}
   .wrap{padding:0 16px}
   .shop{grid-template-columns:1fr}
+.shopside{position:static}
   .facets{display:none;position:static}
   .facets.mobopen{display:block}
   .products{grid-template-columns:repeat(2,1fr);gap:10px}
   .pcard{padding:10px}
   .pcard .viz{height:120px}
-  .pcard .viz .lap{transform:scale(.55)}
   .hero{padding:28px 22px;margin:12px 0}
   .hero h1{font-size:27px}
   .hero .art{display:none}
   .gallery .viz{height:240px}
-  .gallery .viz .lap{transform:scale(.9)}
   .ratingsplit{grid-template-columns:1fr}
   .footer .cols{grid-template-columns:1fr 1fr}
   .facts{grid-template-columns:1fr}
@@ -492,9 +501,6 @@ body.hasmod{padding-top:38px}
 .ctag{display:inline-block;background:#ffffff2e;border:1px solid #ffffff5c;border-radius:99px;padding:5px 12px;font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;margin-bottom:14px}
 .cslide h1{font-size:38px;line-height:1.05;letter-spacing:-1.4px;margin:0 0 10px}
 .cslide p{margin:0 0 20px;color:#eaf2ff;font-size:15px;max-width:480px}
-.cart2 .lap{transform:scale(1.08)}
-.cart2 .lap .scr{width:200px;height:124px}
-.cart2 .lap .base{width:242px}
 .cnav{position:absolute;bottom:14px;width:34px;height:34px;border-radius:99px;border:1px solid #ffffff4d;background:#ffffff26;color:#fff;font-size:20px;line-height:1}
 .cnav:hover{background:#ffffff4d}
 .cnav.prev{right:60px}
@@ -514,7 +520,6 @@ body.hasmod{padding-top:38px}
 /* ---------- homepage: deal of the day ---------- */
 .dotd{display:grid;grid-template-columns:400px 1fr;gap:28px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;align-items:center;margin:22px 0}
 .dotdviz{position:relative;background:linear-gradient(160deg,#fbfdff,#eef4fa);border-radius:11px;height:250px;display:grid;place-items:center}
-.dotdviz .lap{transform:scale(1.05)}
 .dotdflag{position:absolute;top:12px;left:12px;background:var(--hot);color:#fff;border-radius:6px;padding:6px 11px;font-size:11px;font-weight:800;letter-spacing:.3px;text-transform:uppercase}
 .soldbar{height:8px;background:#eef2f7;border-radius:99px;overflow:hidden;max-width:340px}
 .soldbar span{display:block;height:100%;background:linear-gradient(90deg,#e8113c,#ff6a3d)}
@@ -607,6 +612,129 @@ body.hasmod{padding-top:38px}
 .schemabox pre{margin:11px 0 2px;padding:13px;background:#0f2233;color:#cfe6ff;border-radius:8px;
   font-size:11.5px;line-height:1.55;overflow:auto;max-height:340px}
 @media(max-width:760px){.fit{grid-template-columns:1fr}}
+
+/* ======================================================================
+   Intelligence console
+   The moderator screen is a different product from the storefront, so it
+   gets its own chrome. Dark, dense, instrument-like, and stripped of the
+   retail furniture that would only confuse a room watching a study.
+   ====================================================================== */
+body.consolemode{background:#0b1220;color:#e6edf6}
+body.consolemode .topbar,body.consolemode .header,body.consolemode .mainnav,
+body.consolemode .promoribbon,body.consolemode .footer,body.consolemode .asstfab,
+body.consolemode .asstbtn,body.consolemode .asstwrap,body.consolemode .asstpanel{display:none !important}
+body.consolemode .wrap{max-width:1560px}
+body.consolemode .sectionhead{margin-top:0;border:0}
+body.consolemode .h1{color:#fff;letter-spacing:-.6px}
+body.consolemode .sub{color:#8ea3bd}
+body.consolemode .card,body.consolemode .panel{background:#111c2e;border:1px solid #1e2d45;
+  border-radius:12px;box-shadow:0 10px 30px #00000038;color:#e6edf6}
+body.consolemode .panel h3{color:#fff;font-size:14px;letter-spacing:.2px}
+body.consolemode .ctabs{border-bottom:1px solid #1e2d45;gap:2px}
+body.consolemode .ctabs button{color:#8ea3bd;border-radius:8px 8px 0 0}
+body.consolemode .ctabs button:hover{background:#16233a;color:#fff}
+body.consolemode .ctabs button.on{color:#fff;background:#1b2a44;border-bottom-color:#4da3ff}
+body.consolemode .stat{background:linear-gradient(180deg,#16233a,#111c2e);border:1px solid #23344f;border-radius:10px}
+body.consolemode .stat b{color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+body.consolemode .stat span{color:#8ea3bd;text-transform:uppercase;letter-spacing:.5px;font-size:10px;font-weight:700}
+body.consolemode .cohort th{background:#16233a;color:#8ea3bd;border-bottom-color:#23344f}
+body.consolemode .cohort td{border-bottom-color:#1b2941;color:#dbe6f4}
+body.consolemode .btn.ghost{background:#16233a;border-color:#2a3d5c;color:#cfe0f5}
+body.consolemode .btn.out{background:transparent;border:1px solid #2f4566;color:#cfe0f5}
+body.consolemode .btn.ghost:hover,body.consolemode .btn.out:hover{background:#1e2f4a}
+body.consolemode input,body.consolemode select,body.consolemode textarea{
+  background:#0d1726;border:1px solid #27395a;color:#e6edf6}
+body.consolemode .field label{color:#8ea3bd}
+body.consolemode .kv div{border-bottom-color:#1b2941;color:#dbe6f4}
+body.consolemode .logtable,body.consolemode .logrow{color:#b9cbe2}
+
+/* KPI cards */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px;margin-bottom:14px}
+.kpi{background:linear-gradient(180deg,#16233a,#111c2e);border:1px solid #23344f;border-radius:11px;padding:13px 14px;position:relative;overflow:hidden}
+.kpi .kl{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#8ea3bd}
+.kpi .kv{font-size:27px;font-weight:800;line-height:1.12;color:#fff;letter-spacing:-.8px;font-variant-numeric:tabular-nums;margin-top:3px}
+.kpi .kn{font-size:11px;color:#7f95b1;margin-top:2px}
+.kpi.good .kv{color:#5fe0a6}.kpi.warn .kv{color:#ffc46b}.kpi.hero .kv{color:#7cc4ff}
+.spark{display:block;width:100%;height:100%}
+.kpi .spark{position:absolute;right:0;bottom:0;width:100%;height:26px;opacity:.5}
+
+/* funnel */
+.fun{display:flex;flex-direction:column;gap:7px}
+.fstep{position:relative;border-radius:8px;overflow:hidden;background:#0d1726;border:1px solid #1e2d45;
+  padding:10px 13px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.fstep .fbar{position:absolute;inset:0;background:linear-gradient(90deg,#1d64c9,#2a8cf0);opacity:.30}
+.fstep .fl,.fstep .fr{position:relative;z-index:1}
+.fstep .fl{color:#dbe6f4;font-weight:600}
+.fstep .fr{color:#8ea3bd;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+.fstep.hit .fr{color:#5fe0a6}
+.fstep.miss .fbar{background:#22324b;opacity:.5}
+.fstep.miss .fl{color:#8ea3bd}
+
+/* bar comparison */
+.bars{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.barrow{display:grid;grid-template-columns:130px 1fr 62px;gap:10px;align-items:center;font-size:12px}
+.barrow .bl{color:#c8d8ec;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.barrow .bt{height:16px;background:#0d1726;border-radius:8px;overflow:hidden;border:1px solid #1e2d45}
+.barrow .bf{height:100%;border-radius:8px;background:linear-gradient(90deg,#2a8cf0,#5fc9ff)}
+.barrow .bv{text-align:right;color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
+.barrow.alt .bf{background:linear-gradient(90deg,#9b6bf0,#d08cff)}
+
+/* live pill */
+.livepill{display:inline-flex;align-items:center;gap:7px;background:#0d2a1e;border:1px solid #1f6b47;
+  color:#5fe0a6;border-radius:999px;padding:4px 11px;font-size:11px;font-weight:700;letter-spacing:.4px}
+.livedot{width:7px;height:7px;border-radius:50%;background:#37d38a;box-shadow:0 0 0 0 #37d38a99;animation:lp 1.8s infinite}
+@keyframes lp{0%{box-shadow:0 0 0 0 #37d38a88}70%{box-shadow:0 0 0 7px #37d38a00}100%{box-shadow:0 0 0 0 #37d38a00}}
+.livepill.idle{background:#1b2333;border-color:#31405a;color:#8ea3bd}
+.livepill.idle .livedot{background:#5a6e8a;animation:none}
+
+/* heatmap stage reads as a screen, not a sheet of paper */
+body.consolemode .heatwrap{background:linear-gradient(180deg,#0d1726,#0a101c) !important;border-color:#1e2d45}
+body.consolemode .heatempty{color:#6f86a3}
+body.consolemode .cohort th{color:#8ea3bd;border-color:#1e2d45}
+body.consolemode .cohort td{border-color:#18253a}
+
+/* collection cards carry a face product, so the framework looks like merchandising
+   rather than a list of links */
+.ccart{display:block;height:92px;border-radius:10px;margin-bottom:10px;
+  background:linear-gradient(165deg,#eef4fc,#fbfdff 70%);border:1px solid #e3ebf5;overflow:hidden}
+.ccart.tall{height:128px}
+.ccart svg{width:100%;height:100%;padding:5%;box-sizing:border-box}
+.collcard .ccn{font-size:11px;font-weight:700;color:var(--b);letter-spacing:.2px}
+.tile.coll.big{display:flex;flex-direction:column}
+
+.tile.coll .collbadge,.collcard .collbadge{color:#fff}
+
+.collcard .badge{background:none;padding:0;font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-.2px}
+.collcard .ccn{background:none;padding:0;margin-top:2px}
+
+/* small screens: the PDP and the collections grid need to stack */
+@media(max-width:820px){
+  .pdp{grid-template-columns:minmax(0,1fr) !important}
+  .pdp>*{min-width:0}
+  .gallery{min-width:0}
+  .collgrid{grid-template-columns:repeat(2,1fr) !important}
+}
+@media(max-width:560px){
+  .collgrid{grid-template-columns:1fr !important}
+  .thumbs{overflow-x:auto;scrollbar-width:none}
+  .thumbs::-webkit-scrollbar{display:none}
+  .thumb{flex:0 0 auto}
+  .fit{grid-template-columns:1fr !important}
+}
+
+/* the console is a second-monitor tool, but it should not break if the window is small */
+@media(max-width:1100px){
+  .console{grid-template-columns:minmax(0,1fr)}
+  .console.wide{grid-template-columns:minmax(0,1fr)}
+  .console>*{min-width:0}
+}
+.console.wide{grid-template-columns:repeat(auto-fit,minmax(min(520px,100%),1fr))}
+.console>*{min-width:0}
+.cohortwrap,.tablescroll{overflow-x:auto}
+
+.card.panel{min-width:0}
+.cohort{width:100%}
+@media(max-width:900px){.panel .cohort{display:block;overflow-x:auto;white-space:nowrap}}
 
 </style>
 </head>
@@ -1137,13 +1265,11 @@ function deptById(id) { return DEPARTMENTS.find(d => d.id === id); }
 function storeById(id) { return STORE.find(p => p.id === id); }
 function deptItems(id) { return STORE.filter(p => p.dept === id); }
 
-/* A merchandising-grade product gets a generic box render, not the laptop
-   silhouette. Visually distinct on purpose: a participant should never mistake
-   a TV tile for a laptop tile. */
+/* Merchandising products get their own silhouettes, drawn to the real shape of
+   the thing. A participant scanning a grid should never mistake a TV tile for
+   a laptop tile, because in a real store they never would. */
 function vizBox(p, cls) {
-  const h = p ? p.hue : 210;
-  return `<div class="viz ${cls || ''}"><div class="boxviz"
-    style="--c1:hsl(${h},60%,74%);--c2:hsl(${h},55%,42%)"></div></div>`;
+  return `<div class="viz ${cls || ''}">${productArt(p)}</div>`;
 }
 
 function storeCard(p) {
@@ -1174,16 +1300,31 @@ function viewStoreHome() {
   return `
   <section class="herorow">
     <div class="hero2">
+      <div class="herocopy">
       <span class="eyebrow">This week</span>
       <h1 class="h1">Save across TV, audio, mobile and computing</h1>
       <p class="sub">Hundreds of deals in store and online. Free shipping on orders ${money(35)} and up.</p>
       <button class="btn" onclick="go('#/deals')">Shop all deals</button>
+      </div>
+      <div class="herofan" aria-hidden="true">${(() => {
+        /* One face each from TV, computing, audio and gaming, matching the headline
+           and saying full-line retailer before a word is read. */
+        const best = (arr) => arr.slice().sort((a, b) => (b.reviewCount || 0) - (a.reviewCount || 0))[0];
+        const lap = best(CATALOG.filter(p => p.os && /windows/i.test(p.os)));
+        const pick = [
+          best(STORE.filter(p => p.dept === 'tv' && /tv/i.test(p.cat || ''))) || best(STORE.filter(p => p.dept === 'tv')),
+          lap,
+          best(STORE.filter(p => p.dept === 'audio' && /headphone|earbud|speaker/i.test(p.cat || ''))) || best(STORE.filter(p => p.dept === 'audio')),
+          best(STORE.filter(p => p.dept === 'gaming' && /console/i.test(p.cat || ''))) || best(STORE.filter(p => p.dept === 'gaming'))
+        ].filter(Boolean);
+        return pick.map((p, i) => `<span class="hf hf${i}">${productArt(p, 0)}</span>`).join('');
+      })()}
     </div>
   </section>
 
   <div class="sectionhead"><h2 class="h2">Shop by department</h2></div>
   <div class="depts">${DEPARTMENTS.map(d => `<a class="dept" onclick="go('${d.route || ('#/d/' + d.id)}')">
-    <span class="dicon">${d.icon}</span><b>${esc(d.name)}</b><span class="dsub">${esc(d.blurb)}</span></a>`).join('')}</div>
+    ${deptIcon(d.id)}<b>${esc(d.name)}</b><span class="dsub">${esc(d.blurb)}</span></a>`).join('')}</div>
 
   <div class="sectionhead"><h2 class="h2">Top deals right now</h2>
     <a class="seeall" onclick="go('#/deals')">See all deals</a></div>
@@ -1197,8 +1338,14 @@ function viewStoreHome() {
     <p class="sub">Five ways to shop laptops, organised by what you want to do.
       Every Windows laptop sits in exactly one.</p></div>
     <a class="seeall" onclick="go('#/collections')">See all collections</a></div>
-  <div class="collrail">${COLLECTIONS.map(c => `<a class="collcard" onclick="go('#/collections/${c.id}')">
-    <span class="badge">${esc(c.name)}</span><span>${esc(c.blurb)}</span></a>`).join('')}</div>` : `
+  <div class="collrail">${COLLECTIONS.map(c => {
+    const inC = CATALOG.filter(p => p.collection === c.name);
+    const face = inC.slice().sort((a, b) => (b.rating || 0) - (a.rating || 0))[0];
+    return `<a class="collcard" onclick="go('#/collections/${c.id}')">
+    <span class="ccart">${face ? productArt(face, 0) : ''}</span>
+    <span class="badge">${esc(c.name)}</span><span>${esc(c.blurb)}</span>
+    <span class="ccn">${inC.length} laptops</span></a>`;
+  }).join('')}</div>` : `
   <div class="sectionhead"><div><h2 class="h2">Laptops</h2>
     <p class="sub">Browse every laptop we stock.</p></div>
     <a class="seeall" onclick="go('#/laptops')">Shop laptops</a></div>`}
@@ -1307,6 +1454,705 @@ function searchStore(q) {
     p.title.toLowerCase().includes(t) ||
     p.cat.toLowerCase().includes(t) ||
     p.brand.toLowerCase().includes(t));
+}
+
+
+/* ===== art.js ===== */
+/* ==========================================================================
+   Product art engine
+
+   Every product image in Novi is drawn as inline SVG at render time. There are
+   no photographs and no image requests, which is what lets the whole instrument
+   run offline from a single file and keeps the promise that nothing about a
+   participant's session leaves their machine.
+
+   It has to be convincing, though. A shopper who is deciding between a laptop
+   and a TV is reading shape, finish and proportion long before they read the
+   label, so a gradient rectangle would change the very behaviour we are trying
+   to measure. These are drawn to the real silhouettes: chassis colour comes
+   from the product's own colour name, screens carry a wallpaper and a specular
+   sheen, and everything sits on a soft contact shadow.
+   ========================================================================== */
+
+/* ---- finishes ------------------------------------------------------------
+   Retail chassis colours, keyed off the catalogue's colour string. Each is a
+   light face, a darker edge for thickness, and a deck tone. */
+const FINISHES = {
+  silver:   { a: '#e8edf2', b: '#c3ced9', c: '#f2f5f8', edge: '#9dabb9', deck: '#dde4ec' },
+  spacegray:{ a: '#9aa3ac', b: '#6f7881', c: '#adb5bd', edge: '#565e66', deck: '#8f989f' },
+  graphite: { a: '#7c848c', b: '#565d64', c: '#8f979e', edge: '#3f4448', deck: '#6e767d' },
+  black:    { a: '#3a4048', b: '#22262c', c: '#4b525b', edge: '#15181c', deck: '#2f343a' },
+  white:    { a: '#f7f9fb', b: '#dfe5ec', c: '#ffffff', edge: '#c3ccd6', deck: '#eef2f6' },
+  blue:     { a: '#4b6f9e', b: '#31506f', c: '#5d84b5', edge: '#23364a', deck: '#3f6087' },
+  navy:     { a: '#2f4260', b: '#1d2b41', c: '#3d5679', edge: '#141d2c', deck: '#27374f' },
+  gold:     { a: '#e4d2b6', b: '#c6b08e', c: '#f0e2ca', edge: '#a89070', deck: '#dccbb0' },
+  rose:     { a: '#e3c3bd', b: '#c69d96', c: '#efd4cf', edge: '#a87f79', deck: '#dbb9b2' },
+  green:    { a: '#4e7a63', b: '#345844', c: '#5f9077', edge: '#243d30', deck: '#436a55' },
+  red:      { a: '#a8453f', b: '#802f2a', c: '#bd5750', edge: '#5c1f1b', deck: '#923832' }
+};
+function finish(p) {
+  const c = String((p && p.color) || '').toLowerCase();
+  if (/jet black|carbon|midnight|obsidian|black|iron|onyx/.test(c)) return FINISHES.black;
+  if (/graphite|slate|storm|shadow/.test(c)) return FINISHES.graphite;
+  if (/space|steel|gun|anthracite|grey|gray/.test(c)) return FINISHES.spacegray;
+  if (/white|ceramic|glacier|porcelain|chalk/.test(c)) return FINISHES.white;
+  if (/navy|abyss|deep blue/.test(c)) return FINISHES.navy;
+  if (/blue|sapphire|cobalt|sky|ice/.test(c)) return FINISHES.blue;
+  if (/gold|champagne|sand|bronze|beige/.test(c)) return FINISHES.gold;
+  if (/rose|pink|blush|coral/.test(c)) return FINISHES.rose;
+  if (/green|sage|forest|mint/.test(c)) return FINISHES.green;
+  if (/red|crimson|garnet/.test(c)) return FINISHES.red;
+  if (/silver|platinum|aluminium|aluminum|natural|mineral|cool|cloud|moon|luna|arctic/.test(c)) return FINISHES.silver;
+  /* No colour on the record: fall back to something stable per product so a
+     tile does not change finish between renders. */
+  const keys = ['silver', 'spacegray', 'black', 'white', 'blue'];
+  return FINISHES[keys[Math.abs(hashOf(p)) % keys.length]];
+}
+function hashOf(p) {
+  const s = String((p && (p.sku || p.id || p.name)) || 'x');
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  return h;
+}
+
+/* Screen wallpaper. Tinted by the product's hue so a wall of tiles still has
+   the colour variety a real storefront has, without the device itself turning
+   into a swatch. */
+function wall(p, id) {
+  const h = (p && typeof p.hue === 'number') ? p.hue : 212;
+  return `<linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="hsl(${h},64%,58%)"/>
+    <stop offset=".55" stop-color="hsl(${(h + 18) % 360},58%,38%)"/>
+    <stop offset="1" stop-color="hsl(${(h + 34) % 360},52%,24%)"/></linearGradient>`;
+}
+function uid(pre, p, v) { return pre + '_' + Math.abs(hashOf(p)).toString(36) + '_' + (v || 0); }
+
+/* Shared defs: the contact shadow and the glass sheen every device uses. */
+function baseDefs(p, u) {
+  return `<defs>
+    ${wall(p, u + 'w')}
+    <linearGradient id="${u}sheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".40"/>
+      <stop offset=".42" stop-color="#fff" stop-opacity=".06"/>
+      <stop offset=".43" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <radialGradient id="${u}sh" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#1c2c42" stop-opacity=".30"/>
+      <stop offset=".65" stop-color="#1c2c42" stop-opacity=".10"/>
+      <stop offset="1" stop-color="#1c2c42" stop-opacity="0"/></radialGradient>
+  </defs>`;
+}
+function shadow(cx, cy, rx, ry, u) {
+  return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#${u}sh)"/>`;
+}
+function svg(inner, vb) {
+  return `<svg class="pa" viewBox="${vb || '0 0 320 220'}" preserveAspectRatio="xMidYMid meet"
+    role="img" aria-hidden="true" focusable="false">${inner}</svg>`;
+}
+
+/* ---- laptops -------------------------------------------------------------
+   Front elevation with a foreshortened deck, which is how laptops are actually
+   shot for retail: you read the screen straight on and the keyboard in
+   perspective. */
+function artLaptop(p, v) {
+  const f = finish(p), u = uid('lp', p, v);
+  const gaming = /Gaming/i.test(p.type || '');
+  const mac = /MacBook/i.test(p.type || '') || /Apple/i.test(p.brand || '');
+
+  if (v === 1) return artLaptopProfile(p);
+  if (v === 2) return artLaptopClosed(p);
+  if (v === 3) return artLaptopPorts(p);
+
+  const keys = [];
+  for (let r = 0; r < 4; r++) {
+    for (let c = 0; c < 14; c++) {
+      const inset = r * 1.1;
+      const x = 108 + inset + c * (104 - inset * 2) / 14;
+      const y = 163 + r * 6.4;
+      keys.push(`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${((104 - inset * 2) / 14 - 1.3).toFixed(1)}" height="4.4" rx="1"
+        fill="${f.edge}" opacity="${(0.55 - r * 0.06).toFixed(2)}"/>`);
+    }
+  }
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 196, 118, 13, u)}
+    <!-- lid -->
+    <rect x="64" y="34" width="192" height="122" rx="9" fill="${f.b}"/>
+    <rect x="66" y="36" width="188" height="118" rx="8" fill="${f.a}"/>
+    <rect x="74" y="43" width="172" height="102" rx="4" fill="#0e1622"/>
+    <rect x="77" y="46" width="166" height="96" rx="3" fill="url(#${u}w)"/>
+    <!-- desktop furniture, just enough to read as a running machine -->
+    <rect x="77" y="46" width="166" height="11" fill="#000" opacity=".16"/>
+    <rect x="82" y="49.5" width="26" height="4" rx="2" fill="#fff" opacity=".45"/>
+    <rect x="77" y="127" width="166" height="15" fill="#000" opacity=".22"/>
+    ${[0, 1, 2, 3, 4].map(i => `<rect x="${86 + i * 13}" y="131.5" width="8" height="6" rx="1.6" fill="#fff" opacity=".${5 - i > 1 ? 40 : 26}"/>`).join('')}
+    <rect x="95" y="66" width="58" height="5" rx="2.5" fill="#fff" opacity=".34"/>
+    <rect x="95" y="77" width="88" height="5" rx="2.5" fill="#fff" opacity=".22"/>
+    <rect x="95" y="88" width="72" height="5" rx="2.5" fill="#fff" opacity=".16"/>
+    <rect x="77" y="46" width="166" height="96" rx="3" fill="url(#${u}sheen)"/>
+    <circle cx="160" cy="40.5" r="1.5" fill="#2a3542"/>
+    ${mac ? '' : `<rect x="140" y="147" width="40" height="3" rx="1.5" fill="${f.edge}" opacity=".5"/>`}
+    <!-- deck in perspective -->
+    <path d="M64 156 L256 156 L286 186 L34 186 Z" fill="${f.deck}"/>
+    <path d="M64 156 L256 156 L286 186 L34 186 Z" fill="url(#${u}sheen)" opacity=".5"/>
+    <path d="M34 186 L286 186 L284 191 Q160 195 36 191 Z" fill="${f.edge}"/>
+    ${keys.join('')}
+    <rect x="132" y="169" width="56" height="12" rx="2" fill="${f.edge}" opacity=".28"/>
+    ${gaming ? `<rect x="106" y="161" width="108" height="21" rx="3" fill="none" stroke="hsl(${p.hue},90%,60%)" stroke-opacity=".55" stroke-width="1.4"/>` : ''}
+  `);
+}
+function artLaptopProfile(p) {
+  const f = finish(p), u = uid('lps', p, 1);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 168, 112, 11, u)}
+    <path d="M52 158 L268 158 L268 150 L52 150 Z" fill="${f.b}"/>
+    <path d="M52 150 L268 150 L262 146 L58 146 Z" fill="${f.a}"/>
+    <rect x="56" y="150" width="208" height="3" fill="${f.edge}" opacity=".6"/>
+    <g transform="rotate(-11 60 146)">
+      <rect x="58" y="44" width="200" height="102" rx="5" fill="${f.b}"/>
+      <rect x="60" y="46" width="196" height="98" rx="4" fill="${f.a}"/>
+    </g>
+    <circle cx="60" cy="148" r="4.5" fill="${f.edge}"/>
+    <text x="160" y="182" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#8fa0b4">Side profile</text>
+  `);
+}
+function artLaptopClosed(p) {
+  const f = finish(p), u = uid('lpc', p, 2);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 172, 116, 12, u)}
+    <rect x="52" y="52" width="216" height="110" rx="11" fill="${f.b}"/>
+    <rect x="54" y="54" width="212" height="104" rx="10" fill="${f.a}"/>
+    <rect x="54" y="54" width="212" height="104" rx="10" fill="url(#${u}sheen)"/>
+    <circle cx="160" cy="106" r="17" fill="${f.edge}" opacity=".28"/>
+    <circle cx="160" cy="106" r="17" fill="none" stroke="${f.c}" stroke-opacity=".7"/>
+    <rect x="52" y="158" width="216" height="6" rx="3" fill="${f.edge}"/>
+    <text x="160" y="186" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#8fa0b4">Lid closed</text>
+  `);
+}
+function artLaptopPorts(p) {
+  const f = finish(p), u = uid('lpp', p, 3);
+  const ports = String(p.ports || '').toLowerCase();
+  const set = [];
+  if (/usb-c|thunderbolt/.test(ports)) set.push(['USB-C', 22, 7]);
+  if (/usb-c|thunderbolt/.test(ports)) set.push(['USB-C', 22, 7]);
+  if (/usb-a/.test(ports)) set.push(['USB-A', 30, 9]);
+  if (/hdmi/.test(ports)) set.push(['HDMI', 34, 10]);
+  if (/sd card/.test(ports)) set.push(['SD', 26, 6]);
+  if (/3\.5/.test(ports)) set.push(['Audio', 12, 12]);
+  const row = set.length ? set : [['USB-C', 22, 7], ['USB-A', 30, 9]];
+  let x = 160 - row.reduce((s, r) => s + r[1] + 16, -16) / 2;
+  const drawn = row.map(r => {
+    const g = `<g><rect x="${x}" y="${104 - r[2] / 2}" width="${r[1]}" height="${r[2]}" rx="${r[2] / 2}" fill="#10161f"/>
+      <rect x="${x + 2}" y="${106 - r[2] / 2}" width="${r[1] - 4}" height="${r[2] - 4}" rx="2" fill="#2b3644"/>
+      <text x="${x + r[1] / 2}" y="${126}" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#7b8ca0">${r[0]}</text></g>`;
+    x += r[1] + 16;
+    return g;
+  }).join('');
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 150, 104, 10, u)}
+    <rect x="40" y="78" width="240" height="52" rx="7" fill="${f.b}"/>
+    <rect x="42" y="80" width="236" height="48" rx="6" fill="${f.a}"/>
+    <rect x="42" y="80" width="236" height="48" rx="6" fill="url(#${u}sheen)"/>
+    ${drawn}
+    <text x="160" y="160" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#8fa0b4">Ports and connections</text>
+  `);
+}
+
+/* ---- tablets, 2-in-1s, desktops, monitors -------------------------------- */
+function artTablet(p) {
+  const f = finish(p), u = uid('tb', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 196, 86, 11, u)}
+    <rect x="86" y="26" width="148" height="164" rx="13" fill="${f.b}"/>
+    <rect x="88" y="28" width="144" height="160" rx="12" fill="${f.a}"/>
+    <rect x="95" y="35" width="130" height="146" rx="6" fill="#0e1622"/>
+    <rect x="97" y="37" width="126" height="142" rx="5" fill="url(#${u}w)"/>
+    ${[0, 1, 2, 3].map(r => [0, 1, 2, 3].map(c =>
+      `<rect x="${106 + c * 28}" y="${56 + r * 30}" width="18" height="18" rx="4.5" fill="#fff" opacity=".${28 - r * 4}"/>`).join('')).join('')}
+    <rect x="103" y="160" width="114" height="13" rx="6.5" fill="#fff" opacity=".18"/>
+    <rect x="97" y="37" width="126" height="142" rx="5" fill="url(#${u}sheen)"/>
+    <circle cx="160" cy="31.5" r="1.4" fill="#2a3542"/>
+  `);
+}
+function artDesktop(p) {
+  const f = finish(p), u = uid('dk', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 198, 108, 11, u)}
+    <rect x="46" y="30" width="180" height="116" rx="7" fill="${f.b}"/>
+    <rect x="48" y="32" width="176" height="112" rx="6" fill="${f.a}"/>
+    <rect x="55" y="39" width="162" height="92" rx="3" fill="#0e1622"/>
+    <rect x="57" y="41" width="158" height="88" rx="2" fill="url(#${u}w)"/>
+    <rect x="57" y="41" width="158" height="88" rx="2" fill="url(#${u}sheen)"/>
+    <path d="M122 146 L152 146 L157 176 L117 176 Z" fill="${f.deck}"/>
+    <rect x="102" y="176" width="70" height="7" rx="3.5" fill="${f.edge}"/>
+    <rect x="236" y="62" width="48" height="122" rx="6" fill="${f.b}"/>
+    <rect x="238" y="64" width="44" height="118" rx="5" fill="${f.a}"/>
+    <rect x="245" y="74" width="30" height="4" rx="2" fill="${f.edge}"/>
+    <rect x="245" y="82" width="30" height="4" rx="2" fill="${f.edge}"/>
+    <circle cx="260" cy="168" r="4" fill="hsl(${p.hue || 210},80%,58%)"/>
+    <circle cx="260" cy="122" r="17" fill="none" stroke="${f.edge}" stroke-width="3" opacity=".7"/>
+  `);
+}
+
+/* ---- television and home theatre ----------------------------------------- */
+function artTV(p) {
+  const u = uid('tv', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 198, 112, 11, u)}
+    <rect x="26" y="26" width="268" height="152" rx="6" fill="#20262e"/>
+    <rect x="29" y="29" width="262" height="146" rx="5" fill="#0b1119"/>
+    <rect x="32" y="32" width="256" height="140" rx="3" fill="url(#${u}w)"/>
+    <path d="M32 132 L96 88 L148 124 L196 76 L288 140 L288 172 L32 172 Z" fill="#0b1119" opacity=".42"/>
+    <circle cx="228" cy="62" r="16" fill="#fff" opacity=".24"/>
+    <rect x="32" y="32" width="256" height="140" rx="3" fill="url(#${u}sheen)"/>
+    <path d="M128 178 L192 178 L204 192 L116 192 Z" fill="#2b323b"/>
+    <rect x="96" y="192" width="128" height="7" rx="3.5" fill="#39414b"/>
+  `);
+}
+function artSoundbar(p) {
+  const u = uid('sb', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 150, 116, 10, u)}
+    <rect x="34" y="96" width="252" height="40" rx="9" fill="#262c34"/>
+    <rect x="36" y="98" width="248" height="36" rx="8" fill="#343c46"/>
+    <rect x="44" y="104" width="232" height="24" rx="5" fill="#1d232a"/>
+    ${Array.from({ length: 46 }, (_, i) => `<circle cx="${49 + i * 5}" cy="116" r="1.5" fill="#556170" opacity=".8"/>`).join('')}
+    <circle cx="268" cy="116" r="3" fill="hsl(${p.hue || 210},80%,60%)"/>
+    <rect x="86" y="140" width="148" height="26" rx="5" fill="#2b323b"/>
+    <rect x="94" y="146" width="132" height="14" rx="3" fill="#1d232a"/>
+  `);
+}
+function artProjector(p) {
+  const f = finish(p), u = uid('pj', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 176, 92, 10, u)}
+    <path d="M214 104 L300 62 L300 146 Z" fill="hsl(${p.hue || 210},80%,66%)" opacity=".26"/>
+    <rect x="74" y="72" width="144" height="92" rx="12" fill="#2a313a"/>
+    <rect x="76" y="74" width="140" height="88" rx="11" fill="#39414b"/>
+    <circle cx="196" cy="118" r="24" fill="#12171d"/>
+    <circle cx="196" cy="118" r="17" fill="#1d2a3a"/>
+    <circle cx="196" cy="118" r="10" fill="hsl(${p.hue || 210},70%,60%)" opacity=".8"/>
+    <circle cx="190" cy="112" r="4" fill="#fff" opacity=".55"/>
+    ${Array.from({ length: 5 }, (_, i) => `<rect x="94" y="${88 + i * 13}" width="52" height="5" rx="2.5" fill="#222932"/>`).join('')}
+  `);
+}
+function artStreamer(p) {
+  const u = uid('st', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 162, 74, 9, u)}
+    <rect x="96" y="110" width="128" height="40" rx="10" fill="#242a32"/>
+    <rect x="98" y="112" width="124" height="36" rx="9" fill="#333a44"/>
+    <circle cx="160" cy="130" r="9" fill="hsl(${p.hue || 210},75%,58%)" opacity=".85"/>
+    <rect x="146" y="46" width="28" height="60" rx="8" fill="#2a313a"/>
+    <rect x="148" y="48" width="24" height="56" rx="7" fill="#3a424d"/>
+    ${[0, 1, 2].map(r => [0, 1].map(c => `<circle cx="${155 + c * 10}" cy="${60 + r * 13}" r="3" fill="#59646f"/>`).join('')).join('')}
+  `);
+}
+
+/* ---- mobile and wearables ------------------------------------------------ */
+function artPhone(p) {
+  const f = finish(p), u = uid('ph', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 202, 62, 9, u)}
+    <rect x="112" y="18" width="96" height="176" rx="17" fill="${f.b}"/>
+    <rect x="114" y="20" width="92" height="172" rx="16" fill="${f.a}"/>
+    <rect x="118" y="24" width="84" height="164" rx="13" fill="#0e1622"/>
+    <rect x="120" y="26" width="80" height="160" rx="12" fill="url(#${u}w)"/>
+    <rect x="146" y="26" width="28" height="7" rx="3.5" fill="#0e1622"/>
+    ${[0, 1, 2, 3].map(r => [0, 1, 2, 3].map(c =>
+      `<rect x="${127 + c * 17}" y="${58 + r * 21}" width="12" height="12" rx="3" fill="#fff" opacity=".${26 - r * 3}"/>`).join('')).join('')}
+    <rect x="130" y="166" width="60" height="12" rx="6" fill="#fff" opacity=".2"/>
+    <rect x="120" y="26" width="80" height="160" rx="12" fill="url(#${u}sheen)"/>
+    <rect x="208" y="58" width="3" height="22" rx="1.5" fill="${f.edge}"/>
+    <rect x="208" y="86" width="3" height="14" rx="1.5" fill="${f.edge}"/>
+  `);
+}
+function artWatch(p) {
+  const f = finish(p), u = uid('wa', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 196, 44, 8, u)}
+    <path d="M136 44 q24 -16 48 0 l-4 34 h-40 Z" fill="${f.edge}" opacity=".75"/>
+    <path d="M136 176 q24 16 48 0 l-4 -34 h-40 Z" fill="${f.edge}" opacity=".75"/>
+    <rect x="120" y="66" width="80" height="94" rx="22" fill="${f.b}"/>
+    <rect x="122" y="68" width="76" height="90" rx="21" fill="${f.a}"/>
+    <rect x="127" y="73" width="66" height="80" rx="17" fill="#0b1119"/>
+    <rect x="129" y="75" width="62" height="76" rx="16" fill="url(#${u}w)"/>
+    <circle cx="160" cy="113" r="24" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="5"/>
+    <path d="M160 89 a24 24 0 0 1 20 36" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="5" stroke-linecap="round"/>
+    <text x="160" y="118" text-anchor="middle" font-family="Segoe UI,Arial" font-size="15" font-weight="700" fill="#fff" opacity=".9">9:41</text>
+    <rect x="129" y="75" width="62" height="76" rx="16" fill="url(#${u}sheen)"/>
+    <rect x="199" y="96" width="5" height="16" rx="2.5" fill="${f.edge}"/>
+  `);
+}
+
+/* ---- audio --------------------------------------------------------------- */
+function artHeadphones(p) {
+  const f = finish(p), u = uid('hp', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 196, 76, 10, u)}
+    <path d="M78 140 v-24 a82 82 0 0 1 164 0 v24" fill="none" stroke="${f.b}" stroke-width="15" stroke-linecap="round"/>
+    <path d="M78 140 v-24 a82 82 0 0 1 164 0 v24" fill="none" stroke="${f.a}" stroke-width="9" stroke-linecap="round"/>
+    <rect x="58" y="112" width="44" height="72" rx="19" fill="${f.b}"/>
+    <rect x="61" y="115" width="38" height="66" rx="17" fill="${f.a}"/>
+    <ellipse cx="86" cy="148" rx="13" ry="25" fill="${f.edge}" opacity=".55"/>
+    <rect x="218" y="112" width="44" height="72" rx="19" fill="${f.b}"/>
+    <rect x="221" y="115" width="38" height="66" rx="17" fill="${f.a}"/>
+    <ellipse cx="234" cy="148" rx="13" ry="25" fill="${f.edge}" opacity=".55"/>
+    <circle cx="240" cy="176" r="3.2" fill="hsl(${p.hue || 210},80%,60%)"/>
+  `);
+}
+function artEarbuds(p) {
+  const f = finish(p), u = uid('eb', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 190, 78, 10, u)}
+    <rect x="98" y="110" width="124" height="70" rx="20" fill="${f.b}"/>
+    <rect x="100" y="112" width="120" height="66" rx="19" fill="${f.a}"/>
+    <rect x="100" y="112" width="120" height="66" rx="19" fill="url(#${u}sheen)"/>
+    <rect x="128" y="140" width="64" height="3" rx="1.5" fill="${f.edge}" opacity=".6"/>
+    <circle cx="160" cy="168" r="3.4" fill="hsl(${p.hue || 210},80%,60%)"/>
+    <g><circle cx="120" cy="66" r="21" fill="${f.b}"/><circle cx="120" cy="66" r="18" fill="${f.a}"/>
+      <circle cx="114" cy="60" r="6" fill="#fff" opacity=".5"/>
+      <path d="M126 80 q6 22 -2 30" stroke="${f.a}" stroke-width="11" fill="none" stroke-linecap="round"/>
+      <path d="M126 80 q6 22 -2 30" stroke="${f.b}" stroke-width="5" fill="none" stroke-linecap="round" opacity=".5"/></g>
+    <g><circle cx="200" cy="66" r="21" fill="${f.b}"/><circle cx="200" cy="66" r="18" fill="${f.a}"/>
+      <circle cx="194" cy="60" r="6" fill="#fff" opacity=".5"/>
+      <path d="M206 80 q6 22 -2 30" stroke="${f.a}" stroke-width="11" fill="none" stroke-linecap="round"/>
+      <path d="M206 80 q6 22 -2 30" stroke="${f.b}" stroke-width="5" fill="none" stroke-linecap="round" opacity=".5"/></g>
+  `);
+}
+function artSpeaker(p) {
+  const u = uid('sp', p), h = p.hue || 210;
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 196, 64, 9, u)}
+    <rect x="106" y="40" width="108" height="150" rx="30" fill="#2b323b"/>
+    <rect x="109" y="43" width="102" height="144" rx="28" fill="#3a434e"/>
+    <rect x="115" y="50" width="90" height="130" rx="24" fill="#222932"/>
+    ${Array.from({ length: 9 }, (_, r) => Array.from({ length: 7 }, (_, c) =>
+      `<circle cx="${124 + c * 12}" cy="${62 + r * 14}" r="2.4" fill="#505c69" opacity=".85"/>`).join('')).join('')}
+    <ellipse cx="160" cy="48" rx="47" ry="10" fill="#454f5b"/>
+    <ellipse cx="160" cy="46" rx="38" ry="7" fill="#2a313a"/>
+    <circle cx="160" cy="46" r="13" fill="hsl(${h},80%,58%)" opacity=".7"/>
+  `);
+}
+function artTurntable(p) {
+  const f = finish(p), u = uid('tt', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 188, 108, 11, u)}
+    <rect x="44" y="66" width="232" height="110" rx="8" fill="${f.b}"/>
+    <rect x="46" y="68" width="228" height="106" rx="7" fill="${f.a}"/>
+    <circle cx="140" cy="121" r="52" fill="#15191f"/>
+    <circle cx="140" cy="121" r="52" fill="none" stroke="#2a323c" stroke-width="1"/>
+    ${[44, 36, 28, 20].map(r => `<circle cx="140" cy="121" r="${r}" fill="none" stroke="#242b34" stroke-width="1"/>`).join('')}
+    <circle cx="140" cy="121" r="16" fill="hsl(${p.hue || 20},65%,52%)"/>
+    <circle cx="140" cy="121" r="2.5" fill="${f.a}"/>
+    <path d="M244 84 L246 122 L206 142" stroke="${f.edge}" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="244" cy="84" r="7" fill="${f.edge}"/>
+  `);
+}
+
+/* ---- gaming -------------------------------------------------------------- */
+function artConsole(p) {
+  const f = finish(p), u = uid('cs', p), h = p.hue || 210;
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 194, 96, 11, u)}
+    <rect x="92" y="34" width="136" height="152" rx="12" fill="#232931"/>
+    <rect x="95" y="37" width="130" height="146" rx="11" fill="#333b45"/>
+    <rect x="95" y="37" width="130" height="146" rx="11" fill="url(#${u}sheen)" opacity=".7"/>
+    <rect x="108" y="52" width="104" height="8" rx="4" fill="#1b2029"/>
+    <circle cx="160" cy="118" r="30" fill="#1b2029"/>
+    <circle cx="160" cy="118" r="22" fill="none" stroke="hsl(${h},85%,60%)" stroke-width="3" opacity=".8"/>
+    <circle cx="160" cy="118" r="7" fill="hsl(${h},85%,62%)"/>
+    <rect x="120" y="164" width="80" height="5" rx="2.5" fill="#1b2029"/>
+  `);
+}
+function artController(p) {
+  const f = finish(p), u = uid('ct', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 178, 88, 10, u)}
+    <path d="M110 76 h100 q30 0 38 34 l10 40 q6 24 -16 24 q-18 0 -28 -18 l-10 -18 h-88 l-10 18 q-10 18 -28 18 q-22 0 -16 -24 l10 -40 q8 -34 38 -34 Z" fill="${f.b}"/>
+    <path d="M112 80 h96 q27 0 34 31 l10 38 q5 20 -13 20 q-15 0 -24 -16 l-11 -20 h-88 l-11 20 q-9 16 -24 16 q-18 0 -13 -20 l10 -38 q7 -31 34 -31 Z" fill="${f.a}"/>
+    <rect x="102" y="106" width="9" height="30" rx="3" fill="${f.edge}"/>
+    <rect x="91" y="117" width="31" height="9" rx="3" fill="${f.edge}"/>
+    ${[[212, 110], [230, 122], [212, 134], [194, 122]].map((c, i) =>
+      `<circle cx="${c[0]}" cy="${c[1]}" r="6.4" fill="hsl(${(p.hue || 210) + i * 40},70%,58%)" opacity=".92"/>`).join('')}
+    <circle cx="136" cy="146" r="12" fill="${f.edge}"/><circle cx="136" cy="146" r="8" fill="${f.b}"/>
+    <circle cx="184" cy="146" r="12" fill="${f.edge}"/><circle cx="184" cy="146" r="8" fill="${f.b}"/>
+  `);
+}
+function artGame(p) {
+  const u = uid('gm', p), h = p.hue || 210;
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 196, 62, 9, u)}
+    <rect x="104" y="28" width="112" height="158" rx="6" fill="#1b2029"/>
+    <rect x="107" y="31" width="106" height="152" rx="5" fill="url(#${u}w)"/>
+    <path d="M107 122 L146 90 L180 118 L213 86 L213 183 L107 183 Z" fill="#0d1218" opacity=".45"/>
+    <rect x="107" y="31" width="14" height="152" fill="#0d1218" opacity=".45"/>
+    <rect x="130" y="46" width="66" height="7" rx="3.5" fill="#fff" opacity=".8"/>
+    <rect x="142" y="60" width="42" height="5" rx="2.5" fill="#fff" opacity=".45"/>
+    <rect x="107" y="31" width="106" height="152" rx="5" fill="url(#${u}sheen)"/>
+    <rect x="104" y="28" width="112" height="158" rx="6" fill="none" stroke="#39414b" stroke-width="2"/>
+  `);
+}
+
+/* ---- appliances ---------------------------------------------------------- */
+function artFridge(p) {
+  const f = finish(p), u = uid('fr', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 202, 82, 10, u)}
+    <rect x="86" y="18" width="148" height="178" rx="10" fill="${f.b}"/>
+    <rect x="89" y="21" width="142" height="172" rx="9" fill="${f.a}"/>
+    <rect x="89" y="21" width="142" height="172" rx="9" fill="url(#${u}sheen)" opacity=".6"/>
+    <rect x="89" y="112" width="142" height="4" fill="${f.edge}" opacity=".7"/>
+    <rect x="152" y="36" width="6" height="64" rx="3" fill="${f.edge}"/>
+    <rect x="152" y="128" width="6" height="52" rx="3" fill="${f.edge}"/>
+    <rect x="104" y="40" width="34" height="46" rx="4" fill="#1d2630" opacity=".85"/>
+    <rect x="108" y="46" width="26" height="5" rx="2.5" fill="hsl(${p.hue || 200},80%,62%)" opacity=".9"/>
+    <rect x="108" y="56" width="18" height="4" rx="2" fill="#fff" opacity=".35"/>
+  `);
+}
+function artWasher(p) {
+  const f = finish(p), u = uid('ws', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 200, 80, 10, u)}
+    <rect x="88" y="34" width="144" height="160" rx="10" fill="${f.b}"/>
+    <rect x="91" y="37" width="138" height="154" rx="9" fill="${f.a}"/>
+    <rect x="91" y="37" width="138" height="30" rx="9" fill="${f.deck}"/>
+    ${[0, 1, 2].map(i => `<circle cx="${112 + i * 20}" cy="52" r="5" fill="${f.edge}"/>`).join('')}
+    <rect x="186" y="46" width="34" height="12" rx="3" fill="#1d2630"/>
+    <rect x="190" y="49" width="20" height="6" rx="2" fill="hsl(${p.hue || 200},80%,62%)" opacity=".9"/>
+    <circle cx="160" cy="132" r="48" fill="${f.edge}" opacity=".5"/>
+    <circle cx="160" cy="132" r="42" fill="#1a222c"/>
+    <circle cx="160" cy="132" r="34" fill="url(#${u}w)" opacity=".55"/>
+    <circle cx="146" cy="118" r="10" fill="#fff" opacity=".18"/>
+  `);
+}
+function artVacuum(p) {
+  const f = finish(p), u = uid('vc', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 190, 84, 10, u)}
+    <ellipse cx="160" cy="146" rx="78" ry="34" fill="${f.b}"/>
+    <ellipse cx="160" cy="140" rx="78" ry="34" fill="${f.a}"/>
+    <ellipse cx="160" cy="140" rx="78" ry="34" fill="url(#${u}sheen)" opacity=".7"/>
+    <ellipse cx="160" cy="138" rx="56" ry="23" fill="${f.edge}" opacity=".35"/>
+    <circle cx="160" cy="136" r="15" fill="#1d2630"/>
+    <circle cx="160" cy="136" r="7" fill="hsl(${p.hue || 200},80%,60%)" opacity=".9"/>
+    <rect x="96" y="120" width="26" height="9" rx="4.5" fill="#1d2630" opacity=".8"/>
+    <circle cx="112" cy="168" r="7" fill="#1d2630"/><circle cx="208" cy="168" r="7" fill="#1d2630"/>
+  `);
+}
+function artKitchen(p) {
+  const f = finish(p), u = uid('kt', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 190, 78, 10, u)}
+    <rect x="94" y="62" width="132" height="120" rx="12" fill="${f.b}"/>
+    <rect x="97" y="65" width="126" height="114" rx="11" fill="${f.a}"/>
+    <rect x="97" y="65" width="126" height="114" rx="11" fill="url(#${u}sheen)" opacity=".6"/>
+    <rect x="112" y="84" width="96" height="58" rx="6" fill="#151c25"/>
+    <rect x="115" y="87" width="90" height="52" rx="5" fill="url(#${u}w)" opacity=".7"/>
+    <circle cx="200" cy="160" r="9" fill="${f.edge}"/>
+    <rect x="112" y="154" width="54" height="6" rx="3" fill="${f.edge}" opacity=".7"/>
+    <rect x="128" y="40" width="64" height="24" rx="6" fill="${f.edge}" opacity=".5"/>
+  `);
+}
+
+/* ---- cameras and drones -------------------------------------------------- */
+function artCamera(p) {
+  const f = finish(p), u = uid('cm', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 186, 92, 10, u)}
+    <rect x="128" y="50" width="52" height="16" rx="5" fill="#20262e"/>
+    <rect x="62" y="66" width="196" height="106" rx="14" fill="#1b2129"/>
+    <rect x="65" y="69" width="190" height="100" rx="13" fill="#2e353f"/>
+    <rect x="65" y="69" width="190" height="100" rx="13" fill="url(#${u}sheen)" opacity=".55"/>
+    <rect x="65" y="118" width="190" height="51" rx="13" fill="#232932" opacity=".55"/>
+    <circle cx="160" cy="118" r="46" fill="#151a21"/>
+    <circle cx="160" cy="118" r="39" fill="#1f2731"/>
+    <circle cx="160" cy="118" r="30" fill="#0e131a"/>
+    <circle cx="160" cy="118" r="22" fill="url(#${u}w)" opacity=".75"/>
+    <circle cx="160" cy="118" r="22" fill="none" stroke="hsl(${p.hue || 200},70%,60%)" stroke-opacity=".5" stroke-width="2"/>
+    <circle cx="148" cy="106" r="7" fill="#fff" opacity=".4"/>
+    <circle cx="232" cy="86" r="6" fill="#4a5462"/>
+    <rect x="76" y="82" width="26" height="9" rx="4.5" fill="#4a5462"/>
+  `);
+}
+function artActionCam(p) {
+  const f = finish(p), u = uid('ac', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 182, 68, 9, u)}
+    <rect x="102" y="62" width="116" height="106" rx="16" fill="#1b2129"/>
+    <rect x="105" y="65" width="110" height="100" rx="15" fill="#333b45"/>
+    <rect x="105" y="65" width="110" height="100" rx="15" fill="url(#${u}sheen)" opacity=".6"/>
+    <circle cx="150" cy="106" r="30" fill="#12171e"/>
+    <circle cx="150" cy="106" r="22" fill="#1d2731"/>
+    <circle cx="150" cy="106" r="14" fill="url(#${u}w)" opacity=".8"/>
+    <circle cx="143" cy="99" r="4.5" fill="#fff" opacity=".45"/>
+    <rect x="186" y="82" width="20" height="14" rx="3" fill="#0f141a"/>
+    <rect x="128" y="146" width="44" height="7" rx="3.5" fill="#1b2129"/>
+  `);
+}
+function artDrone(p) {
+  const f = finish(p), u = uid('dr', p);
+  const arm = (x1, y1, x2, y2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${f.b}" stroke-width="10" stroke-linecap="round"/>
+    <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${f.a}" stroke-width="5" stroke-linecap="round"/>`;
+  const rotor = (x, y) => `<circle cx="${x}" cy="${y}" r="9" fill="${f.edge}"/>
+    <ellipse cx="${x}" cy="${y}" rx="34" ry="4" fill="#8aa0b8" opacity=".38"/>
+    <ellipse cx="${x}" cy="${y}" rx="4" ry="34" fill="#8aa0b8" opacity=".22"/>`;
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 190, 86, 10, u)}
+    ${arm(132, 112, 70, 70)}${arm(188, 112, 250, 70)}
+    ${arm(132, 138, 74, 168)}${arm(188, 138, 246, 168)}
+    ${rotor(70, 70)}${rotor(250, 70)}${rotor(74, 168)}${rotor(246, 168)}
+    <rect x="122" y="98" width="76" height="54" rx="14" fill="${f.b}"/>
+    <rect x="125" y="101" width="70" height="48" rx="13" fill="${f.a}"/>
+    <rect x="125" y="101" width="70" height="48" rx="13" fill="url(#${u}sheen)" opacity=".6"/>
+    <circle cx="160" cy="152" r="14" fill="#1a212a"/>
+    <circle cx="160" cy="152" r="8" fill="url(#${u}w)" opacity=".85"/>
+    <circle cx="156" cy="148" r="2.6" fill="#fff" opacity=".5"/>
+  `);
+}
+
+/* ---- smart home ---------------------------------------------------------- */
+function artBulb(p) {
+  const u = uid('bl', p), h = p.hue || 40;
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 196, 52, 8, u)}
+    <circle cx="160" cy="96" r="72" fill="hsl(${h},90%,62%)" opacity=".16"/>
+    <circle cx="160" cy="96" r="52" fill="hsl(${h},90%,62%)" opacity=".2"/>
+    <path d="M160 34 a46 46 0 0 1 28 82 q-6 5 -6 14 h-44 q0 -9 -6 -14 a46 46 0 0 1 28 -82 Z" fill="hsl(${h},85%,68%)" opacity=".92"/>
+    <path d="M160 34 a46 46 0 0 1 28 82 q-6 5 -6 14 h-44 q0 -9 -6 -14 a46 46 0 0 1 28 -82 Z" fill="url(#${u}sheen)"/>
+    <path d="M144 96 q16 -30 32 0" stroke="#fff" stroke-width="3" fill="none" opacity=".75"/>
+    <rect x="136" y="132" width="48" height="10" rx="3" fill="#b9c4d0"/>
+    <rect x="138" y="144" width="44" height="9" rx="3" fill="#a3b0be"/>
+    <rect x="140" y="155" width="40" height="9" rx="3" fill="#94a2b1"/>
+    <path d="M144 166 q16 14 32 0 v6 q-16 12 -32 0 Z" fill="#7d8b9a"/>
+  `);
+}
+function artCam(p) {
+  const f = finish(p), u = uid('sc', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 194, 60, 9, u)}
+    <rect x="112" y="150" width="96" height="14" rx="7" fill="${f.edge}"/>
+    <rect x="152" y="112" width="16" height="42" rx="6" fill="${f.b}"/>
+    <rect x="104" y="44" width="112" height="76" rx="26" fill="${f.b}"/>
+    <rect x="107" y="47" width="106" height="70" rx="24" fill="${f.a}"/>
+    <rect x="107" y="47" width="106" height="70" rx="24" fill="url(#${u}sheen)" opacity=".7"/>
+    <circle cx="160" cy="82" r="27" fill="#12171e"/>
+    <circle cx="160" cy="82" r="19" fill="#1d2731"/>
+    <circle cx="160" cy="82" r="11" fill="url(#${u}w)" opacity=".85"/>
+    <circle cx="153" cy="75" r="4" fill="#fff" opacity=".45"/>
+    <circle cx="196" cy="60" r="3.4" fill="#27c07a"/>
+  `);
+}
+function artHub(p) {
+  const f = finish(p), u = uid('hb', p), h = p.hue || 210;
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 190, 66, 9, u)}
+    <rect x="102" y="66" width="116" height="110" rx="22" fill="${f.b}"/>
+    <rect x="105" y="69" width="110" height="104" rx="21" fill="${f.a}"/>
+    <rect x="114" y="78" width="92" height="66" rx="8" fill="#101720"/>
+    <rect x="116" y="80" width="88" height="62" rx="7" fill="url(#${u}w)"/>
+    <text x="160" y="116" text-anchor="middle" font-family="Segoe UI,Arial" font-size="21" font-weight="700" fill="#fff" opacity=".92">72°</text>
+    <rect x="116" y="80" width="88" height="62" rx="7" fill="url(#${u}sheen)"/>
+    <circle cx="160" cy="158" r="7" fill="hsl(${h},80%,60%)" opacity=".85"/>
+  `);
+}
+function artThermostat(p) {
+  const f = finish(p), u = uid('th', p), h = p.hue || 200;
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 196, 58, 9, u)}
+    <circle cx="160" cy="108" r="76" fill="${f.b}"/>
+    <circle cx="160" cy="108" r="71" fill="${f.a}"/>
+    <circle cx="160" cy="108" r="58" fill="#10161e"/>
+    <circle cx="160" cy="108" r="52" fill="url(#${u}w)" opacity=".5"/>
+    <circle cx="160" cy="108" r="52" fill="none" stroke="hsl(${h},85%,60%)" stroke-width="4" stroke-opacity=".35"/>
+    <path d="M160 56 a52 52 0 0 1 45 26" fill="none" stroke="hsl(${h},90%,62%)" stroke-width="5" stroke-linecap="round"/>
+    <text x="160" y="118" text-anchor="middle" font-family="Segoe UI,Arial" font-size="32" font-weight="700" fill="#fff" opacity=".95">68</text>
+    <circle cx="160" cy="108" r="71" fill="url(#${u}sheen)" opacity=".8"/>
+  `);
+}
+function artLock(p) {
+  const f = finish(p), u = uid('lk', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 196, 54, 9, u)}
+    <rect x="116" y="42" width="88" height="148" rx="36" fill="${f.b}"/>
+    <rect x="119" y="45" width="82" height="142" rx="34" fill="${f.a}"/>
+    <rect x="119" y="45" width="82" height="142" rx="34" fill="url(#${u}sheen)" opacity=".7"/>
+    <circle cx="160" cy="92" r="30" fill="#161d26"/>
+    ${[0, 1, 2].map(r => [0, 1, 2].map(c =>
+      `<circle cx="${148 + c * 12}" cy="${80 + r * 12}" r="3.2" fill="#5b6a7b"/>`).join('')).join('')}
+    <circle cx="160" cy="150" r="17" fill="${f.edge}"/>
+    <circle cx="160" cy="150" r="11" fill="#161d26"/>
+    <rect x="157" y="144" width="6" height="13" rx="3" fill="${f.a}"/>
+  `);
+}
+
+/* ---- accessories fallback ------------------------------------------------ */
+function artAccessory(p) {
+  const f = finish(p), u = uid('ax', p);
+  return svg(`${baseDefs(p, u)}
+    ${shadow(160, 184, 76, 10, u)}
+    <rect x="92" y="70" width="136" height="96" rx="14" fill="${f.b}"/>
+    <rect x="95" y="73" width="130" height="90" rx="13" fill="${f.a}"/>
+    <rect x="95" y="73" width="130" height="90" rx="13" fill="url(#${u}sheen)" opacity=".7"/>
+    <rect x="112" y="92" width="96" height="52" rx="8" fill="${f.edge}" opacity=".35"/>
+    <circle cx="160" cy="118" r="17" fill="none" stroke="${f.edge}" stroke-width="3" opacity=".7"/>
+  `);
+}
+
+/* ---- dispatch ------------------------------------------------------------ */
+function artKind(p) {
+  if (!p) return 'laptop';
+  if (p.grade === 'merch') {
+    const c = String(p.cat || '').toLowerCase(), d = String(p.dept || '');
+    if (d === 'tv') return c === 'soundbars' ? 'soundbar' : c === 'projectors' ? 'projector' : c === 'streaming' ? 'streamer' : 'tv';
+    if (d === 'mobile') return c === 'watches' ? 'watch' : c === 'tablets' ? 'tablet' : c === 'accessories' ? 'accessory' : 'phone';
+    if (d === 'audio') return c === 'earbuds' ? 'earbuds' : c === 'speakers' ? 'speaker' : c === 'turntables' ? 'turntable' : 'headphones';
+    if (d === 'gaming') return c === 'games' ? 'game' : c === 'accessories' ? 'controller' : 'console';
+    if (d === 'appliances') return c === 'laundry' ? 'washer' : c === 'floor care' ? 'vacuum' : /kitchen/.test(c) ? (/refriger|fridge/i.test(p.name || '') ? 'fridge' : 'kitchen') : 'fridge';
+    if (d === 'cameras') return c === 'drones' ? 'drone' : c === 'action' ? 'actioncam' : 'camera';
+    if (d === 'smarthome') return c === 'lighting' ? 'bulb' : c === 'security' ? 'seccam' : c === 'climate' ? 'thermostat' : c === 'locks' ? 'lock' : 'hub';
+    return 'accessory';
+  }
+  const t = String(p.type || '');
+  if (/2-in-1/i.test(t)) return 'tablet2';
+  return 'laptop';
+}
+const ART = {
+  laptop: artLaptop, tablet2: artLaptop, tablet: artTablet, desktop: artDesktop,
+  tv: artTV, soundbar: artSoundbar, projector: artProjector, streamer: artStreamer,
+  phone: artPhone, watch: artWatch,
+  headphones: artHeadphones, earbuds: artEarbuds, speaker: artSpeaker, turntable: artTurntable,
+  console: artConsole, controller: artController, game: artGame,
+  fridge: artFridge, washer: artWasher, vacuum: artVacuum, kitchen: artKitchen,
+  camera: artCamera, actioncam: artActionCam, drone: artDrone,
+  bulb: artBulb, seccam: artCam, hub: artHub, thermostat: artThermostat, lock: artLock,
+  accessory: artAccessory
+};
+
+/* The one entry point every view calls. */
+function productArt(p, variant) {
+  const fn = ART[artKind(p)] || artAccessory;
+  try { return fn(p, variant || 0); } catch (e) { return artAccessory(p || {}); }
+}
+
+/* How many distinct angles this product can show in a gallery. */
+function artVariants(p) { return artKind(p) === 'laptop' || artKind(p) === 'tablet2' ? 4 : 1; }
+
+/* ---- department and collection icons ------------------------------------- */
+function deptIcon(id) {
+  const s = (inner) => `<svg class="dicon" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">${inner}</svg>`;
+  const st = 'fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"';
+  const M = {
+    computers: `<rect x="9" y="12" width="30" height="20" rx="2.5" ${st}/><path d="M5 36h38l-3-4H8Z" ${st}/>`,
+    tv: `<rect x="6" y="11" width="36" height="24" rx="2.5" ${st}/><path d="M18 40h12M24 35v5" ${st}/>`,
+    mobile: `<rect x="16" y="6" width="16" height="36" rx="3" ${st}/><path d="M21 10h6M22 37h4" ${st}/>`,
+    audio: `<path d="M11 30v-6a13 13 0 0 1 26 0v6" ${st}/><rect x="7" y="27" width="8" height="13" rx="4" ${st}/><rect x="33" y="27" width="8" height="13" rx="4" ${st}/>`,
+    gaming: `<path d="M17 19h14c5 0 8 3 9 8l2 8c1 4-1 6-4 6s-5-3-7-6H17c-2 3-4 6-7 6s-5-2-4-6l2-8c1-5 4-8 9-8Z" ${st}/><path d="M15 26v6M12 29h6M31 27h.01M35 31h.01" ${st}/>`,
+    appliances: `<rect x="11" y="6" width="26" height="36" rx="3" ${st}/><circle cx="24" cy="27" r="8" ${st}/><path d="M16 13h6" ${st}/>`,
+    cameras: `<path d="M6 16h8l3-4h14l3 4h8a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V18a2 2 0 0 1 2-2Z" ${st}/><circle cx="24" cy="26" r="8" ${st}/>`,
+    smarthome: `<path d="M8 22 24 8l16 14" ${st}/><path d="M12 22v16a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V22" ${st}/><circle cx="24" cy="30" r="4" ${st}/>`,
+    laptops: `<rect x="9" y="12" width="30" height="20" rx="2.5" ${st}/><path d="M5 36h38l-3-4H8Z" ${st}/>`,
+    deals: `<path d="M24 6l5 5h7v7l5 5-5 5v7h-7l-5 5-5-5h-7v-7l-5-5 5-5v-7h7Z" ${st}/><path d="M19 29l10-10M20 20h.01M28 28h.01" ${st}/>`
+  };
+  return s(M[id] || M.computers);
 }
 
 
@@ -1871,6 +2717,10 @@ function render() {
     if (m) { document.getElementById('app').innerHTML = fn(m); handled = true; break; }
   }
   if (!handled) document.getElementById('app').innerHTML = view404();
+  /* On the moderator build the console gets its own instrument chrome. The
+     store chrome stays available, because a moderator often wants to preview
+     the participant's view before a session. */
+  document.body.classList.toggle('consolemode', readOnlyTab() && h === '#/research');
   window.scrollTo(0, 0);
   paintChrome();
   afterRender(h);
@@ -1898,10 +2748,8 @@ function afterRender(h) {
    Part 2: shared components, home, category, browse, search
    ========================================================================== */
 
-function vizLap(p, cls) {
-  const h = p ? p.hue : 210;
-  return `<div class="viz ${cls || ''}"><div class="lap" style="--c1:hsl(${h},70%,72%);--c2:hsl(${h},64%,40%)">
-    <div class="scr"></div><div class="base"></div></div></div>`;
+function vizLap(p, cls, variant) {
+  return `<div class="viz ${cls || ''}">${productArt(p, variant)}</div>`;
 }
 function starRow(r) {
   const full = Math.round(r);
@@ -2519,7 +3367,7 @@ function viewBrowse() {
     <span>We'll narrow ${CATALOG.length} laptops down to the few that fit how you'll actually use it.</span></div>
     <button class="btn pri" onclick="go('#/advisor')">Find your PC</button></div>` : ''}
   <div class="shop">
-    ${facetPanel(base)}${railAd()}
+    <div class="shopside">${facetPanel(base)}${railAd()}</div>
     <section>
       ${chipsBar()}
       <div class="toolbar">
@@ -2849,6 +3697,18 @@ function schemaPanel(p, rich) {
     <pre>${esc(json)}</pre></details>`;
 }
 
+/* Swapping the gallery shot is a real signal: someone checking the ports or the
+   side profile is further down the consideration path than someone who never
+   looks past the first image, so the shot name goes into the event. */
+function setGalleryShot(id, i, el) {
+  const p = P(id) || (typeof storeById === 'function' ? storeById(id) : null);
+  const main = document.getElementById('galmain');
+  if (main && p) main.innerHTML = vizLap(p, '', i);
+  document.querySelectorAll('.thumb').forEach(t => t.classList.remove('on'));
+  if (el) el.classList.add('on');
+  track('pdp_image_changed', { index: i, shot: ['front', 'profile', 'closed', 'ports'][i] || String(i) });
+}
+
 function viewPDP(id) {
   const p = P(id);
   if (!p) return view404();
@@ -2859,9 +3719,9 @@ function viewPDP(id) {
   return `${crumbs([['Home', '#/'], ['Computers & Tablets', '#/computers'], ['Laptops', '#/laptops'], [p.name, '']])}
   <div class="pdp">
     <div class="gallery">
-      ${vizLap(p)}
+      <div id="galmain">${vizLap(p, '', 0)}</div>
       <div class="thumbs">${[0, 1, 2, 3].map(i => `<div class="thumb ${i === 0 ? 'on' : ''}"
-        onclick="track('pdp_image_changed',${i});document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('on'));this.classList.add('on')"></div>`).join('')}</div>
+        onclick="setGalleryShot(${p.id},${i},this)">${productArt(p, i)}</div>`).join('')}</div>
 
       ${rich ? `<p class="answerfirst">${answerFirst(p)}</p>` : ''}
 
@@ -3242,10 +4102,13 @@ function advisorResults() {
 function collItems(c) { return CATALOG.filter(p => p.collection === c.name); }
 function collBySlug(slug) { return COLLECTIONS.find(c => c.id === slug); }
 function collTile(c, big) {
-  const n = collItems(c).length;
+  const items = collItems(c), n = items.length;
+  const face = items.slice().sort((a, b) => (b.rating || 0) - (a.rating || 0))[0];
+  const lo = items.length ? Math.min.apply(null, items.map(p => p.price)) : 0;
   return `<a class="tile coll${big ? ' big' : ''}" onclick="go('#/collections/${c.id}')">
+    ${big && face ? `<span class="ccart tall">${productArt(face, 0)}</span>` : ''}
     <span class="collbadge">${c.name}</span>
-    <b>${c.blurb}</b><span>${n} ${n === 1 ? 'laptop' : 'laptops'}</span></a>`;
+    <b>${c.blurb}</b><span>${n} ${n === 1 ? 'laptop' : 'laptops'}${lo ? ' &middot; from ' + money(lo) : ''}</span></a>`;
 }
 function viewCollectionsIndex() {
   track('collections_index_viewed', '');

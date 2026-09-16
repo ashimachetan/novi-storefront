@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>novi | Laptops, computers and tablets</title>
+<title>novi | Intelligence console</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a4d8c'/%3E%3Ctext x='16' y='23' font-family='Segoe UI,Arial' font-size='20' font-weight='700' fill='%23fff' text-anchor='middle'%3En%3C/text%3E%3C/svg%3E">
 <style>
 :root{
@@ -613,7 +613,7 @@ body.hasmod{padding-top:38px}
 <body>
 <noscript>This research prototype needs JavaScript enabled.</noscript>
 <script>
-var CONSOLE_ONLY = false;
+var CONSOLE_ONLY = true;
 
 /* ===== catalog.js ===== */
 /* Novi catalog — 60 REAL laptop SKUs.
@@ -3632,6 +3632,748 @@ function answerShortlist(q) {
     cards: picks.map(p => p.id),
     actions: `<button class="btn out" onclick="S.compare=[${picks.map(p => p.id).join(',')}];track('assistant_compare_built');go('#/compare')">Compare these three</button>`
   };
+}
+
+
+/* ===== app-console.js ===== */
+/* ==========================================================================
+   Part 5: the research console.
+
+   This is the product. The storefront is the stimulus; everything here is what
+   makes it a research instrument rather than a mock website:
+
+     Overview    engagement, funnel, time to task
+     Heatmap     where people actually clicked, per route
+     Journeys    route to route flow with drop-off
+     Designer    reconfigure the experience live, no code, no rebuild
+     Cohorts     two conditions side by side on identical metrics
+     Replay      scrub the session as a timeline
+     Roadshow    rebrand to a named retailer in one click
+     Data        export, session links, raw stream
+   ========================================================================== */
+
+let CTAB = 'overview';
+function setCTab(t) { CTAB = t; track('console_tab', t); paintConsole(); }
+
+/* ---- shared helpers ------------------------------------------------------ */
+function evDetail(e) { try { return JSON.parse(e.detail); } catch (x) { return {}; } }
+function pct(n, d) { return d ? Math.round((n / d) * 100) : 0; }
+function ms(n) { return n === null || n === undefined ? '—' : (n / 1000).toFixed(1) + 's'; }
+function routeName(r) {
+  if (!r || r === '#/' || r === '') return 'Home';
+  if (/^#\/product\//.test(r)) { const p = P(+r.split('/')[2]); return p ? p.name.slice(0, 28) : 'Product'; }
+  if (/^#\/collections\/(.+)/.test(r)) {
+    const id = r.match(/^#\/collections\/(.+)/)[1];
+    const c = COLLECTIONS.find(x => x.id === id);
+    return c ? c.name : 'Collection';
+  }
+  return r.replace('#/', '').replace(/\//g, ' ').replace(/^\w/, c => c.toUpperCase()) || 'Home';
+}
+
+/* Metrics are computed from the event stream on demand rather than accumulated,
+   so a moderator can change the condition mid-session and the numbers stay
+   attributable to the cell the participant was actually in. */
+function metrics(filterCond, source) {
+  const base = source || EVENTS;
+  const ev = filterCond ? base.filter(e => e.condition === filterCond) : base;
+  const of = n => ev.filter(e => e.event === n);
+  const exits = of('page_exit').map(evDetail);
+  const dwell = exits.map(d => d.dwellMs || 0).filter(Boolean);
+  const scroll = exits.map(d => d.maxScrollPct || 0);
+  const viewed = new Set(of('product_viewed').map(e => e.detail));
+  const ptl = of('path_to_laptops').map(evDetail);
+  const succ = of('task_success');
+  return {
+    events: ev.length,
+    productsViewed: viewed.size,
+    pdpViews: of('product_viewed').length,
+    searches: of('search_submitted').length,
+    assistOpens: of('assistant_opened').length,
+    assistMsgs: of('assistant_message').length,
+    collViews: of('collection_viewed').length + of('collections_index_viewed').length,
+    schemaOpens: of('structured_data_opened').length,
+    addToCart: of('add_to_cart').length,
+    checkouts: of('checkout_complete').length,
+    compares: of('compare_added').length,
+    medianDwell: dwell.length ? dwell.slice().sort((a, b) => a - b)[Math.floor(dwell.length / 2)] : 0,
+    avgScroll: scroll.length ? Math.round(scroll.reduce((a, b) => a + b, 0) / scroll.length) : 0,
+    pathMs: ptl.length ? ptl[0].ms : null,
+    pathSteps: ptl.length ? ptl[0].steps : null,
+    successMs: succ.length ? parseInt(String(succ[0].detail).replace('ms=', ''), 10) : null,
+    success: succ.length > 0
+  };
+}
+
+/* ========================================================================== */
+function viewConsole() {
+  return `<div class="sectionhead" style="margin-top:22px">
+      <div><h1 class="h1">Intelligence console</h1>
+      <p class="sub">Moderator only. Participants should not see this screen.</p></div>
+      <button class="btn ghost" onclick="${'openParticipantTab()'}">Open storefront</button></div>
+    <div class="ctabs" id="ctabs"></div>
+    <div class="console" id="consolebody"></div>`;
+}
+
+const CTABS = [
+  ['overview', 'Overview'], ['heatmap', 'Heatmap'], ['journeys', 'Journeys'],
+  ['designer', 'Designer'], ['sessions', 'Sessions'], ['cohorts', 'Cohorts'],
+  ['replay', 'Replay'], ['roadshow', 'Roadshow'], ['data', 'Data']
+];
+
+function paintConsole() {
+  const tabs = document.getElementById('ctabs');
+  if (tabs) tabs.innerHTML = CTABS.map(t =>
+    `<button class="${CTAB === t[0] ? 'on' : ''}" onclick="setCTab('${t[0]}')">${t[1]}</button>`).join('');
+  const el = document.getElementById('consolebody');
+  if (!el) return;
+  el.className = 'console' + (CTAB === 'overview' || CTAB === 'data' ? '' : ' wide');
+  el.innerHTML =
+      CTAB === 'heatmap'  ? cHeatmap()
+    : CTAB === 'journeys' ? cJourneys()
+    : CTAB === 'designer' ? cDesigner()
+    : CTAB === 'cohorts'  ? cCohorts()
+    : CTAB === 'sessions' ? cSessions()
+    : CTAB === 'replay'   ? cReplay()
+    : CTAB === 'roadshow' ? cRoadshow()
+    : CTAB === 'data'     ? cData()
+    : cOverview();
+  if (CTAB === 'overview' || CTAB === 'data') paintLog();
+  if (CTAB === 'heatmap') drawHeat();
+  if (CTAB === 'replay') paintReplay();
+}
+
+/* ---------------- Overview ---------------- */
+function cOverview() {
+  const m = metrics();
+  const c = cond(), mi = MISSIONS[S.mission];
+  const funnel = [
+    ['Session started', 1, 1],
+    ['Reached a product', m.pdpViews > 0 ? 1 : 0, 1],
+    ['Compared or shortlisted', m.compares > 0 ? 1 : 0, 1],
+    ['Added to cart', m.addToCart > 0 ? 1 : 0, 1],
+    ['Completed checkout', m.checkouts > 0 ? 1 : 0, 1]
+  ];
+  return `
+  <div>
+    ${readOnlyTab() ? `<div class="card panel" style="margin-bottom:16px;border-left:3px solid var(--brand)">
+      <h3>Two screens, one study</h3>
+      <p class="sub" style="font-size:11px;margin:0 0 10px">You are on the moderator console. Open the storefront on the participant's screen and this fills in live as they shop. Both run in the browser on this machine, sharing local storage. No server, no database, nothing uploaded.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn pri" onclick="openParticipantTab()">Open the storefront</button>
+        <button class="btn ghost" onclick="copyLink()">Copy participant link</button>
+      </div>
+      <p class="sub" style="font-size:11px;margin-top:9px">Live: <b>${LAST_SYNC ? EVENTS.length + ' events, last at ' + new Date(LAST_SYNC).toLocaleTimeString() : 'waiting for activity on the participant screen'}</b></p>
+    </div>` : ''}
+    <div class="statgrid">
+      ${stat('Participant', S.participantId || '&mdash;')}
+      ${stat('Condition', S.condition)}
+      ${stat('Elapsed', elapsed())}
+      ${stat('Events', m.events)}
+      ${stat('Products viewed', m.productsViewed)}
+      ${stat('Task', m.success ? 'done ' + ms(m.successMs) : 'open')}
+    </div>
+
+    <div class="card panel">
+      <h3>Headline: path to a laptop</h3>
+      <div class="statgrid tight">
+        ${stat('Time to first PDP', ms(m.pathMs))}
+        ${stat('Steps to first PDP', m.pathSteps === null ? '&mdash;' : m.pathSteps)}
+        ${stat('Time to task success', ms(m.successMs))}
+      </div>
+      <p class="sub" style="font-size:11px;margin-top:9px">In a full-line store a laptop has to be found.
+        These two numbers say whether the merchandising is doing that job.</p>
+    </div>
+
+    <div class="card panel" style="margin-top:16px">
+      <h3>Engagement</h3>
+      <div class="statgrid tight">
+        ${stat('Median dwell', ms(m.medianDwell))}
+        ${stat('Avg scroll depth', m.avgScroll + '%')}
+        ${stat('Searches', m.searches)}
+        ${stat('Collection views', m.collViews)}
+        ${stat('Assistant messages', m.assistMsgs)}
+        ${stat('Schema panel opens', m.schemaOpens)}
+      </div>
+    </div>
+
+    <div class="card panel" style="margin-top:16px">
+      <h3>Funnel</h3>
+      ${funnel.map(f => `<div class="fbar ${f[1] ? 'hit' : ''}">
+        <span>${f[0]}</span><b>${f[1] ? 'yes' : 'no'}</b></div>`).join('')}
+    </div>
+
+    <div class="card panel" style="margin-top:16px">
+      <h3>Session controls</h3>
+      <div class="field"><label>Participant ID</label>
+        <input value="${esc(S.participantId || '')}" placeholder="P001" onchange="setParticipant(this.value)"></div>
+      <div class="field"><label>Condition</label>
+        <select onchange="setCondition(this.value)">
+          ${Object.keys(CONDITIONS).map(k => `<option value="${k}" ${S.condition === k ? 'selected' : ''}>${CONDITIONS[k].label}</option>`).join('')}
+        </select>
+        <p class="sub" style="font-size:11px;margin-top:6px">${condSummary(c)}</p></div>
+      <div class="field"><label>Task</label>
+        <select onchange="setMission(this.value)">
+          ${Object.keys(MISSIONS).map(k => `<option value="${k}" ${String(S.mission) === k ? 'selected' : ''}>${MISSIONS[k].label}</option>`).join('')}
+        </select>
+        <p class="sub" style="font-size:11px;margin-top:6px">${mi ? mi.brief : ''}</p></div>
+      <div class="field"><label>Retail density</label>
+        <select onchange="setDensity(this.value)">
+          <option value="busy" ${density() === 'busy' ? 'selected' : ''}>Busy &middot; sponsored slots, promo ribbon, upsells</option>
+          <option value="clean" ${density() === 'clean' ? 'selected' : ''}>Clean &middot; no advertising or promotional noise</option>
+        </select></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn out" onclick="softReset()">Soft reset, keep data</button>
+        <button class="btn ghost" onclick="hardReset()">New participant, wipe data</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card panel">
+    <h3>Live event stream</h3>
+    <div id="log" class="evtlog"></div>
+  </div>`;
+}
+
+/* ---------------- Heatmap ---------------- */
+/* Clicks are stored as viewport percentages, so the map is comparable across
+   screen sizes. Rendered to a canvas as additive radial gradients, then a
+   palette is applied per pixel, which is how real heatmap tools do it. */
+let HEAT_ROUTE = 'all';
+function heatRoutes() {
+  const seen = {};
+  CLICKS.forEach(c => { seen[c.route] = (seen[c.route] || 0) + 1; });
+  return Object.keys(seen).sort((a, b) => seen[b] - seen[a]).map(r => [r, seen[r]]);
+}
+function setHeatRoute(r) { HEAT_ROUTE = r; paintConsole(); }
+
+function cHeatmap() {
+  const routes = heatRoutes();
+  const pool = HEAT_ROUTE === 'all' ? CLICKS : CLICKS.filter(c => c.route === HEAT_ROUTE);
+  const byLabel = {};
+  pool.forEach(c => { byLabel[c.label] = (byLabel[c.label] || 0) + 1; });
+  const top = Object.keys(byLabel).sort((a, b) => byLabel[b] - byLabel[a]).slice(0, 12);
+  return `
+  <div class="card panel">
+    <h3>Click heatmap</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 10px">${CLICKS.length} clicks captured this session.
+      Positions are stored as a percentage of the viewport, so the map stays comparable across screen sizes.</p>
+    <div class="field"><label>Page</label>
+      <select onchange="setHeatRoute(this.value)">
+        <option value="all" ${HEAT_ROUTE === 'all' ? 'selected' : ''}>All pages (${CLICKS.length})</option>
+        ${routes.map(r => `<option value="${esc(r[0])}" ${HEAT_ROUTE === r[0] ? 'selected' : ''}>${esc(routeName(r[0]))} (${r[1]})</option>`).join('')}
+      </select></div>
+    <div class="heatwrap">
+      <canvas id="heatcv" width="960" height="600"></canvas>
+      <div class="heatempty" id="heatempty" style="display:${pool.length ? 'none' : 'flex'}">
+        No clicks captured yet. Browse the store, then come back.</div>
+    </div>
+    <div class="heatlegend"><span>cold</span><i></i><span>hot</span>
+      <span style="margin-left:auto">${pool.length} clicks shown</span></div>
+  </div>
+
+  <div class="card panel">
+    <h3>Most clicked elements</h3>
+    ${top.length ? top.map(l => `<div class="fbar hit">
+      <span title="${esc(l)}">${esc(l.slice(0, 44))}</span><b>${byLabel[l]}</b></div>`).join('')
+      : '<p class="sub">Nothing yet.</p>'}
+  </div>`;
+}
+
+function drawHeat() {
+  const cv = document.getElementById('heatcv');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  ctx.clearRect(0, 0, W, H);
+  const pool = HEAT_ROUTE === 'all' ? CLICKS : CLICKS.filter(c => c.route === HEAT_ROUTE);
+  if (!pool.length) return;
+
+  /* pass 1: additive greyscale intensity */
+  ctx.globalAlpha = 1;
+  pool.forEach(c => {
+    const x = (c.xPct / 100) * W, y = (c.yPct / 100) * H, r = 46;
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, 'rgba(0,0,0,0.30)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  });
+
+  /* pass 2: map accumulated alpha to a heat palette */
+  const img = ctx.getImageData(0, 0, W, H), d = img.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const a = d[i + 3];
+    if (!a) continue;
+    const t = Math.min(1, a / 190);
+    let r, g, b;
+    if (t < 0.25)      { r = 30;  g = 80 + t * 400;  b = 220; }
+    else if (t < 0.5)  { r = 30;  g = 190;           b = 220 - (t - 0.25) * 600; }
+    else if (t < 0.75) { r = 30 + (t - 0.5) * 900; g = 210;  b = 60; }
+    else               { r = 235; g = 210 - (t - 0.75) * 700; b = 50; }
+    d[i] = Math.min(255, r); d[i + 1] = Math.min(255, Math.max(0, g)); d[i + 2] = Math.max(0, b);
+    d[i + 3] = Math.min(235, a * 2.4);
+  }
+  ctx.putImageData(img, 0, 0);
+}
+
+/* ---------------- Journeys ---------------- */
+/* Route-to-route transitions, reconstructed from page_exit plus the ordered
+   event stream. Drop-off is the share of sessions that never went further. */
+function transitions() {
+  const seq = [];
+  EVENTS.forEach(e => {
+    const r = e.route || '#/';
+    if (!seq.length || seq[seq.length - 1] !== r) seq.push(r);
+  });
+  const pairs = {};
+  for (let i = 0; i < seq.length - 1; i++) {
+    const k = seq[i] + ' \u2192 ' + seq[i + 1];
+    pairs[k] = (pairs[k] || 0) + 1;
+  }
+  return { seq, pairs };
+}
+function cJourneys() {
+  const { seq, pairs } = transitions();
+  const keys = Object.keys(pairs).sort((a, b) => pairs[b] - pairs[a]);
+  const max = keys.length ? pairs[keys[0]] : 1;
+  const m = metrics();
+  return `
+  <div class="card panel">
+    <h3>Click journey</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 12px">The ordered path this participant took.
+      ${seq.length} distinct steps. Time to first laptop PDP: <b>${ms(m.pathMs)}</b> in
+      <b>${m.pathSteps === null ? '—' : m.pathSteps}</b> steps.</p>
+    <div class="jpath">
+      ${seq.length ? seq.map((r, i) => `<span class="jnode${/^#\/product\//.test(r) ? ' pdp' : ''}">
+        <i>${i + 1}</i>${esc(routeName(r))}</span>`).join('<span class="jarrow">\u2192</span>')
+        : '<p class="sub">No navigation yet.</p>'}
+    </div>
+  </div>
+
+  <div class="card panel">
+    <h3>Transitions by frequency</h3>
+    ${keys.length ? keys.slice(0, 16).map(k => {
+      const [from, to] = k.split(' \u2192 ');
+      return `<div class="flowrow">
+        <span>${esc(routeName(from))} <i>\u2192</i> ${esc(routeName(to))}</span>
+        <div class="flowbar"><div style="width:${pct(pairs[k], max)}%"></div></div>
+        <b>${pairs[k]}</b></div>`;
+    }).join('') : '<p class="sub">Nothing yet.</p>'}
+  </div>`;
+}
+
+/* ---------------- Designer ---------------- */
+/* Conditions are edited live in the UI. This is what makes the prototype a
+   platform: a researcher can invent condition F in front of a retailer, apply
+   it, and run a participant through it without a rebuild or a developer. */
+const FLAGS = [
+  ['assistant', 'Shopping assistant', 'bool'],
+  ['collections', 'Collections framework', 'bool'],
+  ['sponsored', 'Sponsored placements', 'bool'],
+  ['pdpContent', 'PDP content', ['asis', 'rich', 'thin']],
+  ['advisor', 'Guided advisor', ['subtle', 'prominent', 'hidden']],
+  ['searchRank', 'Search ranking', ['relevance', 'popularity']],
+  ['reviews', 'Reviews treatment', ['standard', 'prominent', 'minimal']],
+  ['deliveryPromise', 'Delivery promise', ['standard', 'strong', 'weak']],
+  ['density', 'Retail density', ['busy', 'clean']]
+];
+let DESIGN_KEY = null;
+function designKey() { return DESIGN_KEY || S.condition; }
+function setDesignKey(k) { DESIGN_KEY = k; paintConsole(); }
+
+function setFlag(key, field, val) {
+  const c = CONDITIONS[key];
+  if (!c) return;
+  c[field] = (val === 'true') ? true : (val === 'false') ? false : val;
+  saveFlags();
+  track('condition_edited', { condition: key, field: field, value: String(c[field]) });
+  if (key === S.condition) { render(); paintChrome(); }
+  paintConsole();
+  toast(key + ' · ' + field + ' set to ' + c[field]);
+}
+function newCondition() {
+  const used = Object.keys(CONDITIONS);
+  const next = 'FGHIJKLMNO'.split('').find(l => used.indexOf(l) < 0) || ('X' + used.length);
+  CONDITIONS[next] = Object.assign({}, CONDITIONS[designKey()], { label: next + ' · Custom' });
+  saveFlags();
+  DESIGN_KEY = next;
+  track('condition_created', next);
+  paintConsole(); paintMod();
+  toast('Condition ' + next + ' created');
+}
+function applyDesign() {
+  setCondition(designKey());
+  toast('Now running condition ' + designKey());
+  paintConsole();
+}
+function cDesigner() {
+  const k = designKey(), c = CONDITIONS[k];
+  return `
+  <div class="card panel">
+    <h3>Experience designer</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 12px">Change the experience live, with no code and no rebuild.
+      Edits to the running condition take effect on the store immediately.</p>
+    <div class="field"><label>Editing condition</label>
+      <select onchange="setDesignKey(this.value)">
+        ${Object.keys(CONDITIONS).map(x => `<option value="${x}" ${k === x ? 'selected' : ''}>${CONDITIONS[x].label}</option>`).join('')}
+      </select></div>
+    <div class="field"><label>Label</label>
+      <input value="${esc(c.label)}" onchange="setFlag('${k}','label',this.value)"></div>
+
+    ${FLAGS.map(f => `<div class="field"><label>${f[1]}</label>
+      ${f[2] === 'bool'
+        ? `<select onchange="setFlag('${k}','${f[0]}',this.value)">
+             <option value="true" ${c[f[0]] ? 'selected' : ''}>On</option>
+             <option value="false" ${!c[f[0]] ? 'selected' : ''}>Off</option></select>`
+        : `<select onchange="setFlag('${k}','${f[0]}',this.value)">
+             ${f[2].map(o => `<option value="${o}" ${c[f[0]] === o ? 'selected' : ''}>${o}</option>`).join('')}</select>`}
+      </div>`).join('')}
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+      <button class="btn pri" onclick="applyDesign()">Run this condition</button>
+      <button class="btn out" onclick="newCondition()">Duplicate as new condition</button>
+    </div>
+  </div>
+
+  <div class="card panel">
+    <h3>All conditions</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 10px">${Object.keys(CONDITIONS).length} defined.
+      The one in bold is running now.</p>
+    ${Object.keys(CONDITIONS).map(x => `<div class="condrow ${x === S.condition ? 'live' : ''}">
+      <div><b>${esc(CONDITIONS[x].label)}</b><small>${condSummary(CONDITIONS[x])}</small></div>
+      <button class="btn ghost" onclick="setCondition('${x}');paintConsole()">Run</button>
+    </div>`).join('')}
+  </div>`;
+}
+
+/* ---------------- Cohorts ---------------- */
+let COH_A = 'B', COH_B = 'D';
+function setCoh(which, v) { if (which === 'a') COH_A = v; else COH_B = v; paintConsole(); }
+function cCohorts() {
+  const a = metrics(COH_A), b = metrics(COH_B);
+  const rows = [
+    ['Events captured', a.events, b.events],
+    ['Products viewed', a.productsViewed, b.productsViewed],
+    ['PDP views', a.pdpViews, b.pdpViews],
+    ['Searches', a.searches, b.searches],
+    ['Collection views', a.collViews, b.collViews],
+    ['Assistant messages', a.assistMsgs, b.assistMsgs],
+    ['Schema panel opens', a.schemaOpens, b.schemaOpens],
+    ['Added to cart', a.addToCart, b.addToCart],
+    ['Median dwell', ms(a.medianDwell), ms(b.medianDwell)],
+    ['Avg scroll depth', a.avgScroll + '%', b.avgScroll + '%'],
+    ['Time to first PDP', ms(a.pathMs), ms(b.pathMs)],
+    ['Time to task success', ms(a.successMs), ms(b.successMs)]
+  ];
+  return `
+  <div class="card panel">
+    <h3>Cohort comparison</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 12px">Same metrics, two cells, from the events captured so far.
+      Run a participant through each condition and the contrast is the finding.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <div class="field" style="flex:1;min-width:190px"><label>Cohort A</label>
+        <select onchange="setCoh('a',this.value)">
+          ${Object.keys(CONDITIONS).map(x => `<option value="${x}" ${COH_A === x ? 'selected' : ''}>${CONDITIONS[x].label}</option>`).join('')}
+        </select></div>
+      <div class="field" style="flex:1;min-width:190px"><label>Cohort B</label>
+        <select onchange="setCoh('b',this.value)">
+          ${Object.keys(CONDITIONS).map(x => `<option value="${x}" ${COH_B === x ? 'selected' : ''}>${CONDITIONS[x].label}</option>`).join('')}
+        </select></div>
+    </div>
+    <table class="cohort">
+      <thead><tr><th>Metric</th><th>${COH_A}</th><th>${COH_B}</th></tr></thead>
+      <tbody>${rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody>
+    </table>
+  </div>`;
+}
+
+/* ---------------- Replay ---------------- */
+let REPLAY_AT = 0;
+function setReplay(v) { REPLAY_AT = +v; paintReplay(); }
+function cReplay() {
+  return `
+  <div class="card panel">
+    <h3>Session replay</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 12px">Scrub the captured stream. Everything the participant did,
+      in order, with the elapsed clock.</p>
+    <input class="scrub" type="range" min="0" max="${Math.max(0, EVENTS.length - 1)}"
+      value="${REPLAY_AT}" oninput="setReplay(this.value)">
+    <div id="replaybody"></div>
+  </div>`;
+}
+function paintReplay() {
+  const el = document.getElementById('replaybody');
+  if (!el) return;
+  if (!EVENTS.length) { el.innerHTML = '<p class="sub">No events captured yet.</p>'; return; }
+  const i = Math.min(REPLAY_AT, EVENTS.length - 1);
+  const e = EVENTS[i];
+  const window_ = EVENTS.slice(Math.max(0, i - 6), i + 7);
+  el.innerHTML = `
+    <div class="statgrid tight" style="margin:12px 0">
+      ${stat('Step', (i + 1) + ' of ' + EVENTS.length)}
+      ${stat('Clock', ms(e.msSinceTask))}
+      ${stat('Page', esc(routeName(e.route)))}
+      ${stat('Condition', e.condition)}
+    </div>
+    <div class="evtlog">${window_.map((x, j) => {
+      const isNow = (Math.max(0, i - 6) + j) === i;
+      return `<div class="${isNow ? 'now' : ''}">
+        <span class="t">${(x.msSinceTask / 1000).toFixed(1)}s</span>
+        <span class="n">${x.event}</span>
+        <span class="v">${esc(x.detail || '').slice(0, 110)}</span></div>`;
+    }).join('')}</div>`;
+}
+
+/* ---------------- Roadshow ---------------- */
+/* One click reskins the store to a named retailer, loads a scenario and resets
+   clean. This is what makes it demoable in front of a retail partner: they see
+   their own shelf, not a generic one. */
+const ROADSHOW = [
+  { id: 'novi',    name: 'Novi (default)', primary: '#0a4d8c', accent: '#f5a623', symbol: '$',
+    tag: 'The neutral house brand used for unbranded research.' },
+  { id: 'bigbox',  name: 'Big-box electronics', primary: '#0046be', accent: '#ffe000', symbol: '$',
+    tag: 'Blue and yellow large-format electronics retailer profile.' },
+  { id: 'club',    name: 'Warehouse club', primary: '#e31837', accent: '#0072ce', symbol: '$',
+    tag: 'Membership warehouse profile, fewer SKUs, price-led.' },
+  { id: 'etail',   name: 'Pure-play etailer', primary: '#232f3e', accent: '#ff9900', symbol: '$',
+    tag: 'Marketplace profile, dense grid, heavy sponsored inventory.' },
+  { id: 'carrier', name: 'Carrier / telco', primary: '#cd040b', accent: '#000000', symbol: '$',
+    tag: 'Telco profile, financing-led merchandising.' },
+  { id: 'eu',      name: 'EU specialist', primary: '#5c2d91', accent: '#00b294', symbol: '\u00a3',
+    tag: 'European specialist profile, GBP pricing.' }
+];
+function applyRoadshow(id) {
+  const r = ROADSHOW.find(x => x.id === id);
+  if (!r) return;
+  BRAND.name = r.name === 'Novi (default)' ? 'novi' : r.name;
+  BRAND.symbol = r.symbol;
+  document.documentElement.style.setProperty('--b', r.primary);
+  document.documentElement.style.setProperty('--acc', r.accent);
+  paintBrand();
+  track('roadshow_profile_applied', r.id);
+  paintConsole();
+  toast('Profile applied: ' + r.name);
+}
+function roadshowRun(id) {
+  applyRoadshow(id);
+  softReset(true);
+  track('roadshow_session_started', id);
+  go('#/');
+  toast('Clean session started in ' + (ROADSHOW.find(x => x.id === id) || {}).name);
+}
+function cRoadshow() {
+  return `
+  <div class="card panel">
+    <h3>Retailer roadshow mode</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 12px">Reskin the store to a retailer profile, reset to a clean
+      session and hand over the laptop. The catalog, the collections and the instrumentation are unchanged, so
+      findings stay comparable across profiles.</p>
+    ${ROADSHOW.map(r => `<div class="condrow">
+      <div><b>${r.name}</b><small>${r.tag}</small></div>
+      <span class="swatch" style="background:${r.primary}"></span>
+      <span class="swatch" style="background:${r.accent}"></span>
+      <button class="btn ghost" onclick="applyRoadshow('${r.id}')">Preview</button>
+      <button class="btn pri" onclick="roadshowRun('${r.id}')">Run clean</button>
+    </div>`).join('')}
+  </div>
+
+  <div class="card panel">
+    <h3>Handoff links</h3>
+    <p class="sub" style="font-size:11px;margin:0 0 10px">Send a participant straight into a cell. The link carries
+      condition, task and participant, so an unmoderated session lands in the right place.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn pri" onclick="copyLink()">Copy session link</button>
+      <button class="btn out" onclick="showConsent()">Show consent screen</button>
+    </div>
+  </div>`;
+}
+
+/* ---------------- Data ---------------- */
+function exportClicksCSV() {
+  const cols = ['ts', 'sessionId', 'participantId', 'condition', 'density', 'route', 'xPct', 'yPct', 'pageYPct', 'label'];
+  const esq = v => '"' + String(v === undefined ? '' : v).replace(/"/g, '""') + '"';
+  const rows = [cols.join(',')].concat(CLICKS.map(c => cols.map(k =>
+    esq(k === 'ts' ? new Date(c.ts).toISOString() : c[k])).join(',')));
+  download(`novi_clicks_${S.participantId || 'unassigned'}_${S.sessionId}.csv`, rows.join('\r\n'), 'text/csv');
+  track('data_exported', 'clicks_csv');
+}
+/* ---------------- Sessions ----------------
+   The archive is what turns one demo into a study. Every completed session is
+   kept, so conditions can be compared across participants rather than only
+   within whichever run happens to be loaded. Still entirely on this machine.
+------------------------------------------------------------------------- */
+function archMetrics(a) {
+  const m = metrics(null, a.events || []);
+  const mins = a.endedAt && a.startedAt ? ((a.endedAt - a.startedAt) / 60000) : 0;
+  return Object.assign(m, { mins: mins, clicks: (a.clicks || []).length });
+}
+function sessionRows() {
+  loadArchive();
+  const live = EVENTS.length ? [{
+    archiveId: '__live', participantId: S.participantId || '(unnamed)',
+    condition: S.condition, conditionLabel: (CONDITIONS[S.condition] || {}).label || S.condition,
+    missionLabel: (MISSIONS[S.mission] || {}).label || 'Free exploration',
+    startedAt: S.startedAt, endedAt: Date.now(), events: EVENTS, clicks: CLICKS, live: true
+  }] : [];
+  return live.concat(ARCHIVE.slice().reverse());
+}
+function cSessions() {
+  const rows = sessionRows();
+  if (!rows.length) return `<div class="card panel"><h3>Sessions</h3>
+    <p class="sub">No sessions captured yet. Each participant is archived automatically when the next one starts, so a roadshow can run back to back without losing anyone.</p></div>`;
+
+  /* roll up by condition across every archived participant */
+  const byCond = {};
+  rows.forEach(r => {
+    const m = archMetrics(r);
+    const b = byCond[r.condition] || (byCond[r.condition] = { n: 0, ms: [], steps: [], succ: 0, pdp: 0 });
+    b.n++;
+    if (m.pathMs) b.ms.push(m.pathMs);
+    if (m.pathSteps) b.steps.push(m.pathSteps);
+    if (m.success) b.succ++;
+    b.pdp += m.pdpViews;
+  });
+  const avg = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+
+  return `
+  <div>
+    <div class="card panel">
+      <h3>Captured sessions <span class="sub" style="font-weight:400">· ${rows.length}</span></h3>
+      <p class="sub" style="font-size:11px;margin:0 0 12px">Sessions are archived on this machine only. Nothing is uploaded.</p>
+      <table class="cohort"><thead><tr>
+        <th>Participant</th><th>Condition</th><th>Task</th><th>Time to laptop</th>
+        <th>Steps</th><th>PDPs</th><th>Events</th><th>Length</th><th></th></tr></thead><tbody>
+      ${rows.map(r => { const m = archMetrics(r); return `<tr${r.live ? ' style="background:rgba(0,120,212,.06)"' : ''}>
+        <td><b>${esc(r.participantId)}</b>${r.live ? ' <span class="sub">live</span>' : ''}</td>
+        <td>${esc(r.conditionLabel || r.condition)}</td>
+        <td>${esc(r.missionLabel || '—')}</td>
+        <td>${m.pathMs ? ms(m.pathMs) : '—'}</td>
+        <td>${m.pathSteps || '—'}</td>
+        <td>${m.pdpViews}</td>
+        <td>${m.events}</td>
+        <td>${m.mins ? m.mins.toFixed(1) + ' min' : '—'}</td>
+        <td>${r.live ? '' : `<button class="btn ghost" style="padding:3px 8px;font-size:11px" onclick="dropSession('${r.archiveId}')">Remove</button>`}</td>
+      </tr>`; }).join('')}
+      </tbody></table>
+    </div>
+
+    <div class="card panel" style="margin-top:14px">
+      <h3>Rolled up by condition</h3>
+      <p class="sub" style="font-size:11px;margin:0 0 12px">Across every captured participant, not just the one loaded.</p>
+      <table class="cohort"><thead><tr>
+        <th>Condition</th><th>n</th><th>Avg time to laptop</th><th>Avg steps</th>
+        <th>Reached the task</th><th>PDPs per session</th></tr></thead><tbody>
+      ${Object.keys(byCond).sort().map(k => { const b = byCond[k]; return `<tr>
+        <td><b>${esc((CONDITIONS[k] || {}).label || k)}</b></td>
+        <td>${b.n}</td>
+        <td>${avg(b.ms) ? ms(avg(b.ms)) : '—'}</td>
+        <td>${avg(b.steps) ? avg(b.steps).toFixed(1) : '—'}</td>
+        <td>${pct(b.succ, b.n)}%</td>
+        <td>${(b.pdp / b.n).toFixed(1)}</td>
+      </tr>`; }).join('')}
+      </tbody></table>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+        <button class="btn pri" onclick="exportArchiveCSV()">Study CSV (all sessions)</button>
+        <button class="btn out" onclick="exportArchiveJSON()">Study JSON</button>
+        <button class="btn ghost" onclick="wipeArchive()">Clear archive</button>
+      </div>
+    </div>
+  </div>`;
+}
+function dropSession(id) { deleteArchived(id); toast('Session removed'); paintConsole(); }
+function wipeArchive() {
+  if (!confirm('Clear every archived session on this machine? Export first if you need the data.')) return;
+  clearArchive(); toast('Archive cleared'); paintConsole();
+}
+function exportArchiveCSV() {
+  const rows = sessionRows();
+  const head = ['participant', 'condition', 'task', 'started', 'minutes', 'time_to_laptop_ms',
+    'steps_to_laptop', 'reached_task', 'pdp_views', 'collection_views', 'searches',
+    'assistant_messages', 'compares', 'add_to_cart', 'checkouts', 'avg_scroll_pct', 'events', 'clicks'];
+  const body = rows.map(r => {
+    const m = archMetrics(r);
+    return [r.participantId, (CONDITIONS[r.condition] || {}).label || r.condition, r.missionLabel || '',
+      new Date(r.startedAt).toISOString(), m.mins.toFixed(2), m.pathMs || '', m.pathSteps || '',
+      m.success ? 1 : 0, m.pdpViews, m.collViews, m.searches, m.assistMsgs, m.compares,
+      m.addToCart, m.checkouts, m.avgScroll, m.events, m.clicks];
+  });
+  download('novi-study-' + Date.now() + '.csv',
+    [head].concat(body).map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n'),
+    'text/csv');
+  toast('Study CSV exported · ' + rows.length + ' sessions');
+}
+function exportArchiveJSON() {
+  loadArchive();
+  download('novi-study-' + Date.now() + '.json', JSON.stringify({
+    exportedAt: new Date().toISOString(),
+    conditions: CONDITIONS,
+    sessions: sessionRows()
+  }, null, 2), 'application/json');
+  toast('Study JSON exported');
+}
+
+function cData() {
+  const m = metrics();
+  return `
+  <div>
+    <div class="card panel">
+      <h3>Export and handoff</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn pri" onclick="exportCSV()">Events CSV</button>
+        <button class="btn pri" onclick="exportClicksCSV()">Clicks CSV</button>
+        <button class="btn out" onclick="exportJSON()">Full JSON</button>
+        <button class="btn ghost" onclick="copyLink()">Copy session link</button>
+      </div>
+      <p class="sub" style="font-size:11px;margin-top:9px">${m.events} events and ${CLICKS.length} clicks captured.
+        The JSON export carries the session, the conditions as configured, the events and the click map together,
+        so a cell is reproducible from the file alone.</p>
+      ${S.bookmarks.length ? `<h3 style="margin-top:18px">Flagged moments</h3>
+        <div class="kv">${S.bookmarks.map(b => `<div>${(b.msSinceTask / 1000).toFixed(0)}s</div><div>${esc(routeName(b.route))}</div>`).join('')}</div>` : ''}
+    </div>
+  </div>
+
+  <div class="card panel">
+    <h3>Live event stream</h3>
+    <div id="log" class="evtlog"></div>
+  </div>`;
+}
+
+function stat(k, v) { return `<div class="stat"><b>${v}</b><span>${k}</span></div>`; }
+function condSummary(c) {
+  return ['assistant ' + (c.assistant ? 'on' : 'off'), 'PDP ' + c.pdpContent,
+    'collections ' + (c.collections ? 'on' : 'off'), 'sponsored ' + (c.sponsored ? 'on' : 'off'),
+    'advisor ' + c.advisor, 'search ' + c.searchRank, 'reviews ' + c.reviews].join(' \u00b7 ');
+}
+function paintLog() {
+  const el = document.getElementById('log');
+  if (!el) return;
+  el.innerHTML = EVENTS.slice(-300).reverse().map(e => `<div>
+    <span class="t">${(e.msSinceTask / 1000).toFixed(1)}s</span>
+    <span class="n">${e.event}</span>
+    <span class="v">${esc(e.detail || '').slice(0, 120)}</span></div>`).join('')
+    || '<div style="padding:12px;color:#93a3b8">No events yet.</div>';
+}
+
+/* The session link reopens the store with this condition, task and participant
+   already set, so an unmoderated participant lands in the right cell. */
+function copyLink() {
+  const base = location.href.split('#')[0].split('?')[0].replace(/console\.html$/, 'index.html');
+  const url = `${base}?cond=${S.condition}&mission=${S.mission}&consent=1${S.participantId ? '&pid=' + encodeURIComponent(S.participantId) : ''}#/`;
+  if (navigator.clipboard) navigator.clipboard.writeText(url);
+  track('session_link_copied', url);
+  toast('Participant link copied');
+}
+/* Two links, one origin. The participant's screen runs the storefront with no
+   console code in it at all. The moderator's second screen runs the console,
+   reading the same localStorage and repainting live as the participant shops.
+   No server, no database, nothing leaves the machine. */
+function participantLink() {
+  const base = location.href.split('#')[0].split('?')[0].replace(/console\.html$/, 'index.html');
+  return `${base}?cond=${S.condition}&mission=${S.mission}&consent=1${S.participantId ? '&pid=' + encodeURIComponent(S.participantId) : ''}#/`;
+}
+function openParticipantTab() {
+  window.open(participantLink(), 'novi-store');
+  toast('Storefront opened. Drag it to the participant screen.');
 }
 
 

@@ -745,6 +745,255 @@ body.consolemode .cohort td{border-color:#18253a}
 .viz .pshot,.vizlap .pshot{aspect-ratio:16/10}
 .thumb .pshot{aspect-ratio:1/1;border-radius:7px}
 
+/* ==========================================================================
+   RISE Collections layer. Every rule here serves a touchpoint on slide 14.
+   Colour is always derived from --cc, set inline per collection, so a badge
+   can never disagree with the strip that produced it.
+   ========================================================================== */
+
+.ctag{flex:none;display:block}
+
+/* the badge: tiles, PDP, search suggestions */
+.cbadge{display:inline-flex;align-items:center;gap:5px;max-width:100%;padding:4px 9px;border-radius:20px;
+  font-size:11px;font-weight:700;line-height:1.2;white-space:nowrap;
+  background:var(--ccl);color:var(--ccd);border:1px solid var(--ccb)}
+.cbadge b{font-weight:700;overflow:hidden;text-overflow:ellipsis}
+.cbadge.sm{font-size:10px;padding:3px 7px;gap:4px}
+.cbadge.lg{font-size:13px;padding:6px 13px}
+.cbadge.solid{background:var(--cc);color:#fff;border-color:transparent}
+.pcardcoll{margin:0 0 7px;display:inline-block;cursor:pointer}
+.pcardcoll:hover{filter:brightness(1.08)}
+
+/* TP1: search suggestions carry the collection label */
+.acoll{display:flex;align-items:center;gap:9px;padding:8px 12px;cursor:pointer}
+.acoll:hover{background:var(--ccl)}
+.acoll .sub{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}
+.acprod{display:flex;align-items:center;gap:9px;padding:8px 12px;cursor:pointer}
+.acprod:hover{background:#f3f6fa}
+.acpname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acnocoll{flex:none;width:0}
+
+/* TP1/TP3/TP4: the use-case strip */
+.cstrip{margin:0 0 16px;padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:var(--radius)}
+.cstriphead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-bottom:11px}
+.cstriphead b{font-size:14px;letter-spacing:-.01em}
+.cstriphead span{font-size:12px;color:var(--muted)}
+.cstriprow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}
+.cscell{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0;padding:12px 12px 11px;
+  border:1px solid var(--line);border-radius:11px;background:#fff;cursor:pointer;text-align:left;
+  transition:border-color .13s,box-shadow .13s,transform .13s}
+.cscell:hover{border-color:var(--cc);box-shadow:0 5px 16px -8px var(--cc);transform:translateY(-1px)}
+.cscell.on{border-color:var(--cc);background:var(--ccl)}
+.cscellart{display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin-bottom:4px;
+  border-radius:10px;background:var(--ccl);color:var(--cc)}
+.cscell:hover .cscellart,.cscell.on .cscellart{background:var(--cc);color:#fff}
+.cscell b{font-size:13px;line-height:1.25;color:var(--d)}
+.cssub{font-size:11.5px;line-height:1.35;color:var(--muted)}
+.cscount{margin-top:3px;font-size:11px;font-weight:700;color:var(--cc)}
+
+/* TP2: the navigation flyout */
+.navcollwrap{position:relative;display:inline-flex}
+.navcollwrap:hover .navfly,.navcollwrap:focus-within .navfly{opacity:1;visibility:visible;transform:translateY(0)}
+.navfly{position:absolute;top:100%;left:0;z-index:60;width:330px;padding:10px;opacity:0;visibility:hidden;
+  transform:translateY(-5px);transition:opacity .13s,transform .13s,visibility .13s;
+  background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 44px -14px #0d1b2e4d}
+.navflyhead{padding:4px 8px 8px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.navflyrow{display:flex;align-items:center;gap:10px;padding:8px;border-radius:9px;cursor:pointer;color:var(--d)}
+.navflyrow:hover{background:var(--ccl)}
+.navflyart{flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;
+  border-radius:9px;background:var(--ccl);color:var(--cc)}
+.navflyrow:hover .navflyart{background:var(--cc);color:#fff}
+.navflyrow>span:nth-child(2){flex:1;min-width:0;display:flex;flex-direction:column}
+.navflyrow b{font-size:13px;line-height:1.25}
+.navflyrow i{font-style:normal;font-size:11.5px;color:var(--muted);line-height:1.3}
+.navflyn{flex:none;font-size:11px;font-weight:700;color:var(--cc)}
+.navflyall{display:block;margin-top:5px;padding:9px 8px;border-top:1px solid var(--line);
+  font-size:12px;font-weight:600;color:var(--b);cursor:pointer}
+
+/* TP3: the left-rail use-case filter */
+.ucfacet .uclabel{display:flex;align-items:flex-start;gap:8px;padding:6px 4px;border-radius:8px}
+.ucfacet .uclabel:hover{background:var(--ccl)}
+.ucmark{flex:none;display:flex;align-items:center;justify-content:center;width:26px;height:26px;
+  border-radius:7px;background:var(--ccl);color:var(--cc)}
+.uctext{flex:1;min-width:0;display:flex;flex-direction:column}
+.uctext b{font-size:12.5px;line-height:1.3}
+.uctext i{font-style:normal;font-size:11px;color:var(--muted);line-height:1.3}
+
+/* collection landing hero and the derived facts line */
+.collheroart{display:inline-flex;align-items:center;justify-content:center;width:62px;height:62px;
+  margin-bottom:10px;border-radius:15px;background:#ffffff2e;border:1px solid #ffffff5c;color:#fff}
+.chname{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.86}
+.chfacts{margin:14px 0 0;font-size:13px;font-weight:600;opacity:.9}
+
+/* slide 27 education: the comparison table */
+.ctable{margin:24px 0 0;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.ctablehead{padding:15px 18px;border-bottom:1px solid var(--line)}
+.ctablehead b{display:block;font-size:15px}
+.ctablehead span{font-size:12.5px;color:var(--muted)}
+.ctable table{width:100%;border-collapse:collapse}
+.ctable th,.ctable td{padding:11px 18px;text-align:left;font-size:13px;border-bottom:1px solid var(--line)}
+.ctable th{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.ctable tbody tr:last-child td{border-bottom:0}
+.ctable tbody tr:hover{background:var(--ccl)}
+.ctname{display:inline-flex;align-items:center;gap:7px;color:var(--ccd);cursor:pointer}
+.ctfor{color:var(--muted)}
+
+/* TP5: Help Me Choose, and TP9: the assistant, share the chooser */
+.advwrap{max-width:860px;margin:26px auto}
+.advprog{height:4px;margin-bottom:14px;border-radius:2px;background:var(--line);overflow:hidden}
+.advprog span{display:block;height:100%;background:var(--b);transition:width .22s}
+.cchoose{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:6px}
+.cchoice{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0;padding:15px 13px;
+  border:1.5px solid var(--line);border-radius:13px;background:#fff;cursor:pointer;text-align:left;
+  transition:border-color .13s,box-shadow .13s,transform .13s}
+.cchoice:hover{border-color:var(--cc);box-shadow:0 8px 22px -11px var(--cc);transform:translateY(-2px)}
+.cchoiceart{display:flex;align-items:center;justify-content:center;width:52px;height:52px;margin-bottom:6px;
+  border-radius:13px;background:var(--ccl);color:var(--cc)}
+.cchoice:hover .cchoiceart{background:var(--cc);color:#fff}
+.cchoice b{font-size:14px;line-height:1.25;color:var(--d)}
+.csub{font-size:11.5px;line-height:1.38;color:var(--muted)}
+.cchoose.compact{grid-template-columns:1fr;gap:6px}
+.cchoose.compact .cchoice{flex-direction:row;align-items:center;gap:10px;padding:9px 11px;border-radius:10px}
+.cchoose.compact .cchoiceart{width:34px;height:34px;margin:0;border-radius:9px}
+.cchoose.compact b{font-size:12.5px}
+.cchoose.compact .csub{font-size:11px}
+.askip{display:flex;align-items:center;gap:9px;margin-top:10px;font-size:12px;color:var(--muted)}
+.askip button{padding:5px 12px;border:1px solid var(--line);border-radius:18px;background:#fff;
+  font-size:12px;font-weight:600;cursor:pointer;color:var(--d)}
+.askip button:hover{border-color:var(--b);color:var(--b)}
+.abub_facts{margin-top:7px;font-size:12px;font-weight:700;opacity:.85}
+.advcoll{display:flex;align-items:center;gap:14px;margin:0 0 16px;padding:14px 18px;
+  background:var(--ccl);border:1px solid var(--ccb);border-radius:var(--radius)}
+.advcollart{flex:none;display:flex;align-items:center;justify-content:center;width:50px;height:50px;
+  border-radius:13px;background:var(--cc);color:#fff}
+.advcoll>div{flex:1;min-width:0;display:flex;flex-direction:column}
+.advcoll b{font-size:15px;color:var(--ccd)}
+.advcoll span{font-size:12.5px;color:var(--muted)}
+
+/* TP6: the Windows brand store */
+.winhero{margin:0 0 18px;padding:46px 44px;border-radius:var(--radius);color:#fff;
+  background:linear-gradient(118deg,#0b3c78,#1160b4 52%,#2a8ce0)}
+.winmark{display:inline-block;padding:4px 11px;margin-bottom:13px;border-radius:20px;
+  background:#ffffff26;border:1px solid #ffffff4d;font-size:12px;font-weight:700;letter-spacing:.04em}
+.winhero h1{margin:0 0 9px;font-size:33px;line-height:1.15;letter-spacing:-.02em;max-width:660px}
+.winhero p{margin:0 0 18px;max-width:600px;font-size:14.5px;opacity:.92}
+.cblade{margin:0 0 20px;padding:20px 22px;background:#fff;border:1px solid var(--line);
+  border-left:4px solid var(--cc);border-radius:var(--radius)}
+.cbladehead{display:flex;align-items:flex-start;gap:15px;margin-bottom:15px}
+.cbladeart{flex:none;display:flex;align-items:center;justify-content:center;width:58px;height:58px;
+  border-radius:14px;background:var(--ccl);color:var(--cc)}
+.cbladehead>div{flex:1;min-width:0}
+.cbladehead h2{margin:0 0 4px;font-size:21px;letter-spacing:-.015em;color:var(--ccd)}
+.cbladehead p{margin:0;font-size:13.5px;color:var(--muted);max-width:620px}
+.cbladefacts{display:inline-block;margin-top:7px;font-size:12px;font-weight:700;color:var(--cc)}
+.cbladerow{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+/* TP7: the PDP badge */
+.pdpcoll{display:flex;flex-direction:column;gap:2px;align-self:flex-start;width:max-content;max-width:100%;
+  margin:0 0 10px;padding:9px 13px;border-radius:11px;cursor:pointer;
+  background:var(--ccl);border:1px solid var(--ccb)}
+.pdpcoll b{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ccd)}
+.pdpcoll .ctag{color:var(--cc)}
+.pdpcoll i{font-style:normal;font-size:12px;color:var(--muted);line-height:1.35}
+.pdpcoll u{text-decoration:none;font-size:11px;font-weight:700;color:var(--cc)}
+.pdpcoll:hover{border-color:var(--cc)}
+
+/* TP11: below-the-fold device highlights */
+.chl{margin:18px 0 0;padding:17px 19px;background:var(--ccl);border:1px solid var(--ccb);border-radius:var(--radius)}
+.chlhead{display:flex;align-items:center;gap:11px;margin-bottom:13px;color:var(--cc)}
+.chlhead>div{display:flex;flex-direction:column}
+.chlhead b{font-size:15px;color:var(--ccd)}
+.chlhead span{font-size:12.5px;color:var(--muted)}
+.chlrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.chlcard{display:flex;flex-direction:column;gap:4px;padding:13px 14px;background:#fff;
+  border:1px solid var(--ccb);border-radius:11px}
+.chlcard b{font-size:13px;color:var(--ccd)}
+.chlcard span{font-size:12px;line-height:1.45;color:var(--muted)}
+
+/* TP8: syndicated creator content */
+.csyn{margin:18px 0 0;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.csynhead{padding:14px 18px;border-bottom:1px solid var(--line)}
+.csynhead b{display:block;font-size:15px}
+.csynhead span{font-size:12.5px;color:var(--muted)}
+.csynbody{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:16px;padding:16px 18px}
+.csynart{position:relative;border-radius:11px;overflow:hidden;background:#0d1b2e}
+.csynart svg{display:block;width:100%;height:auto}
+.csynplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;border-radius:50%;
+  background:#ffffffe6;color:var(--d);font-size:14px;padding-left:3px}
+.csyntext{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0}
+.csyntag{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:18px;
+  background:var(--ccl);color:var(--ccd);font-size:11px;font-weight:700}
+.csyntext b{font-size:15px;line-height:1.3}
+.csyntext p{margin:0;font-size:13px;color:var(--muted);line-height:1.5}
+.csynmeta{font-size:11.5px;font-weight:600;color:var(--cc)}
+
+@media(max-width:1100px){
+  .cstriprow{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cchoose{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cbladerow{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:800px){
+  .cstriprow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cchoose{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chlrow{grid-template-columns:1fr}
+  .csynbody{grid-template-columns:minmax(0,1fr)}
+  .winhero{padding:32px 24px}
+  .winhero h1{font-size:25px}
+  .cbladehead{flex-wrap:wrap}
+  .ctable{overflow-x:auto}
+}
+@media(max-width:560px){
+  .cstriprow{grid-template-columns:1fr}
+  .cchoose{grid-template-columns:1fr}
+  .cbladerow{grid-template-columns:minmax(0,1fr)}
+  .navfly{width:min(330px,86vw)}
+}
+
+/* ---- console: the touchpoint matrix tab ---------------------------------- */
+.tpcondnow{flex:none;padding:9px 14px;border:1px solid var(--line);border-radius:10px;
+  font-size:13px;font-weight:700;text-align:right}
+.tpcondnow span{display:block;font-size:11px;font-weight:500;color:var(--muted);max-width:230px}
+.tptable{width:100%;border-collapse:collapse;margin-top:6px}
+.tptable th{padding:8px 10px;text-align:left;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;border-bottom:1px solid var(--line)}
+.tptable td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:top}
+.tptable tr.tphead td{padding:12px 10px 6px;font-size:11px;font-weight:700;letter-spacing:.03em;
+  color:var(--muted);text-transform:none;border-bottom:0}
+.tptable tr.tpoff{opacity:.42}
+.tpn{width:26px;font-weight:700;color:var(--muted)}
+.tptier{display:inline-block;padding:2px 7px;border-radius:5px;font-size:10.5px;font-weight:700}
+.tptier.tP0{background:#dff3e6;color:#11633a}
+.tptier.tP1{background:#dbecfb;color:#134f86}
+.tptier.tP2{background:#f6ecd7;color:#7a5510}
+.tptier.tP3{color:#525c6a}
+.tptable td b{display:block;font-size:13px}
+.tpnote{display:block;margin-top:2px;font-size:11.5px;color:var(--muted);line-height:1.4;max-width:420px}
+.tpsaid{width:64px;font-weight:700}
+.tpsaid i{font-style:normal;font-weight:400;font-size:11px;color:var(--muted)}
+.tpstate{width:66px}
+.tplive{display:inline-block;padding:2px 8px;border-radius:5px;background:#dff3e6;color:#11633a;
+  font-size:11px;font-weight:700}
+.tpdark{display:inline-block;padding:2px 8px;border-radius:5px;background:#eceef1;color:#6b7480;
+  font-size:11px;font-weight:700}
+.tpdid{width:110px;font-weight:700}
+.tpbar{display:block;margin-top:5px;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
+.tpbar i{display:block;height:100%;background:var(--b)}
+.tpfoot{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.tpfoot>div{flex:1;min-width:130px;padding:11px 13px;background:#f6f8fb;border-radius:10px}
+.tpfoot b{display:block;font-size:19px;letter-spacing:-.02em}
+.tpfoot span{font-size:11.5px;color:var(--muted)}
+.tparms{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.tparm{display:flex;flex-direction:column;gap:3px;padding:13px;border:1.5px solid var(--line);
+  border-radius:11px;background:#fff;cursor:pointer;text-align:left}
+.tparm:hover{border-color:var(--b)}
+.tparm.on{border-color:var(--b);background:#eef5fd}
+.tparm b{font-size:16px}
+.tparmn{font-size:12.5px;font-weight:700}
+.tparmd{font-size:11.5px;color:var(--muted);line-height:1.4}
+.tphint{margin:11px 0 0;font-size:12px;color:var(--muted)}
+@media(max-width:900px){.tparms{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 </style>
 </head>
 <body>
@@ -782,26 +1031,53 @@ const USES = ['School', 'Work', 'Creative', 'Gaming', 'Everyday'];
 const TYPES = ['Windows laptops', 'Copilot+ PCs', 'MacBooks', 'Chromebooks',
                '2-in-1 laptops', 'Gaming laptops', 'Business laptops'];
 
-/* The Collections framework. Names and descriptors are the in-market set:
-   a three-rung ladder from entry to premium, plus two specialist collections.
-   Every SKU carries exactly one, so a shopper is never asked to guess. */
+/* The Collections framework, exactly as specified in RISE Online.
+   Names, order and one-line descriptors are the deck's own interface strings,
+   so what a partner sees here is what they saw in the deck. Every Windows SKU
+   carries exactly one, so a shopper is never asked to guess.
+
+   Each collection also carries a visual tag. Slide 15 is explicit that shoppers
+   recognise the image before they read the label: "the first thing that got in
+   my eyes was the images". The tag is therefore part of the data, not styling.
+
+   `pcs` is the blade and brand-page form ("Premium Performance PCs"), which the
+   deck uses wherever a collection is presented as a browsable assortment. */
 const COLLECTIONS = [
-  { id: 'core-essentials', name: 'Core essentials',
-    blurb: 'For browsing, email and streaming.',
-    long: 'The everyday basics done well. Email, the web, streaming and documents, without paying for power you will not use.' },
-  { id: 'everyday-productivity', name: 'Everyday productivity',
-    blurb: 'For everyday projects, school and multitasking.',
-    long: 'Enough headroom to keep a dozen tabs, a video call and your coursework open at the same time.' },
-  { id: 'premium-performance', name: 'Premium performance',
-    blurb: 'For all day performance for work or gaming.',
+  { id: 'premium-performance', name: 'Premium Performance', pcs: 'Premium Performance PCs',
+    tag: 'bolt', hue: 222,
+    blurb: 'Delivers all day performance for work and gaming',
     long: 'Faster silicon, better screens and batteries that last a working day. For people who live on their machine.' },
-  { id: 'creator-pro', name: 'Creator pro',
-    blurb: 'For advanced apps, creation and design.',
+  { id: 'everyday-productivity', name: 'Everyday Productivity', pcs: 'Everyday Productivity PCs',
+    tag: 'windows', hue: 178,
+    blurb: 'Designed for everyday projects, school and multitasking',
+    long: 'Enough headroom to keep a dozen tabs, a video call and your coursework open at the same time.' },
+  { id: 'power-gaming', name: 'Power Gaming', pcs: 'Power Gaming PCs',
+    tag: 'controller', hue: 276,
+    blurb: 'High performance for gaming and beyond',
+    long: 'High refresh displays and dedicated graphics, built to hold a frame rate under load.' },
+  { id: 'creator-pro', name: 'Creator Pro', pcs: 'Creator Pro PCs',
+    tag: 'pen', hue: 322,
+    blurb: 'Built for advanced apps, creation and design',
     long: 'Colour-accurate displays and serious graphics for editing, rendering, design and photography.' },
-  { id: 'gaming', name: 'Gaming',
-    blurb: 'For high performance gaming and beyond.',
-    long: 'High refresh displays and dedicated graphics, built to hold a frame rate under load.' }
+  { id: 'core-essentials', name: 'Core Essentials', pcs: 'Core Essentials PCs',
+    tag: 'globe', hue: 152,
+    blurb: 'Ideal for browsing, email and streaming',
+    long: 'The everyday basics done well. Email, the web, streaming and documents, without paying for power you will not use.' }
 ];
+
+/* Lookups. Products carry the collection *name*, so both directions are needed. */
+function COLL(id) { return COLLECTIONS.find(c => c.id === id) || null; }
+function collByName(n) { return COLLECTIONS.find(c => c.name === n) || null; }
+
+/* Slide 27: the single most requested piece of education about a collection is
+   its general price range (49%). Derived from the catalogue rather than written
+   down, so it can never drift away from the assortment on the page. */
+function collPriceRange(id) {
+  const c = COLL(id); if (!c) return null;
+  const ps = CATALOG.filter(p => p.collection === c.name).map(p => p.price);
+  if (!ps.length) return null;
+  return { lo: Math.min(...ps), hi: Math.max(...ps), n: ps.length };
+}
 
 /* Collections is a Windows merchandising framework, already in market via Zoovu.
    A macOS or ChromeOS machine was never eligible for it. Those SKUs stay fully
@@ -814,12 +1090,12 @@ function isWindows(m) { return /^Windows/.test(m.os); }
    so a creator machine is never merchandised as merely expensive. */
 function collectionFor(m) {
   if (!isWindows(m)) return null;
-  if (m.ty === 'Gaming laptops') return 'Gaming';
+  if (m.ty === 'Gaming laptops') return 'Power Gaming';
   const creatorGrade = /RTX|GeForce|Radeon RX/.test(m.gpu) || m.pan === 'OLED';
-  if (m.u.includes('Creative') && creatorGrade && m.p >= 1000) return 'Creator pro';
-  if (m.p >= 1000) return 'Premium performance';
-  if (m.p >= 500) return 'Everyday productivity';
-  return 'Core essentials';
+  if (m.u.includes('Creative') && creatorGrade && m.p >= 1000) return 'Creator Pro';
+  if (m.p >= 1000) return 'Premium Performance';
+  if (m.p >= 500) return 'Everyday Productivity';
+  return 'Core Essentials';
 }
 
 /* ---------------------------------------------------------------------------
@@ -1302,7 +1578,7 @@ function storeCard(p) {
    Windows collections rail sits below general merchandising, where it has to
    compete for attention exactly as it would in a real store. */
 function viewStoreHome() {
-  const showColl = !!cond().collections;
+  const showColl = tpOn(6);
   const deals = STORE.filter(p => p.wasPrice).slice(0, 4);
   const top = [...STORE].sort((a, b) => b.reviewCount - a.reviewCount).slice(0, 4);
 
@@ -2426,13 +2702,58 @@ function bloom(u, h) {
     <ellipse cx="50" cy="31" rx="3" ry="2.1" fill="#fff" opacity=".88"/></g>`;
 }
 
+/* ---- TP10, screen fills. Slide 24 ------------------------------------------
+   The deck's creative reads "Windows Laptop" over the Collection name, carried
+   as an asset in the product gallery. Authored in the same flat 0..100 x 0..62
+   screen space as the desktop, so it lands in perspective through the identical
+   transform and reads as artwork displayed on the machine rather than a label
+   pasted over the picture. */
+function screenFill(p, u) {
+  const c = (typeof collByName === 'function') ? collByName(p.collection) : null;
+  const hue = c ? c.hue : 214;
+  const name = c ? c.name : 'Windows 11';
+  /* Long collection names have to shrink or they run into the bezel. */
+  const fs = name.length > 17 ? 8.2 : name.length > 13 ? 9.4 : 10.8;
+  return `
+    <defs>
+      <linearGradient id="${u}sfg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="hsl(${hue},72%,26%)"/>
+        <stop offset=".55" stop-color="hsl(${hue},66%,40%)"/>
+        <stop offset="1" stop-color="hsl(${(hue + 26) % 360},70%,52%)"/></linearGradient>
+      <radialGradient id="${u}sfr" cx=".72" cy=".22" r=".75">
+        <stop offset="0" stop-color="#fff" stop-opacity=".40"/>
+        <stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect x="0" y="0" width="100" height="62" fill="url(#${u}sfg)"/>
+    <rect x="0" y="0" width="100" height="62" fill="url(#${u}sfr)"/>
+    <g opacity=".17" fill="none" stroke="#fff" stroke-width=".7">
+      <circle cx="78" cy="14" r="17"/><circle cx="78" cy="14" r="26"/><circle cx="78" cy="14" r="35"/>
+    </g>
+    <text x="9" y="26" fill="#fff" fill-opacity=".82" font-family="Segoe UI,system-ui,sans-serif"
+      font-size="5.1" font-weight="600" letter-spacing=".9">Windows Laptop</text>
+    <text x="9" y="39" fill="#fff" font-family="Segoe UI,system-ui,sans-serif"
+      font-size="${fs}" font-weight="700" letter-spacing="-.2">${esc3(name)}</text>
+    <rect x="9" y="44.5" width="20" height="1.5" rx=".75" fill="#fff" fill-opacity=".72"/>
+    ${c ? `<text x="9" y="54" fill="#fff" fill-opacity=".76" font-family="Segoe UI,system-ui,sans-serif"
+      font-size="4.1" font-weight="500">${esc3(c.blurb)}</text>` : ''}`;
+}
+/* art3d.js is bundled before the view layer, so it cannot rely on esc(). */
+function esc3(s) {
+  return String(s == null ? '' : s).replace(/[<>&]/g, m => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[m]));
+}
+
 function artLaptop3D(p, v) {
   const f = finish(p), u = uid('l3', p, v);
   const gaming = /Gaming/i.test(p.type || '');
   const mac = /MacBook/i.test(p.type || '') || /Apple/i.test(p.brand || '');
   const h = (p && typeof p.hue === 'number') ? p.hue : 212;
 
-  const mode = v === 1 ? 'profile' : v === 2 ? 'closed' : v === 3 ? 'back' : 'front';
+  /* Variant 4 is the TP10 screen fill: a front shot whose screen carries the
+     Collection creative instead of a desktop. Slide 24 puts this asset in the
+     product gallery, so it is a camera mode here rather than a separate art
+     function, and it reuses the same projection as the hero. */
+  const fill = v === 4;
+  const mode = fill ? 'front' : v === 1 ? 'profile' : v === 2 ? 'closed' : v === 3 ? 'back' : 'front';
   const c = CAM[mode];
 
   const W = 212, D = 150, T = 9, L = 142;
@@ -2575,11 +2896,12 @@ function artLaptop3D(p, v) {
     ${screenVisible ? `
     ${poly([sc0, sc1, lid(W / 2 - bez, topBez), sc2], `fill="#05080e"`)}
     <g clip-path="url(#${u}scr)"><g transform="${scr}">
+      ${fill ? screenFill(p, u) : `
       <rect x="0" y="0" width="100" height="62" fill="url(#${u}wall)"/>
       ${bloom(u, wallHue)}
       <rect x="0" y="54.5" width="100" height="7.5" fill="#0a0f18" opacity=".55"/>
       ${[0, 1, 2, 3, 4, 5].map(i => `<rect x="${38 + i * 4.6}" y="56.4" width="3.1" height="3.1"
-        rx=".8" fill="#fff" opacity=".${i < 3 ? 72 : 40}"/>`).join('')}
+        rx=".8" fill="#fff" opacity=".${i < 3 ? 72 : 40}"/>`).join('')}`}
       <rect x="0" y="0" width="100" height="62" fill="url(#${u}glare)"/>
     </g></g>` : ''}
 
@@ -2608,36 +2930,76 @@ const BRAND = {
    A researcher changes behaviour here, or from the moderator bar, without
    touching any other code. Every event is stamped with the active condition.
 ------------------------------------------------------------------------- */
+/* Conditions. `tp` is the list of RISE touchpoint numbers switched on, keyed to
+   the slide 14 matrix: 1 search, 2 nav, 3 category, 4 listing, 5 help me
+   choose, 6 brand store, 7 PDP badge, 8 syndicated, 9 agent, 10 screen fills,
+   11 below the fold.
+
+   A single on/off flag could only ever answer "Collections or no Collections".
+   The question a retailer actually has to settle is the order to build them in,
+   so the tiers are separable and each arm below isolates one. */
+const TP_ALL  = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+const TP_P0   = [1, 2, 3];
+const TP_P0P1 = [1, 2, 3, 4, 5, 6];
+const TP_LATE = [7, 8, 9, 10, 11];
+
 const CONDITIONS = {
   A: {
     label: 'A · Control (no assistant)',
-    assistant: false, pdpContent: 'asis', collections: true, sponsored: true,
+    assistant: false, pdpContent: 'asis', tp: TP_ALL, sponsored: true,
     advisor: 'subtle', searchRank: 'relevance', reviews: 'standard',
     priceFormat: 'standard', deliveryPromise: 'standard', density: 'busy'
   },
   B: {
     label: 'B · Assistant present',
-    assistant: true, pdpContent: 'asis', collections: true, sponsored: true,
+    assistant: true, pdpContent: 'asis', tp: TP_ALL, sponsored: true,
     advisor: 'subtle', searchRank: 'relevance', reviews: 'standard',
     priceFormat: 'standard', deliveryPromise: 'standard', density: 'busy'
   },
   C: {
     label: 'C · Assistant + rich content everywhere',
-    assistant: true, pdpContent: 'rich', collections: true, sponsored: true,
+    assistant: true, pdpContent: 'rich', tp: TP_ALL, sponsored: true,
     advisor: 'prominent', searchRank: 'relevance', reviews: 'prominent',
     priceFormat: 'standard', deliveryPromise: 'strong', density: 'busy'
   },
   D: {
     label: 'D · Assistant + thin content everywhere',
-    assistant: true, pdpContent: 'thin', collections: false, sponsored: true,
+    assistant: true, pdpContent: 'thin', tp: [], sponsored: true,
     advisor: 'hidden', searchRank: 'popularity', reviews: 'minimal',
     priceFormat: 'standard', deliveryPromise: 'weak', density: 'busy'
   },
   E: {
     label: 'E · No collections, no guidance',
-    assistant: false, pdpContent: 'asis', collections: false, sponsored: true,
+    assistant: false, pdpContent: 'asis', tp: [], sponsored: true,
     advisor: 'hidden', searchRank: 'popularity', reviews: 'standard',
     priceFormat: 'standard', deliveryPromise: 'standard', density: 'busy'
+  },
+  /* The four arms below are the ones that answer slide 14. Each holds every
+     other variable still and moves only which tier of the matrix is live, so
+     the console can report what each tier is actually worth. */
+  F: {
+    label: 'F · Collections at P0 only (search, nav, category)',
+    assistant: false, pdpContent: 'asis', tp: TP_P0, sponsored: true,
+    advisor: 'hidden', searchRank: 'relevance', reviews: 'standard',
+    priceFormat: 'standard', deliveryPromise: 'standard', density: 'busy'
+  },
+  G: {
+    label: 'G · Collections at P0 + P1 (adds listing, help me choose, brand)',
+    assistant: false, pdpContent: 'asis', tp: TP_P0P1, sponsored: true,
+    advisor: 'prominent', searchRank: 'relevance', reviews: 'standard',
+    priceFormat: 'standard', deliveryPromise: 'standard', density: 'busy'
+  },
+  H: {
+    label: 'H · Collections late only (P2 + P3, badges and reinforcement)',
+    assistant: true, pdpContent: 'rich', tp: TP_LATE, sponsored: true,
+    advisor: 'hidden', searchRank: 'popularity', reviews: 'standard',
+    priceFormat: 'standard', deliveryPromise: 'standard', density: 'busy'
+  },
+  I: {
+    label: 'I · Collections at every touchpoint (full RISE)',
+    assistant: true, pdpContent: 'rich', tp: TP_ALL, sponsored: true,
+    advisor: 'prominent', searchRank: 'relevance', reviews: 'prominent',
+    priceFormat: 'standard', deliveryPromise: 'strong', density: 'busy'
   }
 };
 
@@ -2686,7 +3048,12 @@ const DEFAULT_SESSION = () => ({
   sort: 'rec',
   page: 1,
   query: '',
-  bookmarks: []
+  bookmarks: [],
+  /* Which RISE touchpoint first sent this shopper into a collection, and which
+     one did it most recently. Attribution has to be on the session, not just in
+     the event log, so the console can segment a journey by its entry point. */
+  firstCollTp: null,
+  lastCollTp: null
 });
 
 let S = DEFAULT_SESSION();
@@ -2697,7 +3064,10 @@ let ASSIST_OPEN = false;
 const LS_S = 'novi.session.v2';
 const LS_E = 'novi.events.v2';
 const LS_A = 'novi.archive.v1';
-const LS_F = 'novi.flags.v1';
+/* v3: conditions gained the RISE touchpoint list, replacing a single boolean.
+   Bumping the key retires flags saved by an older build rather than letting a
+   stale `collections: true` quietly overwrite a tp array. */
+const LS_F = 'novi.flags.v3';
 
 /* Conditions are edited live in the Designer, so they have to persist and
    sync like any other state. Otherwise a condition changed on the moderator's
@@ -3124,6 +3494,7 @@ const ROUTES = [
   [/^#\/advisor$/,                () => viewAdvisor()],
   [/^#\/collections\/([\w-]+)$/,  m  => viewCollection(m[1])],
   [/^#\/collections$/,            () => viewCollectionsIndex()],
+  [/^#\/windows$/,                () => viewWindows()],
   [/^#\/guide$/,                  () => viewGuide()],
   [/^#\/brand\/([\w%20-]+)$/,     m  => viewBrand(decodeURIComponent(m[1]))],
   [/^#\/cart$/,                   () => viewCart()],
@@ -3175,6 +3546,187 @@ function afterRender(h) {
 }
 
 
+/* ===== rise.js ===== */
+/* ==========================================================================
+   rise.js — the RISE Collections layer.
+
+   Everything in this file exists because the RISE Online deck specifies it.
+   It is kept separate from the rest of the storefront on purpose: a partner
+   can read this one file and see exactly which of their recommendations are
+   implemented, and the console can switch any of them off independently.
+
+   Slide 14, the CX Touchpoint Prioritization Matrix, defines eleven
+   touchpoints in four priority tiers. Those eleven are the spine of this file
+   and of the condition system. Slide 30 gives the three execution principles
+   every touchpoint has to satisfy: Streamline, Empower, Inform.
+   ========================================================================== */
+
+/* ---- Slide 14: the touchpoint matrix, verbatim ---------------------------
+   `pref` is the GWI study's share of shoppers naming that placement as where
+   Collections would help them most. It only exists for the five placements
+   the study actually tested, which is why the early-journey touchpoints carry
+   numbers and the reinforcement ones mostly do not. */
+const TOUCHPOINTS = [
+  { n: 1,  id: 'search',      tier: 'P0', name: 'Search',                   pref: 27,
+    note: 'Collections in autocomplete, and a Shop by Collection strip on the results landing.' },
+  { n: 2,  id: 'nav',         tier: 'P0', name: 'Navigation',               pref: null,
+    note: 'Collections carried in the primary navigation, with descriptors on the flyout.' },
+  { n: 3,  id: 'category',    tier: 'P0', name: 'Category page',            pref: 24,
+    note: 'Shop Windows Laptops by Use Case strip, plus a Shop by Use Case filter in the left rail.' },
+  { n: 4,  id: 'listing',     tier: 'P1', name: 'Listing pages',            pref: 20,
+    note: 'Above-the-fold blade and a Collection badge on every product tile.' },
+  { n: 5,  id: 'hmc',         tier: 'P1', name: 'Help Me Choose',           pref: null,
+    note: 'Collections are the opening question, before any specification is asked for.' },
+  { n: 6,  id: 'brand',       tier: 'P1', name: 'Brand store',              pref: null,
+    note: 'Collections are the architecture of the Windows brand page, directly beneath the hero.' },
+  { n: 7,  id: 'pdpbadge',    tier: 'P2', name: 'PDP badging',              pref: 15,
+    note: 'Collection badge beside the title, above the fold.' },
+  { n: 8,  id: 'syndicated',  tier: 'P2', name: 'Syndicated content',       pref: null,
+    note: 'Creator-led content on the product page, cast to match the Collection.' },
+  { n: 9,  id: 'agent',       tier: 'P2', name: 'AI shopping agent',        pref: null,
+    note: 'The assistant answers broad intent with a Collection chooser, not a specification question.' },
+  { n: 10, id: 'screenfill',  tier: 'P3', name: 'Screen fills',             pref: 14,
+    note: 'A Collection screen fill carried in the product gallery.' },
+  { n: 11, id: 'belowfold',   tier: 'P3', name: 'Below the fold PDP',       pref: null,
+    note: 'Device highlights and feature content that restate the Collection.' }
+];
+const TIERS = ['P0', 'P1', 'P2', 'P3'];
+function tpByN(n) { return TOUCHPOINTS.find(t => t.n === n) || null; }
+function tpsInTier(t) { return TOUCHPOINTS.filter(x => x.tier === t); }
+
+/* Which touchpoints a condition switches on. Conditions carry `tp` as an array
+   of touchpoint numbers, so a researcher can isolate one placement at a time
+   and the console can attribute outcomes to it. */
+function tpList() {
+  const c = (typeof cond === 'function') ? cond() : {};
+  if (Array.isArray(c.tp)) return c.tp;
+  /* Legacy conditions predate the matrix and carry a single boolean. Treat
+     that as all-or-nothing so old sessions still replay correctly. */
+  return c.collections === false ? [] : TOUCHPOINTS.map(t => t.n);
+}
+function tpOn(n) { return tpList().indexOf(n) !== -1; }
+/* True when any touchpoint at all is live. Used only for copy that would read
+   oddly in a run with Collections switched off entirely. */
+function anyTp() { return tpList().length > 0; }
+
+/* ---- Slide 15: visual tags ----------------------------------------------
+   The deck is emphatic that the image does the work before the label is read:
+   "the first thing that got in my eyes was the images", and "I'd go straight
+   to the power gaming, it's a controller". So the tag is data, not decoration,
+   and every surface that names a Collection also draws it. */
+const COLL_TAG = {
+  bolt:       '<path d="M13 2 4.5 13.5H11l-1 8.5 8.5-11.5H12z"/>',
+  windows:    '<rect x="3" y="4" width="8" height="7" rx="1"/><rect x="13" y="4" width="8" height="7" rx="1"/>' +
+              '<rect x="3" y="13" width="8" height="7" rx="1"/><rect x="13" y="13" width="8" height="7" rx="1"/>',
+  controller: '<path d="M7.5 8h9a4.5 4.5 0 0 1 4.4 3.6l.7 4a3 3 0 0 1-5.4 2.3L15 16H9l-1.2 1.9a3 3 0 0 1-5.4-2.3l.7-4A4.5 4.5 0 0 1 7.5 8Z"/>' +
+              '<path d="M7 11.4v2.2M5.9 12.5h2.2M16.2 11.9h.01M18 13.6h.01"/>',
+  pen:        '<path d="M16.8 2.8a2.7 2.7 0 0 1 3.8 3.8L8.4 18.8 3 21l2.2-5.4Z"/><path d="M15 4.6 19.4 9"/>',
+  globe:      '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.9 2.6 15.1 0 18C9.4 18.1 9.4 5.9 12 3Z"/>'
+};
+/* Filled tags read as product-category icons and sit better inside a chip.
+   Stroked ones read as UI affordances. Gaming and productivity are filled. */
+const TAG_FILLED = { controller: 1, windows: 1, bolt: 1 };
+function collTagSvg(c, size) {
+  const t = COLL_TAG[c && c.tag] || COLL_TAG.globe, f = TAG_FILLED[c && c.tag];
+  return `<svg class="ctag" viewBox="0 0 24 24" width="${size || 18}" height="${size || 18}" aria-hidden="true"
+    fill="${f ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="${f ? 0 : 1.7}"
+    stroke-linecap="round" stroke-linejoin="round">${t}</svg>`;
+}
+
+/* Collection colour. The deck styles Power Gaming purple, so hue lives on the
+   collection record and every surface derives from it. One source, so a badge
+   on a tile can never disagree with the strip that led the shopper there. */
+function collCss(c) {
+  if (!c) return '';
+  return `--ch:${c.hue};--cc:hsl(${c.hue} 64% 42%);--ccd:hsl(${c.hue} 68% 29%);--ccl:hsl(${c.hue} 72% 96%);--ccb:hsl(${c.hue} 48% 86%)`;
+}
+
+/* ---- Shared components --------------------------------------------------
+   Slide 30, Inform: a Collection should never appear as a name alone. Every
+   component below pairs the name with its tag and, where there is room, its
+   descriptor. That rule is enforced here rather than left to each caller. */
+
+/* The badge. Used on product tiles (TP4), the PDP (TP7) and search suggestions
+   (TP1), so the label a shopper picked at the top of the journey keeps
+   appearing on the devices it produced. */
+function collBadge(c, opt) {
+  if (!c) return '';
+  const o = opt || {};
+  return `<span class="cbadge${o.sm ? ' sm' : ''}${o.lg ? ' lg' : ''}${o.solid ? ' solid' : ''}"
+    style="${collCss(c)}" title="${esc(c.blurb)}">${collTagSvg(c, o.sm ? 12 : 14)}<b>${esc(c.name)}</b></span>`;
+}
+
+/* The five-card chooser. Slide 19 and slide 20 use the identical control in
+   Help Me Choose and in the shopping assistant: image, name, descriptor, and a
+   Skip that preserves agency (slide 30, Empower). Built once, used by both. */
+function collChooser(onPick, opt) {
+  const o = opt || {};
+  return `<div class="cchoose${o.compact ? ' compact' : ''}">
+    ${COLLECTIONS.map(c => `<button class="cchoice" style="${collCss(c)}"
+      onclick="${onPick.replace(/%ID%/g, c.id)}">
+      <span class="cchoiceart">${collTagSvg(c, o.compact ? 22 : 30)}</span>
+      <b>${esc(c.name)}</b><span class="csub">${esc(c.blurb)}</span>
+    </button>`).join('')}
+  </div>`;
+}
+
+/* The horizontal use-case strip. The deck's most repeated device: it appears on
+   search results, the category page and every listing page, always above the
+   products, always introduced by a Shop by Use Case line. */
+function collStrip(activeId, opt) {
+  const o = opt || {};
+  const lab = o.label || 'Shop Windows Laptops by Use Case';
+  return `<nav class="cstrip" aria-label="${esc(lab)}" data-tp="${o.tp || ''}">
+    <div class="cstriphead"><b>${esc(lab)}</b>
+      ${o.sub === false ? '' : `<span>Pick what you want to do. Every Windows laptop sits in exactly one.</span>`}
+    </div>
+    <div class="cstriprow">
+      ${COLLECTIONS.map(c => {
+        const n = CATALOG.filter(p => p.collection === c.name).length;
+        return `<button class="cscell${activeId === c.id ? ' on' : ''}" style="${collCss(c)}"
+          onclick="pickCollection('${c.id}','${o.tp || 'strip'}')" title="${esc(c.blurb)}">
+          <span class="cscellart">${collTagSvg(c, 26)}</span>
+          <b>${esc(c.name)}</b>
+          <span class="cssub">${esc(c.blurb)}</span>
+          <span class="cscount">${n} laptops</span>
+        </button>`;
+      }).join('')}
+    </div>
+  </nav>`;
+}
+
+/* Slide 27: the most requested education about a Collection is its price range
+   (49%), then a readable list of what is in it (44%). Both are derived from the
+   assortment, so they cannot drift from what is actually on the page. */
+function collFacts(c) {
+  if (!c) return '';
+  const r = collPriceRange(c.id);
+  if (!r) return '';
+  return `<span class="cfacts">${money(r.lo)} to ${money(r.hi)} <i>·</i> ${r.n} laptops</span>`;
+}
+
+/* Every Collection entry point routes through here, so no touchpoint can send a
+   shopper to a collection without the console learning which one did it. This
+   is what makes the matrix measurable rather than merely implemented. */
+/* The single funnel every Collection entry point goes through.
+
+   Some touchpoints route the shopper to the Collection page (nav, strips,
+   badges). Others, Help Me Choose and the shopping agent, keep the shopper
+   inside their own flow and simply narrow what follows. Both are entries
+   into the framework, so both are recorded here; only the first kind
+   navigates. Counting only the navigating ones would have made the two
+   guided touchpoints look unused when they were doing the most work. */
+function pickCollection(id, tp, opt) {
+  const o = opt || {};
+  track('collection_entered', { collection: id, touchpoint: tp || 'unknown', inline: !!o.stay });
+  if (typeof S === 'object' && S) {
+    S.lastCollTp = tp || 'unknown';
+    if (!S.firstCollTp) S.firstCollTp = tp || 'unknown';
+  }
+  if (!o.stay) go('#/collections/' + id);
+}
+
+
 /* ===== app-views1.js ===== */
 /* ==========================================================================
    Part 2: shared components, home, category, browse, search
@@ -3203,8 +3755,20 @@ function deliveryText(p) {
 
 function pcard(p) {
   const sp = cond().sponsored && p.sponsored;
+  /* TP4, slide 23. The badge repeats the Collection on every tile, so the label
+     a shopper chose at the top of the page keeps appearing on the devices it
+     produced. Non-Windows machines carry none rather than being given one they
+     were never eligible for.
+
+     The badge is clickable. The deck is clear that badges reinforce a decision
+     rather than start one, and 14% is the lowest of the five stated preferences,
+     but a badge that cannot be clicked cannot be counted either. Making it a
+     route is how the 14% gets tested rather than assumed. */
+  const c = tpOn(4) ? collByName(p.collection) : null;
   return `<article class="pcard">
     ${vizLap(p)}
+    ${c ? `<div class="pcardcoll" onclick="event.stopPropagation();pickCollection('${c.id}','tile_badge')"
+      title="See all ${esc(c.name)} laptops">${collBadge(c, { sm: true, solid: true })}</div>` : ''}
     ${p.tags[0] ? `<div style="margin-bottom:6px"><span class="tag ${/Save/.test(p.tags[0]) ? 'hot' : ''}">${p.tags[0]}</span>${sp ? ' <span class="tag sp">Sponsored</span>' : ''}</div>` : (sp ? '<div style="margin-bottom:6px"><span class="tag sp">Sponsored</span></div>' : '')}
     <div class="pbrand">${p.brand}</div>
     <a class="pname" onclick="go('#/product/${p.id}')">${p.name}</a>
@@ -3330,6 +3894,7 @@ function facetPanel(base) {
     .sort((a, b) => facetCount('brand', b, base) - facetCount('brand', a, base));
   return `<aside class="card facets" id="facets">
     <h3>Filter results</h3>
+    ${tpOn(3) ? useCaseFacet(base) : ''}
     ${grp('Category', 'type', bandValues(base, p => p.type, TYPES))}
     ${grp('Brand', 'brand', brandsByCount)}
     <div class="fgroup"><b>Price</b>
@@ -3356,7 +3921,6 @@ function facetPanel(base) {
     ${grp('Total storage capacity', 'storage', bandValues(base, storageBand, ['64 GB','128 GB','256 GB','512 GB','1 TB']))}
     ${grp('Processor brand', 'cpu', bandValues(base, p => p.cpuBrand, ['Intel','AMD','Qualcomm','Apple','MediaTek']))}
     ${grp('Operating system', 'os', bandValues(base, p => p.os, OS))}
-    ${grp('Shop by use case', 'collection', COLLECTIONS.map(c => c.name))}
     <div class="fgroup"><b>Features</b>
       <label><input type="checkbox" ${f.touch ? 'checked' : ''}
         onchange="S.filters.touch=this.checked;S.page=1;track('filter_changed',{facet:'touch',on:this.checked});render()">
@@ -3368,6 +3932,29 @@ function facetPanel(base) {
     <button class="btn ghost" style="width:100%;margin-top:6px" onclick="clearFilters()">Clear all filters</button>
   </aside>`;
 }
+/* ---- TP3, the left-rail use-case filter. Slide 17 --------------------------
+   24% of shoppers named category-page filters as where Collections would help
+   most, second only to search. The deck places this alongside conventional
+   filters but reached first, so a shopper can identify by use case before
+   refining by specification. It sits at the top of the rail for that reason.
+
+   Every conventional facet in this panel assumes you already know the answer:
+   how much RAM, which processor, what screen. 43% told the study filters took
+   more effort than they expected. This one asks what you want to do. */
+function useCaseFacet(base) {
+  const f = S.filters;
+  return `<div class="fgroup ucfacet"><b>Shop by Use Case</b>
+    ${COLLECTIONS.map(c => {
+      const n = base.filter(p => p.collection === c.name).length;
+      return `<label class="uclabel" style="${collCss(c)}">
+        <input type="checkbox" data-k="collection" value="${esc(c.name)}" ${f.collection.includes(c.name) ? 'checked' : ''}>
+        <span class="ucmark">${collTagSvg(c, 15)}</span>
+        <span class="uctext"><b>${esc(c.name)}</b><i>${esc(c.blurb)}</i></span>
+        <span class="cnt">${n}</span></label>`;
+    }).join('')}
+  </div>`;
+}
+
 function bindFacets() {
   document.querySelectorAll('#facets input[type=checkbox][data-k]').forEach(el => {
     el.onchange = () => {
@@ -3513,7 +4100,7 @@ const HERO_SLIDES = [
   { tag: 'Windows PC Collections', h: 'Five ways to shop. Pick the one that sounds like you.',
     p: 'Every Windows laptop sits in exactly one collection, so you can start from what you want to do rather than a spec sheet.',
     cta: 'Explore collections', act: "go('#/collections')", hue: 205, from: '#0b5bd3', to: '#22a3e0' },
-  { tag: 'Creator pro', h: 'Creative machines, built to keep up.',
+  { tag: 'Creator Pro', h: 'Creative machines, built to keep up.',
     p: 'Colour-accurate displays and real horsepower for photo, video and design.',
     cta: 'Shop Creator pro', act: "go('#/collections/creator-pro')", hue: 268, from: '#3b1a8f', to: '#8b3fd6' },
   { tag: 'Not sure yet?', h: 'Answer four questions. We\'ll do the rest.',
@@ -3568,20 +4155,8 @@ const CATSTRIP = [
   ['Deals', 'deals', '']
 ];
 
-/* The Collections nav. Sits above the results on every listing surface, so
-   collections are the first thing a shopper meets rather than a page they
-   have to go looking for. */
-function collNav(activeId) {
-  return `<nav class="collnav" aria-label="Shop by collection">
-    <span class="collnavlab">Shop by collection</span>
-    <div class="collnavrow">
-      ${COLLECTIONS.map(c => `<button class="collchip${activeId === c.id ? ' on' : ''}"
-        onclick="track('collection_nav',{collection:'${c.id}',from:'${activeId || 'listing'}'});go('#/collections/${c.id}')"
-        title="${c.blurb}">${c.name}<span class="ccn">${CATALOG.filter(p => p.collection === c.name).length}</span></button>`).join('')}
-      <button class="collchip ghost" onclick="go('#/collections')">All collections</button>
-    </div>
-  </nav>`;
-}
+/* collNav() was the pre-RISE single collections strip. It has been replaced
+   everywhere by collStrip() in rise.js, which is gated per touchpoint. */
 
 function dealOfDay() {
   const d = CATALOG.filter(p => p.wasPrice)
@@ -3634,10 +4209,10 @@ function viewHome() {
   <nav class="catstrip">${CATSTRIP.map(c => `<a onclick="tileGo('${c[1]}')">
     <span class="ico">${catIcon(c[0])}</span><b>${c[0]}</b></a>`).join('')}</nav>
 
-  ${cond().collections ? `
+  ${tpOn(6) ? `
   <div class="sectionhead"><div><h2 class="h2">Shop Windows PC Collections</h2>
     <p class="sub">Five ways to shop, organised by what you want to do. Every Windows laptop sits in exactly one.</p></div>
-    <button class="btn ghost" onclick="go('#/collections')">See all collections</button></div>
+    <button class="btn ghost" onclick="go('#/windows')">See the Windows store</button></div>
   <div class="tiles collgrid">${COLLECTIONS.map(c => collTile(c, true)).join('')}</div>` : ''}
 
   <div class="promos">
@@ -3794,7 +4369,7 @@ function viewBrowse() {
   <div class="sectionhead"><div><h1 class="h1">Laptops</h1>
     <p class="sub" id="resultcount">Showing ${Math.min(PER_PAGE, filtered.length)} of ${filtered.length} results</p></div>
     ${cond().advisor !== 'hidden' ? `<button class="btn ${cond().advisor === 'prominent' ? 'pri' : 'out'}" onclick="go('#/advisor')">Find your PC</button>` : ''}</div>
-  ${collNav('')}
+  ${tpOn(3) ? collStrip('', { tp: 'category_strip', label: 'Shop Windows Laptops by Use Case' }) : ''}
   ${cond().advisor === 'prominent' ? `<div class="helpbar"><div><strong>Answer three questions, see your matches</strong>
     <span>We'll narrow ${CATALOG.length} laptops down to the few that fit how you'll actually use it.</span></div>
     <button class="btn pri" onclick="go('#/advisor')">Find your PC</button></div>` : ''}
@@ -3846,7 +4421,7 @@ function viewSearch() {
   return `${crumbs([['Home', '#/'], ['Search', '#/search']])}
   <div class="sectionhead"><div><h1 class="h1">Results for "${esc(q)}"</h1>
     <p class="sub">${filtered.length} results</p></div></div>
-  ${collNav('')}
+  ${tpOn(1) ? collStrip('', { tp: 'search_results_strip', label: 'Shop by Collection' }) : ''}
   ${sponsored ? `<div class="card" style="padding:16px;display:flex;gap:16px;align-items:center;margin-bottom:16px">
     <span class="tag sp">Sponsored</span>
     <div style="flex:1"><b>${sponsored.brand}</b> — ${sponsored.name}, from ${money(sponsored.price)}</div>
@@ -3872,40 +4447,71 @@ function doSearch(q) {
   go('#/search');
 }
 function submitSearch() { const v = document.getElementById('q').value.trim(); if (v) doSearch(v); }
-/* Search autocomplete. Collections lead, because they are the entry point we
-   most want a shopper to notice. With an empty box we show all five. */
+/* ---- TP1, Search. Slide 16 -------------------------------------------------
+   The single most-preferred placement in the study: 27% of shoppers named the
+   search bar as where Collections would help most. Two mechanisms, both from
+   the deck. Inside the open autocomplete panel, Collections lead. And every
+   product suggestion carries its Collection label, so the use case reads as a
+   relevance cue before the shopper has opened anything. */
 function collRow(c) {
-  return `<div class="acoll" onclick="track('autocomplete_collection',{collection:'${c.id}'});go('#/collections/${c.id}')">
-    <span class="collbadge sm">${c.name}</span><span class="sub">${c.blurb}</span></div>`;
+  return `<div class="acoll" style="${collCss(c)}"
+    onclick="closeAC();pickCollection('${c.id}','search_autocomplete')">
+    ${collBadge(c, { sm: true, solid: true })}<span class="sub">${esc(c.blurb)}</span></div>`;
+}
+/* A suggestion line. The Collection sits to the left of the product, which is
+   the deck's placement, and is omitted for machines the framework never
+   covered rather than being invented for them. */
+function acProductRow(p) {
+  const c = tpOn(1) ? collByName(p.collection) : null;
+  return `<div class="acprod" onclick="go('#/product/${p.id}')">
+    ${c ? collBadge(c, { sm: true }) : '<span class="acnocoll"></span>'}
+    <span class="acpname">${esc(p.name)}</span>
+    <span class="sub">&middot; ${money(p.price)}</span></div>`;
 }
 function acFocus() {
   const v = document.getElementById('q').value.trim();
   if (v.length) { acInput(); return; }
   const box = document.getElementById('ac');
-  box.innerHTML = `<div class="achead">Shop by collection</div>` +
-    COLLECTIONS.map(collRow).join('') +
+  const on = tpOn(1);
+  box.innerHTML = (on ? `<div class="achead">Shop by Collection</div>` +
+      COLLECTIONS.map(collRow).join('') : '') +
     `<div class="achead">Popular searches</div>` +
     ['gaming laptop', 'laptop for school', 'lightweight laptop']
       .map(t => `<div onclick="doSearch('${t}')">&#9906; <b>${t}</b></div>`).join('');
   box.classList.add('open');
-  track('autocomplete_shown', { query: '', mode: 'collections', count: COLLECTIONS.length });
+  track('autocomplete_shown', { query: '', mode: on ? 'collections' : 'terms_only',
+    count: on ? COLLECTIONS.length : 3, tp1: on });
 }
 function acInput() {
   const v = document.getElementById('q').value.trim().toLowerCase();
   const box = document.getElementById('ac');
   if (!v.length) { acFocus(); return; }
-  const colls = COLLECTIONS.filter(c => (c.name + ' ' + c.blurb).toLowerCase().includes(v)).slice(0, 3);
+  const on = tpOn(1);
+  /* Match the descriptor as well as the name. A shopper typing "school" or
+     "editing" is describing a use case, which is the whole premise.
+
+     When the text matches no Collection directly, which is what happens for
+     the commonest query of all, "laptop", fall back to the Collections the
+     matched products belong to. Slide 16 puts Collections inside the open
+     panel, and an empty Collections block for the single most typed word
+     would have been the touchpoint failing exactly where it is most needed. */
+  let colls = on ? COLLECTIONS.filter(c => (c.name + ' ' + c.blurb).toLowerCase().includes(v)).slice(0, 3) : [];
   const hits = CATALOG.filter(p => (p.name + ' ' + p.brand).toLowerCase().includes(v)).slice(0, 6);
+  if (on && !colls.length) {
+    const seen = [];
+    CATALOG.filter(p => (p.name + ' ' + p.brand + ' ' + p.type).toLowerCase().includes(v))
+      .forEach(p => { const c = collByName(p.collection); if (c && seen.indexOf(c) === -1) seen.push(c); });
+    colls = seen.slice(0, 3);
+  }
   const terms = ['gaming laptop', 'laptop for school', 'lightweight laptop', '16gb laptop']
     .filter(t => t.includes(v)).slice(0, 2);
   if (!hits.length && !terms.length && !colls.length) { closeAC(); return; }
   box.innerHTML =
     (colls.length ? `<div class="achead">Collections</div>` + colls.map(collRow).join('') : '') +
     (terms.length ? terms.map(t => `<div onclick="doSearch('${t}')">&#9906; <b>${t}</b></div>`).join('') : '') +
-    (hits.length ? `<div class="achead">Products</div>` + hits.map(p =>
-      `<div onclick="go('#/product/${p.id}')">${p.name} <span class="sub">&middot; ${money(p.price)}</span></div>`).join('') : '');
+    (hits.length ? `<div class="achead">Products</div>` + hits.map(acProductRow).join('') : '');
   box.classList.add('open');
-  track('autocomplete_shown', { query: v, count: hits.length + terms.length + colls.length });
+  track('autocomplete_shown', { query: v, count: hits.length + terms.length + colls.length, tp1: on });
 }
 function closeAC() { const b = document.getElementById('ac'); if (b) b.classList.remove('open'); }
 function esc(s) { return String(s).replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c])); }
@@ -3938,19 +4544,19 @@ let PDP_TAB = 'specs';
 /* 5. Fit signaling, keyed to the collection so it can never contradict how the
    product is merchandised elsewhere on the site. */
 const FIT = {
-  'Core essentials': {
+  'Core Essentials': {
     best: ['Browsing, email and streaming', 'Documents and everyday admin', 'A second machine for the house'],
     not:  ['Video editing or 3D work', 'Modern games at high settings', 'Running many heavy apps at once'] },
-  'Everyday productivity': {
+  'Everyday Productivity': {
     best: ['School and coursework', 'Hybrid work and video calls', 'A dozen tabs and a call at the same time'],
     not:  ['Sustained 4K video rendering', 'High refresh rate gaming', 'Colour critical professional work'] },
-  'Premium performance': {
+  'Premium Performance': {
     best: ['A full day of work away from a desk', 'Frequent travel and commuting', 'Demanding multitasking'],
     not:  ['Tight budgets', 'People who only browse and stream', 'Desktop replacement gaming'] },
-  'Creator pro': {
+  'Creator Pro': {
     best: ['Photo and video editing', 'Design and illustration', 'Colour accurate work'],
     not:  ['People who mainly browse', 'The lightest possible carry', 'The lowest upfront price'] },
-  'Gaming': {
+  'Power Gaming': {
     best: ['High frame rate gaming', 'Streaming and capture', 'GPU accelerated creative work'],
     not:  ['All day battery away from power', 'Quiet library or office use', 'A light, slim carry'] },
   /* Collections is Windows-only, but a macOS or ChromeOS listing still has to tell
@@ -3968,16 +4574,16 @@ const FIT = {
    otherwise a platform band so non-Windows listings still render honest PDP content
    without being merchandised inside a framework they were never eligible for. */
 function merchBand(p) {
-  return p.collection || (/^mac/i.test(p.os) ? 'macOS' : /^Chrome/i.test(p.os) ? 'ChromeOS' : 'Core essentials');
+  return p.collection || (/^mac/i.test(p.os) ? 'macOS' : /^Chrome/i.test(p.os) ? 'ChromeOS' : 'Core Essentials');
 }
 
 /* 7. Use-case declaration: one plain-language line, placed next to the hero. */
 const USECASE_LINE = {
-  'Core essentials': 'Best for light users who want the everyday basics done reliably, without paying for power they will not use.',
-  'Everyday productivity': 'Best for students and hybrid workers who need to multitask without thinking about it.',
-  'Premium performance': 'Best for professionals who need premium portability and all-day productivity.',
-  'Creator pro': 'Best for creators and designers who need colour accuracy and real graphics power.',
-  'Gaming': 'Best for gamers who want a high frame rate, with the headroom to create as well as play.',
+  'Core Essentials': 'Best for light users who want the everyday basics done reliably, without paying for power they will not use.',
+  'Everyday Productivity': 'Best for students and hybrid workers who need to multitask without thinking about it.',
+  'Premium Performance': 'Best for professionals who need premium portability and all-day productivity.',
+  'Creator Pro': 'Best for creators and designers who need colour accuracy and real graphics power.',
+  'Power Gaming': 'Best for gamers who want a high frame rate, with the headroom to create as well as play.',
   'macOS': 'Best for people already in the Apple ecosystem who want long battery life and a quiet machine.',
   'ChromeOS': 'Best for web, email and cloud documents, with very little to maintain.'
 };
@@ -4057,7 +4663,7 @@ function pdpFaqs(p) {
        ? `For most people, yes. With ${p.ram} and ${p.storage} it will handle a full workload. Add a monitor and keyboard and it is a desk setup.`
        : `As a main machine for everyday work, yes. For heavy or sustained workloads, a desktop still has the advantage.`],
     ['Is it good for students?',
-     p.collection === 'Gaming'
+     p.collection === 'Power Gaming'
        ? `It will handle coursework easily, but it is heavy and the battery is short for a day on campus.`
        : parseFloat(p.weight) <= 4 && parseFloat(p.battery) >= 10
          ? `Yes. At ${p.weight} and up to ${p.battery}, it will get through a day of classes.`
@@ -4132,13 +4738,107 @@ function schemaPanel(p, rich) {
 /* Swapping the gallery shot is a real signal: someone checking the ports or the
    side profile is further down the consideration path than someone who never
    looks past the first image, so the shot name goes into the event. */
+/* Which gallery shots this product offers. Shot 4 is the TP10 Collection screen
+   fill, present only when that touchpoint is live and only for machines the
+   framework actually covers. */
+function pdpShots(p) {
+  const base = [0, 1, 2, 3].slice(0, (typeof artVariants === 'function' ? artVariants(p) : 4));
+  return (tpOn(10) && collByName(p.collection)) ? base.concat([4]) : base;
+}
+
 function setGalleryShot(id, i, el) {
   const p = P(id) || (typeof storeById === 'function' ? storeById(id) : null);
   const main = document.getElementById('galmain');
   if (main && p) main.innerHTML = vizLap(p, '', i);
   document.querySelectorAll('.thumb').forEach(t => t.classList.remove('on'));
   if (el) el.classList.add('on');
-  track('pdp_image_changed', { index: i, shot: ['front', 'profile', 'closed', 'ports'][i] || String(i) });
+  track('pdp_image_changed', { index: i, shot: ['front', 'profile', 'closed', 'ports', 'collection_screenfill'][i] || String(i) });
+}
+
+/* ---- TP11, below the fold PDP. Slide 24 ------------------------------------
+   P3, the lowest tier, and the deck is clear about why: the shopper does not
+   choose a Collection here, the page confirms the one they already arrived
+   with. Device highlights restate the use case at the decision point.
+   "Win your day" is the deck's own feature-content line. */
+function collHighlights(p) {
+  const c = collByName(p.collection);
+  if (!c) return '';
+  const hl = COLL_HIGHLIGHTS[c.id] || [];
+  return `<section class="chl" style="${collCss(c)}">
+    <div class="chlhead">${collTagSvg(c, 22)}
+      <div><b>Win your day</b><span>Why this machine sits in ${esc(c.name)}.</span></div></div>
+    <div class="chlrow">${hl.map(x => `<div class="chlcard">
+      <b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('')}</div>
+  </section>`;
+}
+/* Three highlights per collection. Written against what the collection is for
+   rather than against a specification, which is the whole point of the
+   framework: a shopper should not need to price out a GPU to know this is the
+   right shelf for them. */
+const COLL_HIGHLIGHTS = {
+  'premium-performance': [
+    ['Lasts the working day', 'Enough battery to get from a morning commute to an evening train without hunting for a socket.'],
+    ['Handles the pile-up', 'Calls, spreadsheets and twenty tabs at once, without the fan telling everyone about it.'],
+    ['Built to be carried', 'Premium chassis, proper hinge, screen you can actually work on outdoors.']],
+  'everyday-productivity': [
+    ['Made for coursework', 'Essays, research, a video call and your music, all open at the same time.'],
+    ['Enough headroom to last', 'Specified so it still feels quick in second year, not just in the shop.'],
+    ['Fits the budget', 'The sensible middle of the range, where most people genuinely should be.']],
+  'power-gaming': [
+    ['Holds a frame rate', 'Dedicated graphics and a high refresh panel, so the number stays up when it matters.'],
+    ['Cooling that keeps up', 'Built to run under load for hours rather than for a benchmark.'],
+    ['Doubles as a workhorse', 'The same graphics power that renders a game renders a timeline.']],
+  'creator-pro': [
+    ['Colour you can trust', 'A panel accurate enough that what you export matches what you saw.'],
+    ['Real graphics power', 'Editing, rendering and design without waiting on a progress bar.'],
+    ['Room for the files', 'Storage and memory specified for raw footage, not for documents.']],
+  'core-essentials': [
+    ['Does the everyday well', 'Email, the web, streaming and documents, quickly and without fuss.'],
+    ['Nothing you will not use', 'Not paying for power that would sit idle is the point, not a compromise.'],
+    ['Simple to live with', 'Light, quiet, and straightforward to set up on the first evening.']]
+};
+
+/* ---- TP8, syndicated content. Slides 24 and 28 ----------------------------
+   P2. Slide 28 sets the rule: creators own a relatable use case, not product
+   specs, and the creator is cast to the Collection. Slide 29 does that casting
+   explicitly, so the territories below are the deck's, not invented. Licensed
+   content lands on the product page, which is where social discovery closes. */
+const COLL_CREATORS = {
+  'premium-performance': { who: 'Deep-dive workflow reviewers', where: 'YouTube and Reddit',
+    line: 'Performance under pressure, from people who depend on the machine.',
+    piece: 'Long-form review: a full working week on one charge cycle' },
+  'everyday-productivity': { who: 'Student and career creators', where: 'TikTok and Instagram',
+    line: 'The pitch, the plan, the grind. Windows keeps up where other devices fall short.',
+    piece: 'Study hack short: a term of coursework on this machine' },
+  'power-gaming': { who: 'Gaming and setup creators', where: 'TikTok, Instagram and YouTube',
+    line: 'The setup, the session, and the story behind the rig.',
+    piece: 'Setup tour: rig walkthrough and first session' },
+  'creator-pro': { who: 'Working designers and developers', where: 'YouTube, TikTok and Instagram',
+    line: 'Show the build. Workflow, output, real tools.',
+    piece: 'Workflow video: a full edit, start to export' },
+  'core-essentials': { who: 'Everyday how-to creators', where: 'TikTok and Instagram',
+    line: 'Accessible how-tos and everyday wins.',
+    piece: 'Explainer: setting up a new laptop in one evening' }
+};
+function collSyndicated(p) {
+  const c = collByName(p.collection);
+  if (!c) return '';
+  const k = COLL_CREATORS[c.id];
+  if (!k) return '';
+  return `<section class="csyn" style="${collCss(c)}">
+    <div class="csynhead"><b>From creators who shop ${esc(c.name)}</b>
+      <span>Licensed creator content, cast to this collection.</span></div>
+    <div class="csynbody">
+      <div class="csynart">${productArt(p, 4)}<span class="csynplay">&#9654;</span></div>
+      <div class="csyntext">
+        <span class="csyntag">${collTagSvg(c, 13)} ${esc(c.name)}</span>
+        <b>${esc(k.piece)}</b>
+        <p>${esc(k.line)}</p>
+        <span class="csynmeta">${esc(k.who)} &middot; ${esc(k.where)}</span>
+        <button class="btn ghost" onclick="track('syndicated_opened',{collection:'${c.id}',product:${p.id}});toast('Creator content is illustrative in this prototype')">Watch</button>
+      </div>
+    </div>
+  </section>`;
 }
 
 function viewPDP(id) {
@@ -4152,8 +4852,8 @@ function viewPDP(id) {
   <div class="pdp">
     <div class="gallery">
       <div id="galmain">${vizLap(p, '', 0)}</div>
-      <div class="thumbs">${[0, 1, 2, 3].map(i => `<div class="thumb ${i === 0 ? 'on' : ''}"
-        onclick="setGalleryShot(${p.id},${i},this)">${productArt(p, i)}</div>`).join('')}</div>
+      <div class="thumbs">${pdpShots(p).map((s, i) => `<div class="thumb ${i === 0 ? 'on' : ''}"
+        onclick="setGalleryShot(${p.id},${s},this)">${productArt(p, s)}</div>`).join('')}</div>
 
       ${rich ? `<p class="answerfirst">${answerFirst(p)}</p>` : ''}
 
@@ -4161,6 +4861,10 @@ function viewPDP(id) {
         <div class="fitcol good"><h3>Best for</h3><ul>${FIT[merchBand(p)].best.map(x => `<li>${x}</li>`).join('')}</ul></div>
         <div class="fitcol bad"><h3>Not ideal for</h3><ul>${FIT[merchBand(p)].not.map(x => `<li>${x}</li>`).join('')}</ul></div>
       </div>` : ''}
+
+      ${tpOn(11) ? collHighlights(p) : ''}
+
+      ${tpOn(8) ? collSyndicated(p) : ''}
 
       <div class="tabs">
         ${[['specs', 'Specifications'], ['reviews', `Reviews (${p.reviewCount.toLocaleString()})`], ['qa', 'Questions'], ['ship', 'Delivery & returns']]
@@ -4172,8 +4876,20 @@ function viewPDP(id) {
     <div class="buybox">
       <div class="pbrand">${p.brand}</div>
       <h1 class="h1" style="font-size:25px;margin:4px 0 6px">${p.name}</h1>
-      ${rich && p.collection ? `<a class="collbadge inbuybox" onclick="go('#/collections/${(COLLECTIONS.find(c=>c.name===p.collection)||{}).id}')"
-        title="${esc(p.collection)} collection">${p.collection}</a>` : ''}
+      ${(() => {
+        /* TP7, slide 24. The badge sits next to the title, above the fold, so
+           the Collection encountered earlier is still visible at the decision
+           point. It used to be tied to rich PDP content, which meant it could
+           never be measured on its own. It is now its own switch. */
+        const c = tpOn(7) ? collByName(p.collection) : null;
+        if (!c) return '';
+        const r = collPriceRange(c.id);
+        return `<a class="pdpcoll" style="${collCss(c)}"
+          onclick="pickCollection('${c.id}','pdp_badge')" title="${esc(c.blurb)}">
+          ${collTagSvg(c, 17)}<b>${esc(c.name)}</b>
+          <i>${esc(c.blurb)}</i>
+          ${r ? `<u>${r.n} laptops &middot; ${money(r.lo)} to ${money(r.hi)}</u>` : ''}</a>`;
+      })()}
       <div class="rline">${starRow(p.rating)} <b>${p.rating}</b>
         <a onclick="setTab('reviews',${p.id})" style="color:var(--b);text-decoration:underline">${p.reviewCount.toLocaleString()} reviews</a></div>
       <div class="sub" style="margin-bottom:12px">Model ${p.sku}
@@ -4468,7 +5184,17 @@ function viewOrder(oid) {
   </div>`;
 }
 
-/* ---------------- advisor ---------------- */
+/* ---------------- advisor: TP5, Help Me Choose. Slides 18 and 19 -------------
+   P1, and the deck's clearest before-and-after. The existing tool is
+   product-first: it opens by asking what specification you want. The RISE
+   version is customer-and-intent-first, and opens with the five Collections
+   under the question "Which of these best fits your needs?".
+
+   Live, this tool converts at 8% across 40 retailers, four times the industry
+   average. So the interesting comparison is not whether guidance helps. It is
+   whether opening on intent beats opening on specification. Switching TP5 off
+   drops the Collection step and starts on the specification question, which is
+   exactly the From state in the deck. */
 let ADV = { step: 0, answers: {} };
 const ADV_Q = [
   { k: 'use', q: 'What will you mainly use it for?', opts: ['School', 'Work', 'Creative', 'Gaming', 'Everyday'] },
@@ -4476,53 +5202,114 @@ const ADV_Q = [
   { k: 'budget', q: "What's your budget?", opts: ['Under $600', '$600 to $1,000', '$1,000 to $1,500', 'Over $1,500'] },
   { k: 'size', q: 'Preferred screen size?', opts: ['13 to 14 inches', '15 inches', '16 inches or larger', 'No preference'] }
 ];
+/* The Collection step is step 0 when TP5 is live, pushing the specification
+   questions back one. Kept as a derived list rather than a mutated constant so
+   a condition change mid-session cannot corrupt the flow. */
+function advSteps() {
+  return (tpOn(5) ? [{ k: 'collection', coll: true, q: 'Which of these best fits your needs?' }] : []).concat(ADV_Q);
+}
+function advPickColl(id) {
+  const c = COLL(id); if (!c) return;
+  ADV.answers.collection = c.name;
+  track('advisor_collection_picked', { collection: id, step: 0 });
+  pickCollection(id, 'advisor_step', { stay: true });
+  ADV.step++; render();
+}
+function advSkipColl() {
+  track('advisor_collection_skipped', {});
+  ADV.step++; render();
+}
 function viewAdvisor() {
-  if (ADV.step >= ADV_Q.length) return advisorResults();
-  const q = ADV_Q[ADV.step];
-  return `${crumbs([['Home', '#/'], ['Find your PC', '#/advisor']])}
-  <div style="max-width:660px;margin:26px auto">
-    <div class="sub">Question ${ADV.step + 1} of ${ADV_Q.length}</div>
+  const steps = advSteps();
+  if (ADV.step >= steps.length) return advisorResults();
+  const q = steps[ADV.step];
+  const head = `${crumbs([['Home', '#/'], ['Find your PC', '#/advisor']])}
+  <div class="advwrap">
+    <div class="advprog"><span style="width:${Math.round((ADV.step / steps.length) * 100)}%"></span></div>
+    <div class="sub">Question ${ADV.step + 1} of ${steps.length}</div>`;
+  /* The Collection step. Every card carries an image, the name and the
+     descriptor, which is the deck's own card anatomy, and Skip preserves
+     agency exactly as slide 19 shows it. */
+  if (q.coll) {
+    return `${head}
+    <h1 class="h1" style="margin:6px 0 4px">${q.q}</h1>
+    <p class="sub" style="margin:0 0 18px">Pick what you want to do with it. We will handle the specification.</p>
+    ${collChooser("advPickColl('%ID%')")}
+    <div style="display:flex;gap:9px;margin-top:22px">
+      <button class="btn ghost" onclick="advSkipColl()">Skip, I'd rather answer questions</button>
+      <button class="btn ghost" onclick="track('advisor_abandoned',ADV.step);go('#/laptops')">Skip, just browse</button>
+    </div>
+  </div>`;
+  }
+  return `${head}
     <h1 class="h1" style="margin:6px 0 18px">${q.q}</h1>
     <div class="qopts">${q.opts.map(o => `<button class="${ADV.answers[q.k] === o ? 'on' : ''}"
       onclick="advPick('${q.k}','${o}')">${o}</button>`).join('')}</div>
     <div style="display:flex;gap:9px;margin-top:24px">
       ${ADV.step > 0 ? `<button class="btn ghost" onclick="ADV.step--;render()">Back</button>` : ''}
-      <button class="btn pri" onclick="advNext()">${ADV.step === ADV_Q.length - 1 ? 'Show my matches' : 'Continue'}</button>
+      <button class="btn pri" onclick="advNext()">${ADV.step === steps.length - 1 ? 'Show my matches' : 'Continue'}</button>
       <button class="btn ghost" onclick="track('advisor_abandoned',ADV.step);go('#/laptops')">Skip, just browse</button>
     </div>
   </div>`;
 }
 function advPick(k, v) { ADV.answers[k] = v; track('advisor_answer', { q: k, a: v }); render(); }
 function advNext() {
-  if (ADV.step === 0 && !ADV.answers.use) { toast('Pick an option to continue'); return; }
+  const steps = advSteps(), q = steps[ADV.step];
+  if (q && !q.coll && q.k === 'use' && !ADV.answers.use) { toast('Pick an option to continue'); return; }
   ADV.step++;
-  if (ADV.step >= ADV_Q.length) track('advisor_completed', ADV.answers);
+  if (ADV.step >= steps.length) track('advisor_completed', ADV.answers);
   render();
 }
 function advisorMatches() {
   const a = ADV.answers;
   let list = CATALOG.slice();
-  if (a.use) list = list.filter(p => p.use.includes(a.use));
-  if (a.budget === 'Under $600') list = list.filter(p => p.price < 600);
-  if (a.budget === '$600 to $1,000') list = list.filter(p => p.price >= 600 && p.price <= 1000);
-  if (a.budget === '$1,000 to $1,500') list = list.filter(p => p.price > 1000 && p.price <= 1500);
-  if (a.budget === 'Over $1,500') list = list.filter(p => p.price > 1500);
-  if (a.size === '13 to 14 inches') list = list.filter(p => p.screenSize <= 14);
-  if (a.size === '15 inches') list = list.filter(p => p.screenSize > 14 && p.screenSize < 16);
-  if (a.size === '16 inches or larger') list = list.filter(p => p.screenSize >= 16);
-  if (!list.length) list = CATALOG.filter(p => a.use ? p.use.includes(a.use) : true);
+  /* The Collection answer is a starting point, not a cage. Slide 30, Empower:
+     do not over-pigeonhole. If the later answers empty the collection, widen
+     back out rather than showing nothing, and say so in the results copy. */
+  let widened = false;
+  if (a.collection) {
+    const inColl = list.filter(p => p.collection === a.collection);
+    if (inColl.length) list = inColl;
+  }
+  if (a.use) {
+    const byUse = list.filter(p => p.use.includes(a.use));
+    if (byUse.length) list = byUse; else widened = true;
+  }
+  const band = l => {
+    if (a.budget === 'Under $600') return l.filter(p => p.price < 600);
+    if (a.budget === '$600 to $1,000') return l.filter(p => p.price >= 600 && p.price <= 1000);
+    if (a.budget === '$1,000 to $1,500') return l.filter(p => p.price > 1000 && p.price <= 1500);
+    if (a.budget === 'Over $1,500') return l.filter(p => p.price > 1500);
+    return l;
+  };
+  const priced = band(list);
+  if (priced.length) list = priced; else if (a.budget) widened = true;
+  const sized = a.size === '13 to 14 inches' ? list.filter(p => p.screenSize <= 14)
+    : a.size === '15 inches' ? list.filter(p => p.screenSize > 14 && p.screenSize < 16)
+    : a.size === '16 inches or larger' ? list.filter(p => p.screenSize >= 16) : list;
+  if (sized.length) list = sized; else if (a.size && a.size !== 'No preference') widened = true;
+  if (!list.length) list = CATALOG.slice();
   if (a.priority === 'Lowest price') list.sort((x, y) => x.price - y.price);
   else if (a.priority === 'Long battery life') list.sort((x, y) => parseInt(y.battery) - parseInt(x.battery));
   else if (a.priority === 'Light to carry') list.sort((x, y) => parseFloat(x.weight) - parseFloat(y.weight));
   else list.sort((x, y) => y.rating - x.rating);
+  ADV.widened = widened;
   return list.slice(0, 6);
 }
 function advisorResults() {
   const m = advisorMatches(), a = ADV.answers;
+  const c = a.collection ? collByName(a.collection) : null;
+  const said = Object.keys(a).filter(k => k !== 'collection').map(k => a[k]).join(', ').toLowerCase();
   return `${crumbs([['Home', '#/'], ['Find your PC', '#/advisor']])}
   <div class="sectionhead"><div><h1 class="h1">Your matches</h1>
-    <p class="sub">Based on ${Object.values(a).join(', ').toLowerCase()}. ${m.length} laptops fit.</p></div>
+    <p class="sub">${c ? `From <b>${esc(c.name)}</b>${said ? ', ' + said : ''}. ` : (said ? `Based on ${said}. ` : '')}${m.length} laptops fit.
+      ${ADV.widened ? 'We widened the search slightly so you still have real choices.' : ''}</p></div>
     <button class="btn ghost" onclick="ADV={step:0,answers:{}};track('advisor_restarted');render()">Start over</button></div>
+  ${c ? `<div class="advcoll" style="${collCss(c)}">
+    <span class="advcollart">${collTagSvg(c, 30)}</span>
+    <div><b>${esc(c.name)}</b><span>${esc(c.blurb)}</span></div>
+    <button class="btn out" onclick="pickCollection('${c.id}','advisor_results')">See all ${collItems(c).length}</button>
+  </div>` : ''}
   <div class="products">${m.map(pcard).join('')}</div>
   <div style="margin-top:20px"><button class="btn out" onclick="go('#/laptops')">See all laptops instead</button></div>`;
 }
@@ -4537,10 +5324,11 @@ function collTile(c, big) {
   const items = collItems(c), n = items.length;
   const face = items.slice().sort((a, b) => (b.rating || 0) - (a.rating || 0))[0];
   const lo = items.length ? Math.min.apply(null, items.map(p => p.price)) : 0;
-  return `<a class="tile coll${big ? ' big' : ''}" onclick="go('#/collections/${c.id}')">
+  return `<a class="tile coll${big ? ' big' : ''}" style="${collCss(c)}"
+    onclick="pickCollection('${c.id}','collection_tile')">
     ${big && face ? `<span class="ccart tall">${productArt(face, 0)}</span>` : ''}
-    <span class="collbadge">${c.name}</span>
-    <b>${c.blurb}</b><span>${n} ${n === 1 ? 'laptop' : 'laptops'}${lo ? ' &middot; from ' + money(lo) : ''}</span></a>`;
+    ${collBadge(c, { solid: true })}
+    <b>${esc(c.blurb)}</b><span>${n} ${n === 1 ? 'laptop' : 'laptops'}${lo ? ' &middot; from ' + money(lo) : ''}</span></a>`;
 }
 function viewCollectionsIndex() {
   track('collections_index_viewed', '');
@@ -4549,25 +5337,113 @@ function viewCollectionsIndex() {
     <p class="sub">Five ways to shop, organised by what you actually want to do rather than by spec sheet.
       Every Windows laptop sits in exactly one.</p></div></div>
   <div class="tiles collgrid">${COLLECTIONS.map(c => collTile(c, true)).join('')}</div>
+  ${collCompareTable()}
   <div class="helpbar" style="margin-top:26px"><div><strong>Not sure which one you are?</strong>
     <span>Answer four questions and we will point you at the right collection.</span></div>
     <button class="btn pri" onclick="go('#/advisor')">Find your PC</button></div>`;
 }
+
+/* Slide 27: 95% want education about Collections, and the two most requested
+   forms are the price range of each (49%) and a readable list of what is in it
+   (44%). Both are derived from the assortment, so the table can never claim a
+   range the grid below it does not actually contain. */
+function collCompareTable() {
+  return `<div class="ctable">
+    <div class="ctablehead"><b>What is in each collection</b>
+      <span>Typical price, how many laptops, and what each one is for.</span></div>
+    <table><thead><tr><th>Collection</th><th>Typical price</th><th>Laptops</th><th>Best for</th></tr></thead>
+    <tbody>${COLLECTIONS.map(c => {
+      const r = collPriceRange(c.id);
+      return `<tr style="${collCss(c)}">
+        <td><a class="ctname" onclick="pickCollection('${c.id}','compare_table')">${collTagSvg(c, 16)}<b>${esc(c.name)}</b></a></td>
+        <td>${r ? money(r.lo) + ' to ' + money(r.hi) : '&mdash;'}</td>
+        <td>${r ? r.n : 0}</td>
+        <td class="ctfor">${esc(c.blurb)}</td></tr>`;
+    }).join('')}</tbody></table></div>`;
+}
+
 function viewCollection(slug) {
   const c = collBySlug(slug);
   if (!c) return view404();
   const base = collItems(c);
   const items = applySort(applyFilters(base));
+  const r = collPriceRange(c.id);
   track('collection_viewed', c.name + ' (' + items.length + ' shown)');
+  /* TP4, slide 23: the blade sits above the fold on every listing page, so a
+     shopper who landed in the wrong collection can cross to the right one
+     without going back. Slide 30, Empower: never a one-way door. */
   return `${crumbs([['Home', '#/'], ['Collections', '#/collections'], [c.name, '']])}
-  ${collNav(c.id)}
-  <section class="hero collhero" style="padding:34px 40px"><div>
-    <span class="collbadge lg">${c.name}</span>
-    <h1 style="font-size:31px;margin:10px 0 8px">${c.blurb}</h1>
-    <p style="margin:0;max-width:620px">${c.long}</p></div></section>
+  ${tpOn(4) ? collStrip(c.id, { tp: 'listing_blade', label: 'Shop Windows Laptops by Use Case', sub: false }) : ''}
+  <section class="hero collhero" style="${collCss(c)};padding:34px 40px"><div>
+    <span class="collheroart">${collTagSvg(c, 46)}</span>
+    <span class="chname">${esc(c.name)}</span>
+    <h1 style="font-size:31px;margin:10px 0 8px">${esc(c.blurb)}</h1>
+    <p style="margin:0;max-width:620px">${esc(c.long)}</p>
+    ${r ? `<p class="chfacts">${money(r.lo)} to ${money(r.hi)} &middot; ${r.n} laptops in this collection</p>` : ''}
+    </div></section>
   <div class="shop">${facetPanel(base)}
     <section>${chipsBar()}<div class="toolbar"><span class="sub">${items.length} in this collection</span>${sortSelect()}</div>
     ${resultsGrid(items, 'Nothing in this collection matches those filters.')}</section></div>`;
+}
+
+/* ---- TP6, Brand store. Slide 22 -------------------------------------------
+   P1. The Windows brand page, where Collections are the content architecture of
+   the whole page rather than a badge bolted onto it. The deck's own structure:
+   header, Windows 11 hero, then Collections immediately beneath, then a
+   repeating Collection architecture down the page.
+
+   The deck also switches naming here. On a brand page each Collection is a
+   browsable assortment, so it is "Premium Performance PCs", which is why the
+   record carries a `pcs` form. */
+function viewWindows() {
+  track('brand_store_viewed', 'windows');
+  if (!tpOn(6)) {
+    /* The From state. Without Collections a brand page is a wall of product,
+       which is precisely the problem the deck is describing. */
+    const all = CATALOG.filter(p => /^Windows/.test(p.os)).sort((a, b) => b.rating - a.rating).slice(0, 12);
+    return `${crumbs([['Home', '#/'], ['Windows', '#/windows']])}
+    <section class="winhero"><div>
+      <span class="winmark">Windows 11</span>
+      <h1>Let's move forward together with Windows 11</h1>
+      <p>Windows 10 reached end of support on 14 October 2025. Moving to Windows 11 is easier than ever.</p>
+      <button class="btn pri lg" onclick="go('#/laptops')">Shop all Windows laptops</button>
+    </div></section>
+    <div class="sectionhead"><div><h2 class="h2">Windows laptops</h2>
+      <p class="sub">${CATALOG.filter(p => /^Windows/.test(p.os)).length} models available.</p></div></div>
+    <div class="products">${all.map(pcard).join('')}</div>`;
+  }
+  return `${crumbs([['Home', '#/'], ['Windows', '#/windows']])}
+  <section class="winhero"><div>
+    <span class="winmark">Windows 11</span>
+    <h1>Let's move forward together with Windows 11</h1>
+    <p>Windows 10 reached end of support on 14 October 2025. Moving to Windows 11 is easier than ever.</p>
+  </div></section>
+
+  ${collStrip('', { tp: 'brand_store_strip', label: 'Shop Windows Laptops by Use Case' })}
+
+  ${COLLECTIONS.map(c => collBlade(c)).join('')}
+
+  <div class="helpbar" style="margin-top:8px"><div><strong>Still not sure which one you are?</strong>
+    <span>Four questions, and we will point you at the right collection.</span></div>
+    <button class="btn pri" onclick="go('#/advisor')">Find your PC</button></div>`;
+}
+
+/* One blade per Collection, repeating down the page. Each carries the name in
+   its assortment form, the descriptor, the derived price range, and the three
+   best-rated machines actually in it. Slide 27: never a label on its own. */
+function collBlade(c) {
+  const items = collItems(c).slice().sort((a, b) => (b.rating || 0) - (a.rating || 0));
+  if (!items.length) return '';
+  const r = collPriceRange(c.id);
+  return `<section class="cblade" style="${collCss(c)}">
+    <div class="cbladehead">
+      <span class="cbladeart">${collTagSvg(c, 34)}</span>
+      <div><h2>${esc(c.pcs)}</h2><p>${esc(c.long)}</p>
+        ${r ? `<span class="cbladefacts">${money(r.lo)} to ${money(r.hi)} &middot; ${r.n} laptops</span>` : ''}</div>
+      <button class="btn out" onclick="pickCollection('${c.id}','brand_blade')">Shop ${esc(c.name)}</button>
+    </div>
+    <div class="products cbladerow">${items.slice(0, 3).map(pcard).join('')}</div>
+  </section>`;
 }
 
 /* ---------------- buying guide ---------------- */
@@ -4645,29 +5521,49 @@ function paintAssistant() {
   const m = document.getElementById('amsgs');
   if (m) m.scrollTop = m.scrollHeight;
 }
+/* ---- TP9, the AI shopping agent. Slide 20 ----------------------------------
+   P2. The deck's move is that the assistant's first structured response to a
+   broad intent ("I am starting college and need a laptop") is a Collection
+   chooser, not a specification question. The chooser is a rich card inside the
+   conversation, with the same anatomy as Help Me Choose, and a Skip.
+
+   63% of shoppers in the study used an AI agent before they reached a retailer
+   site at all, which is why this is a touchpoint and not a gimmick. */
 function greeting() {
-  return `<div class="msg a"><div class="bub">Hi. I can help you narrow this down.
-    <div style="margin:10px 0 4px;font-weight:600">Start with a collection</div>
-    <div class="acollchips">${COLLECTIONS.map(c =>
-      `<button onclick="assistCollection('${c.id}')" title="${c.blurb}">${c.name}</button>`).join('')}</div>
-    <div style="margin-top:9px">Or tell me what you'll use it for, and I'll work it out.</div></div></div>`;
+  if (!tpOn(9)) {
+    return `<div class="msg a"><div class="bub">Hi. I can help you narrow this down.
+      <div style="margin-top:9px">Tell me your budget and what you need it for.</div></div></div>`;
+  }
+  return `<div class="msg a"><div class="bub">Welcome, how can I help you today?
+    <div style="margin:10px 0 6px">To get started, which of the below options best fits your needs?</div>
+    ${collChooser("assistCollection('%ID%')", { compact: true })}
+    <div class="askip"><button onclick="assistSkipColl()">Skip</button>
+      <span>Or tell me what you'll use it for, and I'll work it out.</span></div></div></div>`;
+}
+function assistSkipColl() {
+  track('assistant_collection_skipped', {});
+  ASSIST_MSGS.push({ role: 'a', text: `No problem. Tell me roughly what you'll use it for and what you'd like to spend, and I'll shortlist from there.` });
+  paintAssistant();
 }
 /* Picking a collection in the assistant is the same act as picking one in the
    nav, so it lands the shopper on the collection rather than a dead-end reply. */
 function assistCollection(id) {
   const c = COLLECTIONS.find(x => x.id === id);
   if (!c) return;
+  pickCollection(id, 'assistant', { stay: true });
   const items = CATALOG.filter(p => p.collection === c.name)
     .sort((a, b) => (b.rating - b.price / 3000) - (a.rating - a.price / 3000)).slice(0, 3);
-  ASSIST_MSGS.push({ role: 'u', text: c.name });
+  const r = (typeof collPriceRange === 'function') ? collPriceRange(c.id) : null;
+  ASSIST_MSGS.push({ role: 'u', text: esc(c.name) });
   ASSIST_MSGS.push({
     role: 'a',
-    text: `<b>${c.name}</b> is ${c.blurb.replace(/^For /, 'for ').replace(/\.$/, '')}. ${c.long}
+    text: `<b>${esc(c.name)}</b> is ${esc(c.blurb.replace(/^(For|Ideal for|Designed for|Built for|Delivers) /, m => m.toLowerCase()))}. ${esc(c.long)}
+      ${r ? `<div class="abub_facts">${money(r.lo)} to ${money(r.hi)} &middot; ${r.n} laptops</div>` : ''}
       <div style="margin-top:8px">Here are three to start with, out of
       ${CATALOG.filter(p => p.collection === c.name).length} in the collection.</div>`,
     cards: items.map(p => p.id),
     actions: `<button class="btn out" style="padding:7px 11px;font-size:12px"
-      onclick="toggleAssist(false);go('#/collections/${c.id}')">See all ${c.name}</button>`
+      onclick="toggleAssist(false);pickCollection('${c.id}','assistant')">See all ${esc(c.name)}</button>`
   });
   track('assistant_collection_picked', { collection: c.id });
   paintAssistant();
@@ -4826,10 +5722,7 @@ function answerCollectionsOverview() {
   return {
     role: 'a', grounded: 'collection',
     text: `There are five, and every Windows laptop sits in exactly one. Pick the one that sounds most like you.
-      <div class="acollchips" style="margin-top:9px">${COLLECTIONS.map(c =>
-        `<button onclick="assistCollection('${c.id}')" title="${c.blurb}">${c.name}</button>`).join('')}</div>
-      <div style="margin-top:9px">${COLLECTIONS.map(c =>
-        `<div style="margin-bottom:3px"><b>${c.name}</b> &middot; ${c.blurb.replace(/^For /, '')}</div>`).join('')}</div>`
+      ${collChooser("assistCollection('%ID%')", { compact: true })}`
   };
 }
 
@@ -5012,6 +5905,116 @@ function metrics(filterCond, source) {
   };
 }
 
+/* ==========================================================================
+   Touchpoints. The console view of slide 14.
+
+   This is the tab that turns the matrix from a recommendation into a
+   measurement. For each of the eleven touchpoints it reports whether it is
+   live in the running condition, how many shoppers entered a collection
+   through it, and what happened to them afterwards.
+
+   The deck could only rank touchpoints by what shoppers said they would
+   prefer. This ranks them by what shoppers actually did.
+   ========================================================================== */
+const TP_SOURCE_LABEL = {
+  search_autocomplete: 1, search_results_strip: 1,
+  nav_flyout: 2,
+  category_strip: 3,
+  listing_blade: 4, collection_tile: 4, compare_table: 4, tile_badge: 4,
+  advisor_step: 5, advisor_results: 5,
+  brand_store_strip: 6, brand_blade: 6,
+  pdp_badge: 7,
+  syndicated: 8,
+  assistant: 9,
+  screen_fill: 10,
+  below_fold: 11
+};
+function tpEntries(source) {
+  const ev = (source || EVENTS).filter(e => e.event === 'collection_entered');
+  const by = {};
+  ev.forEach(e => {
+    const d = evDetail(e), n = TP_SOURCE_LABEL[d.touchpoint];
+    if (!n) return;
+    by[n] = (by[n] || 0) + 1;
+  });
+  return by;
+}
+function cTouchpoints() {
+  const live = (typeof tpList === 'function') ? tpList() : [];
+  const entries = tpEntries();
+  const total = Object.keys(entries).reduce((a, k) => a + entries[k], 0);
+  const m = metrics();
+  /* Whether the shopper who entered through a touchpoint went on to reach a
+     laptop, and how fast. With one live session these are a single journey,
+     not a statistic, and the copy says so rather than implying a sample. */
+  const advColl = EVENTS.filter(e => e.event === 'advisor_collection_picked').length;
+  const advSkip = EVENTS.filter(e => e.event === 'advisor_collection_skipped').length;
+
+  const row = t => {
+    const on = live.indexOf(t.n) !== -1;
+    const n = entries[t.n] || 0;
+    const share = total ? Math.round((n / total) * 100) : 0;
+    return `<tr class="${on ? '' : 'tpoff'}">
+      <td class="tpn">${t.n}</td>
+      <td><span class="tptier t${t.tier}">${t.tier}</span></td>
+      <td><b>${esc(t.name)}</b><span class="tpnote">${esc(t.note)}</span></td>
+      <td class="tpsaid">${t.pref == null ? '<i>not tested</i>' : t.pref + '%'}</td>
+      <td class="tpstate">${on ? '<span class="tplive">Live</span>' : '<span class="tpdark">Off</span>'}</td>
+      <td class="tpdid"><b>${n}</b>${total ? `<span class="tpbar"><i style="width:${share}%"></i></span>` : ''}</td>
+    </tr>`;
+  };
+
+  return `
+  <div class="cpanel">
+    <div class="cpanelhead"><div><h2>RISE touchpoint matrix</h2>
+      <p>The eleven touchpoints on slide 14 of RISE Online, and what each one is
+         doing in this session. <b>Said</b> is what shoppers told the GWI study.
+         <b>Did</b> is what has actually happened here.</p></div>
+      <div class="tpcondnow">Condition ${esc(S.condition)}<span>${esc((CONDITIONS[S.condition] || {}).label || '')}</span></div>
+    </div>
+    <table class="tptable">
+      <thead><tr><th></th><th>Tier</th><th>Touchpoint</th><th>Said</th><th>In this run</th><th>Entries</th></tr></thead>
+      ${TIERS.map(tier => `<tbody class="tpgroup">
+        <tr class="tphead"><td colspan="6">${tier} &middot; ${esc(TIER_NOTE[tier])}</td></tr>
+        ${tpsInTier(tier).map(row).join('')}
+      </tbody>`).join('')}
+    </table>
+    <div class="tpfoot">
+      <div><b>${total}</b><span>collection entries</span></div>
+      <div><b>${S.firstCollTp ? esc(prettyTp(S.firstCollTp)) : '&mdash;'}</b><span>first entry point</span></div>
+      <div><b>${m.pathMs != null ? (m.pathMs / 1000).toFixed(1) + 's' : '&mdash;'}</b><span>time to a laptop</span></div>
+      <div><b>${m.pathSteps != null ? m.pathSteps : '&mdash;'}</b><span>steps to a laptop</span></div>
+      <div><b>${advColl}/${advColl + advSkip}</b><span>took the collection step in Help Me Choose</span></div>
+    </div>
+  </div>
+
+  <div class="cpanel">
+    <div class="cpanelhead"><div><h2>What this can settle</h2>
+      <p>Conditions F to I hold everything else still and move only which tier of
+         the matrix is live, so the difference between them is the tier.</p></div></div>
+    <div class="tparms">
+      ${[['F', 'P0 only', 'Search, navigation, category. The three earliest placements, and 71% of stated preference.'],
+         ['G', 'P0 + P1', 'Adds listing blades, Help Me Choose and the brand store.'],
+         ['H', 'P2 + P3 only', 'Badges and reinforcement with no early guidance. The arm that tests whether badging alone does anything.'],
+         ['I', 'Every touchpoint', 'Full RISE.']].map(a => `
+        <button class="tparm ${S.condition === a[0] ? 'on' : ''}" onclick="setCondition('${a[0]}')">
+          <b>${a[0]}</b><span class="tparmn">${esc(a[1])}</span><span class="tparmd">${esc(a[2])}</span></button>`).join('')}
+    </div>
+    <p class="tphint">Switching here changes the participant's storefront immediately, on their screen, mid-session.</p>
+  </div>`;
+}
+const TIER_NOTE = {
+  P0: 'Build first. Early journey, where the shopper is still orienting.',
+  P1: 'Build next. Guided discovery and assortment.',
+  P2: 'Reinforcement. Confirms a decision rather than starting one.',
+  P3: 'Finishing. Lowest priority in the deck.'
+};
+function prettyTp(src) {
+  const n = TP_SOURCE_LABEL[src];
+  const t = n ? tpByN(n) : null;
+  return t ? t.n + ' ' + t.name : String(src || '').replace(/_/g, ' ');
+}
+
 /* ========================================================================== */
 function viewConsole() {
   return `<div class="sectionhead" style="margin-top:22px">
@@ -5023,7 +6026,7 @@ function viewConsole() {
 }
 
 const CTABS = [
-  ['overview', 'Overview'], ['heatmap', 'Heatmap'], ['journeys', 'Journeys'],
+  ['overview', 'Overview'], ['touchpoints', 'Touchpoints'], ['heatmap', 'Heatmap'], ['journeys', 'Journeys'],
   ['designer', 'Designer'], ['sessions', 'Sessions'], ['cohorts', 'Cohorts'],
   ['replay', 'Replay'], ['roadshow', 'Roadshow'], ['data', 'Data']
 ];
@@ -5037,6 +6040,7 @@ function paintConsole() {
   el.className = 'console' + (CTAB === 'overview' || CTAB === 'data' ? '' : ' wide');
   el.innerHTML =
       CTAB === 'heatmap'  ? cHeatmap()
+    : CTAB === 'touchpoints' ? cTouchpoints()
     : CTAB === 'journeys' ? cJourneys()
     : CTAB === 'designer' ? cDesigner()
     : CTAB === 'cohorts'  ? cCohorts()
@@ -5819,19 +6823,34 @@ function paintChrome() {
   paintAssistant();
 }
 
-/* The department nav is condition-aware: with collections switched off in the
-   Designer, the Windows merchandising framework leaves the store entirely and
-   the shopper falls back to raw category browsing. That contrast is the study. */
+/* ---- TP2, Navigation. Slide 17 --------------------------------------------
+   P0. With Collections switched off, the Windows merchandising framework leaves
+   the navigation entirely and the shopper falls back to raw category browsing.
+   That contrast is the study.
+
+   The nav entry carries a flyout rather than being a bare link, because slide
+   30 is explicit that a Collection should never appear as a name on its own.
+   A shopper who has never met the framework meets it here, with a descriptor. */
 function paintNav() {
   const el = document.getElementById('mainnav');
   if (!el) return;
-  const showColl = !!cond().collections;
+  const showColl = tpOn(2);
   const a = (href, label, cls) =>
     `<a${cls ? ` class="${cls}"` : ''} onclick="go('${href}')">${label}</a>`;
   let h = DEPARTMENTS.map(d => a(d.route || ('#/d/' + d.id), esc(d.name))).join('');
   h += a('#/laptops', 'Laptops');
   if (showColl) {
-    h += a('#/collections', 'Collections', 'navcoll');
+    h += `<span class="navcollwrap">
+      <a class="navcoll" onclick="go('#/collections')">Collections</a>
+      <div class="navfly" role="menu">
+        <div class="navflyhead">Shop Windows Laptops by Use Case</div>
+        ${COLLECTIONS.map(c => `<a class="navflyrow" style="${collCss(c)}"
+          onclick="pickCollection('${c.id}','nav_flyout')">
+          <span class="navflyart">${collTagSvg(c, 20)}</span>
+          <span><b>${esc(c.name)}</b><i>${esc(c.blurb)}</i></span>
+          <span class="navflyn">${CATALOG.filter(p => p.collection === c.name).length}</span></a>`).join('')}
+        <a class="navflyall" onclick="go('#/collections')">Compare all five collections</a>
+      </div></span>`;
   }
   h += a('#/deals', 'Deals') + a('#/guide', 'Buying guides');
   el.innerHTML = h;

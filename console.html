@@ -107,7 +107,7 @@ h1,h2,h3{margin:0}
 
 /* ---------- layout: browse ---------- */
 .shop{display:grid;grid-template-columns:242px minmax(0,1fr);gap:24px;align-items:start;padding-bottom:60px}
-.shopside{position:sticky;top:126px}
+.shopside{position:sticky;top:126px;min-width:0}
 .shopside .facets{position:static;top:auto}
 .facets{padding:18px;position:sticky;top:126px}
 .facets h3{font-size:14px;margin:0 0 4px}
@@ -465,8 +465,8 @@ body.modon .header{top:38px}
   .searchbox{order:3;flex-basis:100%}
   .hnav span{display:none}
   .wrap{padding:0 16px}
-  .shop{grid-template-columns:1fr}
-.shopside{position:static}
+  .shop{grid-template-columns:minmax(0,1fr)}
+.shopside{position:static;min-width:0}
   .facets{display:none;position:static}
   .facets.mobopen{display:block}
   .products{grid-template-columns:repeat(2,1fr);gap:10px}
@@ -1521,28 +1521,78 @@ function hashOf(p) {
 function wall(p, id) {
   const h = (p && typeof p.hue === 'number') ? p.hue : 212;
   return `<linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="hsl(${h},64%,58%)"/>
-    <stop offset=".55" stop-color="hsl(${(h + 18) % 360},58%,38%)"/>
-    <stop offset="1" stop-color="hsl(${(h + 34) % 360},52%,24%)"/></linearGradient>`;
+    <stop offset="0" stop-color="hsl(${h},76%,44%)"/>
+    <stop offset=".48" stop-color="hsl(${(h + 22) % 360},72%,25%)"/>
+    <stop offset="1" stop-color="hsl(${(h + 42) % 360},66%,13%)"/></linearGradient>`;
 }
 function uid(pre, p, v) { return pre + '_' + Math.abs(hashOf(p)).toString(36) + '_' + (v || 0); }
 
-/* Shared defs: the contact shadow and the glass sheen every device uses. */
+/* Shared defs. This is the lighting model for the whole catalogue: one key
+   light from the upper left, a cool fill, a two-layer contact shadow and a
+   glass reflection. Every device pulls from the same set, which is what makes
+   a grid of 65 different products read as one photo shoot rather than clip
+   art. */
 function baseDefs(p, u) {
+  const f = finish(p);
   return `<defs>
     ${wall(p, u + 'w')}
+    <radialGradient id="${u}wglow" cx=".26" cy=".14" r=".92">
+      <stop offset="0" stop-color="#fff" stop-opacity=".15"/>
+      <stop offset=".58" stop-color="#fff" stop-opacity=".02"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="${u}lid" x1=".06" y1="0" x2=".94" y2="1">
+      <stop offset="0" stop-color="${f.c}"/>
+      <stop offset=".32" stop-color="${f.a}"/>
+      <stop offset=".76" stop-color="${f.b}"/>
+      <stop offset="1" stop-color="${f.edge}"/></linearGradient>
+    <linearGradient id="${u}deck" x1=".5" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="${f.b}"/>
+      <stop offset=".16" stop-color="${f.deck}"/>
+      <stop offset=".82" stop-color="${f.a}"/>
+      <stop offset="1" stop-color="${f.c}"/></linearGradient>
+    <linearGradient id="${u}rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="${u}glass" x1="-.05" y1="-.1" x2=".85" y2="1.05">
+      <stop offset="0" stop-color="#fff" stop-opacity=".24"/>
+      <stop offset=".28" stop-color="#fff" stop-opacity=".08"/>
+      <stop offset=".29" stop-color="#fff" stop-opacity=".015"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
     <linearGradient id="${u}sheen" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fff" stop-opacity=".40"/>
-      <stop offset=".42" stop-color="#fff" stop-opacity=".06"/>
-      <stop offset=".43" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <stop offset="0" stop-color="#fff" stop-opacity=".34"/>
+      <stop offset=".40" stop-color="#fff" stop-opacity=".05"/>
+      <stop offset=".41" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="${u}key" x1=".5" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".26"/>
+      <stop offset=".55" stop-color="#fff" stop-opacity=".04"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".24"/></linearGradient>
     <radialGradient id="${u}sh" cx=".5" cy=".5" r=".5">
-      <stop offset="0" stop-color="#1c2c42" stop-opacity=".30"/>
-      <stop offset=".65" stop-color="#1c2c42" stop-opacity=".10"/>
-      <stop offset="1" stop-color="#1c2c42" stop-opacity="0"/></radialGradient>
+      <stop offset="0" stop-color="#16243a" stop-opacity=".30"/>
+      <stop offset=".55" stop-color="#16243a" stop-opacity=".11"/>
+      <stop offset="1" stop-color="#16243a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="${u}core" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#0c1726" stop-opacity=".42"/>
+      <stop offset=".7" stop-color="#0c1726" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#0c1726" stop-opacity="0"/></radialGradient>
+    <linearGradient id="${u}decklight" x1=".5" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#000" stop-opacity=".34"/>
+      <stop offset=".26" stop-color="#000" stop-opacity=".10"/>
+      <stop offset=".62" stop-color="#fff" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".46"/></linearGradient>
+    <radialGradient id="${u}stage" cx=".5" cy=".44" r=".62">
+      <stop offset="0" stop-color="#fff" stop-opacity=".95"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
   </defs>`;
 }
+/* Two layers: a wide ambient pool and a tight dark core where the product
+   meets the surface. A single ellipse always reads as a sticker. */
 function shadow(cx, cy, rx, ry, u) {
-  return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#${u}sh)"/>`;
+  return `<ellipse cx="${cx}" cy="${cy + 2}" rx="${rx}" ry="${ry}" fill="url(#${u}sh)"/>
+    <ellipse cx="${cx}" cy="${cy}" rx="${(rx * 0.6).toFixed(1)}" ry="${(ry * 0.55).toFixed(1)}" fill="url(#${u}core)"/>`;
+}
+/* A soft light pool behind the product so it sits in a lightbox. */
+function stage(u) {
+  return `<ellipse cx="160" cy="104" rx="152" ry="98" fill="url(#${u}stage)"/>`;
 }
 function svg(inner, vb) {
   return `<svg class="pa" viewBox="${vb || '0 0 320 220'}" preserveAspectRatio="xMidYMid meet"
@@ -1557,74 +1607,152 @@ function artLaptop(p, v) {
   const f = finish(p), u = uid('lp', p, v);
   const gaming = /Gaming/i.test(p.type || '');
   const mac = /MacBook/i.test(p.type || '') || /Apple/i.test(p.brand || '');
+  const h = (p && typeof p.hue === 'number') ? p.hue : 212;
 
   if (v === 1) return artLaptopProfile(p);
   if (v === 2) return artLaptopClosed(p);
   if (v === 3) return artLaptopPorts(p);
 
+  /* Keyboard in perspective. Each row forward is wider and catches more light.
+     Two passes per cap, a solid body then a gradient, so the caps read as
+     moulded plastic rather than flat tiles. */
   const keys = [];
-  for (let r = 0; r < 4; r++) {
+  const ROWS = 4;
+  for (let r = 0; r < ROWS; r++) {
+    const w = 96 + r * 7.4;
+    const x0 = 160 - w / 2;
+    const y = 159 + r * 5.2;
+    const cw = w / 14;
     for (let c = 0; c < 14; c++) {
-      const inset = r * 1.1;
-      const x = 108 + inset + c * (104 - inset * 2) / 14;
-      const y = 163 + r * 6.4;
-      keys.push(`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${((104 - inset * 2) / 14 - 1.3).toFixed(1)}" height="4.4" rx="1"
-        fill="${f.edge}" opacity="${(0.55 - r * 0.06).toFixed(2)}"/>`);
+      const x = x0 + c * cw;
+      const kw = (cw - 1.15).toFixed(2);
+      keys.push(`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${kw}" height="4.1" rx=".9" fill="#20262d" opacity="${(0.72 + r * 0.045).toFixed(2)}"/>`);
+      keys.push(`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${kw}" height="1.3" rx=".65" fill="#fff" opacity="${(0.16 + r * 0.03).toFixed(2)}"/>`);
     }
   }
+
+  const gr = [];
+  for (let side = 0; side < 2; side++) {
+    for (let r = 0; r < 4; r++) {
+      const w = 96 + r * 7.4, y = 159.4 + r * 5.2;
+      const x = side ? 160 + w / 2 + 3 : 160 - w / 2 - 3;
+      for (let c = 0; c < 3; c++) {
+        const cx = x + (side ? c * 3.1 : -c * 3.1);
+        gr.push(`<circle cx="${cx.toFixed(2)}" cy="${(y + 1.8).toFixed(2)}" r=".82" fill="#0b1119" opacity=".26"/>`);
+      }
+    }
+  }
+  const grilles = gr.join('');
+
   return svg(`${baseDefs(p, u)}
-    ${shadow(160, 196, 118, 13, u)}
-    <!-- lid -->
-    <rect x="64" y="34" width="192" height="122" rx="9" fill="${f.b}"/>
-    <rect x="66" y="36" width="188" height="118" rx="8" fill="${f.a}"/>
-    <rect x="74" y="43" width="172" height="102" rx="4" fill="#0e1622"/>
-    <rect x="77" y="46" width="166" height="96" rx="3" fill="url(#${u}w)"/>
-    <!-- desktop furniture, just enough to read as a running machine -->
-    <rect x="77" y="46" width="166" height="11" fill="#000" opacity=".16"/>
-    <rect x="82" y="49.5" width="26" height="4" rx="2" fill="#fff" opacity=".45"/>
-    <rect x="77" y="127" width="166" height="15" fill="#000" opacity=".22"/>
-    ${[0, 1, 2, 3, 4].map(i => `<rect x="${86 + i * 13}" y="131.5" width="8" height="6" rx="1.6" fill="#fff" opacity=".${5 - i > 1 ? 40 : 26}"/>`).join('')}
-    <rect x="95" y="66" width="58" height="5" rx="2.5" fill="#fff" opacity=".34"/>
-    <rect x="95" y="77" width="88" height="5" rx="2.5" fill="#fff" opacity=".22"/>
-    <rect x="95" y="88" width="72" height="5" rx="2.5" fill="#fff" opacity=".16"/>
-    <rect x="77" y="46" width="166" height="96" rx="3" fill="url(#${u}sheen)"/>
-    <circle cx="160" cy="40.5" r="1.5" fill="#2a3542"/>
-    ${mac ? '' : `<rect x="140" y="147" width="40" height="3" rx="1.5" fill="${f.edge}" opacity=".5"/>`}
+    ${stage(u)}
+    ${shadow(160, 194, 126, 11, u)}
+
+    <!-- display assembly: chassis edge, a thin metal frame, then a black bezel -->
+    <rect x="57" y="21" width="206" height="132" rx="8" fill="${f.edge}"/>
+    <rect x="58.4" y="22.4" width="203.2" height="129.2" rx="7.2" fill="url(#${u}lid)"/>
+    <rect x="62" y="22.6" width="196" height="1.7" rx=".85" fill="url(#${u}rim)" opacity=".7"/>
+    <rect x="61.5" y="25.5" width="197" height="122" rx="4" fill="#070b12"/>
+    <rect x="62.1" y="26.1" width="195.8" height="120.8" rx="3.6" fill="none" stroke="#fff" stroke-opacity=".10"/>
+
+    <!-- the panel itself: dark desktop, one bright window, real contrast -->
+    <rect x="64.5" y="31" width="191" height="111" rx="1.8" fill="#0d1422"/>
+    <rect x="64.5" y="31" width="191" height="111" rx="1.8" fill="url(#${u}w)"/>
+    <rect x="64.5" y="31" width="191" height="111" rx="1.8" fill="url(#${u}wglow)"/>
+
+    <!-- an application window, light on dark, which is what sells "switched on" -->
+    <rect x="86" y="47" width="148" height="72" rx="4" fill="#0a1220" opacity=".45"/>
+    <rect x="84" y="45" width="148" height="72" rx="4" fill="#f4f7fb"/>
+    <rect x="84" y="45" width="148" height="11" rx="4" fill="#e2e9f2"/>
+    <rect x="84" y="52" width="148" height="4" fill="#e2e9f2"/>
+    ${[0, 1, 2].map(i => `<circle cx="${90 + i * 5.6}" cy="50.5" r="1.6" fill="${['#f0776a', '#f4bf5f', '#66c98a'][i] || '#ccd'}"/>`).join('')}
+    <rect x="108" y="48" width="70" height="5" rx="2.5" fill="#ffffff"/>
+    <rect x="110" y="49.4" width="34" height="2.2" rx="1.1" fill="#b6c4d4"/>
+    <rect x="92" y="63" width="52" height="34" rx="3" fill="hsl(${h},62%,54%)" opacity=".85"/>
+    <rect x="92" y="63" width="52" height="34" rx="3" fill="url(#${u}rim)" opacity=".28"/>
+    <rect x="151" y="63" width="72" height="4.6" rx="2.3" fill="#8b9bb0"/>
+    <rect x="151" y="72" width="58" height="4" rx="2" fill="#b9c6d6"/>
+    <rect x="151" y="80" width="66" height="4" rx="2" fill="#c8d4e2"/>
+    <rect x="151" y="88" width="40" height="4" rx="2" fill="#d5dfea"/>
+    <rect x="92" y="103" width="44" height="8" rx="4" fill="hsl(${h},68%,48%)"/>
+    <rect x="143" y="103" width="34" height="8" rx="4" fill="#dfe7f0"/>
+
+    <!-- taskbar -->
+    <rect x="64.5" y="128" width="191" height="14" fill="#060b14" opacity=".55"/>
+    ${[0, 1, 2, 3, 4, 5, 6].map(i => `<rect x="${118 + i * 12}" y="131" width="8" height="8" rx="2" fill="#fff" opacity=".${i < 3 ? 60 : 32}"/>`).join('')}
+
+    <!-- glass sweep and the camera in the top bezel -->
+    <rect x="64.5" y="31" width="191" height="111" rx="1.8" fill="url(#${u}glass)"/>
+    <circle cx="160" cy="28.2" r="1.3" fill="#161d28"/>
+    <circle cx="160" cy="28.2" r=".5" fill="#54677e"/>
+
+    <!-- hinge: a recessed bar plus the shadow the lid throws on the deck -->
+    <rect x="120" y="151" width="80" height="3.4" rx="1.2" fill="${f.edge}"/>
+    <rect x="120" y="151" width="80" height="1.2" rx=".6" fill="#000" opacity=".35"/>
+    <path d="M57 153 L263 153 L266 157 L54 157 Z" fill="#0b1119" opacity=".16"/>
+
     <!-- deck in perspective -->
-    <path d="M64 156 L256 156 L286 186 L34 186 Z" fill="${f.deck}"/>
-    <path d="M64 156 L256 156 L286 186 L34 186 Z" fill="url(#${u}sheen)" opacity=".5"/>
-    <path d="M34 186 L286 186 L284 191 Q160 195 36 191 Z" fill="${f.edge}"/>
+    <path d="M57 153 L263 153 L299 189 L21 189 Z" fill="url(#${u}deck)"/>
+    <path d="M57 153 L263 153 L299 189 L21 189 Z" fill="url(#${u}decklight)"/>
+    <path d="M57 153 L263 153 L264.6 155.2 L55.4 155.2 Z" fill="#fff" opacity=".34"/>
+    <path d="M21 189 L299 189 L297 195 Q160 199.5 23 195 Z" fill="${f.b}"/>
+    <path d="M21 189 L299 189 L298.4 190.5 L21.6 190.5 Z" fill="#fff" opacity=".28"/>
+    <path d="M23 195 Q160 199.5 297 195 L296.4 196.2 Q160 200.6 23.6 196.2 Z" fill="#0b1119" opacity=".30"/>
+    ${gaming ? `<path d="M24 191 L296 191 L295.4 193.2 L24.6 193.2 Z" fill="hsl(${h},92%,60%)" opacity=".8"/>` : ''}
+
+    <!-- keyboard well, caps, trackpad -->
+    <path d="M107 157.5 L213 157.5 L219 183.5 L101 183.5 Z" fill="#0b1119" opacity=".13"/>
+    ${grilles}
     ${keys.join('')}
-    <rect x="132" y="169" width="56" height="12" rx="2" fill="${f.edge}" opacity=".28"/>
-    ${gaming ? `<rect x="106" y="161" width="108" height="21" rx="3" fill="none" stroke="hsl(${p.hue},90%,60%)" stroke-opacity=".55" stroke-width="1.4"/>` : ''}
+    <path d="M136 178 L184 178 L189 187.4 L131 187.4 Z" fill="#0b1119" opacity=".13"/>
+    <path d="M136.6 178.7 L183.4 178.7 L188 186.7 L132 186.7 Z" fill="#fff" opacity=".10"/>
+    <path d="M136 178 L184 178 L184.3 178.8 L135.7 178.8 Z" fill="#fff" opacity=".42"/>
+    ${gaming ? `<path d="M107 157.5 L213 157.5 L219 183.5 L101 183.5 Z" fill="none"
+      stroke="hsl(${h},92%,62%)" stroke-opacity=".45" stroke-width="1.1"/>` : ''}
   `);
 }
 function artLaptopProfile(p) {
   const f = finish(p), u = uid('lps', p, 1);
   return svg(`${baseDefs(p, u)}
-    ${shadow(160, 168, 112, 11, u)}
-    <path d="M52 158 L268 158 L268 150 L52 150 Z" fill="${f.b}"/>
-    <path d="M52 150 L268 150 L262 146 L58 146 Z" fill="${f.a}"/>
-    <rect x="56" y="150" width="208" height="3" fill="${f.edge}" opacity=".6"/>
-    <g transform="rotate(-11 60 146)">
-      <rect x="58" y="44" width="200" height="102" rx="5" fill="${f.b}"/>
-      <rect x="60" y="46" width="196" height="98" rx="4" fill="${f.a}"/>
+    ${stage(u)}
+    ${shadow(160, 170, 116, 11, u)}
+    <!-- base wedge, thicker at the back like a real chassis -->
+    <path d="M50 162 L270 162 L270 151 L50 154 Z" fill="${f.b}"/>
+    <path d="M50 154 L270 151 L264 147 L56 150 Z" fill="url(#${u}lid)"/>
+    <path d="M50 154 L270 151 L270 152.4 L50 155.4 Z" fill="#fff" opacity=".3"/>
+    <rect x="54" y="161" width="14" height="3" rx="1.5" fill="#12171d" opacity=".5"/>
+    <rect x="252" y="161" width="14" height="3" rx="1.5" fill="#12171d" opacity=".5"/>
+    <!-- lid raised on the hinge -->
+    <g transform="rotate(-10 62 150)">
+      <rect x="58" y="44" width="204" height="104" rx="6" fill="${f.edge}"/>
+      <rect x="60" y="46" width="200" height="100" rx="5" fill="url(#${u}lid)"/>
+      <rect x="63" y="46.6" width="194" height="1.6" rx=".8" fill="url(#${u}rim)" opacity=".5"/>
+      <rect x="66" y="52" width="188" height="88" rx="3" fill="#0b111b" opacity=".18"/>
     </g>
-    <circle cx="60" cy="148" r="4.5" fill="${f.edge}"/>
-    <text x="160" y="182" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#8fa0b4">Side profile</text>
+    <circle cx="62" cy="151" r="5" fill="${f.edge}"/>
+    <circle cx="62" cy="151" r="2.2" fill="${f.b}"/>
+    <text x="160" y="186" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#8fa0b4">Side profile</text>
   `);
 }
 function artLaptopClosed(p) {
   const f = finish(p), u = uid('lpc', p, 2);
+  const mac = /MacBook/i.test(p.type || '') || /Apple/i.test(p.brand || '');
   return svg(`${baseDefs(p, u)}
-    ${shadow(160, 172, 116, 12, u)}
-    <rect x="52" y="52" width="216" height="110" rx="11" fill="${f.b}"/>
-    <rect x="54" y="54" width="212" height="104" rx="10" fill="${f.a}"/>
-    <rect x="54" y="54" width="212" height="104" rx="10" fill="url(#${u}sheen)"/>
-    <circle cx="160" cy="106" r="17" fill="${f.edge}" opacity=".28"/>
-    <circle cx="160" cy="106" r="17" fill="none" stroke="${f.c}" stroke-opacity=".7"/>
-    <rect x="52" y="158" width="216" height="6" rx="3" fill="${f.edge}"/>
-    <text x="160" y="186" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#8fa0b4">Lid closed</text>
+    ${stage(u)}
+    ${shadow(160, 176, 120, 12, u)}
+    <rect x="50" y="48" width="220" height="114" rx="12" fill="${f.edge}"/>
+    <rect x="52" y="50" width="216" height="108" rx="11" fill="url(#${u}lid)"/>
+    <rect x="56" y="50.6" width="208" height="2" rx="1" fill="url(#${u}rim)" opacity=".6"/>
+    <rect x="52" y="50" width="216" height="108" rx="11" fill="url(#${u}glass)"/>
+    <!-- brand disc, deliberately anonymous -->
+    <circle cx="160" cy="104" r="18" fill="${f.edge}" opacity=".22"/>
+    <circle cx="160" cy="104" r="18" fill="none" stroke="${f.c}" stroke-opacity=".55" stroke-width="1.2"/>
+    <circle cx="160" cy="104" r="7" fill="${f.c}" opacity=".${mac ? 55 : 35}"/>
+    <!-- the closed seam and the chassis edge below it -->
+    <rect x="50" y="158" width="220" height="7" rx="3.5" fill="${f.b}"/>
+    <rect x="50" y="158" width="220" height="1.6" rx=".8" fill="#0d131b" opacity=".45"/>
+    <rect x="52" y="163.4" width="216" height="1.4" rx=".7" fill="#fff" opacity=".18"/>
+    <text x="160" y="190" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#8fa0b4">Lid closed</text>
   `);
 }
 function artLaptopPorts(p) {
@@ -1640,19 +1768,24 @@ function artLaptopPorts(p) {
   const row = set.length ? set : [['USB-C', 22, 7], ['USB-A', 30, 9]];
   let x = 160 - row.reduce((s, r) => s + r[1] + 16, -16) / 2;
   const drawn = row.map(r => {
-    const g = `<g><rect x="${x}" y="${104 - r[2] / 2}" width="${r[1]}" height="${r[2]}" rx="${r[2] / 2}" fill="#10161f"/>
-      <rect x="${x + 2}" y="${106 - r[2] / 2}" width="${r[1] - 4}" height="${r[2] - 4}" rx="2" fill="#2b3644"/>
-      <text x="${x + r[1] / 2}" y="${126}" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#7b8ca0">${r[0]}</text></g>`;
+    const y = 104 - r[2] / 2;
+    const g = `<g>
+      <rect x="${x}" y="${y}" width="${r[1]}" height="${r[2]}" rx="${Math.min(3, r[2] / 2)}" fill="#0a0f16"/>
+      <rect x="${x + 1.4}" y="${y + 1.4}" width="${r[1] - 2.8}" height="${r[2] - 2.8}" rx="${Math.max(1, r[2] / 2 - 1.4)}" fill="#242e3b"/>
+      <rect x="${x + 1.4}" y="${y + 1.4}" width="${r[1] - 2.8}" height="1.2" rx=".6" fill="#000" opacity=".5"/>
+      <text x="${x + r[1] / 2}" y="128" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#7b8ca0">${r[0]}</text></g>`;
     x += r[1] + 16;
     return g;
   }).join('');
   return svg(`${baseDefs(p, u)}
-    ${shadow(160, 150, 104, 10, u)}
-    <rect x="40" y="78" width="240" height="52" rx="7" fill="${f.b}"/>
-    <rect x="42" y="80" width="236" height="48" rx="6" fill="${f.a}"/>
-    <rect x="42" y="80" width="236" height="48" rx="6" fill="url(#${u}sheen)"/>
+    ${stage(u)}
+    ${shadow(160, 152, 108, 10, u)}
+    <!-- a slice of the chassis edge, lit from above -->
+    <rect x="38" y="76" width="244" height="56" rx="8" fill="${f.edge}"/>
+    <rect x="40" y="78" width="240" height="52" rx="7" fill="url(#${u}deck)"/>
+    <rect x="44" y="78.6" width="232" height="1.8" rx=".9" fill="url(#${u}rim)" opacity=".55"/>
     ${drawn}
-    <text x="160" y="160" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#8fa0b4">Ports and connections</text>
+    <text x="160" y="162" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" fill="#8fa0b4">Ports and connections</text>
   `);
 }
 

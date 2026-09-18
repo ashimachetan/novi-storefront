@@ -3190,13 +3190,63 @@ function artLaptop3D(p, v) {
    ========================================================================== */
 
 /* ---- brand: rename in one place ---- */
+/* ---- retailer profiles --------------------------------------------------
+   One click reskins the store to a named retailer so a partner sees their own
+   shelf rather than a generic one. The catalogue, the collections and the
+   instrumentation are untouched, so findings stay comparable across profiles.
+
+   This lives in the shared core rather than in the console because the console
+   and the storefront are two tabs on two screens. The console writes the
+   profile into the session, the participant tab picks it up on the storage
+   event and reskins itself. Held in the console alone it would only ever
+   recolour the moderator's own screen, which is not the claim being made. */
+const ROADSHOW = [
+  { id: 'novi',    name: 'Novi (default)', primary: '#0a4d8c', accent: '#f5a623', symbol: '$',
+    tag: 'The neutral house brand used for unbranded research.' },
+  { id: 'bigbox',  name: 'Big-box electronics', primary: '#0046be', accent: '#ffe000', symbol: '$',
+    tag: 'Blue and yellow large-format electronics retailer profile.' },
+  { id: 'club',    name: 'Warehouse club', primary: '#e31837', accent: '#0072ce', symbol: '$',
+    tag: 'Membership warehouse profile, fewer SKUs, price-led.' },
+  { id: 'etail',   name: 'Pure-play etailer', primary: '#232f3e', accent: '#ff9900', symbol: '$',
+    tag: 'Marketplace profile, dense grid, heavy sponsored inventory.' },
+  { id: 'carrier', name: 'Carrier / telco', primary: '#cd040b', accent: '#000000', symbol: '$',
+    tag: 'Telco profile, financing-led merchandising.' },
+  { id: 'eu',      name: 'EU specialist', primary: '#5c2d91', accent: '#00b294', symbol: '\u00a3',
+    tag: 'European specialist profile, GBP pricing.' }
+];
+/* Paint only. Safe to call in either tab and on every sync, because it derives
+   everything from the id and never writes back. */
+function shade(hex, f) {
+  const n = parseInt((hex || '#000').slice(1), 16);
+  const c = i => Math.max(0, Math.min(255, Math.round(((n >> i) & 255) * f)));
+  return '#' + [16, 8, 0].map(i => c(i).toString(16).padStart(2, '0')).join('');
+}
+function paintRoadshow(id) {
+  const r = ROADSHOW.find(x => x.id === (id || 'novi'));
+  if (!r) return;
+  BRAND.name = r.id === 'novi' ? 'novi' : r.name;
+  BRAND.symbol = r.symbol;
+  BRAND.currency = r.symbol === '\u00a3' ? 'GBP' : 'USD';
+  BRAND.market = r.symbol === '\u00a3' ? 'UK' : 'US';
+  BRAND.postcode = r.symbol === '\u00a3' ? 'SW1A 1AA' : '98052';
+  const s = document.documentElement.style;
+  s.setProperty('--b', r.primary);
+  s.setProperty('--acc', r.accent);
+  /* The navigation band and the utility bar are the largest areas of brand
+     colour on the page. Leaving them on a fixed dark makes a reskin look like a
+     recolour of the logo, so they are derived from the profile too. */
+  s.setProperty('--d', shade(r.primary, 0.62));
+  if (typeof paintBrand === 'function') paintBrand();
+}
+
 const BRAND = {
   name: 'novi',
   legal: 'Novi Retail (fictional)',
   tagline: 'Find a laptop that fits your life.',
   currency: 'USD',
   symbol: '$',
-  market: 'US'
+  market: 'US',
+  postcode: '98052'
 };
 
 /* ---- experiment conditions ----------------------------------------------
@@ -3327,13 +3377,16 @@ const DEFAULT_SESSION = () => ({
      the event log, so the console can segment a journey by its entry point. */
   firstCollTp: null,
   lastCollTp: null,
-  /* Collection art treatment. The Icons thread is a live disagreement between
-     the 1P wallpaper recommendation and the icon proposal from the pilot, so it
-     is a study variable rather than a style setting, and it rides on every
-     event. */
-  art: 'wall'
+  /* Collection art treatment. Whether a collection is fronted by product
+     photography or a distinct graphic mark is an open question rather than a
+     style setting, so it is a study variable and rides on every event. */
+  art: 'wall',
+  /* Retailer profile. Carried on the session so the console can reskin the
+     participant's storefront from the other screen. */
+  profile: 'novi'
 });
 
+let CURRENT_PROFILE = 'novi';
 let S = DEFAULT_SESSION();
 let EVENTS = [];
 let MOD = false;          // moderator bar visible
@@ -3467,6 +3520,9 @@ function restore() {
     if (e) EVENTS = JSON.parse(e);
     loadArchive();
     loadFlags();
+    /* The profile has to be applied before the first paint, or a reloaded tab
+       flashes the default brand before catching up on the next sync. */
+    if (S.profile && S.profile !== 'novi') { CURRENT_PROFILE = S.profile; paintRoadshow(S.profile); }
     return !!s;
   } catch (err) { return false; }
 }
@@ -3506,6 +3562,7 @@ function syncFromStorage(key) {
     }
   } catch (err) { return; }
   LAST_SYNC = Date.now();
+  applySyncedProfile();
   onSynced();
 }
 /* Each entry point decides what to repaint. Debounced, because a participant
@@ -3523,6 +3580,16 @@ function onSynced() {
     }
     render();
   }, 300);
+}
+/* The reskin has to repaint immediately rather than on the debounced render,
+   because the whole point on stage is that the store changes while the audience
+   is looking at it. Applied in both tabs so the moderator's preview matches
+   what the participant screen is showing. */
+function applySyncedProfile() {
+  if (S.profile && S.profile !== CURRENT_PROFILE) {
+    CURRENT_PROFILE = S.profile;
+    paintRoadshow(S.profile);
+  }
 }
 function startSync() {
   window.addEventListener('storage', ev => {
@@ -3926,25 +3993,23 @@ function collIconSvg(c, size) {
     stroke-linecap="round" stroke-linejoin="round">${t}</svg>`;
 }
 
-/* ---- Collection wallpapers, the 1P treatment ------------------------------
-   On the "Icons representing Collections" thread (11-17 Sep), IMC's
-   recommendation is to carry the collection renders and wallpapers exactly as
-   the 1P site does, on the view that adding an icon system "will just add to
-   the confusion". Katrina's supporting point is that competitors lean on
-   device imagery rather than icons.
+/* ---- Collection wallpapers, the photography treatment ---------------------
+   When a retailer fronts a collection, the usual choice is the product
+   photography the brand already ships: the device, shown displaying its own
+   collection wallpaper. The argument for it is that it is real merchandising
+   and that shoppers respond to device imagery rather than to abstract marks.
 
-   The counter-argument from the Best Buy pilot and the shop-alongs is that a
-   wallpaper cannot survive a retailer environment: at thumbnail size, beside
-   HP, Dell and Lenovo imagery, five abstract blooms do not tell a shopper
-   which collection is which, and on mobile the names truncate before they can
-   rescue it.
+   The counter-argument from the shop-alongs is that photography cannot survive
+   a retail environment: at thumbnail size, beside competing device imagery,
+   five abstract blooms do not tell a shopper which collection is which, and on
+   mobile the names truncate before they can rescue it.
 
    Both positions are testable, so both are built. The palettes below are
-   sampled pixel by pixel from the actual 1P asset attached to that thread
-   rather than invented, so the wallpaper arm renders the recommendation
-   faithfully instead of as a straw man. artMode() switches the treatment and
-   every collection event records which one was live, so the disagreement
-   resolves on observed behaviour rather than on preference. */
+   sampled from reference artwork rather than invented, so the photography arm
+   renders that position faithfully instead of as a straw man. artMode()
+   switches the treatment and every collection event records which one was
+   live, so the question resolves on observed behaviour rather than on
+   preference. */
 
 let WALL_N = 0;
 function wallUid() { return 'wl' + (++WALL_N).toString(36); }
@@ -4039,17 +4104,18 @@ function collWallSvg(c, size, opt) {
   </svg>`;
 }
 
-/* Which collection art treatment is live. 'icon' is the proposal from the
-   pilot, 'wall' is the 1P recommendation, 'both' overlays the icon on the
-   wallpaper as a compromise worth testing in its own right. */
+/* Which collection art treatment is live. 'icon' fronts a collection with a
+   distinct graphic mark, 'wall' with the product photography brands normally
+   ship, 'both' overlays the mark on the photography as a compromise worth
+   testing in its own right. */
 function artMode() {
   const m = (typeof S === 'object' && S && S.art) ? S.art : 'wall';
   return (m === 'icon' || m === 'wall' || m === 'both') ? m : 'wall';
 }
 const ART_LABEL = {
-  icon: 'Icons, the pilot proposal',
-  wall: 'Wallpapers, the 1P recommendation',
-  both: 'Wallpaper with icon overlay'
+  icon: 'Graphic mark',
+  wall: 'Product photography',
+  both: 'Photography with mark'
 };
 
 /* The 1P treatment is a device render *carrying* the collection wallpaper, not
@@ -4504,8 +4570,10 @@ function setPage(n) { S.page = n; track('page_changed', n); render(); window.scr
    Real large-format retail is noisy: sponsored slots, promo ribbons, member
    pricing, upsells. A prototype that is too clean tests a shop that does not
    exist, so the noise is here and can be switched off as a variable. */
-const RIBBON = [
-  'Free shipping on orders $35 and up',
+/* A function rather than a const, because the currency symbol changes with the
+   retailer profile and a const would bake in whichever symbol was live at load. */
+const RIBBON = () => [
+  'Free shipping on orders ' + money(35) + ' and up',
   'Members get an extra 5% back in rewards',
   'Open-Box: save up to 20% on selected laptops',
   'Price match guarantee on identical in-stock items',
@@ -4513,7 +4581,7 @@ const RIBBON = [
 ];
 function promoRibbon() {
   if (density() !== 'busy') return '';
-  return `<div class="ribbon"><div class="ribwrap">${RIBBON.map(r =>
+  return `<div class="ribbon"><div class="ribwrap">${RIBBON().map(r =>
     `<span>${r}</span>`).join('<i>&bull;</i>')}</div></div>`;
 }
 function adTile(i) {
@@ -4757,7 +4825,7 @@ function viewHome() {
     .map(t => `<button class="chip" onclick="doSearch('${t}')">${t}</button>`).join('')}</div>
 
   <div class="svcs">
-    ${[['Free delivery', 'On orders over $35, most laptops in 2 to 4 days'],
+    ${[['Free delivery', 'On orders over ' + money(35) + ', most laptops in 2 to 4 days'],
        ['Store pickup', 'Ready in an hour at selected stores'],
        ['15-day returns', 'Free, in store or by post'],
        ['Protection plans', 'Accidental damage cover from $89'],
@@ -6423,7 +6491,7 @@ function shell() {
 
   <div class="topbar"><div class="wrap">
     <span>Research prototype. Novi is not a real retailer and no real orders are placed.</span>
-    <span>Ship to 98052 &middot; US &middot; USD</span>
+    <span id="shipto">Ship to 98052 &middot; US &middot; USD</span>
   </div></div>
 
   <header class="header"><div class="wrap">
@@ -6685,6 +6753,11 @@ function navHtml() {
 /* Roadshow mode swaps the store identity, so the wordmark and the tab title
    have to follow the profile, not stay hard-coded to Novi. */
 function paintBrand() {
+  const rb = document.getElementById('ribbon');
+  if (rb && typeof promoRibbon === 'function') rb.innerHTML = promoRibbon();
+  const st = document.getElementById('shipto');
+  if (st) st.innerHTML = 'Ship to ' + esc(BRAND.postcode || '98052') + ' &middot; '
+    + esc(BRAND.market || 'US') + ' &middot; ' + esc(BRAND.currency || 'USD');
   const lg = document.getElementById('brandlogo');
   if (!lg) return;
   const nm = (BRAND.name || 'novi');

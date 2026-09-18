@@ -992,35 +992,115 @@ body.consolemode .cohort td{border-color:#18253a}
 .tphint{margin:11px 0 0;font-size:12px;color:var(--muted)}
 @media(max-width:900px){.tparms{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-/* ---- navigation: department mega menu, drawer, hamburger ----------------- */
-.mainnav .wrap{align-items:stretch;gap:2px;padding:0 24px;overflow:visible}
-.mainnav .wrap>a,.navdepta,.navcoll{display:flex;align-items:center;padding:10px 10px;
-  white-space:nowrap;flex:0 0 auto;cursor:pointer}
-.navall{display:none;align-items:center;gap:7px;padding:10px 12px 10px 0;margin-right:6px;
-  background:none;border:0;font:inherit;font-weight:700;color:#3c4d67;cursor:pointer;flex:0 0 auto}
-.navall:hover{color:var(--b)}
-.navallico{display:inline-flex;flex-direction:column;gap:3px;width:15px}
+
+/* ==== navigation ==========================================================
+   The mainstream US big-box pattern: a coloured band of pill controls with a
+   primary Shop control, utility links to the right, and one drill-down panel
+   that is the same component at every width. */
+.mainnav{background:var(--d);border-bottom:0}
+.mainnav .wrap{display:flex;align-items:center;gap:18px;padding:9px 24px;overflow:visible;
+  font-size:13px;color:#dbe7fb}
+.navpills{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.navpill{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;font-size:13px;
+  font-weight:600;white-space:nowrap;cursor:pointer;transition:background .12s,border-color .12s}
+.navpill:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.72)}
+.navshop{background:var(--b);border-color:var(--b)}
+.navshop:hover{background:var(--b2);border-color:var(--b2)}
+.navshop[aria-expanded="true"] .navcar{transform:rotate(180deg)}
+.navcoll{border-color:rgba(255,255,255,.4)}
+.navallico{display:inline-flex;flex-direction:column;gap:3px;width:14px}
 .navallico i{display:block;height:2px;border-radius:2px;background:currentColor}
-.navdept{position:relative;display:flex;flex:0 0 auto}
-.navdept>.navdepta:hover{color:var(--b)}
-.navmega{position:absolute;top:100%;left:0;z-index:70;min-width:430px;
-  background:#fff;border:1px solid var(--line);border-radius:0 0 12px 12px;border-top:0;
-  box-shadow:0 18px 40px rgba(16,32,56,.16);opacity:0;visibility:hidden;transform:translateY(-5px);
-  transition:opacity .13s,transform .13s,visibility .13s}
-.navdept:hover .navmega,.navdept:focus-within .navmega{opacity:1;visibility:visible;transform:none}
-.navmegacols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}
-.navmegacol{padding:14px 16px;min-width:0}
-.navmegacol+.navmegacol{border-left:1px solid var(--line)}
-.navmegafeat{background:#f7f9fc;border-radius:0 0 12px 0}
-.navmegahead{display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:8px}
-.navmegacol a{display:flex;justify-content:space-between;gap:12px;align-items:baseline;
-  padding:5px 0;font-size:13px;color:#22324a;cursor:pointer;line-height:1.35}
-.navmegacol a:hover{color:var(--b)}
-.navmegacol a span{font-size:11.5px;color:var(--muted);flex:0 0 auto}
-.navmegaall{margin-top:6px;padding-top:8px!important;border-top:1px solid var(--line);font-weight:700}
-.navmegafoot{padding:9px 16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);
-  background:#fbfcfe;border-radius:0 0 12px 12px}
+.navcar{width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;
+  border-top:5px solid currentColor;transition:transform .14s}
+
+.navlinks{display:flex;align-items:center;gap:20px;margin-left:auto;min-width:0;flex:0 1 auto;
+  overflow:hidden}
+.navlinks a{color:#dbe7fb;white-space:nowrap;font-size:13px;cursor:pointer}
+.navlinks a:hover{color:#fff;text-decoration:underline}
+.navmore{display:inline-flex;align-items:center;gap:6px;flex:0 0 auto}
+
+/* Progressive collapse. The utility links drop before the pills do, and the
+   pills never drop, because Shop is the only guaranteed way into the store. */
+@media(max-width:1180px){ .navlinks a:nth-last-child(2),.navlinks a:nth-last-child(3){display:none} }
+@media(max-width:980px){ .navlinks a:not(.navmore){display:none} }
+@media(max-width:760px){
+  .mainnav .wrap{gap:10px;padding:8px 16px}
+  .navpills{gap:6px}
+  .navpill{padding:6px 12px}
+}
+@media(max-width:560px){
+  .navlinks{display:none}
+  .mainnav .wrap{overflow-x:auto;scrollbar-width:none}
+  .mainnav .wrap::-webkit-scrollbar{display:none}
+}
+
+/* The Menu control in the header, always present, always the same panel. */
+.burger{display:flex;align-items:center;gap:9px;padding:9px 13px 9px 0;margin-right:4px;
+  background:none;border:0;cursor:pointer;flex:0 0 auto;color:#22324a}
+.burger:hover{color:var(--b)}
+.burger b{font-size:13.5px;font-weight:700}
+.burgerico{display:flex;flex-direction:column;gap:4px;width:19px}
+.burgerico i{display:block;height:2px;border-radius:2px;background:currentColor}
+@media(max-width:700px){ .burger b{display:none} .burger{padding-right:4px} }
+
+/* ---- the drill-down panel ---- */
+.navdrawer{position:fixed;inset:0;z-index:130;display:none}
+.navdrawer.open{display:block}
+.navscrim{position:absolute;inset:0;background:rgba(7,18,36,.42);opacity:0;transition:opacity .19s}
+.navdrawer.in .navscrim{opacity:1}
+.navpanel{position:absolute;top:0;left:0;bottom:0;width:min(372px,90vw);background:#fff;
+  display:flex;flex-direction:column;transform:translateX(-102%);transition:transform .19s ease;
+  box-shadow:0 0 44px rgba(10,22,40,.28)}
+.navdrawer.in .navpanel{transform:none}
+/* On a wide screen it hangs off the nav band like a menu rather than filling
+   the edge of the screen, which is what the big-box sites do. */
+@media(min-width:900px){
+  .navpanel{top:var(--navtop,150px);left:max(24px,calc((100vw - var(--max)) / 2 + 24px));
+    bottom:auto;max-height:calc(100vh - var(--navtop,150px) - 28px);border-radius:10px;
+    transform:translateY(-8px);opacity:0;transition:transform .15s,opacity .15s}
+  .navdrawer.in .navpanel{transform:none;opacity:1}
+  .navscrim{background:rgba(7,18,36,.22)}
+}
+.navhead{display:flex;align-items:center;gap:10px;padding:12px 16px;flex:0 0 auto;
+  border-bottom:1px solid var(--line)}
+.navtitle{font-size:15px;flex:1;min-width:0}
+.navback{display:inline-flex;align-items:center;gap:7px;padding:5px 10px 5px 6px;border:0;
+  border-radius:7px;background:#eef3fa;color:var(--b);font-size:12.5px;font-weight:700;cursor:pointer;
+  flex:0 0 auto}
+.navback:hover{background:#e2ebf8}
+.navback i{width:7px;height:7px;border-left:1.8px solid currentColor;border-bottom:1.8px solid currentColor;
+  transform:rotate(45deg);margin-left:2px}
+.navx{background:none;border:0;font-size:26px;line-height:1;color:var(--muted);cursor:pointer;
+  padding:0 2px;flex:0 0 auto}
+.navx:hover{color:var(--ink)}
+.navbody{flex:1;overflow-y:auto;padding:8px 0;-webkit-overflow-scrolling:touch}
+
+.navrow{display:flex;align-items:center;gap:12px;width:100%;padding:11px 20px;border:0;
+  background:none;font:inherit;text-align:left;color:var(--ink);cursor:pointer;min-width:0}
+.navrow:hover{background:#f2f6fc}
+.navrowico{flex:0 0 auto;font-size:17px;line-height:1;width:20px}
+.navrowtx{flex:1;min-width:0;font-size:13.5px;line-height:1.35}
+.navrowtx b{display:block;font-weight:700}
+.navrowtx i{display:block;font-style:normal;font-size:11.5px;color:var(--muted);line-height:1.35;
+  margin-top:1px}
+.navrown{flex:0 0 auto;font-size:11.5px;color:var(--muted)}
+.navrowchev{flex:0 0 auto;width:7px;height:7px;border-right:1.7px solid var(--muted);
+  border-bottom:1.7px solid var(--muted);transform:rotate(-45deg);margin-right:3px}
+.navdrill:hover .navrowchev{border-color:var(--b)}
+.navexplore{color:var(--b)}
+.navexplore .navrowtx b{font-weight:700}
+.navrowall{color:var(--b)}
+.navsechead{padding:12px 20px 6px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted)}
+.navrule{height:1px;background:var(--line);margin:8px 0}
+.navfoot{padding:12px 20px;margin-top:6px;border-top:1px solid var(--line);font-size:11.5px;
+  color:var(--muted);background:#fbfcfe}
+.navcollrow .navrowart{flex:0 0 auto;display:flex;width:32px;height:32px;align-items:center;
+  justify-content:center;border-radius:8px;background:var(--ccl);color:var(--cc)}
+.navcollrow:hover{background:var(--ccl)}
+.colltag{flex:none;display:block;background:none;border:0;padding:0;margin:0}
+body.noscroll{overflow:hidden}
 
 /* department subcategory chips on the department page */
 .deptcats{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
@@ -1031,72 +1111,6 @@ body.consolemode .cohort td{border-color:#18253a}
 .deptcat.on span{color:rgba(255,255,255,.75)}
 .deptcat span{font-size:11px;color:var(--muted)}
 .deptcat.ghost{color:var(--muted)}
-
-/* hamburger in the header, shown only when the department row collapses */
-.burger{display:none;flex-direction:column;gap:4px;width:34px;padding:7px 6px;margin-right:2px;
-  background:none;border:0;cursor:pointer;flex:0 0 auto}
-.burger i{display:block;height:2px;border-radius:2px;background:#22324a}
-
-/* the drawer */
-.navdrawer{position:fixed;inset:0;z-index:120;pointer-events:none;display:none}
-.navdrawer.open{pointer-events:auto;display:block}
-.drawscrim{position:absolute;inset:0;background:rgba(12,22,38,.45);opacity:0;transition:opacity .18s}
-.navdrawer.in .drawscrim{opacity:1}
-.drawpanel{position:absolute;top:0;left:0;bottom:0;width:min(370px,88vw);background:#fff;
-  display:flex;flex-direction:column;transform:translateX(-102%);transition:transform .2s ease;
-  box-shadow:0 0 44px rgba(12,22,38,.26)}
-.navdrawer.in .drawpanel{transform:none}
-.drawhead{display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:14px 16px;border-bottom:1px solid var(--line);flex:0 0 auto}
-.drawhead b{font-size:15px}
-.drawx{background:none;border:0;font-size:26px;line-height:1;color:var(--muted);cursor:pointer;padding:0 4px}
-.drawbody{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.drawsec{padding:10px 0;border-bottom:1px solid var(--line)}
-.drawsec:last-child{border-bottom:0}
-.drawsechead{padding:5px 16px 8px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.drawcoll{display:flex;align-items:center;gap:11px;padding:9px 16px;cursor:pointer;min-width:0}
-.drawcoll:hover{background:var(--ccl)}
-.drawcollart{flex:0 0 auto;display:flex;width:30px;height:30px;align-items:center;justify-content:center;
-  border-radius:8px;background:var(--ccl);color:var(--cc)}
-.drawcoll b{display:block;font-size:13px}
-.drawcoll i{display:block;font-style:normal;font-size:11.5px;color:var(--muted);line-height:1.35}
-.drawdepthead{display:flex;align-items:center;gap:11px;width:100%;padding:11px 16px;
-  background:none;border:0;font:inherit;text-align:left;cursor:pointer}
-.drawdepthead:hover{background:#f5f8fc}
-.drawico{flex:0 0 auto;font-size:17px;line-height:1}
-.drawname{flex:1;min-width:0;font-size:13.5px;color:#22324a}
-.drawchev{flex:0 0 auto;color:var(--muted);font-size:17px;transition:transform .15s}
-.drawdept.open .drawchev{transform:rotate(90deg)}
-.drawdept.open .drawdepthead{color:var(--b)}
-.drawsub{padding:2px 0 8px}
-.drawsub a{display:flex;justify-content:space-between;gap:12px;align-items:baseline;
-  padding:7px 16px 7px 43px;font-size:12.5px;color:#34455e;cursor:pointer}
-.drawsub a:hover{background:#f5f8fc;color:var(--b)}
-.drawsub a span{font-size:11px;color:var(--muted)}
-.drawsuball{font-weight:700}
-.drawlink{display:block;padding:9px 16px;font-size:13.5px;color:#22324a;cursor:pointer}
-.drawlink:hover{background:#f5f8fc;color:var(--b)}
-body.noscroll{overflow:hidden}
-
-/* Below 1180px the department row can no longer hold eight departments plus the
-   laptop entries, so it collapses to the drawer rather than scrolling silently. */
-@media(max-width:1180px){
-  .navdept{display:none}
-  .navall{display:inline-flex}
-}
-@media(max-width:800px){
-  .burger{display:flex}
-  .mainnav .wrap{padding:0 16px}
-}
-
-/* The flyouts are absolutely positioned inside a nav that must not clip them,
-   so they have to fit the viewport themselves. Below the collapse point the
-   Collections entry moves into the drawer with the departments, where TP2 is
-   still gated and still attributed. */
-.navmega,.navfly{max-width:calc(100vw - 32px)}
-@media(max-width:1180px){
-  .navcollwrap{display:none}
-}
 
 </style>
 </head>
@@ -6050,7 +6064,7 @@ function metrics(filterCond, source) {
    ========================================================================== */
 const TP_SOURCE_LABEL = {
   search_autocomplete: 1, search_results_strip: 1,
-  nav_flyout: 2, nav_drawer: 2,
+  nav_flyout: 2, nav_drawer: 2, nav_menu: 2,
   category_strip: 3,
   listing_blade: 4, collection_tile: 4, compare_table: 4, tile_badge: 4,
   advisor_step: 5, advisor_results: 5,
@@ -6902,7 +6916,7 @@ function shell() {
 
   <header class="header"><div class="wrap">
     <button class="burger" onclick="openDrawer()" aria-label="Open menu">
-      <i></i><i></i><i></i></button>
+      <span class="burgerico"><i></i><i></i><i></i></span><b>Menu</b></button>
     <a class="logo" id="brandlogo" onclick="go('#/')">nov<i>i</i></a>
     <div class="searchbox">
       <input id="q" placeholder="Search products, brands and categories" autocomplete="off" aria-label="Search"
@@ -6963,15 +6977,16 @@ function paintChrome() {
    the navigation entirely and the shopper falls back to raw category browsing.
    That contrast is the study.
 
-   The nav entry carries a flyout rather than being a bare link, because slide
+   The nav entry carries a menu rather than being a bare link, because slide
    30 is explicit that a Collection should never appear as a name on its own.
-   A shopper who has never met the framework meets it here, with a descriptor. */
-/* Departments carry real subcategories in the catalogue but the navigation
-   never exposed them, so every department was a flat link into a long page.
-   A full-line retailer's navigation is how a shopper forms a mental model of
-   the store, and if laptops are supposed to be competing for attention among
-   TVs and appliances then that competition has to be visible in the nav.
-   Counts are derived from the live catalogue so they cannot drift. */
+   A shopper who has never met the framework meets it here, with a descriptor.
+
+   The pattern is the mainstream US big-box one: a blue band of pill controls,
+   a primary Shop control that opens a single narrow drill-down panel, and
+   utility links to the right. It is one component at every width rather than a
+   mega menu on desktop and a drawer on mobile, which matters for the study:
+   if desktop and mobile shoppers navigate through different structures then
+   breakpoint becomes a confound in every journey comparison. */
 function deptCats(id) {
   const items = deptItems(id);
   const seen = {}, out = [];
@@ -6983,164 +6998,157 @@ function deptCats(id) {
 }
 function catSlug(c) { return String(c).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
 
-function deptMenu(d) {
-  const cats = deptCats(d.id);
-  const route = d.route || ('#/d/' + d.id);
-  const top = deptItems(d.id).slice().sort((a, b) => b.reviewCount - a.reviewCount)[0];
-  /* Computers & Tablets holds no merchandising stock, because its stock is the
-     laptop catalogue the study is actually about. Its menu is therefore built
-     from the laptop types rather than from STORE, which would be empty. */
-  const isComputers = d.id === 'computers';
-  const firstCol = isComputers
-    ? TYPES.map(t => ({ label: t, n: CATALOG.filter(p => p.type === t).length,
-        act: `navType('${t.replace(/'/g, "\\'")}')` }))
-      .filter(x => x.n).sort((a, b) => b.n - a.n)
-    : cats.map(c => ({ label: c.cat, n: c.n, act: `go('#/d/${d.id}/${catSlug(c.cat)}')` }));
-  return `<span class="navdept">
-    <a class="navdepta" onclick="go('${route}')">${esc(d.name)}</a>
-    <div class="navmega" role="menu">
-      <div class="navmegacols">
-        <div class="navmegacol">
-          <b class="navmegahead">Shop ${esc(d.name)}</b>
-          ${firstCol.map(x => `<a onclick="${x.act}">${esc(x.label)}<span>${x.n}</span></a>`).join('')}
-          <a class="navmegaall" onclick="${isComputers ? "navType('')" : `go('${route}')`}">All ${esc(d.name)}</a>
-        </div>
-        ${isComputers ? `<div class="navmegacol navmegafeat">
-          <b class="navmegahead">Help me decide</b>
-          <a onclick="go('#/advisor')">Help me choose</a>
-          <a onclick="go('#/compare')">Compare laptops</a>
-          <a onclick="go('#/guide')">Buying guides</a>
-          ${tpOn(2) ? `<a onclick="go('#/windows')">Windows 11 laptops</a>` : ''}
-          <a onclick="go('#/deals')">Laptop deals</a>
-        </div>` : (top ? `<div class="navmegacol navmegafeat">
-          <b class="navmegahead">Most reviewed</b>
-          <a onclick="go('#/s/${top.id}')">${esc(top.name)}<span>${money(top.price)}</span></a>
-          <a onclick="go('#/deals')">Deals in ${esc(d.name)}</a>
-        </div>` : '')}
-      </div>
-      <div class="navmegafoot">${esc(d.blurb)}</div>
-    </div></span>`;
+/* Computers & Tablets holds no merchandising stock of its own, because its
+   stock is the laptop catalogue the study is about. Its level is therefore
+   built from laptop types rather than from STORE, which would be empty. */
+function deptRows(id) {
+  if (id === 'computers') {
+    return TYPES.map(t => ({ label: t, n: CATALOG.filter(p => p.type === t).length,
+        act: `navPick(&quot;type&quot;,'${t.replace(/'/g, "\\'")}')` }))
+      .filter(x => x.n).sort((a, b) => b.n - a.n);
+  }
+  return deptCats(id).map(c => ({ label: c.cat, n: c.n,
+    act: `navGo('#/d/${id}/${catSlug(c.cat)}')` }));
 }
 
 function paintNav() {
   const el = document.getElementById('mainnav');
   if (!el) return;
   const showColl = tpOn(2);
-  const a = (href, label, cls) =>
-    `<a${cls ? ` class="${cls}"` : ''} onclick="go('${href}')">${label}</a>`;
 
-  let h = `<button class="navall" onclick="openDrawer()" aria-label="All departments">
-    <span class="navallico"><i></i><i></i><i></i></span>All</button>`;
-  h += DEPARTMENTS.map(deptMenu).join('');
-  h += a('#/laptops', 'Laptops');
-  if (showColl) {
-    h += `<span class="navcollwrap">
-      <a class="navcoll" onclick="go('#/collections')">Collections</a>
-      <div class="navfly" role="menu">
-        <div class="navflyhead">Shop Windows Laptops by Use Case</div>
-        ${COLLECTIONS.map(c => `<a class="navflyrow" style="${collCss(c)}"
-          onclick="pickCollection('${c.id}','nav_flyout')">
-          <span class="navflyart">${collTagSvg(c, 20)}</span>
-          <span><b>${esc(c.name)}</b><i>${esc(c.blurb)}</i></span>
-          <span class="navflyn">${CATALOG.filter(p => p.collection === c.name).length}</span></a>`).join('')}
-        <a class="navflyall" onclick="go('#/collections')">Compare all five collections</a>
-      </div></span>`;
-  }
-  h += a('#/deals', 'Deals') + a('#/guide', 'Buying guides');
+  let h = `<div class="navpills">
+    <button class="navpill navshop" id="navshop" onclick="toggleNavMenu()" aria-expanded="false">
+      <span class="navallico"><i></i><i></i><i></i></span>Shop<i class="navcar"></i></button>
+    <button class="navpill" onclick="go('#/deals')">Deals</button>
+    <button class="navpill" onclick="go('#/guide')">Buying guides</button>
+    ${showColl ? `<button class="navpill navcoll" onclick="openNavMenu('coll')">Collections<i class="navcar"></i></button>` : ''}
+  </div>
+  <div class="navlinks">
+    <a onclick="go('#/laptops')">Laptops</a>
+    <a onclick="go('#/advisor')">Find your PC</a>
+    <a onclick="go('#/compare')">Compare</a>
+    <a onclick="go('#/d/tv')">TV &amp; Home Theatre</a>
+    <a onclick="go('#/d/mobile')">Mobile</a>
+    <a class="navmore" onclick="openNavMenu()">More <i class="navcar"></i></a>
+  </div>`;
   el.innerHTML = h;
   const hc = document.getElementById('hnavcoll');
   if (hc) hc.style.display = showColl ? '' : 'none';
   paintBrand();
 }
 
-/* ---- the drawer ------------------------------------------------------------
-   Below 900px the department row became a silent horizontal scroll, so most of
-   the store was unreachable without a gesture nothing signposted. The drawer is
-   the same information architecture as the mega menu, stacked and expandable.
+/* ---- the Shop menu ---------------------------------------------------------
+   A drill-down stack rather than an expanding accordion. Each level replaces
+   the one before it with a back control, so the panel stays one column at any
+   depth and the same panel works on a phone and on a 1500px screen.
 
-   Collections appear here only when TP2 is live. The drawer is navigation, so
-   putting Collections in it unconditionally would have reopened the exact
-   validity hole that made the old control arm useless. */
-let DRAWER_OPEN = null;
-let DRAWER_T = null;
-function openDrawer() {
-  const r = document.getElementById('drawer');
+   Collections appear here only when TP2 is live. This is navigation, so
+   putting Collections in it unconditionally would reopen the exact validity
+   hole that made the old control arm useless. */
+let NAV_LEVEL = null;
+let NAV_T = null;
+
+function navRoot() { return document.getElementById('drawer'); }
+function navIsOpen() { const r = navRoot(); return !!r && r.classList.contains('open'); }
+
+function openNavMenu(level) {
+  const r = navRoot();
   if (!r) return;
-  DRAWER_OPEN = null;
-  clearTimeout(DRAWER_T);
-  r.innerHTML = drawerHtml();
+  NAV_LEVEL = level || null;
+  clearTimeout(NAV_T);
+  syncModOffset();
+  r.innerHTML = navHtml();
   r.classList.add('open');
   document.body.classList.add('noscroll');
+  const sh = document.getElementById('navshop');
+  if (sh) sh.setAttribute('aria-expanded', 'true');
   /* The panel is display:none when closed, so it has to be laid out for one
-     frame before the slide-in transform can animate. */
+     frame before the transform can animate. */
   void r.offsetWidth;
   requestAnimationFrame(() => r.classList.add('in'));
-  track('nav_drawer_opened', { collections: tpOn(2) });
+  track('nav_menu_opened', { collections: tpOn(2), level: NAV_LEVEL || 'root' });
 }
+/* Kept under the old name because the header control and the Escape handler
+   both call it, and because a moderator may have it in muscle memory. */
+function openDrawer() { openNavMenu(); }
+function toggleNavMenu() { navIsOpen() ? closeDrawer() : openNavMenu(); }
+
 function closeDrawer() {
-  const r = document.getElementById('drawer');
+  const r = navRoot();
   if (!r || !r.classList.contains('open')) return;
   r.classList.remove('in');
   document.body.classList.remove('noscroll');
-  clearTimeout(DRAWER_T);
-  DRAWER_T = setTimeout(() => { r.classList.remove('open'); r.innerHTML = ''; }, 200);
+  const sh = document.getElementById('navshop');
+  if (sh) sh.setAttribute('aria-expanded', 'false');
+  clearTimeout(NAV_T);
+  NAV_T = setTimeout(() => { r.classList.remove('open'); r.innerHTML = ''; }, 190);
 }
-function drawerDept(id) {
-  DRAWER_OPEN = (DRAWER_OPEN === id) ? null : id;
-  const r = document.getElementById('drawer');
-  if (r) r.innerHTML = drawerHtml();
+function navLevel(id) {
+  NAV_LEVEL = id;
+  const r = navRoot();
+  if (r) { r.innerHTML = navHtml(); const bd = r.querySelector('.navbody'); if (bd) bd.scrollTop = 0; }
 }
-function drawerGo(hash) { closeDrawer(); go(hash); }
-function drawerPick(id) { closeDrawer(); pickCollection(id, 'nav_drawer'); }
+function navBack() { navLevel(null); }
+function navGo(hash) { closeDrawer(); go(hash); }
+function navPickColl(id) { closeDrawer(); pickCollection(id, 'nav_menu'); }
+function navPick(kind, v) { closeDrawer(); if (kind === 'type') navType(v); }
 
-function drawerHtml() {
+function navCollSection() {
+  return `<div class="navsechead">Shop Windows Laptops by Use Case</div>
+    ${COLLECTIONS.map(c => `<button class="navrow navcollrow" style="${collCss(c)}"
+      onclick="navPickColl('${c.id}')">
+      <span class="navrowart">${collTagSvg(c, 20)}</span>
+      <span class="navrowtx"><b>${esc(c.name)}</b><i>${esc(c.blurb)}</i></span>
+      <span class="navrown">${CATALOG.filter(p => p.collection === c.name).length}</span></button>`).join('')}
+    <button class="navrow navrowall" onclick="navGo('#/collections')">
+      <span class="navrowtx"><b>Compare all five collections</b></span></button>`;
+}
+
+function navHtml() {
   const showColl = tpOn(2);
-  return `<div class="drawscrim" onclick="closeDrawer()"></div>
-  <aside class="drawpanel" role="dialog" aria-label="Main menu">
-    <div class="drawhead">
-      <b>Shop all departments</b>
-      <button class="drawx" onclick="closeDrawer()" aria-label="Close menu">&times;</button>
-    </div>
-    <div class="drawbody">
-      ${showColl ? `<div class="drawsec">
-        <div class="drawsechead">Shop Windows Laptops by Use Case</div>
-        ${COLLECTIONS.map(c => `<a class="drawcoll" style="${collCss(c)}"
-          onclick="drawerPick('${c.id}')">
-          <span class="drawcollart">${collTagSvg(c, 20)}</span>
-          <span><b>${esc(c.name)}</b><i>${esc(c.blurb)}</i></span></a>`).join('')}
-      </div>` : ''}
-      <div class="drawsec">
-        ${DEPARTMENTS.map(d => {
-          const open = DRAWER_OPEN === d.id;
-          const isComputers = d.id === 'computers';
-          const rows = isComputers
-            ? TYPES.map(t => ({ label: t, n: CATALOG.filter(p => p.type === t).length,
-                act: `closeDrawer();navType('${t.replace(/'/g, "\\'")}')` }))
-              .filter(x => x.n).sort((a, b) => b.n - a.n)
-            : deptCats(d.id).map(c => ({ label: c.cat, n: c.n,
-                act: `drawerGo('#/d/${d.id}/${catSlug(c.cat)}')` }));
-          return `<div class="drawdept${open ? ' open' : ''}">
-            <button class="drawdepthead" onclick="drawerDept('${d.id}')" aria-expanded="${open}">
-              <span class="drawico">${d.icon}</span><span class="drawname">${esc(d.name)}</span>
-              <span class="drawchev">&#8250;</span></button>
-            ${open ? `<div class="drawsub">
-              ${rows.map(x => `<a onclick="${x.act}">${esc(x.label)}<span>${x.n}</span></a>`).join('')}
-              <a class="drawsuball" onclick="${isComputers
-                ? "closeDrawer();navType('')"
-                : `drawerGo('${d.route || ('#/d/' + d.id)}')`}">All ${esc(d.name)}</a>
-            </div>` : ''}</div>`;
-        }).join('')}
-      </div>
-      <div class="drawsec">
-        <div class="drawsechead">Laptops</div>
-        <a class="drawlink" onclick="drawerGo('#/laptops')">Shop all laptops</a>
-        <a class="drawlink" onclick="drawerGo('#/advisor')">Help me choose</a>
-        <a class="drawlink" onclick="drawerGo('#/compare')">Compare</a>
-        <a class="drawlink" onclick="drawerGo('#/deals')">Deals</a>
-        <a class="drawlink" onclick="drawerGo('#/guide')">Buying guides</a>
-      </div>
-    </div>
-  </aside>`;
+  const d = NAV_LEVEL && NAV_LEVEL !== 'coll' ? deptById(NAV_LEVEL) : null;
+  let title, body;
+
+  if (NAV_LEVEL === 'coll') {
+    title = `<button class="navback" onclick="navBack()"><i></i>Back</button>
+      <b class="navtitle">Collections</b>`;
+    body = navCollSection();
+  } else if (d) {
+    const rows = deptRows(d.id);
+    const isComputers = d.id === 'computers';
+    title = `<button class="navback" onclick="navBack()"><i></i>Shop</button>
+      <b class="navtitle">${esc(d.name)}</b>`;
+    body = `<button class="navrow navexplore" onclick="${isComputers
+        ? `navPick(&quot;type&quot;,'')` : `navGo('${d.route || ('#/d/' + d.id)}')`}">
+        <span class="navrowtx"><b>Explore ${esc(d.name)}</b></span></button>
+      ${rows.map(x => `<button class="navrow" onclick="${x.act}">
+        <span class="navrowtx">${esc(x.label)}</span>
+        <span class="navrown">${x.n}</span></button>`).join('')}
+      ${isComputers ? `<div class="navsechead">Help me decide</div>
+        <button class="navrow" onclick="navGo('#/advisor')"><span class="navrowtx">Help me choose</span></button>
+        <button class="navrow" onclick="navGo('#/compare')"><span class="navrowtx">Compare laptops</span></button>
+        <button class="navrow" onclick="navGo('#/guide')"><span class="navrowtx">Buying guides</span></button>` : ''}
+      <div class="navfoot">${esc(d.blurb)}</div>`;
+  } else {
+    title = `<b class="navtitle">Shop</b>`;
+    body = `${showColl ? navCollSection() + '<div class="navrule"></div>' : ''}
+      ${DEPARTMENTS.map(x => `<button class="navrow navdrill" onclick="navLevel('${x.id}')">
+        <span class="navrowico">${x.icon}</span>
+        <span class="navrowtx">${esc(x.name)}</span>
+        <i class="navrowchev"></i></button>`).join('')}
+      <div class="navrule"></div>
+      <button class="navrow" onclick="navGo('#/laptops')"><span class="navrowtx">Shop all laptops</span></button>
+      <button class="navrow" onclick="navGo('#/advisor')"><span class="navrowtx">Help me choose</span></button>
+      <button class="navrow" onclick="navGo('#/deals')"><span class="navrowtx">Deals</span></button>
+      <button class="navrow" onclick="navGo('#/guide')"><span class="navrowtx">Buying guides</span></button>`;
+  }
+
+  return `<div class="navscrim" onclick="closeDrawer()"></div>
+  <div class="navpanel" role="dialog" aria-label="Shop menu">
+    <div class="navhead">${title}
+      <button class="navx" onclick="closeDrawer()" aria-label="Close menu">&times;</button></div>
+    <div class="navbody">${body}</div>
+  </div>`;
 }
 
 /* Roadshow mode swaps the store identity, so the wordmark and the tab title
@@ -7198,9 +7206,17 @@ function paintMod() {
 }
 function syncModOffset() {
   const bar = document.getElementById('modbar');
-  if (!bar) return;
-  const h = (MOD && bar.classList.contains('show')) ? Math.ceil(bar.getBoundingClientRect().height) : 0;
-  document.documentElement.style.setProperty('--modh', h + 'px');
+  if (bar) {
+    const h = (MOD && bar.classList.contains('show')) ? Math.ceil(bar.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty('--modh', h + 'px');
+  }
+  /* The Shop panel hangs off the bottom of the nav band, and the band moves
+     whenever the moderator bar wraps, so the anchor is measured not assumed. */
+  const nav = document.querySelector('.mainnav');
+  if (nav) {
+    document.documentElement.style.setProperty('--navtop',
+      Math.round(nav.getBoundingClientRect().bottom + 6) + 'px');
+  }
 }
 function elapsed() {
   const s = Math.floor((Date.now() - S.startedAt) / 1000);

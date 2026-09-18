@@ -1905,13 +1905,32 @@ function addToCartStore(id) {
 
 /* Store-wide search. A shopper typing "pro" should see laptops competing with
    a PlayStation and an iPad, which is the whole point. */
+/* Token matching, not whole-string, and it shares the storefront's tokenizer so
+   "wireless headphones" and "laptop for school" behave the same on both sides
+   of the store. Department and category are in the haystack so a shopper can
+   type the aisle rather than the product. */
 function searchStore(q) {
-  const t = q.toLowerCase().trim();
-  if (!t) return [];
-  return STORE.filter(p =>
-    p.title.toLowerCase().includes(t) ||
-    p.cat.toLowerCase().includes(t) ||
-    p.brand.toLowerCase().includes(t));
+  const toks = searchTokens(q);
+  if (!toks.length) return [];
+  const scored = [];
+  STORE.forEach(p => {
+    /* The department name and blurb are part of the haystack so aisle language
+       finds the aisle. The Watches category is literally titled "Watches", so
+       "smart watch" matched nothing until the blurb, which says smartwatches,
+       was included. A shopper should not have to guess a retailer's taxonomy.
+
+       But the blurb is a weak signal: matching it pulls in the whole
+       department. So it qualifies a product, it does not rank it. Title and
+       category matches sort above blurb-only matches, which is the difference
+       between "smart watch" returning watches and returning the phone aisle. */
+    const d = DEPARTMENTS.find(x => x.id === p.dept);
+    const near = (p.title + ' ' + p.cat + ' ' + p.brand).toLowerCase();
+    const wide = (near + ' ' + (p.dept || '') + ' ' + (d ? d.name + ' ' + d.blurb : '')
+      + ' ' + (p.tags || []).join(' ')).toLowerCase();
+    if (!toks.every(x => wide.includes(x))) return;
+    scored.push({ p, s: toks.filter(x => near.includes(x)).length });
+  });
+  return scored.sort((a, b) => b.s - a.s).map(x => x.p);
 }
 
 
@@ -4134,15 +4153,51 @@ function pcard(p) {
 /* ---------------- filtering + sorting + pagination ---------------- */
 const PER_PAGE = 12;
 
+/* ---- Search matching -----------------------------------------------------
+   A retailer's search box gets natural phrases, not keywords. "laptop for
+   school" was returning nothing because every token had to appear and no
+   product contains the word "for". "16gb laptop" failed because RAM is stored
+   as "16 GB" with a space, and "lightweight laptop" because no field says
+   lightweight. Each of those is a query a participant will plausibly type, and
+   a dead result page ends the journey being measured. */
+const STOPWORDS = ['for', 'the', 'a', 'an', 'and', 'with', 'of', 'to', 'my', 'me',
+  'best', 'good', 'top', 'new', 'in', 'on', 'that', 'is', 'i', 'need', 'want'];
+function searchTokens(q) {
+  const t = String(q || '').toLowerCase().trim().split(/\s+/).filter(Boolean);
+  const kept = t.filter(x => STOPWORDS.indexOf(x) === -1);
+  /* If the shopper typed nothing but stopwords, fall back to the raw tokens
+     rather than silently matching the entire catalogue. */
+  return kept.length ? kept : t;
+}
+function searchHay(p) {
+  if (p._hay) return p._hay;
+  const light = p.weightLb <= 3.2 ? 'lightweight light thin portable ultraportable' : '';
+  const big = p.screenSize >= 16 ? 'large big desktop-replacement' : '';
+  const touch = p.touch ? 'touch touchscreen' : '';
+  /* Shoppers search by budget in words, not numbers. "cheap laptop" is one of
+     the most typed queries on any retailer and it was returning nothing. */
+  const band = p.price < 700 ? 'cheap budget affordable inexpensive value'
+    : p.price > 1600 ? 'premium high-end flagship expensive' : 'mid-range';
+  p._hay = [p.name, p.brand, p.family, p.type, p.collection || '', p.use.join(' '),
+    p.cpu, p.cpuBrand, p.gpu, p.os, p.color, p.ram, p.ramGb + 'gb', p.storage,
+    p.storageGb + 'gb', p.screenSize + ' inch', p.screenSize + '"', p.resolution,
+    light, big, touch, band, (p.tags || []).join(' '),
+    'laptop laptops notebook computer pc'
+  ].join(' ').toLowerCase();
+  return p._hay;
+}
+function matchesQuery(p, q) {
+  const toks = searchTokens(q);
+  if (!toks.length) return true;
+  const hay = searchHay(p);
+  return toks.every(t => hay.includes(t));
+}
 function applyFilters(list) {
   /* the query only narrows results on the search route. Carrying it into browse,
      a brand shop or a collection would silently distort every later session. */
   const f = S.filters, q = /^#\/search/.test(location.hash) ? S.query.trim().toLowerCase() : '';
   return list.filter(p => {
-    if (q) {
-      const hay = (p.name + ' ' + p.brand + ' ' + p.use.join(' ') + ' ' + p.cpu + ' ' + p.os).toLowerCase();
-      if (!q.split(/\s+/).every(t => hay.includes(t))) return false;
-    }
+    if (q && !matchesQuery(p, q)) return false;
     if (f.use.length && !f.use.some(u => p.use.includes(u))) return false;
     if (f.collection.length && !f.collection.includes(p.collection)) return false;
     if (f.brand.length && !f.brand.includes(p.brand)) return false;
@@ -4756,24 +4811,31 @@ function viewSearch() {
     <div class="sectionhead"><div><h2 class="h2">Also in other departments</h2>
       <p class="sub">${merch.length} matching ${merch.length === 1 ? 'product' : 'products'} outside Computers &amp; Tablets.</p></div></div>
     <div class="grid">${merch.slice(0, 8).map(storeCard).join('')}</div>` : '';
-  const suggestions = ['laptop', 'gaming laptop', 'cheap laptop', '16gb laptop', 'lightweight laptop', 'laptop for school'];
+  const suggestions = ['gaming laptop', 'laptop for school', '4k tv', 'wireless headphones',
+    'air fryer', 'smart watch'];
   if (!filtered.length) {
+    /* A laptop query that finds no stock is the one moment the framework is
+       most useful, so it still gets the strip. A television query does not. */
+    const strip = tpOn(1) && laptopIntent(q)
+      ? collStrip('', { tp: 'search_results_strip', label: 'Shop by Collection' }) : '';
     return `${crumbs([['Home', '#/'], ['Search', '#/search']])}
       <div class="sectionhead"><h1 class="h1">${merch.length ? `Results for "${esc(q)}"` : `No results for "${esc(q)}"`}</h1></div>
       ${merch.length ? `<p class="sub">No laptops matched, but we found ${merch.length} in other departments.</p>
+        ${strip}
         <div class="grid">${merch.slice(0, 12).map(storeCard).join('')}</div>` : `
+      ${strip}
       <div class="card" style="padding:26px">
         <p>We couldn't find a match. Try one of these instead:</p>
         <div class="chips" style="margin-top:12px">${suggestions.map(s =>
           `<button class="chip" onclick="doSearch('${s}')">${s}</button>`).join('')}</div>
-        <div style="margin-top:18px"><button class="btn out" onclick="go('#/laptops')">Browse all laptops</button></div>
+        <div style="margin-top:18px"><button class="btn out" onclick="go('#/')">Back to the store</button></div>
       </div>`}`;
   }
   const sponsored = cond().sponsored ? CATALOG.filter(p => p.sponsored)[0] : null;
   return `${crumbs([['Home', '#/'], ['Search', '#/search']])}
   <div class="sectionhead"><div><h1 class="h1">Results for "${esc(q)}"</h1>
     <p class="sub">${filtered.length} results</p></div></div>
-  ${tpOn(1) ? collStrip('', { tp: 'search_results_strip', label: 'Shop by Collection' }) : ''}
+  ${tpOn(1) && laptopIntent(q) ? collStrip('', { tp: 'search_results_strip', label: 'Shop by Collection' }) : ''}
   ${sponsored ? `<div class="card" style="padding:16px;display:flex;gap:16px;align-items:center;margin-bottom:16px">
     <span class="tag sp">Sponsored</span>
     <div style="flex:1"><b>${sponsored.brand}</b> — ${sponsored.name}, from ${money(sponsored.price)}</div>
@@ -4820,25 +4882,70 @@ function acProductRow(p) {
     <span class="acpname">${esc(p.name)}</span>
     <span class="sub">&middot; ${money(p.price)}</span></div>`;
 }
+/* The merchandising equivalent. It carries the department instead of a
+   Collection badge, because Collections are a Windows framework and inventing
+   one for a television would be the exact confusion this study is measuring. */
+function acMerchRow(p) {
+  return `<div class="acprod" onclick="go('#/s/${p.id}')">
+    <span class="acnocoll"></span>
+    <span class="acpname">${esc(p.title)}</span>
+    <span class="sub">&middot; ${esc(p.cat)} &middot; ${money(p.price)}</span></div>`;
+}
+/* ---- Laptop intent -------------------------------------------------------
+   Ashima, 18 Sep: "this should only come when I search for laptop keywords,
+   novi sells all electronics not only PC now".
+
+   Novi is a full-line retailer, so an empty search box belongs to the whole
+   store. Leading it with five Windows collections would advertise the
+   touchpoint rather than test it, and it would flatter TP1: a shopper who is
+   shown collections before typing anything has not demonstrated that search
+   surfaced them usefully. Worse, it is not what a real retailer does, and an
+   unrealistic placement inflates the result.
+
+   So Collections enter search on demonstrated laptop intent: a laptop word, a
+   collection name or descriptor, a laptop type, or a query that actually
+   matches laptop stock. Everything else gets the ordinary store experience. */
+const LAPTOP_WORDS = ['laptop', 'laptops', 'notebook', 'pc', 'pcs', 'computer', 'computers',
+  'macbook', 'chromebook', 'ultrabook', 'windows', 'copilot', '2-in-1', 'gaming rig',
+  'desktop', 'processor', 'cpu', 'ram', 'ssd', 'graphics', 'gpu', 'battery life'];
+function laptopIntent(v) {
+  const q = String(v || '').trim().toLowerCase();
+  if (!q) return false;
+  if (LAPTOP_WORDS.some(w => q.includes(w))) return true;
+  if (COLLECTIONS.some(c => (c.name + ' ' + c.blurb).toLowerCase().includes(q))) return true;
+  if (TYPES.some(t => t.toLowerCase().includes(q) || q.includes(t.toLowerCase()))) return true;
+  /* A brand or model that is actually laptop stock counts as intent, so "dell
+     xps" or "thinkpad" behaves like "laptop" without being listed by hand.
+
+     But a house brand is not intent on its own. Samsung sells Novi more TVs
+     and phones than laptops, so "samsung" is a television query far more often
+     than a PC one, and a hand-kept exclusion list would rot. Compare the two
+     assortments instead: Collections appear only when the laptop stock is the
+     better reading of what was typed. Two characters is too little evidence
+     either way. */
+  if (q.length < 3) return false;
+  const lap = CATALOG.filter(p => matchesQuery(p, q)).length;
+  if (!lap) return false;
+  return lap >= searchStore(q).length;
+}
 function acFocus() {
   const v = document.getElementById('q').value.trim();
   if (v.length) { acInput(); return; }
   const box = document.getElementById('ac');
-  const on = tpOn(1);
-  box.innerHTML = (on ? `<div class="achead">Shop by Collection</div>` +
-      COLLECTIONS.map(collRow).join('') : '') +
-    `<div class="achead">Popular searches</div>` +
-    ['gaming laptop', 'laptop for school', 'lightweight laptop']
+  /* No collections here. An empty box on a full-line retailer is the whole
+     store, so the suggestions span it rather than pointing only at laptops. */
+  box.innerHTML = `<div class="achead">Popular searches</div>` +
+    ['gaming laptop', '4k tv', 'wireless headphones', 'laptop for school', 'air fryer']
       .map(t => `<div onclick="doSearch('${t}')">&#9906; <b>${t}</b></div>`).join('');
   box.classList.add('open');
-  track('autocomplete_shown', { query: '', mode: on ? 'collections' : 'terms_only',
-    count: on ? COLLECTIONS.length : 3, tp1: on });
+  track('autocomplete_shown', { query: '', mode: 'terms_only', count: 5, tp1: tpOn(1) });
 }
 function acInput() {
   const v = document.getElementById('q').value.trim().toLowerCase();
   const box = document.getElementById('ac');
   if (!v.length) { acFocus(); return; }
-  const on = tpOn(1);
+  /* TP1 has to be on AND the shopper has to have shown laptop intent. */
+  const on = tpOn(1) && laptopIntent(v);
   /* Match the descriptor as well as the name. A shopper typing "school" or
      "editing" is describing a use case, which is the whole premise.
 
@@ -4848,22 +4955,59 @@ function acInput() {
      panel, and an empty Collections block for the single most typed word
      would have been the touchpoint failing exactly where it is most needed. */
   let colls = on ? COLLECTIONS.filter(c => (c.name + ' ' + c.blurb).toLowerCase().includes(v)).slice(0, 3) : [];
-  const hits = CATALOG.filter(p => (p.name + ' ' + p.brand).toLowerCase().includes(v)).slice(0, 6);
+  /* Catalogue order is not merchandising order. Taking the first six matches
+     for "laptop" returned four sub-$430 machines all from one Collection,
+     which both undersells the range and biases which Collection gets seen
+     first at the highest-value touchpoint. Rank by review volume, the nearest
+     honest proxy for popularity, which is what a retailer actually shows.
+
+     Then cap at one per family. Straight popularity returned three MacBook
+     rows out of four, because MacBooks genuinely carry the most reviews. A
+     real autocomplete does not show you the same machine three times, and here
+     it would also have quietly emptied the Collection column, since MacBooks
+     are outside the framework. The cap is ordinary merchandising, applied
+     before the arm is known, so it does not favour either treatment. */
+  const ranked = CATALOG.filter(p => matchesQuery(p, v))
+    .slice().sort((a, b) => b.reviewCount - a.reviewCount);
+  const fam = [], hits = [];
+  ranked.forEach(p => {
+    if (hits.length >= 6) return;
+    const k = p.family || p.name;
+    if (fam.indexOf(k) >= 0) return;
+    fam.push(k); hits.push(p);
+  });
+  ranked.forEach(p => { if (hits.length < 6 && hits.indexOf(p) === -1) hits.push(p); });
   if (on && !colls.length) {
     const seen = [];
-    CATALOG.filter(p => (p.name + ' ' + p.brand + ' ' + p.type).toLowerCase().includes(v))
+    CATALOG.filter(p => matchesQuery(p, v))
+      .slice().sort((a, b) => b.reviewCount - a.reviewCount)
       .forEach(p => { const c = collByName(p.collection); if (c && seen.indexOf(c) === -1) seen.push(c); });
     colls = seen.slice(0, 3);
+    /* A laptop word with no matching stock, "notebook" or "pc", still deserves
+       the framework. That is the query the touchpoint exists for. */
+    if (!colls.length) colls = COLLECTIONS.slice(0, 3);
   }
-  const terms = ['gaming laptop', 'laptop for school', 'lightweight laptop', '16gb laptop']
+  const terms = ['gaming laptop', 'laptop for school', 'lightweight laptop', '16gb laptop',
+    '4k tv', 'wireless headphones', 'air fryer', 'smart watch']
     .filter(t => t.includes(v)).slice(0, 2);
-  if (!hits.length && !terms.length && !colls.length) { closeAC(); return; }
+  /* Novi is a full-line retailer, so the box has to answer for the whole store.
+     It was matching CATALOG only, which meant "tv" and "headphones" returned no
+     products at all while "xps" returned six. Laptops lead when intent is
+     laptop, because that is the assortment under study; otherwise merch does. */
+  const merch = searchStore(v).slice(0, 6);
+  const lapN = on ? Math.min(hits.length, 4) : Math.min(hits.length, 3);
+  const prodRows = on
+    ? hits.slice(0, lapN).map(acProductRow).join('') + merch.slice(0, 6 - lapN).map(acMerchRow).join('')
+    : merch.slice(0, 6).map(acMerchRow).join('') + hits.slice(0, Math.max(0, 6 - merch.length)).map(acProductRow).join('');
+  const nProd = prodRows ? (prodRows.match(/class="acprod"/g) || []).length : 0;
+  if (!nProd && !terms.length && !colls.length) { closeAC(); return; }
   box.innerHTML =
     (colls.length ? `<div class="achead">Collections</div>` + colls.map(collRow).join('') : '') +
     (terms.length ? terms.map(t => `<div onclick="doSearch('${t}')">&#9906; <b>${t}</b></div>`).join('') : '') +
-    (hits.length ? `<div class="achead">Products</div>` + hits.map(acProductRow).join('') : '');
+    (nProd ? `<div class="achead">Products</div>` + prodRows : '');
   box.classList.add('open');
-  track('autocomplete_shown', { query: v, count: hits.length + terms.length + colls.length, tp1: on });
+  track('autocomplete_shown', { query: v, count: nProd + terms.length + colls.length,
+    tp1: tpOn(1), laptopIntent: on, merchShown: Math.max(0, nProd - hits.length) });
 }
 function closeAC() { const b = document.getElementById('ac'); if (b) b.classList.remove('open'); }
 function esc(s) { return String(s).replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c])); }
@@ -7314,8 +7458,7 @@ function navCollSection() {
     ${COLLECTIONS.map(c => `<button class="navrow navcollrow" style="${collCss(c)}"
       onclick="navPickColl('${c.id}')">
       <span class="navrowart">${collTagSvg(c, 20)}</span>
-      <span class="navrowtx"><b>${esc(c.name)}</b><i>${esc(c.blurb)}</i></span>
-      <span class="navrown">${CATALOG.filter(p => p.collection === c.name).length}</span></button>`).join('')}
+      <span class="navrowtx"><b>${esc(c.name)}</b><i>${esc(c.blurb)}</i></span></button>`).join('')}
     <button class="navrow navrowall" onclick="navGo('#/collections')">
       <span class="navrowtx"><b>Compare all five collections</b></span></button>`;
 }
@@ -7335,8 +7478,7 @@ function navHtml() {
     title = `<button class="navback" onclick="navLevel('computers')"><i></i>Computers</button>
       <b class="navtitle">Windows laptops</b>`;
     body = `<button class="navrow navexplore" onclick="navPick(&quot;type&quot;,'Windows laptops')">
-        <span class="navrowtx"><b>Shop all Windows laptops</b></span>
-        <span class="navrown">${CATALOG.filter(p => p.type === 'Windows laptops').length}</span></button>
+        <span class="navrowtx"><b>Shop all Windows laptops</b></span></button>
       ${showColl ? navCollSection() : ''}`;
   } else if (d) {
     const rows = deptRows(d.id);
@@ -7349,10 +7491,9 @@ function navHtml() {
       ${rows.map(x => x.drill
         ? `<button class="navrow navdrill" onclick="navLevel('${x.drill}')">
             <span class="navrowtx">${esc(x.label)}</span>
-            <span class="navrown">${x.n}</span><i class="navrowchev"></i></button>`
+            <i class="navrowchev"></i></button>`
         : `<button class="navrow" onclick="${x.act}">
-            <span class="navrowtx">${esc(x.label)}</span>
-            <span class="navrown">${x.n}</span></button>`).join('')}
+            <span class="navrowtx">${esc(x.label)}</span></button>`).join('')}
       ${isComputers ? `<div class="navsechead">Help me decide</div>
         <button class="navrow" onclick="navGo('#/advisor')"><span class="navrowtx">Help me choose</span></button>
         <button class="navrow" onclick="navGo('#/compare')"><span class="navrowtx">Compare laptops</span></button>

@@ -1112,6 +1112,24 @@ body.noscroll{overflow:hidden}
 .deptcat span{font-size:11px;color:var(--muted)}
 .deptcat.ghost{color:var(--muted)}
 
+/* ==========================================================================
+   Collection wallpapers, the 1P treatment.
+   The wallpaper is artwork, not an icon, so it must not inherit the currentColor
+   reset that .colltag applies. Rounded and inset so a 16px chip reads as a
+   deliberate swatch rather than a clipping artefact, which keeps the comparison
+   against the icon arm fair.
+   ========================================================================== */
+.collwall{flex:none;display:block;border-radius:5px;overflow:hidden;
+  box-shadow:inset 0 0 0 1px #0000001f}
+.cbadge .collwall,.csyntag .collwall{border-radius:4px}
+.cchoiceart .collwall,.cscellart .collwall,.navrowart .collwall,
+.advcollart .collwall,.cbladeart .collwall,.collheroart .collwall{border-radius:8px}
+.collheroart .collwall{border-radius:12px}
+/* the art wells carry a tinted background for the icon arm; a wallpaper fills
+   the well itself, so the tint would show as a halo */
+.navcollrow .navrowart:has(.collwall),.cchoiceart:has(.collwall),
+.cscellart:has(.collwall){background:none}
+
 </style>
 </head>
 <body>
@@ -1164,23 +1182,45 @@ const COLLECTIONS = [
   { id: 'premium-performance', name: 'Premium Performance', pcs: 'Premium Performance PCs',
     tag: 'bolt', hue: 222,
     blurb: 'Delivers all day performance for work and gaming',
-    long: 'Faster silicon, better screens and batteries that last a working day. For people who live on their machine.' },
+    long: 'Faster silicon, better screens and batteries that last a working day. For people who live on their machine.',
+    wall: { form: 'bloom', cx: 0.55, cy: 0.50,
+      base: ['#38306b', '#4b4179', '#5d66bb'],
+      glow: ['#c18db2', '#f0b5b7', '#f5c3b5', '#efb7c2'],
+      core: '#fde8dc' } },
   { id: 'everyday-productivity', name: 'Everyday Productivity', pcs: 'Everyday Productivity PCs',
     tag: 'windows', hue: 178,
     blurb: 'Designed for everyday projects, school and multitasking',
-    long: 'Enough headroom to keep a dozen tabs, a video call and your coursework open at the same time.' },
+    long: 'Enough headroom to keep a dozen tabs, a video call and your coursework open at the same time.',
+    wall: { form: 'bloom', cx: 0.44, cy: 0.42,
+      base: ['#012f80', '#013f9d', '#0250af'],
+      glow: ['#2664b4', '#3c7ac6', '#6a9cd4', '#a0c5f0'],
+      core: '#e8f2ff' } },
   { id: 'power-gaming', name: 'Power Gaming', pcs: 'Power Gaming PCs',
     tag: 'controller', hue: 276,
     blurb: 'High performance for gaming and beyond',
-    long: 'High refresh displays and dedicated graphics, built to hold a frame rate under load.' },
+    long: 'High refresh displays and dedicated graphics, built to hold a frame rate under load.',
+    wall: { form: 'ribbon',
+      base: ['#07080c', '#0f1110', '#0a1024'],
+      glow: ['#162577', '#2d3693', '#323c8b'],
+      core: '#5866d8' } },
   { id: 'creator-pro', name: 'Creator Pro', pcs: 'Creator Pro PCs',
     tag: 'pen', hue: 322,
     blurb: 'Built for advanced apps, creation and design',
-    long: 'Colour-accurate displays and serious graphics for editing, rendering, design and photography.' },
+    long: 'Colour-accurate displays and serious graphics for editing, rendering, design and photography.',
+    wall: { form: 'ribbon',
+      base: ['#0d1f42', '#12274f', '#122e5f'],
+      glow: ['#29518b', '#4d7ab6', '#39639f'],
+      warm: ['#965942', '#c27d5a'],
+      core: '#7fb0e4' } },
   { id: 'core-essentials', name: 'Core Essentials', pcs: 'Core Essentials PCs',
     tag: 'globe', hue: 152,
     blurb: 'Ideal for browsing, email and streaming',
-    long: 'The everyday basics done well. Email, the web, streaming and documents, without paying for power you will not use.' }
+    long: 'The everyday basics done well. Email, the web, streaming and documents, without paying for power you will not use.',
+    wall: { form: 'wave', light: true,
+      base: ['#bdb4bf', '#cfb0ab', '#ebcfba'],
+      glow: ['#dbcada', '#f0dbca', '#f5e7dc'],
+      cool: '#babfcd',
+      core: '#fdf5ee' } }
 ];
 
 /* Lookups. Products carry the collection *name*, so both directions are needed. */
@@ -1745,7 +1785,7 @@ function viewStoreHome() {
     const inC = CATALOG.filter(p => p.collection === c.name);
     const face = inC.slice().sort((a, b) => (b.rating || 0) - (a.rating || 0))[0];
     return `<a class="collcard" onclick="go('#/collections/${c.id}')">
-    <span class="ccart">${face ? productArt(face, 0) : ''}</span>
+    <span class="ccart">${face ? (typeof collFaceArt === 'function' ? collFaceArt(face) : productArt(face, 0)) : ''}</span>
     <span class="badge">${esc(c.name)}</span><span>${esc(c.blurb)}</span>
     <span class="ccn">${inC.length} laptops</span></a>`;
   }).join('')}</div>` : `
@@ -2847,27 +2887,29 @@ function screenFill(p, u) {
   const name = c ? c.name : 'Windows 11';
   /* Long collection names have to shrink or they run into the bezel. */
   const fs = name.length > 17 ? 8.2 : name.length > 13 ? 9.4 : 10.8;
+  /* The 1P asset puts the collection wallpaper on the machine and lets the
+     artwork carry the identity. Drawn here rather than a flat gradient so the
+     screen fill in the gallery is the real recommendation, and so the wallpaper
+     is judged at the size a shopper meets it. */
+  const wall = (c && c.wall && typeof collWallInner === 'function')
+    ? collWallInner(c, u + 'w') : '';
+  const light = !!(c && c.wall && c.wall.light);
+  const ink = light ? '#1b1a22' : '#fff';
   return `
-    <defs>
+    ${wall || `<defs>
       <linearGradient id="${u}sfg" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stop-color="hsl(${hue},72%,26%)"/>
         <stop offset=".55" stop-color="hsl(${hue},66%,40%)"/>
         <stop offset="1" stop-color="hsl(${(hue + 26) % 360},70%,52%)"/></linearGradient>
-      <radialGradient id="${u}sfr" cx=".72" cy=".22" r=".75">
-        <stop offset="0" stop-color="#fff" stop-opacity=".40"/>
-        <stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-    </defs>
-    <rect x="0" y="0" width="100" height="62" fill="url(#${u}sfg)"/>
-    <rect x="0" y="0" width="100" height="62" fill="url(#${u}sfr)"/>
-    <g opacity=".17" fill="none" stroke="#fff" stroke-width=".7">
-      <circle cx="78" cy="14" r="17"/><circle cx="78" cy="14" r="26"/><circle cx="78" cy="14" r="35"/>
-    </g>
-    <text x="9" y="26" fill="#fff" fill-opacity=".82" font-family="Segoe UI,system-ui,sans-serif"
+      </defs>
+      <rect x="0" y="0" width="100" height="62" fill="url(#${u}sfg)"/>`}
+    <rect x="0" y="0" width="100" height="62" fill="${light ? '#fff' : '#000'}" opacity="${light ? '.10' : '.20'}"/>
+    <text x="9" y="26" fill="${ink}" fill-opacity=".82" font-family="Segoe UI,system-ui,sans-serif"
       font-size="5.1" font-weight="600" letter-spacing=".9">Windows Laptop</text>
-    <text x="9" y="39" fill="#fff" font-family="Segoe UI,system-ui,sans-serif"
+    <text x="9" y="39" fill="${ink}" font-family="Segoe UI,system-ui,sans-serif"
       font-size="${fs}" font-weight="700" letter-spacing="-.2">${esc3(name)}</text>
-    <rect x="9" y="44.5" width="20" height="1.5" rx=".75" fill="#fff" fill-opacity=".72"/>
-    ${c ? `<text x="9" y="54" fill="#fff" fill-opacity=".76" font-family="Segoe UI,system-ui,sans-serif"
+    <rect x="9" y="44.5" width="20" height="1.5" rx=".75" fill="${ink}" fill-opacity=".72"/>
+    ${c ? `<text x="9" y="54" fill="${ink}" fill-opacity=".76" font-family="Segoe UI,system-ui,sans-serif"
       font-size="4.1" font-weight="500">${esc3(c.blurb)}</text>` : ''}`;
 }
 /* art3d.js is bundled before the view layer, so it cannot rely on esc(). */
@@ -3186,7 +3228,12 @@ const DEFAULT_SESSION = () => ({
      one did it most recently. Attribution has to be on the session, not just in
      the event log, so the console can segment a journey by its entry point. */
   firstCollTp: null,
-  lastCollTp: null
+  lastCollTp: null,
+  /* Collection art treatment. The Icons thread is a live disagreement between
+     the 1P wallpaper recommendation and the icon proposal from the pilot, so it
+     is a study variable rather than a style setting, and it rides on every
+     event. */
+  art: 'wall'
 });
 
 let S = DEFAULT_SESSION();
@@ -3398,6 +3445,9 @@ function track(name, detail) {
     participantId: S.participantId || 'unassigned',
     condition: S.condition,
     conditionLabel: cond().label,
+    art: (typeof artMode === 'function') ? artMode() : 'wall',
+    artLabel: (typeof artMode === 'function' && typeof ART_LABEL === 'object')
+      ? (ART_LABEL[artMode()] || '') : '',
     density: density(),
     mission: S.mission,
     missionLabel: MISSIONS[S.mission].label,
@@ -3582,6 +3632,17 @@ function setCondition(c, silent) {
   pushSessionField('condition', c);
   paintChrome(); paintMod(); render();
 }
+/* The collection art treatment. Same plumbing as the condition, because it is
+   the same kind of thing: a study variable the moderator can switch mid-session
+   and which every subsequent event carries. */
+function setArtMode(m, silent) {
+  if (!/^(icon|wall|both)$/.test(m)) return;
+  S.art = m;
+  if (!silent) track('art_mode_changed', m);
+  pushSessionField('art', m);
+  save();
+  paintChrome(); paintMod(); render();
+}
 /* The console is read-only for participant data, with one deliberate exception:
    the moderator changing the running condition or task has to reach the
    participant's tab. Merge into the stored session rather than overwriting it,
@@ -3760,11 +3821,156 @@ const COLL_TAG = {
 /* Filled tags read as product-category icons and sit better inside a chip.
    Stroked ones read as UI affordances. Gaming and productivity are filled. */
 const TAG_FILLED = { controller: 1, windows: 1, bolt: 1 };
-function collTagSvg(c, size) {
+function collIconSvg(c, size) {
   const t = COLL_TAG[c && c.tag] || COLL_TAG.globe, f = TAG_FILLED[c && c.tag];
   return `<svg class="colltag" viewBox="0 0 24 24" width="${size || 18}" height="${size || 18}" aria-hidden="true"
     fill="${f ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="${f ? 0 : 1.7}"
     stroke-linecap="round" stroke-linejoin="round">${t}</svg>`;
+}
+
+/* ---- Collection wallpapers, the 1P treatment ------------------------------
+   On the "Icons representing Collections" thread (11-17 Sep), IMC's
+   recommendation is to carry the collection renders and wallpapers exactly as
+   the 1P site does, on the view that adding an icon system "will just add to
+   the confusion". Katrina's supporting point is that competitors lean on
+   device imagery rather than icons.
+
+   The counter-argument from the Best Buy pilot and the shop-alongs is that a
+   wallpaper cannot survive a retailer environment: at thumbnail size, beside
+   HP, Dell and Lenovo imagery, five abstract blooms do not tell a shopper
+   which collection is which, and on mobile the names truncate before they can
+   rescue it.
+
+   Both positions are testable, so both are built. The palettes below are
+   sampled pixel by pixel from the actual 1P asset attached to that thread
+   rather than invented, so the wallpaper arm renders the recommendation
+   faithfully instead of as a straw man. artMode() switches the treatment and
+   every collection event records which one was live, so the disagreement
+   resolves on observed behaviour rather than on preference. */
+
+let WALL_N = 0;
+function wallUid() { return 'wl' + (++WALL_N).toString(36); }
+
+/* Authored in the same flat 0..100 x 0..62 screen space the 3D renderer uses,
+   so one definition serves both a 16px chip and a laptop screen in
+   perspective. */
+function wallBloom(w, u) {
+  const g = w.glow, out = [];
+  const bx = 100 * (w.cx == null ? 0.5 : w.cx), by = 62 * (w.cy == null ? 0.5 : w.cy);
+  for (let i = 0; i < 14; i++) {
+    const ang = i * 25.7 + (i % 3) * 9;
+    const dist = 7 + (i % 4) * 4.6;
+    const rx = (16 + (i % 5) * 6.5).toFixed(1), ry = (4.6 + (i % 3) * 3.4).toFixed(1);
+    const cx = bx + Math.cos(ang * Math.PI / 180) * dist * 1.45;
+    const cy = by + Math.sin(ang * Math.PI / 180) * dist * 0.78;
+    out.push(`<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="${rx}" ry="${ry}"
+      fill="${g[i % g.length]}" opacity="${(0.26 + (i % 4) * 0.10).toFixed(2)}"
+      transform="rotate(${ang.toFixed(1)} ${cx.toFixed(1)} ${cy.toFixed(1)})"/>`);
+  }
+  return `<g filter="url(#${u}b)">${out.join('')}
+    <ellipse cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" rx="15" ry="9.5" fill="${g[g.length - 1]}" opacity=".50"/>
+    <ellipse cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" rx="6.5" ry="4.2" fill="${w.core}" opacity=".62"/>
+    <ellipse cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" rx="2.6" ry="1.8" fill="${w.core}" opacity=".92"/></g>`;
+}
+
+/* Flowing bands. The gaming and creator wallpapers are ribbons of light on a
+   near-black field rather than a radial bloom, which is what separates them
+   from the productivity blue at full size. */
+function wallRibbon(w, u) {
+  const g = w.glow, out = [];
+  for (let i = 0; i < 5; i++) {
+    const y = 8 + i * 11.5, amp = 9 + (i % 3) * 5, sw = 7 + (i % 3) * 4.5;
+    out.push(`<path d="M-10 ${y} C 22 ${y - amp}, 44 ${y + amp}, 70 ${y - amp * 0.6} S 100 ${y + amp * 0.5}, 112 ${y}"
+      fill="none" stroke="${g[i % g.length]}" stroke-width="${sw}" stroke-linecap="round"
+      opacity="${(0.34 + (i % 3) * 0.16).toFixed(2)}"/>`);
+  }
+  const warm = (w.warm || []).map((col, i) =>
+    `<path d="M62 ${14 + i * 16} C 78 ${6 + i * 16}, 92 ${22 + i * 16}, 114 ${10 + i * 16}"
+      fill="none" stroke="${col}" stroke-width="${8 - i * 2}" stroke-linecap="round" opacity="${(0.5 - i * 0.14).toFixed(2)}"/>`).join('');
+  return `<g filter="url(#${u}b)">${out.join('')}${warm}
+    <ellipse cx="50" cy="31" rx="26" ry="12" fill="${w.core}" opacity=".30"/>
+    <ellipse cx="50" cy="31" rx="9" ry="4.4" fill="${w.core}" opacity=".55"/></g>`;
+}
+
+/* Soft overlapping sweeps for the light, warm wallpaper. A bloom on a pale
+   ground blows out; broad low-contrast sweeps keep it readable. */
+function wallWave(w, u) {
+  const g = w.glow, out = [];
+  for (let i = 0; i < 4; i++) {
+    const y = 6 + i * 15;
+    out.push(`<path d="M-10 ${y + 14} C 24 ${y - 6}, 56 ${y + 20}, 112 ${y - 2} L112 72 L-10 72 Z"
+      fill="${g[i % g.length]}" opacity="${(0.46 - i * 0.07).toFixed(2)}"/>`);
+  }
+  return `<g filter="url(#${u}b)">${out.join('')}
+    <ellipse cx="66" cy="20" rx="30" ry="15" fill="${w.core}" opacity=".52"/>
+    ${w.cool ? `<ellipse cx="16" cy="48" rx="26" ry="13" fill="${w.cool}" opacity=".42"/>` : ''}
+    <ellipse cx="70" cy="18" rx="12" ry="6" fill="${w.core}" opacity=".70"/></g>`;
+}
+
+/* Raw wallpaper elements in 0..100 x 0..62, for callers that already own a
+   coordinate space (the laptop screen). */
+function collWallInner(c, u) {
+  const w = (c && c.wall) || { form: 'bloom', base: ['#123', '#245', '#367'], glow: ['#89b'], core: '#fff' };
+  const b = w.base;
+  const body = w.form === 'ribbon' ? wallRibbon(w, u) : w.form === 'wave' ? wallWave(w, u) : wallBloom(w, u);
+  return `<defs>
+      <linearGradient id="${u}g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="${b[0]}"/>
+        <stop offset=".55" stop-color="${b[1]}"/>
+        <stop offset="1" stop-color="${b[2] || b[1]}"/></linearGradient>
+      <filter id="${u}b" x="-45%" y="-45%" width="190%" height="190%">
+        <feGaussianBlur stdDeviation="4.6"/></filter>
+    </defs>
+    <rect x="0" y="0" width="100" height="62" fill="url(#${u}g)"/>
+    ${body}`;
+}
+
+/* The wallpaper as a standalone square, for chips and tiles. This is the
+   thumbnail the pilot found shoppers could not tell apart, rendered at the
+   size they actually saw it. */
+function collWallSvg(c, size, opt) {
+  const o = opt || {}, u = wallUid(), s = size || 18;
+  return `<svg class="colltag collwall${o.icon ? ' hasicon' : ''}" width="${s}" height="${s}"
+    viewBox="${o.square ? '18 0 64 62' : '0 0 100 62'}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    ${collWallInner(c, u)}
+    ${o.icon ? `<g transform="translate(50 31) scale(${(o.square ? 1.30 : 1.55).toFixed(2)}) translate(-12 -12)"
+      fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"
+      opacity=".95" filter="url(#${u}b2)">${COLL_TAG[c && c.tag] || COLL_TAG.globe}</g>
+      <defs><filter id="${u}b2" x="-40%" y="-40%" width="180%" height="180%">
+        <feDropShadow dx="0" dy="0" stdDeviation="1.6" flood-color="#000" flood-opacity=".55"/></filter></defs>` : ''}
+  </svg>`;
+}
+
+/* Which collection art treatment is live. 'icon' is the proposal from the
+   pilot, 'wall' is the 1P recommendation, 'both' overlays the icon on the
+   wallpaper as a compromise worth testing in its own right. */
+function artMode() {
+  const m = (typeof S === 'object' && S && S.art) ? S.art : 'wall';
+  return (m === 'icon' || m === 'wall' || m === 'both') ? m : 'wall';
+}
+const ART_LABEL = {
+  icon: 'Icons, the pilot proposal',
+  wall: 'Wallpapers, the 1P recommendation',
+  both: 'Wallpaper with icon overlay'
+};
+
+/* The 1P treatment is a device render *carrying* the collection wallpaper, not
+   a wallpaper swatch on its own. Under the wallpaper arms the collection face
+   therefore shows the machine displaying its own wallpaper, which is variant 4,
+   the screen fill. Under the icon arm it shows the plain product shot. Without
+   this the wallpaper arm would be a straw man. */
+function collFaceArt(p) {
+  if (!p || typeof productArt !== 'function') return '';
+  return productArt(p, artMode() === 'icon' ? 0 : 4);
+}
+
+/* Single choke point. Every surface that names a Collection draws it through
+   here, so the treatment switches everywhere at once and no surface can be
+   left showing the other arm. */
+function collTagSvg(c, size) {
+  const m = artMode();
+  if (m === 'icon') return collIconSvg(c, size);
+  return collWallSvg(c, size, { icon: m === 'both', square: (size || 18) < 40 });
 }
 
 /* Collection colour. The deck styles Power Gaming purple, so hue lives on the
@@ -5472,7 +5678,7 @@ function collTile(c, big) {
   const lo = items.length ? Math.min.apply(null, items.map(p => p.price)) : 0;
   return `<a class="tile coll${big ? ' big' : ''}" style="${collCss(c)}"
     onclick="pickCollection('${c.id}','collection_tile')">
-    ${big && face ? `<span class="ccart tall">${productArt(face, 0)}</span>` : ''}
+    ${big && face ? `<span class="ccart tall">${collFaceArt(face)}</span>` : ''}
     ${collBadge(c, { solid: true })}
     <b>${esc(c.blurb)}</b><span>${n} ${n === 1 ? 'laptop' : 'laptops'}${lo ? ' &middot; from ' + money(lo) : ''}</span></a>`;
 }
@@ -7215,6 +7421,9 @@ function paintMod() {
       <option value="busy" ${density() === 'busy' ? 'selected' : ''}>Busy (retail)</option>
       <option value="clean" ${density() === 'clean' ? 'selected' : ''}>Clean</option>
     </select></label>
+    <label>Collection art <select onchange="setArtMode(this.value)">
+      ${['wall', 'icon', 'both'].map(k => `<option value="${k}" ${artMode() === k ? 'selected' : ''}>${ART_LABEL[k]}</option>`).join('')}
+    </select></label>
     <span>${SUCCESS_FIRED ? '<b style="color:#7ee787">TASK COMPLETE</b>' : 'in progress'} &middot; ${EVENTS.length} events &middot; ${elapsed()}</span>
     <span class="sp">
       <button onclick="bookmark()">Flag moment</button>
@@ -7317,6 +7526,7 @@ function boot() {
     S.participantId = incoming; save();
   }
   if (qs.get('density') === 'clean' || qs.get('density') === 'busy') { S.density = qs.get('density'); save(); }
+  if (/^(icon|wall|both)$/.test(qs.get('art') || '')) setArtMode(qs.get('art'), true);
 
   window.addEventListener('hashchange', render);
   window.addEventListener('scroll', scrollWatch, { passive: true });

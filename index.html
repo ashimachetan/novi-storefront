@@ -5995,7 +5995,6 @@ function shell() {
     </div>
     <nav class="hnav">
       <a onclick="go('#/advisor')">Find your PC</a>
-      <a id="hnavcoll" onclick="go('#/collections')">Collections</a>
       <a onclick="go('#/compare')">Compare</a>
       <button class="cartbtn" onclick="go('#/cart')">Cart <span id="cartn" class="pill">0</span></button>
     </nav>
@@ -6011,7 +6010,7 @@ function shell() {
   <footer class="footer"><div class="wrap">
     <div class="cols">
       <div><b>novi</b><span>A fictional retailer built for customer research. Nothing here is a real product, price or offer.</span></div>
-      <div><b>Shop</b><a onclick="go('#/laptops')">Laptops</a><a onclick="go('#/collections')">Collections</a><a onclick="go('#/advisor')">Find your PC</a></div>
+      <div><b>Shop</b><a onclick="go('#/laptops')">Laptops</a><span id="footcoll"></span><a onclick="go('#/advisor')">Find your PC</a></div>
       <div><b>Learn</b><a onclick="go('#/guide')">Buying guides</a><a onclick="go('#/computers')">Computers &amp; Tablets</a></div>
       <div><b>Session</b><a onclick="softReset()">Reset journey</a></div>
     </div>
@@ -6073,24 +6072,31 @@ function catSlug(c) { return String(c).toLowerCase().replace(/[^a-z0-9]+/g, '-')
 function deptRows(id) {
   if (id === 'computers') {
     return TYPES.map(t => ({ label: t, n: CATALOG.filter(p => p.type === t).length,
+        /* Windows laptops drills one level further, because that is where the
+           Collections framework lives. Every other type goes straight to the
+           filtered listing. */
+        drill: t === 'Windows laptops' ? 'windows' : null,
         act: `navPick(&quot;type&quot;,'${t.replace(/'/g, "\\'")}')` }))
       .filter(x => x.n).sort((a, b) => b.n - a.n);
   }
-  return deptCats(id).map(c => ({ label: c.cat, n: c.n,
+  return deptCats(id).map(c => ({ label: c.cat, n: c.n, drill: null,
     act: `navGo('#/d/${id}/${catSlug(c.cat)}')` }));
 }
 
+/* Collections is a Windows laptop merchandising framework, not a department and
+   not a top-level destination. Exposing it in the nav band or at the first
+   level of the menu would have made it more prominent than the real retailer
+   would ever make it, and an inflated treatment inflates the result. It sits
+   where its products sit: Computers & Tablets, then Windows laptops. */
 function paintNav() {
   const el = document.getElementById('mainnav');
   if (!el) return;
-  const showColl = tpOn(2);
 
   let h = `<div class="navpills">
     <button class="navpill navshop" id="navshop" onclick="toggleNavMenu()" aria-expanded="false">
       <span class="navallico"><i></i><i></i><i></i></span>Shop<i class="navcar"></i></button>
     <button class="navpill" onclick="go('#/deals')">Deals</button>
     <button class="navpill" onclick="go('#/guide')">Buying guides</button>
-    ${showColl ? `<button class="navpill navcoll" onclick="openNavMenu('coll')">Collections<i class="navcar"></i></button>` : ''}
   </div>
   <div class="navlinks">
     <a onclick="go('#/laptops')">Laptops</a>
@@ -6101,8 +6107,12 @@ function paintNav() {
     <a class="navmore" onclick="openNavMenu()">More <i class="navcar"></i></a>
   </div>`;
   el.innerHTML = h;
-  const hc = document.getElementById('hnavcoll');
-  if (hc) hc.style.display = showColl ? '' : 'none';
+  /* The footer is a navigation surface too. A Collections link sitting there in
+     the control arm would be exactly the kind of leak that makes a control arm
+     stop being one, so it is gated on the same touchpoint as the menu. */
+  const fc = document.getElementById('footcoll');
+  if (fc) fc.innerHTML = tpOn(2)
+    ? `<a onclick="go('#/collections')">Collections</a>` : '';
   paintBrand();
 }
 
@@ -6172,16 +6182,25 @@ function navCollSection() {
     <button class="navrow navrowall" onclick="navGo('#/collections')">
       <span class="navrowtx"><b>Compare all five collections</b></span></button>`;
 }
+/* The utility nav and the pill band no longer carry Collections, so the level
+   above is the only navigation surface that does. */
 
 function navHtml() {
   const showColl = tpOn(2);
-  const d = NAV_LEVEL && NAV_LEVEL !== 'coll' ? deptById(NAV_LEVEL) : null;
+  const d = NAV_LEVEL && NAV_LEVEL !== 'windows' ? deptById(NAV_LEVEL) : null;
   let title, body;
 
-  if (NAV_LEVEL === 'coll') {
-    title = `<button class="navback" onclick="navBack()"><i></i>Back</button>
-      <b class="navtitle">Collections</b>`;
-    body = navCollSection();
+  if (NAV_LEVEL === 'windows') {
+    /* The third level. Collections are the Windows laptop framework, so this is
+       the first point in the navigation where a shopper can meet them, and only
+       when TP2 is live. With the framework off, the same route still exists and
+       simply lists the assortment, which is what the control arm has to see. */
+    title = `<button class="navback" onclick="navLevel('computers')"><i></i>Computers</button>
+      <b class="navtitle">Windows laptops</b>`;
+    body = `<button class="navrow navexplore" onclick="navPick(&quot;type&quot;,'Windows laptops')">
+        <span class="navrowtx"><b>Shop all Windows laptops</b></span>
+        <span class="navrown">${CATALOG.filter(p => p.type === 'Windows laptops').length}</span></button>
+      ${showColl ? navCollSection() : ''}`;
   } else if (d) {
     const rows = deptRows(d.id);
     const isComputers = d.id === 'computers';
@@ -6190,9 +6209,13 @@ function navHtml() {
     body = `<button class="navrow navexplore" onclick="${isComputers
         ? `navPick(&quot;type&quot;,'')` : `navGo('${d.route || ('#/d/' + d.id)}')`}">
         <span class="navrowtx"><b>Explore ${esc(d.name)}</b></span></button>
-      ${rows.map(x => `<button class="navrow" onclick="${x.act}">
-        <span class="navrowtx">${esc(x.label)}</span>
-        <span class="navrown">${x.n}</span></button>`).join('')}
+      ${rows.map(x => x.drill
+        ? `<button class="navrow navdrill" onclick="navLevel('${x.drill}')">
+            <span class="navrowtx">${esc(x.label)}</span>
+            <span class="navrown">${x.n}</span><i class="navrowchev"></i></button>`
+        : `<button class="navrow" onclick="${x.act}">
+            <span class="navrowtx">${esc(x.label)}</span>
+            <span class="navrown">${x.n}</span></button>`).join('')}
       ${isComputers ? `<div class="navsechead">Help me decide</div>
         <button class="navrow" onclick="navGo('#/advisor')"><span class="navrowtx">Help me choose</span></button>
         <button class="navrow" onclick="navGo('#/compare')"><span class="navrowtx">Compare laptops</span></button>
@@ -6200,8 +6223,7 @@ function navHtml() {
       <div class="navfoot">${esc(d.blurb)}</div>`;
   } else {
     title = `<b class="navtitle">Shop</b>`;
-    body = `${showColl ? navCollSection() + '<div class="navrule"></div>' : ''}
-      ${DEPARTMENTS.map(x => `<button class="navrow navdrill" onclick="navLevel('${x.id}')">
+    body = `${DEPARTMENTS.map(x => `<button class="navrow navdrill" onclick="navLevel('${x.id}')">
         <span class="navrowico">${x.icon}</span>
         <span class="navrowtx">${esc(x.name)}</span>
         <i class="navrowchev"></i></button>`).join('')}

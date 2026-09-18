@@ -354,8 +354,6 @@ h1,h2,h3{margin:0}
 .modbar button{background:#2563eb;border:0;color:#fff;border-radius:5px;padding:5px 11px;font-weight:700;font-size:12px}
 .modbar button.gh{background:#22405f}
 .modbar .sp{margin-left:auto;display:flex;gap:9px;align-items:center}
-body.modon{padding-top:38px}
-body.modon .header{top:38px}
 .console{padding:22px 0 60px;display:grid;grid-template-columns:1fr 380px;gap:22px;align-items:start}
 .panel{padding:18px}
 .panel h3{font-size:15px;margin-bottom:12px}
@@ -487,8 +485,8 @@ body.modon .header{top:38px}
 .missionbar .wrap{padding:9px 24px;display:flex;gap:10px;align-items:center}
 .missionbar b{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#9a3412}
 .donetag{margin-left:auto;background:var(--ok);color:#fff;border-radius:99px;padding:3px 10px;font-size:11px;font-weight:800}
-body.hasmod .header{top:38px}
-body.hasmod{padding-top:38px}
+body.hasmod .header{top:var(--modh,38px)}
+body.hasmod{padding-top:var(--modh,38px)}
 .hedge{display:block;margin-top:8px;font-size:11px;font-weight:700;color:#9a3412}
 .msg .bub b{font-weight:750}
 .asst .sugg input:focus{outline:2px solid var(--b);outline-offset:-1px}
@@ -751,7 +749,7 @@ body.consolemode .cohort td{border-color:#18253a}
    can never disagree with the strip that produced it.
    ========================================================================== */
 
-.ctag{flex:none;display:block}
+.colltag{flex:none;display:block;background:none;border:0;padding:0;margin:0}
 
 /* the badge: tiles, PDP, search suggestions */
 .cbadge{display:inline-flex;align-items:center;gap:5px;max-width:100%;padding:4px 9px;border-radius:20px;
@@ -893,7 +891,7 @@ body.consolemode .cohort td{border-color:#18253a}
   margin:0 0 10px;padding:9px 13px;border-radius:11px;cursor:pointer;
   background:var(--ccl);border:1px solid var(--ccb)}
 .pdpcoll b{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ccd)}
-.pdpcoll .ctag{color:var(--cc)}
+.pdpcoll .colltag{color:var(--cc)}
 .pdpcoll i{font-style:normal;font-size:12px;color:var(--muted);line-height:1.35}
 .pdpcoll u{text-decoration:none;font-size:11px;font-weight:700;color:var(--cc)}
 .pdpcoll:hover{border-color:var(--cc)}
@@ -993,6 +991,112 @@ body.consolemode .cohort td{border-color:#18253a}
 .tparmd{font-size:11.5px;color:var(--muted);line-height:1.4}
 .tphint{margin:11px 0 0;font-size:12px;color:var(--muted)}
 @media(max-width:900px){.tparms{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---- navigation: department mega menu, drawer, hamburger ----------------- */
+.mainnav .wrap{align-items:stretch;gap:2px;padding:0 24px;overflow:visible}
+.mainnav .wrap>a,.navdepta,.navcoll{display:flex;align-items:center;padding:10px 10px;
+  white-space:nowrap;flex:0 0 auto;cursor:pointer}
+.navall{display:none;align-items:center;gap:7px;padding:10px 12px 10px 0;margin-right:6px;
+  background:none;border:0;font:inherit;font-weight:700;color:#3c4d67;cursor:pointer;flex:0 0 auto}
+.navall:hover{color:var(--b)}
+.navallico{display:inline-flex;flex-direction:column;gap:3px;width:15px}
+.navallico i{display:block;height:2px;border-radius:2px;background:currentColor}
+.navdept{position:relative;display:flex;flex:0 0 auto}
+.navdept>.navdepta:hover{color:var(--b)}
+.navmega{position:absolute;top:100%;left:0;z-index:70;min-width:430px;
+  background:#fff;border:1px solid var(--line);border-radius:0 0 12px 12px;border-top:0;
+  box-shadow:0 18px 40px rgba(16,32,56,.16);opacity:0;visibility:hidden;transform:translateY(-5px);
+  transition:opacity .13s,transform .13s,visibility .13s}
+.navdept:hover .navmega,.navdept:focus-within .navmega{opacity:1;visibility:visible;transform:none}
+.navmegacols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}
+.navmegacol{padding:14px 16px;min-width:0}
+.navmegacol+.navmegacol{border-left:1px solid var(--line)}
+.navmegafeat{background:#f7f9fc;border-radius:0 0 12px 0}
+.navmegahead{display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px}
+.navmegacol a{display:flex;justify-content:space-between;gap:12px;align-items:baseline;
+  padding:5px 0;font-size:13px;color:#22324a;cursor:pointer;line-height:1.35}
+.navmegacol a:hover{color:var(--b)}
+.navmegacol a span{font-size:11.5px;color:var(--muted);flex:0 0 auto}
+.navmegaall{margin-top:6px;padding-top:8px!important;border-top:1px solid var(--line);font-weight:700}
+.navmegafoot{padding:9px 16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);
+  background:#fbfcfe;border-radius:0 0 12px 12px}
+
+/* department subcategory chips on the department page */
+.deptcats{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.deptcat{display:inline-flex;align-items:baseline;gap:7px;padding:7px 13px;border:1px solid var(--line);
+  border-radius:999px;font-size:12.5px;background:#fff;cursor:pointer;color:#22324a}
+.deptcat:hover{border-color:var(--b);color:var(--b)}
+.deptcat.on{background:var(--b);border-color:var(--b);color:#fff}
+.deptcat.on span{color:rgba(255,255,255,.75)}
+.deptcat span{font-size:11px;color:var(--muted)}
+.deptcat.ghost{color:var(--muted)}
+
+/* hamburger in the header, shown only when the department row collapses */
+.burger{display:none;flex-direction:column;gap:4px;width:34px;padding:7px 6px;margin-right:2px;
+  background:none;border:0;cursor:pointer;flex:0 0 auto}
+.burger i{display:block;height:2px;border-radius:2px;background:#22324a}
+
+/* the drawer */
+.navdrawer{position:fixed;inset:0;z-index:120;pointer-events:none;display:none}
+.navdrawer.open{pointer-events:auto;display:block}
+.drawscrim{position:absolute;inset:0;background:rgba(12,22,38,.45);opacity:0;transition:opacity .18s}
+.navdrawer.in .drawscrim{opacity:1}
+.drawpanel{position:absolute;top:0;left:0;bottom:0;width:min(370px,88vw);background:#fff;
+  display:flex;flex-direction:column;transform:translateX(-102%);transition:transform .2s ease;
+  box-shadow:0 0 44px rgba(12,22,38,.26)}
+.navdrawer.in .drawpanel{transform:none}
+.drawhead{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 16px;border-bottom:1px solid var(--line);flex:0 0 auto}
+.drawhead b{font-size:15px}
+.drawx{background:none;border:0;font-size:26px;line-height:1;color:var(--muted);cursor:pointer;padding:0 4px}
+.drawbody{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.drawsec{padding:10px 0;border-bottom:1px solid var(--line)}
+.drawsec:last-child{border-bottom:0}
+.drawsechead{padding:5px 16px 8px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.drawcoll{display:flex;align-items:center;gap:11px;padding:9px 16px;cursor:pointer;min-width:0}
+.drawcoll:hover{background:var(--ccl)}
+.drawcollart{flex:0 0 auto;display:flex;width:30px;height:30px;align-items:center;justify-content:center;
+  border-radius:8px;background:var(--ccl);color:var(--cc)}
+.drawcoll b{display:block;font-size:13px}
+.drawcoll i{display:block;font-style:normal;font-size:11.5px;color:var(--muted);line-height:1.35}
+.drawdepthead{display:flex;align-items:center;gap:11px;width:100%;padding:11px 16px;
+  background:none;border:0;font:inherit;text-align:left;cursor:pointer}
+.drawdepthead:hover{background:#f5f8fc}
+.drawico{flex:0 0 auto;font-size:17px;line-height:1}
+.drawname{flex:1;min-width:0;font-size:13.5px;color:#22324a}
+.drawchev{flex:0 0 auto;color:var(--muted);font-size:17px;transition:transform .15s}
+.drawdept.open .drawchev{transform:rotate(90deg)}
+.drawdept.open .drawdepthead{color:var(--b)}
+.drawsub{padding:2px 0 8px}
+.drawsub a{display:flex;justify-content:space-between;gap:12px;align-items:baseline;
+  padding:7px 16px 7px 43px;font-size:12.5px;color:#34455e;cursor:pointer}
+.drawsub a:hover{background:#f5f8fc;color:var(--b)}
+.drawsub a span{font-size:11px;color:var(--muted)}
+.drawsuball{font-weight:700}
+.drawlink{display:block;padding:9px 16px;font-size:13.5px;color:#22324a;cursor:pointer}
+.drawlink:hover{background:#f5f8fc;color:var(--b)}
+body.noscroll{overflow:hidden}
+
+/* Below 1180px the department row can no longer hold eight departments plus the
+   laptop entries, so it collapses to the drawer rather than scrolling silently. */
+@media(max-width:1180px){
+  .navdept{display:none}
+  .navall{display:inline-flex}
+}
+@media(max-width:800px){
+  .burger{display:flex}
+  .mainnav .wrap{padding:0 16px}
+}
+
+/* The flyouts are absolutely positioned inside a nav that must not clip them,
+   so they have to fit the viewport themselves. Below the collapse point the
+   Collections entry moves into the drawer with the departments, where TP2 is
+   still gated and still attributed. */
+.navmega,.navfly{max-width:calc(100vw - 32px)}
+@media(max-width:1180px){
+  .navcollwrap{display:none}
+}
 
 </style>
 </head>
@@ -1645,15 +1749,30 @@ function viewStoreHome() {
 }
 
 /* ---------------- department page ---------------- */
-function viewDept(id) {
+/* The second argument is a subcategory slug coming from the navigation. A
+   department page that always dumps every category was fine when the nav had no
+   way to point at one; now that it does, the page has to honour it. */
+function viewDept(id, slug) {
   const d = deptById(id);
   if (!d) return view404();
   const items = deptItems(id);
-  const cats = [...new Set(items.map(p => p.cat))];
-  track('department_viewed', id);
-  return `${crumbs([['Home', '#/'], [d.name, '#/d/' + d.id]])}
-  <div class="sectionhead"><div><h1 class="h1">${esc(d.name)}</h1>
-    <p class="sub">${items.length} products across ${cats.length} categories.</p></div></div>
+  const all = [...new Set(items.map(p => p.cat))];
+  const picked = slug ? all.find(c => catSlug(c) === slug) : null;
+  if (slug && !picked) return view404();
+  const cats = picked ? [picked] : all;
+  const shown = picked ? items.filter(p => p.cat === picked) : items;
+  track('department_viewed', picked ? id + '/' + slug : id);
+  return `${crumbs(picked
+      ? [['Home', '#/'], [d.name, '#/d/' + d.id], [picked, '#/d/' + d.id + '/' + slug]]
+      : [['Home', '#/'], [d.name, '#/d/' + d.id]])}
+  <div class="sectionhead"><div><h1 class="h1">${esc(picked || d.name)}</h1>
+    <p class="sub">${picked
+      ? `${shown.length} products in ${esc(d.name)}.`
+      : `${items.length} products across ${all.length} categories.`}</p></div></div>
+  <div class="deptcats">${all.map(c => `<a class="deptcat${c === picked ? ' on' : ''}"
+    onclick="go('#/d/${d.id}/${catSlug(c)}')">${esc(c)}
+    <span>${items.filter(p => p.cat === c).length}</span></a>`).join('')}
+    ${picked ? `<a class="deptcat ghost" onclick="go('#/d/${d.id}')">All ${esc(d.name)}</a>` : ''}</div>
   ${cats.map(c => `
     <div class="sectionhead"><h2 class="h2">${esc(c)}</h2></div>
     <div class="grid">${items.filter(p => p.cat === c).map(storeCard).join('')}</div>`).join('')}
@@ -3481,6 +3600,7 @@ const ROUTES = [
   [/^#\/$/,                       () => viewStoreHome()],
   [/^#\/legacy-home$/,            () => viewHome()],
   [/^#\/d\/([\w-]+)$/,            m  => viewDept(m[1])],
+  [/^#\/d\/([\w-]+)\/([\w-]+)$/,  m  => viewDept(m[1], m[2])],
   [/^#\/s\/(s\d+)$/,              m  => viewStorePDP(m[1])],
   [/^#\/computers$/,              () => viewCategory()],
   [/^#\/laptops$/,                () => viewBrowse()],
@@ -3628,7 +3748,7 @@ const COLL_TAG = {
 const TAG_FILLED = { controller: 1, windows: 1, bolt: 1 };
 function collTagSvg(c, size) {
   const t = COLL_TAG[c && c.tag] || COLL_TAG.globe, f = TAG_FILLED[c && c.tag];
-  return `<svg class="ctag" viewBox="0 0 24 24" width="${size || 18}" height="${size || 18}" aria-hidden="true"
+  return `<svg class="colltag" viewBox="0 0 24 24" width="${size || 18}" height="${size || 18}" aria-hidden="true"
     fill="${f ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="${f ? 0 : 1.7}"
     stroke-linecap="round" stroke-linejoin="round">${t}</svg>`;
 }
@@ -4012,6 +4132,18 @@ function removeFilter(token) {
   S.page = 1; track('filter_removed', token); render();
 }
 function setSort(v) { S.sort = v; S.page = 1; track('sort_changed', v); render(); }
+/* Entering the laptop listing from the navigation with a type already applied.
+   Computers & Tablets carries no merchandising stock of its own, so its menu
+   has to open onto the laptop assortment rather than an empty department. */
+function navType(t) {
+  Object.keys(S.filters).forEach(k => { if (Array.isArray(S.filters[k])) S.filters[k] = []; });
+  S.filters.price = [null, null]; S.filters.rating = 0;
+  S.filters.touch = false; S.filters.deals = false;
+  if (t) S.filters.type = [t];
+  S.page = 1;
+  track('nav_type_entered', { type: t || 'all' });
+  go('#/laptops');
+}
 function setPage(n) { S.page = n; track('page_changed', n); render(); window.scrollTo(0, 240); }
 
 /* ---- retail density ------------------------------------------------------
@@ -5838,6 +5970,8 @@ function shell() {
   </div></div>
 
   <header class="header"><div class="wrap">
+    <button class="burger" onclick="openDrawer()" aria-label="Open menu">
+      <i></i><i></i><i></i></button>
     <a class="logo" id="brandlogo" onclick="go('#/')">nov<i>i</i></a>
     <div class="searchbox">
       <input id="q" placeholder="Search products, brands and categories" autocomplete="off" aria-label="Search"
@@ -5878,6 +6012,7 @@ function shell() {
   </div>
 
   <div id="assistroot"></div>
+  <div id="drawer" class="navdrawer"></div>
   <div id="toast" class="toast"></div>
   <div id="back" class="back"><div class="modal" id="mbox"></div></div>`;
 }
@@ -5900,13 +6035,72 @@ function paintChrome() {
    The nav entry carries a flyout rather than being a bare link, because slide
    30 is explicit that a Collection should never appear as a name on its own.
    A shopper who has never met the framework meets it here, with a descriptor. */
+/* Departments carry real subcategories in the catalogue but the navigation
+   never exposed them, so every department was a flat link into a long page.
+   A full-line retailer's navigation is how a shopper forms a mental model of
+   the store, and if laptops are supposed to be competing for attention among
+   TVs and appliances then that competition has to be visible in the nav.
+   Counts are derived from the live catalogue so they cannot drift. */
+function deptCats(id) {
+  const items = deptItems(id);
+  const seen = {}, out = [];
+  items.forEach(p => {
+    if (!seen[p.cat]) { seen[p.cat] = { cat: p.cat, n: 0 }; out.push(seen[p.cat]); }
+    seen[p.cat].n++;
+  });
+  return out.sort((a, b) => b.n - a.n);
+}
+function catSlug(c) { return String(c).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+
+function deptMenu(d) {
+  const cats = deptCats(d.id);
+  const route = d.route || ('#/d/' + d.id);
+  const top = deptItems(d.id).slice().sort((a, b) => b.reviewCount - a.reviewCount)[0];
+  /* Computers & Tablets holds no merchandising stock, because its stock is the
+     laptop catalogue the study is actually about. Its menu is therefore built
+     from the laptop types rather than from STORE, which would be empty. */
+  const isComputers = d.id === 'computers';
+  const firstCol = isComputers
+    ? TYPES.map(t => ({ label: t, n: CATALOG.filter(p => p.type === t).length,
+        act: `navType('${t.replace(/'/g, "\\'")}')` }))
+      .filter(x => x.n).sort((a, b) => b.n - a.n)
+    : cats.map(c => ({ label: c.cat, n: c.n, act: `go('#/d/${d.id}/${catSlug(c.cat)}')` }));
+  return `<span class="navdept">
+    <a class="navdepta" onclick="go('${route}')">${esc(d.name)}</a>
+    <div class="navmega" role="menu">
+      <div class="navmegacols">
+        <div class="navmegacol">
+          <b class="navmegahead">Shop ${esc(d.name)}</b>
+          ${firstCol.map(x => `<a onclick="${x.act}">${esc(x.label)}<span>${x.n}</span></a>`).join('')}
+          <a class="navmegaall" onclick="${isComputers ? "navType('')" : `go('${route}')`}">All ${esc(d.name)}</a>
+        </div>
+        ${isComputers ? `<div class="navmegacol navmegafeat">
+          <b class="navmegahead">Help me decide</b>
+          <a onclick="go('#/advisor')">Help me choose</a>
+          <a onclick="go('#/compare')">Compare laptops</a>
+          <a onclick="go('#/guide')">Buying guides</a>
+          ${tpOn(2) ? `<a onclick="go('#/windows')">Windows 11 laptops</a>` : ''}
+          <a onclick="go('#/deals')">Laptop deals</a>
+        </div>` : (top ? `<div class="navmegacol navmegafeat">
+          <b class="navmegahead">Most reviewed</b>
+          <a onclick="go('#/s/${top.id}')">${esc(top.name)}<span>${money(top.price)}</span></a>
+          <a onclick="go('#/deals')">Deals in ${esc(d.name)}</a>
+        </div>` : '')}
+      </div>
+      <div class="navmegafoot">${esc(d.blurb)}</div>
+    </div></span>`;
+}
+
 function paintNav() {
   const el = document.getElementById('mainnav');
   if (!el) return;
   const showColl = tpOn(2);
   const a = (href, label, cls) =>
     `<a${cls ? ` class="${cls}"` : ''} onclick="go('${href}')">${label}</a>`;
-  let h = DEPARTMENTS.map(d => a(d.route || ('#/d/' + d.id), esc(d.name))).join('');
+
+  let h = `<button class="navall" onclick="openDrawer()" aria-label="All departments">
+    <span class="navallico"><i></i><i></i><i></i></span>All</button>`;
+  h += DEPARTMENTS.map(deptMenu).join('');
   h += a('#/laptops', 'Laptops');
   if (showColl) {
     h += `<span class="navcollwrap">
@@ -5926,6 +6120,96 @@ function paintNav() {
   const hc = document.getElementById('hnavcoll');
   if (hc) hc.style.display = showColl ? '' : 'none';
   paintBrand();
+}
+
+/* ---- the drawer ------------------------------------------------------------
+   Below 900px the department row became a silent horizontal scroll, so most of
+   the store was unreachable without a gesture nothing signposted. The drawer is
+   the same information architecture as the mega menu, stacked and expandable.
+
+   Collections appear here only when TP2 is live. The drawer is navigation, so
+   putting Collections in it unconditionally would have reopened the exact
+   validity hole that made the old control arm useless. */
+let DRAWER_OPEN = null;
+let DRAWER_T = null;
+function openDrawer() {
+  const r = document.getElementById('drawer');
+  if (!r) return;
+  DRAWER_OPEN = null;
+  clearTimeout(DRAWER_T);
+  r.innerHTML = drawerHtml();
+  r.classList.add('open');
+  document.body.classList.add('noscroll');
+  /* The panel is display:none when closed, so it has to be laid out for one
+     frame before the slide-in transform can animate. */
+  void r.offsetWidth;
+  requestAnimationFrame(() => r.classList.add('in'));
+  track('nav_drawer_opened', { collections: tpOn(2) });
+}
+function closeDrawer() {
+  const r = document.getElementById('drawer');
+  if (!r || !r.classList.contains('open')) return;
+  r.classList.remove('in');
+  document.body.classList.remove('noscroll');
+  clearTimeout(DRAWER_T);
+  DRAWER_T = setTimeout(() => { r.classList.remove('open'); r.innerHTML = ''; }, 200);
+}
+function drawerDept(id) {
+  DRAWER_OPEN = (DRAWER_OPEN === id) ? null : id;
+  const r = document.getElementById('drawer');
+  if (r) r.innerHTML = drawerHtml();
+}
+function drawerGo(hash) { closeDrawer(); go(hash); }
+function drawerPick(id) { closeDrawer(); pickCollection(id, 'nav_drawer'); }
+
+function drawerHtml() {
+  const showColl = tpOn(2);
+  return `<div class="drawscrim" onclick="closeDrawer()"></div>
+  <aside class="drawpanel" role="dialog" aria-label="Main menu">
+    <div class="drawhead">
+      <b>Shop all departments</b>
+      <button class="drawx" onclick="closeDrawer()" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="drawbody">
+      ${showColl ? `<div class="drawsec">
+        <div class="drawsechead">Shop Windows Laptops by Use Case</div>
+        ${COLLECTIONS.map(c => `<a class="drawcoll" style="${collCss(c)}"
+          onclick="drawerPick('${c.id}')">
+          <span class="drawcollart">${collTagSvg(c, 20)}</span>
+          <span><b>${esc(c.name)}</b><i>${esc(c.blurb)}</i></span></a>`).join('')}
+      </div>` : ''}
+      <div class="drawsec">
+        ${DEPARTMENTS.map(d => {
+          const open = DRAWER_OPEN === d.id;
+          const isComputers = d.id === 'computers';
+          const rows = isComputers
+            ? TYPES.map(t => ({ label: t, n: CATALOG.filter(p => p.type === t).length,
+                act: `closeDrawer();navType('${t.replace(/'/g, "\\'")}')` }))
+              .filter(x => x.n).sort((a, b) => b.n - a.n)
+            : deptCats(d.id).map(c => ({ label: c.cat, n: c.n,
+                act: `drawerGo('#/d/${d.id}/${catSlug(c.cat)}')` }));
+          return `<div class="drawdept${open ? ' open' : ''}">
+            <button class="drawdepthead" onclick="drawerDept('${d.id}')" aria-expanded="${open}">
+              <span class="drawico">${d.icon}</span><span class="drawname">${esc(d.name)}</span>
+              <span class="drawchev">&#8250;</span></button>
+            ${open ? `<div class="drawsub">
+              ${rows.map(x => `<a onclick="${x.act}">${esc(x.label)}<span>${x.n}</span></a>`).join('')}
+              <a class="drawsuball" onclick="${isComputers
+                ? "closeDrawer();navType('')"
+                : `drawerGo('${d.route || ('#/d/' + d.id)}')`}">All ${esc(d.name)}</a>
+            </div>` : ''}</div>`;
+        }).join('')}
+      </div>
+      <div class="drawsec">
+        <div class="drawsechead">Laptops</div>
+        <a class="drawlink" onclick="drawerGo('#/laptops')">Shop all laptops</a>
+        <a class="drawlink" onclick="drawerGo('#/advisor')">Help me choose</a>
+        <a class="drawlink" onclick="drawerGo('#/compare')">Compare</a>
+        <a class="drawlink" onclick="drawerGo('#/deals')">Deals</a>
+        <a class="drawlink" onclick="drawerGo('#/guide')">Buying guides</a>
+      </div>
+    </div>
+  </aside>`;
 }
 
 /* Roadshow mode swaps the store identity, so the wordmark and the tab title
@@ -5977,6 +6261,15 @@ function paintMod() {
       <button class="gh" onclick="openConsole()">Console</button>
       <button class="gh" onclick="MOD=false;paintMod()">Hide</button>
     </span>`;
+  /* The bar wraps on narrow screens, so a fixed 38px offset left it covering
+     the header and the hamburger with it. Measure instead of assuming. */
+  syncModOffset();
+}
+function syncModOffset() {
+  const bar = document.getElementById('modbar');
+  if (!bar) return;
+  const h = (MOD && bar.classList.contains('show')) ? Math.ceil(bar.getBoundingClientRect().height) : 0;
+  document.documentElement.style.setProperty('--modh', h + 'px');
 }
 function elapsed() {
   const s = Math.floor((Date.now() - S.startedAt) / 1000);
@@ -6066,10 +6359,11 @@ function boot() {
   }, true);
   document.addEventListener('click', e => { if (!e.target.closest('.searchbox')) closeAC(); });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeModal(); closeAC(); }
+    if (e.key === 'Escape') { closeModal(); closeAC(); closeDrawer(); }
     if (e.altKey && e.shiftKey && /^m$/i.test(e.key)) { MOD = !MOD; paintMod(); }
     if (e.altKey && e.shiftKey && /^r$/i.test(e.key)) softReset();
   });
+  window.addEventListener('resize', syncModOffset, { passive: true });
   document.getElementById('back').addEventListener('click', e => { if (e.target.id === 'back') closeModal(); });
 
   if (!location.hash) location.hash = typeof CONSOLE_ONLY !== 'undefined' && CONSOLE_ONLY ? '#/research' : '#/';

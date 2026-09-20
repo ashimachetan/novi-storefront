@@ -2985,10 +2985,10 @@ function deptIcon(id) {
    different drawings. */
 
 const CAM = {
-  front:   { ry: 0.30, rx: 0.20, scale: 0.62, ox: 160, oy: 150, dist: 1150 },
-  profile: { ry: 1.16, rx: 0.16, scale: 0.62, ox: 160, oy: 150, dist: 1150 },
-  closed:  { ry: 0.44, rx: 0.56, scale: 0.78, ox: 160, oy: 132, dist: 1150 },
-  back:    { ry: 3.42, rx: 0.30, scale: 0.62, ox: 160, oy: 150, dist: 1150 }
+  front:   { ry: 0.195, rx: 0.235, scale: 0.62, ox: 160, oy: 150, dist: 2900 },
+  profile: { ry: 1.02, rx: 0.20, scale: 0.60, ox: 160, oy: 150, dist: 2900 },
+  closed:  { ry: 0.44, rx: 0.56, scale: 0.78, ox: 160, oy: 132, dist: 2900 },
+  back:    { ry: 3.42, rx: 0.30, scale: 0.62, ox: 160, oy: 150, dist: 2900 }
 };
 
 function proj3(pt, c) {
@@ -3130,7 +3130,7 @@ function artLaptop3D(p, v) {
   const mode = (fill || wallShot) ? 'front' : v === 1 ? 'profile' : v === 2 ? 'closed' : v === 3 ? 'back' : 'front';
   const c = CAM[mode];
 
-  const W = 212, D = 150, T = 9, L = 142;
+  const W = 212, D = 150, T = 8, L = 140;
   const alpha = (mode === 'closed' ? 2.5 : 101) * Math.PI / 180;
   const sa = Math.sin(alpha), ca = Math.cos(alpha);
   const hz = -D / 2;
@@ -3145,21 +3145,19 @@ function artLaptop3D(p, v) {
   const lid = (ux, vv) => P(ux, T + vv * sa, hz + vv * ca);
   const lt = [lid(-W / 2, 0), lid(W / 2, 0), lid(W / 2, L), lid(-W / 2, L)];
 
-  const bez = 5.5, topBez = 8;
-  const sc0 = lid(-W / 2 + bez, L - bez);       /* screen top-left  */
-  const sc1 = lid(W / 2 - bez, L - bez);        /* screen top-right */
-  const sc2 = lid(-W / 2 + bez, topBez);        /* screen bottom-left */
-  const scr = quadXform(sc0, sc1, sc2, 100, 62);
+  /* Both faces are drawn flat and then projected, rather than assembled from
+     polygons in world space. A flat face can carry rounded corners, inset
+     panels and a keyboard layout; a polygon cannot, and the polygon version is
+     what made these read as toys. */
+  const lidX = quadXform(lid(-W / 2, L), lid(W / 2, L), lid(-W / 2, 0), 100, 62);
+  const topX = quadXform(P(-W / 2, T, hz), P(W / 2, T, hz), P(-W / 2, T, D / 2), 100, 62);
 
-  /* keyboard plate sits on the base top, drawn flat then projected */
-  const deckX = quadXform(
-    P(-W / 2 + 15, T + 0.4, hz + 15),
-    P(W / 2 - 15, T + 0.4, hz + 15),
-    P(-W / 2 + 15, T + 0.4, 20), 100, 62);
-  const tpX = quadXform(
-    P(-33, T + 0.4, 30),
-    P(33, T + 0.4, 30),
-    P(-33, T + 0.4, D / 2 - 11), 100, 62);
+  /* Screen glass and the active image, in lid-face space. A modern machine is a
+     thin chassis rim, then a black glass panel, then the image, with a slightly
+     deeper chin. The old build put the image straight onto the chassis, which
+     framed every screen in a wide silver border. */
+  const GX = 1.9, GY = 1.7, GW = 96.2, GH = 58.6;
+  const IX = 3.5, IY = 3.1, IW = 93.0, IH = 53.2;
 
   /* contact shadow, projected so it lies in the ground plane */
   const sh0 = P(-W / 2 - 26, -0.5, hz - 14);
@@ -3167,16 +3165,41 @@ function artLaptop3D(p, v) {
   const sh2 = P(-W / 2 - 26, -0.5, D / 2 + 16);
   const shX = quadXform(sh0, sh1, sh2, 100, 62);
 
-  /* keycaps in flat keyboard space: perspective comes from the transform */
+  /* A real keyboard is not a grid. Row heights differ, the bottom row is mostly
+     spacebar, and the modifiers are wider than the letters. Drawing it as an
+     even 14 by 6 waffle is the single thing that made these look like an emoji
+     at thumbnail size, so the rows below carry relative key widths and are
+     normalised to the well. */
+  const ROWS = [
+    { h: 0.74, k: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] },
+    { h: 1.00, k: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.8] },
+    { h: 1.00, k: [1.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.5] },
+    { h: 1.00, k: [1.8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2.2] },
+    { h: 1.00, k: [2.4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2.6] },
+    { h: 1.00, k: [1.3, 1.3, 1.3, 6.4, 1.3, 1.3, 1.5, 1.5] }
+  ];
+  const KX = 8.5, KY = 5.5, KW = 83, KH = 31.5;
+  const keyFill = gaming ? '#10141a' : '#232a34';
   const keys = [];
-  for (let r = 0; r < 6; r++) {
-    for (let col = 0; col < 14; col++) {
-      const kw = 100 / 14, kh = 62 / 6;
-      const x = col * kw + 0.7, y = r * kh + 0.7;
-      keys.push(`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${(kw - 1.4).toFixed(2)}"
-        height="${(kh - 1.6).toFixed(2)}" rx=".9" fill="${gaming ? '#14181e' : '#39424e'}"/>`);
-      keys.push(`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${(kw - 1.4).toFixed(2)}"
-        height="${((kh - 1.6) * 0.42).toFixed(2)}" rx=".8" fill="#fff" opacity=".22"/>`);
+  {
+    const totalH = ROWS.reduce((s, r) => s + r.h, 0);
+    let y = KY;
+    for (const row of ROWS) {
+      const rh = (KH / totalH) * row.h;
+      const span = row.k.reduce((s, w) => s + w, 0);
+      const gap = 0.42;
+      let x = KX;
+      for (const w of row.k) {
+        const kw = (KW / span) * w - gap;
+        const kh = rh - gap * 1.25;
+        keys.push(`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${kw.toFixed(2)}"
+          height="${kh.toFixed(2)}" rx="${Math.min(0.55, kh / 3).toFixed(2)}" fill="${keyFill}"/>`);
+        keys.push(`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${kw.toFixed(2)}"
+          height="${(kh * 0.34).toFixed(2)}" rx="${Math.min(0.5, kh / 4).toFixed(2)}"
+          fill="#fff" opacity=".075"/>`);
+        x += kw + gap;
+      }
+      y += rh;
     }
   }
 
@@ -3198,6 +3221,8 @@ function artLaptop3D(p, v) {
         <feGaussianBlur stdDeviation="3.1"/></filter>
       <filter id="${u}soft" x="-30%" y="-30%" width="160%" height="160%">
         <feGaussianBlur stdDeviation="5"/></filter>
+      <filter id="${u}tight" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="2"/></filter>
       <linearGradient id="${u}lidg" x1="0" y1="0" x2=".85" y2="1">
         <stop offset="0" stop-color="${f.c}"/>
         <stop offset=".38" stop-color="${f.a}"/>
@@ -3215,48 +3240,68 @@ function artLaptop3D(p, v) {
         <stop offset="1" stop-color="hsl(${(wallHue + 32) % 360},70%,4%)"/></linearGradient>
       <linearGradient id="${u}sheen3" x1=".1" y1="0" x2=".95" y2=".6">
         <stop offset="0" stop-color="#fff" stop-opacity="0"/>
-        <stop offset=".34" stop-color="#fff" stop-opacity=".16"/>
-        <stop offset=".46" stop-color="#fff" stop-opacity=".30"/>
-        <stop offset=".58" stop-color="#fff" stop-opacity=".10"/>
-        <stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient>
-      <linearGradient id="${u}glare" x1="0" y1="0" x2=".6" y2="1">
-        <stop offset="0" stop-color="#fff" stop-opacity=".20"/>
-        <stop offset=".30" stop-color="#fff" stop-opacity=".05"/>
-        <stop offset=".31" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <stop offset=".34" stop-color="#fff" stop-opacity=".10"/>
+        <stop offset=".46" stop-color="#fff" stop-opacity=".19"/>
+        <stop offset=".58" stop-color="#fff" stop-opacity=".06"/>
+        <stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+      <linearGradient id="${u}glare" x1=".05" y1="0" x2=".62" y2=".95">
+        <stop offset="0" stop-color="#fff" stop-opacity=".13"/>
+        <stop offset=".26" stop-color="#fff" stop-opacity=".035"/>
+        <stop offset=".27" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <radialGradient id="${u}vig" cx=".5" cy=".42" r=".78">
+        <stop offset=".55" stop-color="#000" stop-opacity="0"/>
+        <stop offset="1" stop-color="#000" stop-opacity=".30"/></radialGradient>
       <clipPath id="${u}scr" clipPathUnits="userSpaceOnUse">
-        ${poly([sc0, sc1, lid(W / 2 - bez, topBez), sc2], '')}
+        <rect x="${IX}" y="${IY}" width="${IW}" height="${IH}" rx=".9"/>
       </clipPath>
       <radialGradient id="${u}shg" cx=".5" cy=".5" r=".5">
-        <stop offset="0" stop-color="#8794a6" stop-opacity=".55"/>
-        <stop offset=".6" stop-color="#8794a6" stop-opacity=".16"/>
-        <stop offset="1" stop-color="#8794a6" stop-opacity="0"/></radialGradient>
+        <stop offset="0" stop-color="#7d8998" stop-opacity=".46"/>
+        <stop offset=".58" stop-color="#7d8998" stop-opacity=".13"/>
+        <stop offset="1" stop-color="#7d8998" stop-opacity="0"/></radialGradient>
     </defs>
 
     ${wallShot ? '' : `<rect width="320" height="220" fill="#fff"/>`}
 
-    <g transform="${shX}" filter="url(#${u}soft)">
-      <ellipse cx="50" cy="42" rx="46" ry="17" fill="url(#${u}shg)" opacity="${wallShot ? '.5' : '1'}"/>
+    <g transform="${shX}" opacity="${wallShot ? '.55' : '1'}">
+      <g filter="url(#${u}soft)">
+        <ellipse cx="50" cy="42" rx="44" ry="15" fill="url(#${u}shg)"/></g>
+      <g filter="url(#${u}tight)">
+        <ellipse cx="50" cy="46" rx="33" ry="5.2" fill="#54606f" opacity=".40"/></g>
     </g>
 
     ${lidOnly ? '' : `
     ${poly(bb, `fill="url(#${u}edgeg)"`)}
     ${poly([bb[3], bb[2], bt[2], bt[3]], `fill="${f.edge}"`)}
     ${poly([bb[1], bb[2], bt[2], bt[1]], `fill="${f.b}"`)}
-    ${poly(bt, `fill="url(#${u}deckg)"`)}
-    ${poly(bt, `fill="#fff" fill-opacity="${gaming ? '.05' : '.19'}"`)}
-    ${poly(bt, `fill="url(#${u}sheen3)"`)}
-    ${poly([bt[3], bt[2], bb[2], bb[3]], `fill="#fff" fill-opacity=".20"`)}
-    ${poly([bt[3], bt[2]], `fill="none" stroke="#fff" stroke-opacity=".70" stroke-width="1.3"`)}
+    ${poly([bt[3], bt[2], bb[2], bb[3]], `fill="#fff" fill-opacity=".07"`)}
+    ${poly([bt[3], bt[2]], `fill="none" stroke="#fff" stroke-opacity=".30" stroke-width=".9"`)}
 
-    <g transform="${deckX}">
-      <rect x="-3" y="-3" width="106" height="68" rx="2" fill="#0d131c" opacity=".08"/>
+    <g transform="${topX}">
+      <rect x="0" y="0" width="100" height="62" rx="2.6" fill="url(#${u}deckg)"/>
+      <rect x="0" y="0" width="100" height="62" rx="2.6" fill="#fff" fill-opacity="${gaming ? '.03' : '.07'}"/>
+      <rect x="0" y="0" width="100" height="62" rx="2.6" fill="url(#${u}sheen3)"/>
+      <rect x=".3" y=".3" width="99.4" height="61.4" rx="2.4" fill="none"
+        stroke="${f.edge}" stroke-width=".55" stroke-opacity=".55"/>
+
+      <rect x="${(KX - 1.7).toFixed(2)}" y="${(KY - 1.5).toFixed(2)}"
+        width="${(KW + 3.4).toFixed(2)}" height="${(KH + 3).toFixed(2)}" rx="1.5"
+        fill="#0d131c" opacity=".11"/>
       ${keys.join('')}
-      ${gaming ? `<rect x="-3" y="-3" width="106" height="68" rx="2" fill="none"
-        stroke="hsl(${h},95%,60%)" stroke-opacity=".55" stroke-width="1.4"/>` : ''}
-    </g>
-    <g transform="${tpX}">
-      <rect x="0" y="0" width="100" height="62" rx="3" fill="#0d131c" opacity=".09"/>
-      <rect x="0" y="0" width="100" height="3" rx="1.5" fill="#fff" opacity=".4"/>
+      ${gaming ? `<rect x="${(KX - 1.7).toFixed(2)}" y="${(KY - 1.5).toFixed(2)}"
+        width="${(KW + 3.4).toFixed(2)}" height="${(KH + 3).toFixed(2)}" rx="1.5" fill="none"
+        stroke="hsl(${h},95%,60%)" stroke-opacity=".50" stroke-width=".9"/>` : ''}
+
+      ${[7.2, 88.6].map(sx => `<rect x="${sx}" y="${KY + 1}" width="4.2"
+        height="${(KH - 2).toFixed(2)}" rx="1" fill="#0d131c" opacity=".07"/>`).join('')}
+
+      <rect x="34" y="${(KY + KH + 3.4).toFixed(2)}" width="32" height="15.5" rx="1.4"
+        fill="#0d131c" opacity=".055"/>
+      <rect x="34" y="${(KY + KH + 3.4).toFixed(2)}" width="32" height="15.5" rx="1.4"
+        fill="none" stroke="#0d131c" stroke-opacity=".17" stroke-width=".5"/>
+      <rect x="34" y="${(KY + KH + 3.4).toFixed(2)}" width="32" height="1.1" rx=".55"
+        fill="#fff" opacity=".22"/>
+
+      <ellipse cx="50" cy="60.4" rx="7" ry="1.1" fill="#0d131c" opacity=".10"/>
     </g>`}
 
     ${(mode === 'profile' || mode === 'back') ? [-1, 1].map(sd =>
@@ -3267,26 +3312,32 @@ function artLaptop3D(p, v) {
         P(sd * (W / 2 + 0.4), T * 0.30, -34 + i * 30)
       ], `fill="#0b1119" opacity=".42"`)).join('')).join('') : ''}
 
-    ${poly(lt, `fill="url(#${u}lidg)"`)}
-    ${poly(lt, `fill="#fff" fill-opacity="${gaming ? '.04' : '.15'}"`)}
-    ${poly(lt, `fill="url(#${u}sheen3)"`)}
-    ${poly([lt[3], lt[2], lt[1], lt[0]], `fill="none" stroke="${f.edge}" stroke-width="1.1" stroke-linejoin="round"`)}
-    ${poly([lt[3], lt[2]], `fill="none" stroke="#fff" stroke-opacity=".62" stroke-width="1.4"`)}
-    ${poly([lt[0], lt[3]], `fill="none" stroke="#fff" stroke-opacity=".34" stroke-width="1.1"`)}
+    <g transform="${lidX}">
+      <rect x="0" y="0" width="100" height="62" rx="2.6" fill="url(#${u}lidg)"/>
+      <rect x="0" y="0" width="100" height="62" rx="2.6" fill="#fff" fill-opacity="${gaming ? '.03' : '.11'}"/>
+      <rect x="0" y="0" width="100" height="62" rx="2.6" fill="url(#${u}sheen3)"/>
+      <rect x=".25" y=".25" width="99.5" height="61.5" rx="2.5" fill="none"
+        stroke="${f.edge}" stroke-width=".5" stroke-opacity=".7"/>
 
-    ${screenVisible ? `
-    ${poly([sc0, sc1, lid(W / 2 - bez, topBez), sc2], `fill="#05080e"`)}
-    <g clip-path="url(#${u}scr)"><g transform="${scr}">
-      ${fill ? screenFill(p, u) : wallArt || `
-      <rect x="0" y="0" width="100" height="62" fill="url(#${u}wall)"/>
-      ${bloom(u, wallHue)}
-      <rect x="0" y="54.5" width="100" height="7.5" fill="#0a0f18" opacity=".55"/>
-      ${[0, 1, 2, 3, 4, 5].map(i => `<rect x="${38 + i * 4.6}" y="56.4" width="3.1" height="3.1"
-        rx=".8" fill="#fff" opacity=".${i < 3 ? 72 : 40}"/>`).join('')}`}
-      <rect x="0" y="0" width="100" height="62" fill="url(#${u}glare)"/>
-    </g></g>` : ''}
-
-
+      ${screenVisible ? `
+      <rect x="${GX}" y="${GY}" width="${GW}" height="${GH}" rx="1.4" fill="#0a0c11"/>
+      <g clip-path="url(#${u}scr)">
+        <g transform="translate(${IX} ${IY}) scale(${(IW / 100).toFixed(4)} ${(IH / 62).toFixed(4)})">
+          ${fill ? screenFill(p, u) : wallArt || `
+          <rect x="0" y="0" width="100" height="62" fill="url(#${u}wall)"/>
+          ${bloom(u, wallHue)}
+          <rect x="0" y="54.5" width="100" height="7.5" fill="#0a0f18" opacity=".55"/>
+          ${[0, 1, 2, 3, 4, 5].map(i => `<rect x="${38 + i * 4.6}" y="56.4" width="3.1" height="3.1"
+            rx=".8" fill="#fff" opacity=".${i < 3 ? 72 : 40}"/>`).join('')}`}
+        </g>
+        <rect x="${IX}" y="${IY}" width="${IW}" height="${IH}" fill="url(#${u}vig)"/>
+        <rect x="${IX}" y="${IY}" width="${IW}" height="${IH}" fill="url(#${u}glare)"/>
+      </g>
+      <circle cx="50" cy="${(GY + 1.1).toFixed(2)}" r=".42" fill="#20262e"/>
+      <rect x="46.4" y="${(GY + GH - 2.4).toFixed(2)}" width="7.2" height=".9" rx=".45"
+        fill="#fff" opacity=".18"/>` : `
+      <rect x="40" y="27" width="20" height="8" rx="1.4" fill="#fff" opacity=".10"/>`}
+    </g>
   </svg>`;
 }
 

@@ -619,7 +619,7 @@ body.hasmod{padding-top:var(--modh,38px)}
    ====================================================================== */
 body.consolemode{background:#0b1220;color:#e6edf6}
 body.consolemode .topbar,body.consolemode .header,body.consolemode .mainnav,
-body.consolemode .promoribbon,body.consolemode .footer,body.consolemode .asstfab,
+body.consolemode .promoribbon,body.consolemode .ribbon,body.consolemode .footer,body.consolemode .asstfab,
 body.consolemode .asstbtn,body.consolemode .asstwrap,body.consolemode .asstpanel{display:none !important}
 body.consolemode .wrap{max-width:1560px}
 body.consolemode .sectionhead{margin-top:0;border:0}
@@ -6753,8 +6753,11 @@ function navHtml() {
 /* Roadshow mode swaps the store identity, so the wordmark and the tab title
    have to follow the profile, not stay hard-coded to Novi. */
 function paintBrand() {
+  /* The console reuses the storefront chrome but must never show retail
+     furniture. Guarded here as well as in CSS, because this runs on every
+     profile change. */
   const rb = document.getElementById('ribbon');
-  if (rb && typeof promoRibbon === 'function') rb.innerHTML = promoRibbon();
+  if (rb && !readOnlyTab() && typeof promoRibbon === 'function') rb.innerHTML = promoRibbon();
   const st = document.getElementById('shipto');
   if (st) st.innerHTML = 'Ship to ' + esc(BRAND.postcode || '98052') + ' &middot; '
     + esc(BRAND.market || 'US') + ' &middot; ' + esc(BRAND.currency || 'USD');

@@ -6874,7 +6874,7 @@ const BEATS = [
    'A full store. Laptops sitting among televisions, phones and appliances, so the shopper has to find the PC first.',
    null, null],
   ['Watch a shopper lose the thread, then change the store under them',
-   'Switch the framework on mid-journey. Same shopper, same catalogue, same task, one variable moved.',
+   'Start on P2 + P3, where the framework exists only as a late badge. The listing page is brand, price and screen size. Then switch it on under her.',
    null, null],
   ['Said versus did',
    'The study said a quarter of shoppers start at search. Here is where they actually went.',
@@ -6949,7 +6949,7 @@ function cStage() {
         <div class="beatgo">${b[2]
           ? `<button class="btn out" onclick="setCTab('${b[2]}')">${esc(b[3])}</button>`
           : i === 1
-            ? `<div class="lvrbtns">${['F', 'I'].filter(k => CONDITIONS[k]).map(k =>
+            ? `<div class="lvrbtns">${['H', 'I'].filter(k => CONDITIONS[k]).map(k =>
                 `<button class="lvrb ${S.condition === k ? 'on' : ''}" onclick="setCondition('${k}')">${esc(COND_SHORT[k] || k)}</button>`).join('')}</div>`
             : `<span class="sub" style="font-size:11.5px">Storefront screen</span>`}</div>
       </div>`).join('')}

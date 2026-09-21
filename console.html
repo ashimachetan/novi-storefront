@@ -1277,6 +1277,70 @@ body.noscroll{overflow:hidden}
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .thumb .cvidcap{display:none}
 #galmain .cvidcap{font-size:13px;padding:26px 16px 13px}
+/* ---- Collections education page (#/windows/learn) -------------------------
+   The banner and the blades assume the framework. This page explains it. */
+.cbannerfoot{margin-top:14px;text-align:center}
+.cbannerfoot button{background:none;border:0;color:#9fc6ff;font:inherit;font-size:12.5px;
+  font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px}
+.cbannerfoot button:hover{color:#fff}
+
+.learnbar{display:flex;align-items:center;gap:18px;margin:20px 0 6px;padding:15px 20px;
+  border:1px solid var(--ln);border-radius:12px;background:#f2f6fc}
+.learnbar strong{display:block;font-size:14.5px}
+.learnbar span{display:block;font-size:13px;color:var(--mut);margin-top:2px}
+.learnbar .btn{margin-left:auto;white-space:nowrap}
+
+.learnhero{margin:14px 0 8px;padding:34px 40px;border-radius:14px;color:#fff;
+  background:linear-gradient(118deg,#0b2a5c,#134081 52%,#1b56a8)}
+.learnhero h1{font-size:31px;margin:10px 0 10px;line-height:1.18}
+.learnhero p{margin:0;max-width:660px;font-size:14.5px;opacity:.94;line-height:1.55}
+.learnjump{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.ljump{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(255,255,255,.10);
+  color:#fff;font:inherit;font-size:12.5px;font-weight:700}
+.ljump:hover{background:rgba(255,255,255,.20)}
+.ljump svg{flex:none}
+.ljump.lcmp{background:#fff;color:#0b2a5c;border-color:#fff}
+.ljump.lcmp:hover{background:#e7efff}
+
+.lcoll{margin:26px 0 0;padding:20px 22px 6px;border:1px solid var(--ln);border-radius:14px;
+  background:linear-gradient(180deg,hsl(var(--ch) 60% 97%),#fff 64%);scroll-margin-top:16px}
+.lcollhead{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
+.lcollart{flex:none;margin-top:2px}
+.lcollhead h2{font-size:21px;margin:0 0 5px}
+.lcollhead p{margin:0;font-size:13.5px;color:var(--mut);max-width:620px;line-height:1.5}
+.lcollfacts{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700;color:var(--cc)}
+.lcollhead .btn{margin-left:auto;white-space:nowrap;flex:none}
+
+.lmatrix{margin-top:34px}
+.lmwrap{overflow-x:auto;border:1px solid var(--ln);border-radius:14px;background:#fff}
+.lmtable{border-collapse:collapse;width:100%;min-width:900px;font-size:13px}
+.lmtable th,.lmtable td{padding:13px 15px;vertical-align:top;text-align:left;
+  border-bottom:1px solid var(--ln);border-right:1px solid var(--ln)}
+.lmtable th:last-child,.lmtable td:last-child{border-right:0}
+.lmtable tbody tr:last-child th,.lmtable tbody tr:last-child td{border-bottom:0}
+.lmtable thead th{background:#fff;padding:0}
+.lmtable thead th.lmrow{background:#f6f8fc}
+.lmhead{display:flex;flex-direction:column;align-items:flex-start;gap:7px;width:100%;
+  padding:15px;cursor:pointer;border:0;background:linear-gradient(180deg,hsl(var(--ch) 62% 96%),#fff);
+  font:inherit;text-align:left;border-bottom:3px solid var(--cc)}
+.lmhead b{font-size:14px;line-height:1.25}
+.lmhead:hover{background:hsl(var(--ch) 62% 93%)}
+.lmrow{width:190px;background:#f6f8fc;font-weight:700;color:#28313d;font-size:12.5px}
+.lmuse{margin:0;font-weight:600;color:#28313d}
+.lmdo{margin:0;padding-left:16px}
+.lmdo li{margin-bottom:5px;color:var(--mut)}
+.lmdo li:last-child{margin-bottom:0}
+
+@media (max-width:900px){
+  .learnhero{padding:26px 22px}
+  .learnhero h1{font-size:25px}
+  .lcollhead{flex-wrap:wrap}
+  .lcollhead .btn{margin-left:0;width:100%}
+  .learnbar{flex-wrap:wrap}
+  .learnbar .btn{margin-left:0;width:100%}
+}
+
 </style>
 </head>
 <body>
@@ -1330,6 +1394,12 @@ const COLLECTIONS = [
     tag: 'bolt', hue: 222,
     blurb: 'Delivers all day performance for work and gaming',
     long: 'Faster silicon, better screens and batteries that last a working day. For people who live on their machine.',
+    learn: { price: '$900 or more', res: '2K or more', gpu: 'Integrated, dedicated on some models',
+      cpu: 'Intel Core Ultra 5 or above, AMD Ryzen AI 5 or above, Qualcomm Snapdragon X Plus',
+      storage: '512 GB or more', ram: '16 GB or more',
+      doing: ['Work with some gaming on the side', 'Getting a new business off the ground',
+        'Making things: photos, video, music', 'Juggling a job and a household',
+        'Calls and collaboration all day', 'Winding down with a game'] },
     wall: { form: 'bloom', cx: 0.55, cy: 0.50,
       base: ['#38306b', '#4b4179', '#5d66bb'],
       glow: ['#c18db2', '#f0b5b7', '#f5c3b5', '#efb7c2'],
@@ -1338,6 +1408,11 @@ const COLLECTIONS = [
     tag: 'windows', hue: 178,
     blurb: 'Designed for everyday projects, school and multitasking',
     long: 'Enough headroom to keep a dozen tabs, a video call and your coursework open at the same time.',
+    learn: { price: '$500 to $900', res: '2K', gpu: 'Integrated',
+      cpu: 'Intel Core Ultra 5 or Core 5 and above, AMD Ryzen 5 and above, Qualcomm Snapdragon X1 and above',
+      storage: '256 GB or more', ram: '8 GB or more',
+      doing: ['Coursework and study', 'Picking up a new skill', 'Creative projects on the side',
+        'Streaming shows and music', 'Group work with classmates', 'Casual gaming with friends'] },
     wall: { form: 'bloom', cx: 0.44, cy: 0.42,
       base: ['#012f80', '#013f9d', '#0250af'],
       glow: ['#2664b4', '#3c7ac6', '#6a9cd4', '#a0c5f0'],
@@ -1346,6 +1421,12 @@ const COLLECTIONS = [
     tag: 'controller', hue: 276,
     blurb: 'High performance for gaming and beyond',
     long: 'High refresh displays and dedicated graphics, built to hold a frame rate under load.',
+    learn: { price: 'Entry $900 or more, slim premium $1,200 or more, flagship $1,500 or more',
+      res: '2K or more', gpu: 'Yes, integrated or dedicated',
+      cpu: 'Intel Core 7 or above, AMD Ryzen 7 or above',
+      storage: '1 TB', ram: '16 GB or more',
+      doing: ['Serious gaming', 'Finding your people online', 'Reading up on what is coming next',
+        'Playing to win', 'Watching live streams'] },
     wall: { form: 'ribbon',
       base: ['#07080c', '#0f1110', '#0a1024'],
       glow: ['#162577', '#2d3693', '#323c8b'],
@@ -1354,6 +1435,11 @@ const COLLECTIONS = [
     tag: 'pen', hue: 322,
     blurb: 'Built for advanced apps, creation and design',
     long: 'Colour-accurate displays and serious graphics for editing, rendering, design and photography.',
+    learn: { price: '$1,200 or more', res: '2K or more, colour accurate', gpu: 'Dedicated',
+      cpu: 'Intel Core Ultra 7 or above, AMD Ryzen AI 7 or above',
+      storage: '1 TB or more', ram: '16 GB or more, 32 GB for heavy work',
+      doing: ['Editing video and photos', 'Design and illustration', 'Modelling and rendering',
+        'Music production', 'Publishing work to a client or a feed'] },
     wall: { form: 'ribbon',
       base: ['#0d1f42', '#12274f', '#122e5f'],
       glow: ['#29518b', '#4d7ab6', '#39639f'],
@@ -1363,6 +1449,11 @@ const COLLECTIONS = [
     tag: 'globe', hue: 152,
     blurb: 'Ideal for browsing, email and streaming',
     long: 'The everyday basics done well. Email, the web, streaming and documents, without paying for power you will not use.',
+    learn: { price: 'Under $500', res: 'HD to Full HD', gpu: 'Integrated',
+      cpu: 'Intel Core 3 and above, AMD Ryzen 3 and above, Qualcomm Snapdragon',
+      storage: '128 GB or more', ram: '8 GB',
+      doing: ['Email and the web', 'Streaming and catch-up', 'Keeping in touch with family',
+        'Shopping and banking', 'Documents and forms'] },
     wall: { form: 'wave', light: true,
       base: ['#bdb4bf', '#cfb0ab', '#ebcfba'],
       glow: ['#dbcada', '#f0dbca', '#f5e7dc'],
@@ -1933,8 +2024,7 @@ function viewStoreHome() {
     const face = inC.slice().sort((a, b) => (b.rating || 0) - (a.rating || 0))[0];
     return `<a class="collcard" onclick="go('#/collections/${c.id}')">
     <span class="ccart">${face ? (typeof collFaceArt === 'function' ? collFaceArt(face) : productArt(face, 0)) : ''}</span>
-    <span class="badge">${esc(c.name)}</span><span>${esc(c.blurb)}</span>
-    <span class="ccn">${inC.length} laptops</span></a>`;
+    <span class="badge">${esc(c.name)}</span><span>${esc(c.blurb)}</span></a>`;
   }).join('')}</div>` : `
   <div class="sectionhead"><div><h2 class="h2">Laptops</h2>
     <p class="sub">Browse every laptop we stock.</p></div>
@@ -1968,11 +2058,10 @@ function viewDept(id, slug) {
       : [['Home', '#/'], [d.name, '#/d/' + d.id]])}
   <div class="sectionhead"><div><h1 class="h1">${esc(picked || d.name)}</h1>
     <p class="sub">${picked
-      ? `${shown.length} products in ${esc(d.name)}.`
-      : `${items.length} products across ${all.length} categories.`}</p></div></div>
+      ? `Shop ${esc(picked)} in ${esc(d.name)}.`
+      : `Shop ${esc(d.name)} across ${all.length} categories.`}</p></div></div>
   <div class="deptcats">${all.map(c => `<a class="deptcat${c === picked ? ' on' : ''}"
-    onclick="go('#/d/${d.id}/${catSlug(c)}')">${esc(c)}
-    <span>${items.filter(p => p.cat === c).length}</span></a>`).join('')}
+    onclick="go('#/d/${d.id}/${catSlug(c)}')">${esc(c)}</a>`).join('')}
     ${picked ? `<a class="deptcat ghost" onclick="go('#/d/${d.id}')">All ${esc(d.name)}</a>` : ''}</div>
   ${cats.map(c => `
     <div class="sectionhead"><h2 class="h2">${esc(c)}</h2></div>
@@ -2030,7 +2119,7 @@ function viewDeals() {
     .map(d => [d, merchDeals.filter(p => p.dept === d.id)]).filter(x => x[1].length);
   return `${crumbs([['Home', '#/'], ['Deals', '#/deals']])}
   <div class="sectionhead"><div><h1 class="h1">Deals</h1>
-    <p class="sub">${merchDeals.length + lapDeals.length} products on promotion across the store.</p></div></div>
+    <p class="sub">On promotion across the store.</p></div></div>
   <div class="sectionhead"><h2 class="h2">Computers &amp; Tablets</h2>
     <a class="seeall" onclick="go('#/laptops')">Shop all laptops</a></div>
   <div class="grid">${lapDeals.map(p => pcard(p)).join('')}</div>
@@ -4014,6 +4103,7 @@ const ROUTES = [
   [/^#\/collections\/([\w-]+)$/,  m  => viewCollection(m[1])],
   [/^#\/collections$/,            () => viewCollectionsIndex()],
   [/^#\/windows$/,                () => viewWindows()],
+  [/^#\/windows\/learn$/,         () => viewWindowsLearn()],
   [/^#\/guide$/,                  () => viewGuide()],
   [/^#\/brand\/([\w%20-]+)$/,     m  => viewBrand(decodeURIComponent(m[1]))],
   [/^#\/cart$/,                   () => viewCart()],
@@ -4344,16 +4434,12 @@ function collStrip(activeId, opt) {
       ${o.sub === false ? '' : `<span>Pick what you want to do. Every Windows laptop sits in exactly one.</span>`}
     </div>
     <div class="cstriprow">
-      ${COLLECTIONS.map(c => {
-        const n = CATALOG.filter(p => p.collection === c.name).length;
-        return `<button class="cscell${activeId === c.id ? ' on' : ''}" style="${collCss(c)}"
+      ${COLLECTIONS.map(c => `<button class="cscell${activeId === c.id ? ' on' : ''}" style="${collCss(c)}"
           onclick="pickCollection('${c.id}','${o.tp || 'strip'}')" title="${esc(c.blurb)}">
           <span class="cscellart">${collTagSvg(c, 26)}</span>
           <b>${esc(c.name)}</b>
           <span class="cssub">${esc(c.blurb)}</span>
-          <span class="cscount">${n} laptops</span>
-        </button>`;
-      }).join('')}
+        </button>`).join('')}
     </div>
   </nav>`;
 }
@@ -4376,17 +4462,15 @@ function collBanner(activeId, opt) {
       ${o.sub === false ? '' : `<span>Pick what you want to do. Every Windows laptop sits in exactly one.</span>`}
     </div>
     <div class="cbannerrow">
-      ${COLLECTIONS.map(c => {
-        const n = CATALOG.filter(p => p.collection === c.name).length;
-        return `<button class="cbcell${activeId === c.id ? ' on' : ''}" style="${collCss(c)}"
+      ${COLLECTIONS.map(c => `<button class="cbcell${activeId === c.id ? ' on' : ''}" style="${collCss(c)}"
           onclick="pickCollection('${c.id}','${o.tp || 'banner'}')" title="${esc(c.blurb)}">
           <span class="cbart">${collBannerArt(c, m)}</span>
           <b>${esc(c.pcs || c.name)}</b>
           <span class="cbsub">${esc(c.blurb)}</span>
-          <span class="cbcount">${n} laptops</span>
-        </button>`;
-      }).join('')}
+        </button>`).join('')}
     </div>
+    ${o.learn === false ? '' : `<div class="cbannerfoot">
+      <button onclick="go('#/windows/learn')">Learn more about the collections</button></div>`}
   </section>`;
 }
 
@@ -4426,7 +4510,7 @@ function collFacts(c) {
   if (!c) return '';
   const r = collPriceRange(c.id);
   if (!r) return '';
-  return `<span class="cfacts">${money(r.lo)} to ${money(r.hi)} <i>·</i> ${r.n} laptops</span>`;
+  return `<span class="cfacts">${money(r.lo)} to ${money(r.hi)}</span>`;
 }
 
 /* Every Collection entry point routes through here, so no touchpoint can send a
@@ -4648,7 +4732,7 @@ function facetPanel(base) {
   const f = S.filters;
   const grp = (title, key, values, open) => `<div class="fgroup"><b>${title}</b>
     ${values.map(v => `<label><input type="checkbox" data-k="${key}" value="${v}" ${f[key].includes(v) ? 'checked' : ''}> ${v}
-      <span class="cnt">${facetCount(key, v, base)}</span></label>`).join('')}</div>`;
+      </label>`).join('')}</div>`;
   const brandsByCount = BRANDS.map(b => b.name)
     .filter(n => facetCount('brand', n, base) > 0)
     .sort((a, b) => facetCount('brand', b, base) - facetCount('brand', a, base));
@@ -4661,7 +4745,7 @@ function facetPanel(base) {
       ${PRICE_BANDS.map((b, i) => {
         const n = base.filter(p => (b.lo == null || p.price >= b.lo) && (b.hi == null || p.price <= b.hi)).length;
         return n ? `<label><input type="checkbox" ${priceBandOn(b) ? 'checked' : ''}
-          onchange="setPriceBand(${i})"> ${b.label} <span class="cnt">${n}</span></label>` : '';
+          onchange="setPriceBand(${i})"> ${b.label}</label>` : '';
       }).join('')}
       <div class="prices" style="margin-top:8px">
         <input id="pmin" type="number" placeholder="$ Min" value="${f.price[0] ?? ''}">
@@ -4684,10 +4768,10 @@ function facetPanel(base) {
     <div class="fgroup"><b>Features</b>
       <label><input type="checkbox" ${f.touch ? 'checked' : ''}
         onchange="S.filters.touch=this.checked;S.page=1;track('filter_changed',{facet:'touch',on:this.checked});render()">
-        Touchscreen <span class="cnt">${base.filter(p => p.touch).length}</span></label>
+        Touchscreen</label>
       <label><input type="checkbox" ${f.deals ? 'checked' : ''}
         onchange="S.filters.deals=this.checked;S.page=1;track('filter_changed',{facet:'deals',on:this.checked});render()">
-        On sale <span class="cnt">${base.filter(p => p.wasPrice).length}</span></label>
+        On sale</label>
     </div>
     <button class="btn ghost" style="width:100%;margin-top:6px" onclick="clearFilters()">Clear all filters</button>
   </aside>`;
@@ -4704,14 +4788,11 @@ function facetPanel(base) {
 function useCaseFacet(base) {
   const f = S.filters;
   return `<div class="fgroup ucfacet"><b>Shop by Use Case</b>
-    ${COLLECTIONS.map(c => {
-      const n = base.filter(p => p.collection === c.name).length;
-      return `<label class="uclabel" style="${collCss(c)}">
+    ${COLLECTIONS.map(c => `<label class="uclabel" style="${collCss(c)}">
         <input type="checkbox" data-k="collection" value="${esc(c.name)}" ${f.collection.includes(c.name) ? 'checked' : ''}>
         <span class="ucmark">${collTagSvg(c, 15)}</span>
         <span class="uctext"><b>${esc(c.name)}</b><i>${esc(c.blurb)}</i></span>
-        <span class="cnt">${n}</span></label>`;
-    }).join('')}
+      </label>`).join('')}
   </div>`;
 }
 
@@ -5001,7 +5082,7 @@ function viewHome() {
   ${dealOfDay()}
 
   <div class="sectionhead"><div><h2 class="h2">Today's top deals</h2>
-    <p class="sub">${deals.length} laptops reduced this week.</p></div>
+    <p class="sub">Reduced this week.</p></div>
     <button class="btn ghost" onclick="tileGo('deals')">See all deals</button></div>
   <div class="products">${deals.slice(0, 6).map(pcard).join('')}</div>
 
@@ -5009,7 +5090,7 @@ function viewHome() {
 
   ${cond().advisor !== 'hidden' ? `<div class="helpbar">
     <div><strong>Not sure where to start?</strong>
-      <span>Answer four quick questions and we'll narrow ${CATALOG.length} laptops down to a few that fit.</span></div>
+      <span>Answer four quick questions and we'll narrow the range down to a few that fit.</span></div>
     <button class="btn out" onclick="go('#/advisor')">Start the guide</button>
   </div>` : ''}
 
@@ -5037,7 +5118,7 @@ function viewHome() {
 
   <div class="sectionhead"><h2 class="h2">Shop by brand</h2></div>
   <div class="brandstrip">${BRANDS.map(b => `<a onclick="go('#/brand/${encodeURIComponent(b.name)}')"
-    style="--bh:${b.hue}"><b>${b.name}</b><span>${CATALOG.filter(p => p.brand === b.name).length} models</span></a>`).join('')}</div>
+    style="--bh:${b.hue}"><b>${b.name}</b><span>Shop ${b.name}</span></a>`).join('')}</div>
 
   <div class="sectionhead"><h2 class="h2">Trending searches</h2></div>
   <div class="chips" style="margin-bottom:22px">${['gaming laptop', '16 GB', 'chromebook for school',
@@ -5116,10 +5197,10 @@ function viewCategory() {
   subs.unshift(['All laptops', CATALOG.length, '#/laptops']);
   return `${crumbs([['Home', '#/'], ['Computers & Tablets', '#/computers']])}
   <div class="sectionhead"><div><h1 class="h1">Computers & Tablets</h1>
-    <p class="sub">${CATALOG.length} laptops in stock across ${BRANDS.length} brands.</p></div></div>
+    <p class="sub">Laptops in stock across ${BRANDS.length} brands.</p></div></div>
   ${tpOn(3) ? collBanner('', { tp: 'category_strip', label: 'Shop Windows Laptops by Use Case' }) : ''}
   <div class="tiles">${subs.map(s => `<a class="tile" onclick="subGo('${s[2]}')">
-    <b>${s[0]}</b><span>${s[1]} products</span></a>`).join('')}</div>
+    <b>${s[0]}</b><span>Shop now</span></a>`).join('')}</div>
   <div class="sectionhead"><h2 class="h2">Popular brands</h2></div>
   <div class="tiles">${BRANDS.map(b => `<a class="tile" onclick="go('#/brand/${encodeURIComponent(b.name)}')">
     <b>${b.name}</b><span>${b.tone}</span></a>`).join('')}</div>
@@ -5141,12 +5222,11 @@ function viewBrowse() {
   const base = CATALOG;
   const filtered = applySort(applyFilters(base));
   return `${crumbs([['Home', '#/'], ['Computers & Tablets', '#/computers'], ['Laptops', '#/laptops']])}
-  <div class="sectionhead"><div><h1 class="h1">Laptops</h1>
-    <p class="sub" id="resultcount">Showing ${Math.min(PER_PAGE, filtered.length)} of ${filtered.length} results</p></div>
+  <div class="sectionhead"><div><h1 class="h1">Laptops</h1></div>
     ${cond().advisor !== 'hidden' ? `<button class="btn ${cond().advisor === 'prominent' ? 'pri' : 'out'}" onclick="go('#/advisor')">Find your PC</button>` : ''}</div>
   ${tpOn(3) ? collBanner('', { tp: 'category_strip', label: 'Shop Windows Laptops by Use Case' }) : ''}
   ${cond().advisor === 'prominent' ? `<div class="helpbar"><div><strong>Answer three questions, see your matches</strong>
-    <span>We'll narrow ${CATALOG.length} laptops down to the few that fit how you'll actually use it.</span></div>
+    <span>We'll narrow the range down to the few that fit how you'll actually use it.</span></div>
     <button class="btn pri" onclick="go('#/advisor')">Find your PC</button></div>` : ''}
   <div class="shop">
     <div class="shopside">${facetPanel(base)}${railAd()}</div>
@@ -5686,7 +5766,7 @@ function collInfographic(p) {
         font-size="8.8">${esc(clip(x[1]))}</text>`).join('')}
     <rect x="20" y="168" width="280" height="1" fill="#e3e7ec"/>
     <text x="20" y="188" fill="hsl(${h} 64% 34%)" font-family="Segoe UI,system-ui,sans-serif"
-      font-size="10" font-weight="700">${r ? esc(r.n + ' laptops · ' + money(r.lo) + ' to ' + money(r.hi)) : esc(c.blurb)}</text>
+      font-size="10" font-weight="700">${r ? esc(money(r.lo) + ' to ' + money(r.hi)) : esc(c.blurb)}</text>
   </svg></div>`;
 }
 
@@ -5847,7 +5927,7 @@ function viewPDP(id) {
           onclick="pickCollection('${c.id}','pdp_badge')" title="${esc(c.blurb)}">
           ${collTagSvg(c, 17)}<b>${esc(c.name)}</b>
           <i>${esc(c.blurb)}</i>
-          ${r ? `<u>${r.n} laptops &middot; ${money(r.lo)} to ${money(r.hi)}</u>` : ''}</a>`;
+          ${r ? `<u>${money(r.lo)} to ${money(r.hi)}</u>` : ''}</a>`;
       })()}
       <div class="rline">${starRow(p.rating)} <b>${p.rating}</b>
         <a onclick="setTab('reviews',${p.id})" style="color:var(--b);text-decoration:underline">${p.reviewCount.toLocaleString()} reviews</a></div>
@@ -6285,13 +6365,13 @@ function advisorResults() {
   const said = Object.keys(a).filter(k => k !== 'collection').map(k => a[k]).join(', ').toLowerCase();
   return `${crumbs([['Home', '#/'], ['Find your PC', '#/advisor']])}
   <div class="sectionhead"><div><h1 class="h1">Your matches</h1>
-    <p class="sub">${c ? `From <b>${esc(c.name)}</b>${said ? ', ' + said : ''}. ` : (said ? `Based on ${said}. ` : '')}${m.length} laptops fit.
+    <p class="sub">${c ? `From <b>${esc(c.name)}</b>${said ? ', ' + said : ''}.` : (said ? `Based on ${said}.` : '')}
       ${ADV.widened ? 'We widened the search slightly so you still have real choices.' : ''}</p></div>
     <button class="btn ghost" onclick="ADV={step:0,answers:{}};track('advisor_restarted');render()">Start over</button></div>
   ${c ? `<div class="advcoll" style="${collCss(c)}">
     <span class="advcollart">${collTagSvg(c, 30)}</span>
     <div><b>${esc(c.name)}</b><span>${esc(c.blurb)}</span></div>
-    <button class="btn out" onclick="pickCollection('${c.id}','advisor_results')">See all ${collItems(c).length}</button>
+    <button class="btn out" onclick="pickCollection('${c.id}','advisor_results')">See the collection</button>
   </div>` : ''}
   <div class="products">${m.map(pcard).join('')}</div>
   <div style="margin-top:20px"><button class="btn out" onclick="go('#/laptops')">See all laptops instead</button></div>`;
@@ -6311,7 +6391,7 @@ function collTile(c, big) {
     onclick="pickCollection('${c.id}','collection_tile')">
     ${big && face ? `<span class="ccart tall">${collFaceArt(face)}</span>` : ''}
     ${collBadge(c, { solid: true })}
-    <b>${esc(c.blurb)}</b><span>${n} ${n === 1 ? 'laptop' : 'laptops'}${lo ? ' &middot; from ' + money(lo) : ''}</span></a>`;
+    <b>${esc(c.blurb)}</b><span>${lo ? 'From ' + money(lo) : 'Shop the collection'}</span></a>`;
 }
 function viewCollectionsIndex() {
   track('collections_index_viewed', '');
@@ -6362,10 +6442,10 @@ function viewCollection(slug) {
     <span class="chname">${esc(c.name)}</span>
     <h1 style="font-size:31px;margin:10px 0 8px">${esc(c.blurb)}</h1>
     <p style="margin:0;max-width:620px">${esc(c.long)}</p>
-    ${r ? `<p class="chfacts">${money(r.lo)} to ${money(r.hi)} &middot; ${r.n} laptops in this collection</p>` : ''}
+    ${r ? `<p class="chfacts">${money(r.lo)} to ${money(r.hi)}</p>` : ''}
     </div></section>
   <div class="shop">${facetPanel(base)}
-    <section>${chipsBar()}<div class="toolbar"><span class="sub">${items.length} in this collection</span>${sortSelect()}</div>
+    <section>${chipsBar()}<div class="toolbar"><span class="sub">In this collection</span>${sortSelect()}</div>
     ${resultsGrid(items, 'Nothing in this collection matches those filters.')}</section></div>`;
 }
 
@@ -6392,7 +6472,7 @@ function viewWindows() {
       <button class="btn pri lg" onclick="go('#/laptops')">Shop all Windows laptops</button>
     </div></section>
     <div class="sectionhead"><div><h2 class="h2">Windows laptops</h2>
-      <p class="sub">${CATALOG.filter(p => /^Windows/.test(p.os)).length} models available.</p></div></div>
+      <p class="sub">Every Windows laptop we stock.</p></div></div>
     <div class="products">${all.map(pcard).join('')}</div>`;
   }
   return `${crumbs([['Home', '#/'], ['Windows', '#/windows']])}
@@ -6404,10 +6484,103 @@ function viewWindows() {
 
   ${collBanner('', { tp: 'brand_store_strip', label: 'Shop Windows Laptops by Use Case' })}
 
+  <div class="learnbar"><div><strong>New to the collections?</strong>
+    <span>See what sits in each one, and how the five compare on price, screen and silicon.</span></div>
+    <button class="btn out" onclick="go('#/windows/learn')">Learn about collections</button></div>
+
   ${COLLECTIONS.map(c => collBlade(c)).join('')}
 
   <div class="helpbar" style="margin-top:8px"><div><strong>Still not sure which one you are?</strong>
     <span>Four questions, and we will point you at the right collection.</span></div>
+    <button class="btn pri" onclick="go('#/advisor')">Find your PC</button></div>`;
+}
+
+/* Both builds have sticky chrome, but the moderator build stacks a bar above
+   the site header, so a fixed scroll-margin would be wrong in one of them.
+   Measure whatever is actually pinned to the top and offset by that. */
+function scrollToAnchor(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let chrome = 0;
+  document.querySelectorAll('body *').forEach(e => {
+    const s = getComputedStyle(e);
+    if (s.position !== 'fixed' && s.position !== 'sticky') return;
+    const r = e.getBoundingClientRect();
+    if (r.height > 10 && r.top <= chrome + 2 && r.bottom > chrome) chrome = r.bottom;
+  });
+  window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - chrome - 12,
+    behavior: 'smooth' });
+}
+
+/* ---- TP7, the Collections education page ----------------------------------
+
+   The banner and the blades both assume you already accept the framework. This
+   page is where someone who does not can go and read it. One carousel per
+   Collection so the label is always attached to real machines, then a single
+   matrix so the five can be held side by side.
+
+   The matrix is the part the deck keeps asking for and no retailer ships well.
+   Price, screen, silicon, graphics, storage and memory for all five at once is
+   the only view that answers "which one am I" without a quiz. */
+function viewWindowsLearn() {
+  track('brand_store_viewed', 'windows_learn');
+  const ROWS = [
+    ['What people use it for', c => `<p class="lmuse">${esc(c.blurb)}</p>`],
+    ['Things you would actually do', c => `<ul class="lmdo">${(c.learn.doing || [])
+      .map(d => `<li>${esc(d)}</li>`).join('')}</ul>`],
+    ['Estimated price range', c => esc(c.learn.price)],
+    ['Screen resolution', c => esc(c.learn.res)],
+    ['Typical processor', c => esc(c.learn.cpu)],
+    ['Graphics', c => esc(c.learn.gpu)],
+    ['Storage', c => esc(c.learn.storage)],
+    ['Memory', c => esc(c.learn.ram)]
+  ];
+  return `${crumbs([['Home', '#/'], ['Windows', '#/windows'], ['Learn about collections', '']])}
+  <section class="learnhero"><div>
+    <span class="winmark">Windows 11</span>
+    <h1>Learn more about Windows PC collections</h1>
+    <p>Every Windows laptop we stock sits in exactly one of five collections, grouped
+      by what people actually do with a machine rather than by the spec sheet. Read
+      the five below, or jump straight to the comparison.</p>
+    <div class="learnjump">${COLLECTIONS.map(c => `<button class="ljump" style="${collCss(c)}"
+      onclick="scrollToAnchor('lc-${c.id}')">
+      ${collTagSvg(c, 16)}<span>${esc(c.name)}</span></button>`).join('')}
+      <button class="ljump lcmp" onclick="scrollToAnchor('lc-compare')">Compare all five</button></div>
+  </div></section>
+
+  ${COLLECTIONS.map(c => {
+    const items = CATALOG.filter(p => p.collection === c.name)
+      .sort((a, b) => b.rating - a.rating).slice(0, 8);
+    const r = collPriceRange(c.id);
+    return `<section class="lcoll" id="lc-${c.id}" style="${collCss(c)}">
+      <div class="lcollhead">
+        <span class="lcollart">${collTagSvg(c, 38)}</span>
+        <div><h2>${esc(c.pcs)}</h2><p>${esc(c.long)}</p>
+          ${r ? `<span class="lcollfacts">${money(r.lo)} to ${money(r.hi)}</span>` : ''}</div>
+        <button class="btn out" onclick="pickCollection('${c.id}','learn_page')">Shop ${esc(c.name)}</button>
+      </div>
+      <div class="railwrap"><div class="rail">${items.map(pcard).join('')}</div></div>
+    </section>`;
+  }).join('')}
+
+  <section class="lmatrix" id="lc-compare">
+    <div class="sectionhead"><div><h2 class="h2">Compare the five collections</h2>
+      <p class="sub">The same questions answered for each one.</p></div></div>
+    <div class="lmwrap"><table class="lmtable">
+      <thead><tr><th class="lmrow"></th>
+        ${COLLECTIONS.map(c => `<th style="${collCss(c)}">
+          <button class="lmhead" onclick="pickCollection('${c.id}','learn_matrix')">
+            ${collTagSvg(c, 26)}<b>${esc(c.name)}</b></button></th>`).join('')}
+      </tr></thead>
+      <tbody>${ROWS.map(([label, fn]) => `<tr>
+        <th class="lmrow" scope="row">${label}</th>
+        ${COLLECTIONS.map(c => `<td style="${collCss(c)}">${fn(c)}</td>`).join('')}
+      </tr>`).join('')}</tbody>
+    </table></div>
+  </section>
+
+  <div class="helpbar" style="margin-top:22px"><div><strong>Read all that and still torn?</strong>
+    <span>Answer four questions and we will put you in one.</span></div>
     <button class="btn pri" onclick="go('#/advisor')">Find your PC</button></div>`;
 }
 
@@ -6422,7 +6595,7 @@ function collBlade(c) {
     <div class="cbladehead">
       <span class="cbladeart">${collTagSvg(c, 34)}</span>
       <div><h2>${esc(c.pcs)}</h2><p>${esc(c.long)}</p>
-        ${r ? `<span class="cbladefacts">${money(r.lo)} to ${money(r.hi)} &middot; ${r.n} laptops</span>` : ''}</div>
+        ${r ? `<span class="cbladefacts">${money(r.lo)} to ${money(r.hi)}</span>` : ''}</div>
       <button class="btn out" onclick="pickCollection('${c.id}','brand_blade')">Shop ${esc(c.name)}</button>
     </div>
     <div class="products cbladerow">${items.slice(0, 3).map(pcard).join('')}</div>
@@ -6454,10 +6627,10 @@ function viewBrand(name) {
   return `${crumbs([['Home', '#/'], ['Computers & Tablets', '#/computers'], [name, '']])}
   <section class="hero" style="background:linear-gradient(120deg,hsl(${b.hue},62%,38%),hsl(${b.hue},66%,52%));padding:34px 40px">
     <div><h1 style="font-size:32px;margin-bottom:8px">${name}</h1>
-      <p style="margin:0">${b.tone.charAt(0).toUpperCase() + b.tone.slice(1)}. ${CATALOG.filter(p => p.brand === name).length} models available at ${BRAND.name}.</p></div>
+      <p style="margin:0">${b.tone.charAt(0).toUpperCase() + b.tone.slice(1)}. Available at ${BRAND.name}.</p></div>
     <div class="art">${vizLap({ hue: b.hue })}</div></section>
   <div class="shop">${facetPanel(CATALOG.filter(p => p.brand === name))}
-    <section>${chipsBar()}<div class="toolbar"><span class="sub">${items.length} ${name} laptops</span>${sortSelect()}</div>
+    <section>${chipsBar()}<div class="toolbar"><span class="sub">${name} laptops</span>${sortSelect()}</div>
     ${resultsGrid(items)}</section></div>`;
 }
 
@@ -6541,9 +6714,8 @@ function assistCollection(id) {
   ASSIST_MSGS.push({
     role: 'a',
     text: `<b>${esc(c.name)}</b> is ${esc(c.blurb.replace(/^(For|Ideal for|Designed for|Built for|Delivers) /, m => m.toLowerCase()))}. ${esc(c.long)}
-      ${r ? `<div class="abub_facts">${money(r.lo)} to ${money(r.hi)} &middot; ${r.n} laptops</div>` : ''}
-      <div style="margin-top:8px">Here are three to start with, out of
-      ${CATALOG.filter(p => p.collection === c.name).length} in the collection.</div>`,
+      ${r ? `<div class="abub_facts">${money(r.lo)} to ${money(r.hi)}</div>` : ''}
+      <div style="margin-top:8px">Here are three to start with.</div>`,
     cards: items.map(p => p.id),
     actions: `<button class="btn out" style="padding:7px 11px;font-size:12px"
       onclick="toggleAssist(false);pickCollection('${c.id}','assistant')">See all ${esc(c.name)}</button>`
@@ -6682,7 +6854,7 @@ function answerDepartment(d) {
   return {
     role: 'a', grounded: 'department', hedged: true,
     text: `I help with laptops, so I can't advise on ${esc(d.name.toLowerCase())} in any detail.
-      We do stock ${deptItems(d.id).length} products there. Our most reviewed are
+      We do stock that department. Our most reviewed are
       ${items.map(p => `<b>${esc(p.brand)} ${esc(p.name)}</b>`).join(', ')}.`,
     actions: `<button class="btn out" style="padding:7px 11px;font-size:12px"
       onclick="track('assistant_dept_handoff','${d.id}');go('#/d/${d.id}')">Browse ${esc(d.name)}</button>`
@@ -6694,7 +6866,7 @@ function answerCollection(c) {  const pool = CATALOG.filter(p => p.collection ==
   return {
     role: 'a', grounded: 'collection',
     text: `<b>${c.name}</b> is ${c.blurb.replace(/^For /, 'for ').replace(/\.$/, '')}. ${c.long}
-      <div style="margin-top:8px">${pool.length} laptops sit in it, from
+      <div style="margin-top:8px">It starts from
       ${money(Math.min(...pool.map(p => p.price)))}. Three worth a look:</div>`,
     cards: items.map(p => p.id),
     actions: `<button class="btn out" style="padding:7px 11px;font-size:12px"
@@ -6795,7 +6967,7 @@ function answerShortlist(q) {
   const why = picks.map(p => `<b>${p.name}</b> at ${money(p.price)}, ${p.ram} and ${p.storage}, ${p.battery} battery, ${p.rating} stars`);
   return {
     role: 'a', grounded: 'catalog',
-    text: `${list.length} laptops fit${notes.length ? ' ' + notes.join(', ') : ''}. The three I would look at first:
+    text: `Plenty fit${notes.length ? ' ' + notes.join(', ') : ''}. The three I would look at first:
       <br><br>${why.map((w, i) => (i + 1) + '. ' + w).join('<br>')}
       <br><br>${picks[0].price < picks[2].price
         ? `The ${picks[0].name} is the value pick. Stepping up to the ${picks[2].name} buys you ${picks[2].ramGb > picks[0].ramGb ? 'more memory' : 'a better screen'} for ${money(picks[2].price - picks[0].price)} more.`

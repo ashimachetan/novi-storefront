@@ -1277,8 +1277,10 @@ body.noscroll{overflow:hidden}
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .thumb .cvidcap{display:none}
 #galmain .cvidcap{font-size:13px;padding:26px 16px 13px}
-/* ---- Collections education page (#/windows/learn) -------------------------
-   The banner and the blades assume the framework. This page explains it. */
+
+/* ---- Windows PC Collections landing page (#/windows/learn) ----------------
+   The RISE reference build. Structure and copy are the programme spec, so the
+   styling stays deliberately plain: a heading, five carousels, one matrix. */
 .cbannerfoot{margin-top:14px;text-align:center}
 .cbannerfoot button{background:none;border:0;color:#9fc6ff;font:inherit;font-size:12.5px;
   font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px}
@@ -1290,53 +1292,43 @@ body.noscroll{overflow:hidden}
 .learnbar span{display:block;font-size:13px;color:var(--mut);margin-top:2px}
 .learnbar .btn{margin-left:auto;white-space:nowrap}
 
-.learnhero{margin:14px 0 8px;padding:34px 40px;border-radius:14px;color:#fff;
-  background:linear-gradient(118deg,#0b2a5c,#134081 52%,#1b56a8)}
-.learnhero h1{font-size:31px;margin:10px 0 10px;line-height:1.18}
-.learnhero p{margin:0;max-width:660px;font-size:14.5px;opacity:.94;line-height:1.55}
-.learnjump{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
-.ljump{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;cursor:pointer;
-  border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(255,255,255,.10);
-  color:#fff;font:inherit;font-size:12.5px;font-weight:700}
-.ljump:hover{background:rgba(255,255,255,.20)}
-.ljump svg{flex:none}
-.ljump.lcmp{background:#fff;color:#0b2a5c;border-color:#fff}
-.ljump.lcmp:hover{background:#e7efff}
+.learnh1{margin:18px 0 6px;font-size:30px}
 
-.lcoll{margin:26px 0 0;padding:20px 22px 6px;border:1px solid var(--ln);border-radius:14px;
-  background:linear-gradient(180deg,hsl(var(--ch) 60% 97%),#fff 64%);scroll-margin-top:16px}
-.lcollhead{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
-.lcollart{flex:none;margin-top:2px}
-.lcollhead h2{font-size:21px;margin:0 0 5px}
-.lcollhead p{margin:0;font-size:13.5px;color:var(--mut);max-width:620px;line-height:1.5}
-.lcollfacts{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700;color:var(--cc)}
-.lcollhead .btn{margin-left:auto;white-space:nowrap;flex:none}
+.lcoll{margin:26px 0 0;scroll-margin-top:150px}
+.lcollhead{display:flex;align-items:baseline;gap:14px;margin-bottom:12px;
+  padding-bottom:10px;border-bottom:1px solid var(--ln)}
+.lcollhead h2{font-size:22px;margin:0}
+.lcollhead p{margin:3px 0 0;font-size:14px;color:var(--mut)}
+.lshopall{margin-left:auto;flex:none;background:none;border:0;padding:4px 2px;cursor:pointer;
+  font:inherit;font-size:13.5px;font-weight:700;color:var(--b);
+  text-decoration:underline;text-underline-offset:3px}
+.lshopall:hover{color:#0a49b8}
 
-.lmatrix{margin-top:34px}
-.lmwrap{overflow-x:auto;border:1px solid var(--ln);border-radius:14px;background:#fff}
-.lmtable{border-collapse:collapse;width:100%;min-width:900px;font-size:13px}
-.lmtable th,.lmtable td{padding:13px 15px;vertical-align:top;text-align:left;
+.lmatrix{margin-top:40px;scroll-margin-top:150px}
+.lmwrap{overflow-x:auto;border:1px solid var(--ln);border-radius:10px;background:#fff}
+.lmtable{border-collapse:collapse;width:100%;min-width:1020px;font-size:13px}
+.lmtable th,.lmtable td{padding:14px 16px;vertical-align:top;text-align:left;
   border-bottom:1px solid var(--ln);border-right:1px solid var(--ln)}
-.lmtable th:last-child,.lmtable td:last-child{border-right:0}
-.lmtable tbody tr:last-child th,.lmtable tbody tr:last-child td{border-bottom:0}
-.lmtable thead th{background:#fff;padding:0}
-.lmtable thead th.lmrow{background:#f6f8fc}
-.lmhead{display:flex;flex-direction:column;align-items:flex-start;gap:7px;width:100%;
-  padding:15px;cursor:pointer;border:0;background:linear-gradient(180deg,hsl(var(--ch) 62% 96%),#fff);
-  font:inherit;text-align:left;border-bottom:3px solid var(--cc)}
-.lmhead b{font-size:14px;line-height:1.25}
+.lmtable td:last-child,.lmtable th:last-child{border-right:0}
+.lmtable tr:last-child th,.lmtable tr:last-child td{border-bottom:0}
+.lmhrow td{padding:0;background:linear-gradient(180deg,hsl(var(--ch) 62% 96%),#fff)}
+.lmhrow .lmrow{background:#eef2f8;font-size:13.5px}
+.lmhead{display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:100%;
+  padding:16px;cursor:pointer;border:0;background:none;font:inherit;text-align:left;
+  border-bottom:3px solid var(--cc)}
+.lmhead b{font-size:14.5px;line-height:1.25}
 .lmhead:hover{background:hsl(var(--ch) 62% 93%)}
-.lmrow{width:190px;background:#f6f8fc;font-weight:700;color:#28313d;font-size:12.5px}
-.lmuse{margin:0;font-weight:600;color:#28313d}
+.lmrow{width:200px;background:#f6f8fc;font-weight:700;color:#28313d;font-size:12.5px}
+.lmuse{font-weight:600;color:#28313d}
 .lmdo{margin:0;padding-left:16px}
 .lmdo li{margin-bottom:5px;color:var(--mut)}
 .lmdo li:last-child{margin-bottom:0}
+.lmfoot{margin:12px 2px 30px;font-size:11.5px;color:var(--mut)}
 
 @media (max-width:900px){
-  .learnhero{padding:26px 22px}
-  .learnhero h1{font-size:25px}
+  .learnh1{font-size:24px}
   .lcollhead{flex-wrap:wrap}
-  .lcollhead .btn{margin-left:0;width:100%}
+  .lshopall{margin-left:0}
   .learnbar{flex-wrap:wrap}
   .learnbar .btn{margin-left:0;width:100%}
 }
@@ -1394,12 +1386,14 @@ const COLLECTIONS = [
     tag: 'bolt', hue: 222,
     blurb: 'Delivers all day performance for work and gaming',
     long: 'Faster silicon, better screens and batteries that last a working day. For people who live on their machine.',
-    learn: { price: '$900 or more', res: '2K or more', gpu: 'Integrated, dedicated on some models',
-      cpu: 'Intel Core Ultra 5 or above, AMD Ryzen AI 5 or above, Qualcomm Snapdragon X Plus',
-      storage: '512 GB or more', ram: '16 GB or more',
-      doing: ['Work with some gaming on the side', 'Getting a new business off the ground',
-        'Making things: photos, video, music', 'Juggling a job and a household',
-        'Calls and collaboration all day', 'Winding down with a game'] },
+    learn: { ms: 'Premium performance', sub: 'For all day performance for work or gaming.',
+      use: 'For all day work performance* with gaming capability',
+      price: '$900 or more', res: '2K or more', gpu: 'NA',
+      cpu: 'Intel&reg; Core&trade; Ultra 5 or greater or AMD Ryzen&trade; AI 5 or greater or Qualcomm Snapdragon X Plus',
+      storage: '512GB or more', ram: '16GB or more',
+      doing: ['Work and hybrid gaming', 'Starting a new business', 'Content creation',
+        'Balancing work and caring for household', 'Collaborating and virtual meetings',
+        'Gaming to unwind and relax'] },
     wall: { form: 'bloom', cx: 0.55, cy: 0.50,
       base: ['#38306b', '#4b4179', '#5d66bb'],
       glow: ['#c18db2', '#f0b5b7', '#f5c3b5', '#efb7c2'],
@@ -1408,11 +1402,14 @@ const COLLECTIONS = [
     tag: 'windows', hue: 178,
     blurb: 'Designed for everyday projects, school and multitasking',
     long: 'Enough headroom to keep a dozen tabs, a video call and your coursework open at the same time.',
-    learn: { price: '$500 to $900', res: '2K', gpu: 'Integrated',
-      cpu: 'Intel Core Ultra 5 or Core 5 and above, AMD Ryzen 5 and above, Qualcomm Snapdragon X1 and above',
-      storage: '256 GB or more', ram: '8 GB or more',
-      doing: ['Coursework and study', 'Picking up a new skill', 'Creative projects on the side',
-        'Streaming shows and music', 'Group work with classmates', 'Casual gaming with friends'] },
+    learn: { ms: 'Everyday productivity', sub: 'For everyday projects, school and multitasking.',
+      use: 'For everyday projects, school and multitasking',
+      price: '$500&ndash;$900', res: '2K', gpu: 'NA',
+      cpu: 'Intel Core Ultra 5 or greater or Intel Core 5 or greater or AMD Ryzen 5 or greater or Qualcomm Snapdragon X1 or greater',
+      storage: '256GB or more', ram: '8GB or more',
+      doing: ['Education', 'Mastering or learning a new skill', 'Pursuing creative outlets',
+        'Streaming shows and music', 'Collaborating with classmates',
+        'Casual gaming to connect with others'] },
     wall: { form: 'bloom', cx: 0.44, cy: 0.42,
       base: ['#012f80', '#013f9d', '#0250af'],
       glow: ['#2664b4', '#3c7ac6', '#6a9cd4', '#a0c5f0'],
@@ -1421,12 +1418,14 @@ const COLLECTIONS = [
     tag: 'controller', hue: 276,
     blurb: 'High performance for gaming and beyond',
     long: 'High refresh displays and dedicated graphics, built to hold a frame rate under load.',
-    learn: { price: 'Entry $900 or more, slim premium $1,200 or more, flagship $1,500 or more',
-      res: '2K or more', gpu: 'Yes, integrated or dedicated',
-      cpu: 'Intel Core 7 or above, AMD Ryzen 7 or above',
-      storage: '1 TB', ram: '16 GB or more',
-      doing: ['Serious gaming', 'Finding your people online', 'Reading up on what is coming next',
-        'Playing to win', 'Watching live streams'] },
+    learn: { ms: 'Gaming', sub: 'For high performance gaming and beyond.',
+      use: 'For high performance gaming and beyond',
+      price: 'Entry-level gaming: $900 or more<br>Slim, premium gaming: $1,200 or more<br>Flagship gaming: $1,500 or more',
+      res: '2K or more', gpu: 'Yes (integrated or dedicated)',
+      cpu: 'Intel Core 7 or greater or AMD Ryzen 7 or greater',
+      storage: '1TB', ram: '16GB or more',
+      doing: ['Advanced gaming', 'Discovering new communities', 'Researching latest games',
+        'Gaming for the competitive thrill', 'Watching live streams'] },
     wall: { form: 'ribbon',
       base: ['#07080c', '#0f1110', '#0a1024'],
       glow: ['#162577', '#2d3693', '#323c8b'],
@@ -1435,11 +1434,14 @@ const COLLECTIONS = [
     tag: 'pen', hue: 322,
     blurb: 'Built for advanced apps, creation and design',
     long: 'Colour-accurate displays and serious graphics for editing, rendering, design and photography.',
-    learn: { price: '$1,200 or more', res: '2K or more, colour accurate', gpu: 'Dedicated',
-      cpu: 'Intel Core Ultra 7 or above, AMD Ryzen AI 7 or above',
-      storage: '1 TB or more', ram: '16 GB or more, 32 GB for heavy work',
-      doing: ['Editing video and photos', 'Design and illustration', 'Modelling and rendering',
-        'Music production', 'Publishing work to a client or a feed'] },
+    learn: { ms: 'Creator pro', sub: 'For advanced apps, creation and design.',
+      use: 'For advanced apps, creation and design',
+      price: '$1,500 or more', res: '2K or more', gpu: 'Yes (integrated or dedicated)',
+      cpu: 'Intel Core 7 or AMD Ryzen AI 7',
+      storage: '1TB or more', ram: '16GB or more',
+      doing: ['Professional creation', 'Advanced content creation', 'Advanced photo and video editing',
+        'Managing finances', 'Great display for photos, video and music', 'Animation',
+        'Gaming to unwind and relax'] },
     wall: { form: 'ribbon',
       base: ['#0d1f42', '#12274f', '#122e5f'],
       glow: ['#29518b', '#4d7ab6', '#39639f'],
@@ -1449,11 +1451,14 @@ const COLLECTIONS = [
     tag: 'globe', hue: 152,
     blurb: 'Ideal for browsing, email and streaming',
     long: 'The everyday basics done well. Email, the web, streaming and documents, without paying for power you will not use.',
-    learn: { price: 'Under $500', res: 'HD to Full HD', gpu: 'Integrated',
-      cpu: 'Intel Core 3 and above, AMD Ryzen 3 and above, Qualcomm Snapdragon',
-      storage: '128 GB or more', ram: '8 GB',
-      doing: ['Email and the web', 'Streaming and catch-up', 'Keeping in touch with family',
-        'Shopping and banking', 'Documents and forms'] },
+    learn: { ms: 'Core essentials', sub: 'For browsing, email and streaming.',
+      use: 'For browsing, household management and streaming',
+      price: 'Lower mainstream: $300&ndash;$500<br>Entry: Under $300',
+      res: 'Less than or equal to 2K', gpu: 'NA',
+      cpu: 'Intel N-Series or Intel Core 3 or greater or AMD Athlon or AMD Ryzen 3 or greater or Qualcomm Snapdragon X or greater',
+      storage: '256GB or more', ram: '8GB or more',
+      doing: ['Household management', 'Researching how to do things', 'Staying in touch with loved ones',
+        'Planning family trips, shopping', 'Managing finances', 'Playing light games.'] },
     wall: { form: 'wave', light: true,
       base: ['#bdb4bf', '#cfb0ab', '#ebcfba'],
       glow: ['#dbcada', '#f0dbca', '#f5e7dc'],
@@ -6495,93 +6500,68 @@ function viewWindows() {
     <button class="btn pri" onclick="go('#/advisor')">Find your PC</button></div>`;
 }
 
-/* Both builds have sticky chrome, but the moderator build stacks a bar above
-   the site header, so a fixed scroll-margin would be wrong in one of them.
-   Measure whatever is actually pinned to the top and offset by that. */
-function scrollToAnchor(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  let chrome = 0;
-  document.querySelectorAll('body *').forEach(e => {
-    const s = getComputedStyle(e);
-    if (s.position !== 'fixed' && s.position !== 'sticky') return;
-    const r = e.getBoundingClientRect();
-    if (r.height > 10 && r.top <= chrome + 2 && r.bottom > chrome) chrome = r.bottom;
-  });
-  window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - chrome - 12,
-    behavior: 'smooth' });
-}
-
 /* ---- TP7, the Collections education page ----------------------------------
 
-   The banner and the blades both assume you already accept the framework. This
-   page is where someone who does not can go and read it. One carousel per
-   Collection so the label is always attached to real machines, then a single
-   matrix so the five can be held side by side.
+   This is not a page Novi invented. It is the Windows PC Collections landing
+   page from the RISE programme, the reference build handed to every retailer
+   running Collections, reproduced here so the prototype carries the same page
+   a real partner would ship.
 
-   The matrix is the part the deck keeps asking for and no retailer ships well.
-   Price, screen, silicon, graphics, storage and memory for all five at once is
-   the only view that answers "which one am I" without a quiz. */
+   That means the structure and the copy are the specification, not our
+   choices: H1, then one carousel per collection in programme order with the
+   programme's own descriptor and a Shop all link, then the comparison matrix
+   with collections as columns and the nine programme rows, then the battery
+   footnote. The collection names on this page are the programme's names, which
+   is why the record carries a `learn.ms` form. Novi's assortment name for the
+   gaming collection is Power Gaming; the programme calls it Gaming. Keeping
+   both is deliberate, so the page stays faithful without renaming the catalog
+   under the A/B. */
 function viewWindowsLearn() {
   track('brand_store_viewed', 'windows_learn');
+  const L = c => c.learn;
   const ROWS = [
-    ['What people use it for', c => `<p class="lmuse">${esc(c.blurb)}</p>`],
-    ['Things you would actually do', c => `<ul class="lmdo">${(c.learn.doing || [])
+    ['Popular use cases', c => `<span class="lmuse">${L(c).use}</span>`],
+    ['Real world examples (things to do)', c => `<ul class="lmdo">${(L(c).doing || [])
       .map(d => `<li>${esc(d)}</li>`).join('')}</ul>`],
-    ['Estimated price range', c => esc(c.learn.price)],
-    ['Screen resolution', c => esc(c.learn.res)],
-    ['Typical processor', c => esc(c.learn.cpu)],
-    ['Graphics', c => esc(c.learn.gpu)],
-    ['Storage', c => esc(c.learn.storage)],
-    ['Memory', c => esc(c.learn.ram)]
+    ['Estimated price range', c => L(c).price],
+    ['Screen resolution', c => L(c).res],
+    ['Typical CPU', c => L(c).cpu],
+    ['GPU', c => L(c).gpu],
+    ['Storage', c => L(c).storage],
+    ['RAM (memory)', c => L(c).ram]
   ];
-  return `${crumbs([['Home', '#/'], ['Windows', '#/windows'], ['Learn about collections', '']])}
-  <section class="learnhero"><div>
-    <span class="winmark">Windows 11</span>
-    <h1>Learn more about Windows PC collections</h1>
-    <p>Every Windows laptop we stock sits in exactly one of five collections, grouped
-      by what people actually do with a machine rather than by the spec sheet. Read
-      the five below, or jump straight to the comparison.</p>
-    <div class="learnjump">${COLLECTIONS.map(c => `<button class="ljump" style="${collCss(c)}"
-      onclick="scrollToAnchor('lc-${c.id}')">
-      ${collTagSvg(c, 16)}<span>${esc(c.name)}</span></button>`).join('')}
-      <button class="ljump lcmp" onclick="scrollToAnchor('lc-compare')">Compare all five</button></div>
-  </div></section>
+  return `${crumbs([['Home', '#/'], ['Windows', '#/windows'],
+    ['Learn more about Windows PC Collections', '']])}
+  <h1 class="h1 learnh1">Learn more about Windows PC Collections</h1>
 
   ${COLLECTIONS.map(c => {
     const items = CATALOG.filter(p => p.collection === c.name)
       .sort((a, b) => b.rating - a.rating).slice(0, 8);
-    const r = collPriceRange(c.id);
     return `<section class="lcoll" id="lc-${c.id}" style="${collCss(c)}">
       <div class="lcollhead">
-        <span class="lcollart">${collTagSvg(c, 38)}</span>
-        <div><h2>${esc(c.pcs)}</h2><p>${esc(c.long)}</p>
-          ${r ? `<span class="lcollfacts">${money(r.lo)} to ${money(r.hi)}</span>` : ''}</div>
-        <button class="btn out" onclick="pickCollection('${c.id}','learn_page')">Shop ${esc(c.name)}</button>
+        <div><h2>${esc(L(c).ms)}</h2><p>${esc(L(c).sub)}</p></div>
+        <button class="lshopall" onclick="pickCollection('${c.id}','learn_page')">Shop all</button>
       </div>
       <div class="railwrap"><div class="rail">${items.map(pcard).join('')}</div></div>
     </section>`;
   }).join('')}
 
   <section class="lmatrix" id="lc-compare">
-    <div class="sectionhead"><div><h2 class="h2">Compare the five collections</h2>
-      <p class="sub">The same questions answered for each one.</p></div></div>
     <div class="lmwrap"><table class="lmtable">
-      <thead><tr><th class="lmrow"></th>
-        ${COLLECTIONS.map(c => `<th style="${collCss(c)}">
-          <button class="lmhead" onclick="pickCollection('${c.id}','learn_matrix')">
-            ${collTagSvg(c, 26)}<b>${esc(c.name)}</b></button></th>`).join('')}
-      </tr></thead>
-      <tbody>${ROWS.map(([label, fn]) => `<tr>
-        <th class="lmrow" scope="row">${label}</th>
-        ${COLLECTIONS.map(c => `<td style="${collCss(c)}">${fn(c)}</td>`).join('')}
-      </tr>`).join('')}</tbody>
+      <tbody>
+        <tr class="lmhrow"><th class="lmrow" scope="row">PC collections</th>
+          ${COLLECTIONS.map(c => `<td style="${collCss(c)}">
+            <button class="lmhead" onclick="pickCollection('${c.id}','learn_matrix')">
+              ${collTagSvg(c, 26)}<b>${esc(L(c).ms)}</b></button></td>`).join('')}
+        </tr>
+        ${ROWS.map(([label, fn]) => `<tr>
+          <th class="lmrow" scope="row">${label}</th>
+          ${COLLECTIONS.map(c => `<td style="${collCss(c)}">${fn(c)}</td>`).join('')}
+        </tr>`).join('')}
+      </tbody>
     </table></div>
-  </section>
-
-  <div class="helpbar" style="margin-top:22px"><div><strong>Read all that and still torn?</strong>
-    <span>Answer four questions and we will put you in one.</span></div>
-    <button class="btn pri" onclick="go('#/advisor')">Find your PC</button></div>`;
+    <p class="lmfoot">*Battery life varies by device and settings, usage, and other factors.</p>
+  </section>`;
 }
 
 /* One blade per Collection, repeating down the page. Each carries the name in

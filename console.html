@@ -1386,7 +1386,7 @@ const COLLECTIONS = [
     tag: 'bolt', hue: 222,
     blurb: 'Delivers all day performance for work and gaming',
     long: 'Faster silicon, better screens and batteries that last a working day. For people who live on their machine.',
-    learn: { ms: 'Premium performance', sub: 'For all day performance for work or gaming.',
+    learn: { sub: 'For all day performance for work or gaming.',
       use: 'For all day work performance* with gaming capability',
       price: '$900 or more', res: '2K or more', gpu: 'NA',
       cpu: 'Intel&reg; Core&trade; Ultra 5 or greater or AMD Ryzen&trade; AI 5 or greater or Qualcomm Snapdragon X Plus',
@@ -1402,7 +1402,7 @@ const COLLECTIONS = [
     tag: 'windows', hue: 178,
     blurb: 'Designed for everyday projects, school and multitasking',
     long: 'Enough headroom to keep a dozen tabs, a video call and your coursework open at the same time.',
-    learn: { ms: 'Everyday productivity', sub: 'For everyday projects, school and multitasking.',
+    learn: { sub: 'For everyday projects, school and multitasking.',
       use: 'For everyday projects, school and multitasking',
       price: '$500&ndash;$900', res: '2K', gpu: 'NA',
       cpu: 'Intel Core Ultra 5 or greater or Intel Core 5 or greater or AMD Ryzen 5 or greater or Qualcomm Snapdragon X1 or greater',
@@ -1418,7 +1418,7 @@ const COLLECTIONS = [
     tag: 'controller', hue: 276,
     blurb: 'High performance for gaming and beyond',
     long: 'High refresh displays and dedicated graphics, built to hold a frame rate under load.',
-    learn: { ms: 'Gaming', sub: 'For high performance gaming and beyond.',
+    learn: { sub: 'For high performance gaming and beyond.',
       use: 'For high performance gaming and beyond',
       price: 'Entry-level gaming: $900 or more<br>Slim, premium gaming: $1,200 or more<br>Flagship gaming: $1,500 or more',
       res: '2K or more', gpu: 'Yes (integrated or dedicated)',
@@ -1434,7 +1434,7 @@ const COLLECTIONS = [
     tag: 'pen', hue: 322,
     blurb: 'Built for advanced apps, creation and design',
     long: 'Colour-accurate displays and serious graphics for editing, rendering, design and photography.',
-    learn: { ms: 'Creator pro', sub: 'For advanced apps, creation and design.',
+    learn: { sub: 'For advanced apps, creation and design.',
       use: 'For advanced apps, creation and design',
       price: '$1,500 or more', res: '2K or more', gpu: 'Yes (integrated or dedicated)',
       cpu: 'Intel Core 7 or AMD Ryzen AI 7',
@@ -1451,7 +1451,7 @@ const COLLECTIONS = [
     tag: 'globe', hue: 152,
     blurb: 'Ideal for browsing, email and streaming',
     long: 'The everyday basics done well. Email, the web, streaming and documents, without paying for power you will not use.',
-    learn: { ms: 'Core essentials', sub: 'For browsing, email and streaming.',
+    learn: { sub: 'For browsing, email and streaming.',
       use: 'For browsing, household management and streaming',
       price: 'Lower mainstream: $300&ndash;$500<br>Entry: Under $300',
       res: 'Less than or equal to 2K', gpu: 'NA',
@@ -6511,11 +6511,8 @@ function viewWindows() {
    choices: H1, then one carousel per collection in programme order with the
    programme's own descriptor and a Shop all link, then the comparison matrix
    with collections as columns and the nine programme rows, then the battery
-   footnote. The collection names on this page are the programme's names, which
-   is why the record carries a `learn.ms` form. Novi's assortment name for the
-   gaming collection is Power Gaming; the programme calls it Gaming. Keeping
-   both is deliberate, so the page stays faithful without renaming the catalog
-   under the A/B. */
+   footnote. Collection names are Novi's assortment names, which are the
+   programme's names. */
 function viewWindowsLearn() {
   track('brand_store_viewed', 'windows_learn');
   const L = c => c.learn;
@@ -6539,7 +6536,7 @@ function viewWindowsLearn() {
       .sort((a, b) => b.rating - a.rating).slice(0, 8);
     return `<section class="lcoll" id="lc-${c.id}" style="${collCss(c)}">
       <div class="lcollhead">
-        <div><h2>${esc(L(c).ms)}</h2><p>${esc(L(c).sub)}</p></div>
+        <div><h2>${esc(c.name)}</h2><p>${esc(L(c).sub)}</p></div>
         <button class="lshopall" onclick="pickCollection('${c.id}','learn_page')">Shop all</button>
       </div>
       <div class="railwrap"><div class="rail">${items.map(pcard).join('')}</div></div>
@@ -6552,7 +6549,7 @@ function viewWindowsLearn() {
         <tr class="lmhrow"><th class="lmrow" scope="row">PC collections</th>
           ${COLLECTIONS.map(c => `<td style="${collCss(c)}">
             <button class="lmhead" onclick="pickCollection('${c.id}','learn_matrix')">
-              ${collTagSvg(c, 26)}<b>${esc(L(c).ms)}</b></button></td>`).join('')}
+              ${collTagSvg(c, 26)}<b>${esc(c.name)}</b></button></td>`).join('')}
         </tr>
         ${ROWS.map(([label, fn]) => `<tr>
           <th class="lmrow" scope="row">${label}</th>
